@@ -25,3 +25,4 @@ XJTLU Year 3 Software Engineering Group Project CPT202 Project.
 # Need to know
 * application.properties中需要复制的Spring boot配置文件并未复制完，还差ppt中的后面4条
 * 每次Git提交时不要把.idea或类似文件提交到仓库中，可以在提交commit时，右键文件夹选择Add to .git\info\exclude，这样提交时就不会提交这些文件了
+
