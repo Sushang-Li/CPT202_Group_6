@@ -2,14 +2,14 @@
 XJTLU Year 3 Software Engineering Group Project CPT202 Project.
 
 # Group Members:
-1. Ge Jinai
-2. Li Mingyuan
-3. Liu Chengze
-4. Wang Yixuan
-5. Wang Yue
-6. Xing Fuyu
-7. Zhang Baiyan
-8. Zhao Zhenyang
+* Ge Jinai
+* Li Mingyuan
+* Liu Chengze
+* Wang Yixuan
+* Wang Yue
+* Xing Fuyu
+* Zhang Baiyan
+* Zhao Zhenyang
 # Currenct Overview
 原始骨架依据于视频“From PBI to Coding”，项目与视频进度同步到了1：00：25：model，repository，controller均已创建并通过Postman的GET测试代码及配置可行性：Request Status 200
 
@@ -24,4 +24,4 @@ XJTLU Year 3 Software Engineering Group Project CPT202 Project.
 
 # Need to know
 * application.properties中需要复制的Spring boot配置文件并未复制完，还差ppt中的后面4条
-* 每次Git提交时不要把.idea或类似文件提交到仓库中，可以在.gitignore中添加.idea/，.idea/*等
+* 每次Git提交时不要把.idea或类似文件提交到仓库中，可以在提交commit时，右键文件夹选择Add to .gitignore，这样提交时就不会提交这些文件了
