@@ -20,9 +20,11 @@ XJTLU Year 3 Software Engineering Group Project CPT202 Project.
    2. 同视频中创建新scheme：命名为sport_centre
    3. 编辑项目中的application.properties中的password为自己数据库的密码
    4. 启动项目(查看控制台处是否返回类似“_Started Booking4sportcentreApplication in 2.735 seconds (process running for 3.179)_”)
-   5. 使用postman或类似软件GET：http://localhost:8080/api/test 如果返回200则配置成功
+   5. 使用postman或类似软件GET：http://localhost:8080/api/testMapper 如果返回200，控制台输出“查询成功！”代表配置成功
 
 # Need to know
 * application.properties中需要复制的Spring boot配置文件并未复制完，还差ppt中的后面4条
 * 每次Git提交时不要把.idea或类似文件提交到仓库中，可以在提交commit时，右键文件夹选择Add to .git\info\exclude，或者在.gitignore中添加后清空git缓存再提交
 * Swagger：http://localhost:8080/swagger-ui/index.html
+* 已添加了Lombok插件
+* 已切换使用mybatis-plus（4.14）
