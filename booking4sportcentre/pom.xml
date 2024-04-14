@@ -48,7 +48,18 @@
 			<artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
 			<version>2.2.0</version>
 		</dependency>
-
+		<!--  MyBatisPlus依赖  -->
+		<dependency>
+			<groupId>com.baomidou</groupId>
+			<artifactId>mybatis-plus</artifactId>
+			<version>3.5.3.2</version>
+		</dependency>
+		<!--    数据连接池 druid    -->
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>druid-spring-boot-starter</artifactId>
+			<version>1.1.20</version>
+		</dependency>
 	</dependencies>
 
 	<build>

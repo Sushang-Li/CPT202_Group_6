@@ -14,6 +14,15 @@ import com.group6.booking4sportcentre.repository.TestRepo;
 public class TestController {
     @Autowired
     private TestRepo testRepo;
+//    尝试添加mybatis-plus用法，但是失败了
+//    @Autowired
+//    private TestMapper testMapper;
+//    @GetMapping("/api/test4Mapper")
+//    public List queryTest() {
+//        List<Test> testList = testMapper.selectList(null);
+//        System.out.println("testList = " + testList);
+//        return testList;
+//    }
 
     @GetMapping("/api/test")
     public List<Test> getTest() {
