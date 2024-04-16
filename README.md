@@ -26,5 +26,71 @@ XJTLU Year 3 Software Engineering Group Project CPT202 Project.
 * application.properties中需要复制的Spring boot配置文件并未复制完，还差ppt中的后面4条
 * 每次Git提交时不要把.idea或类似文件提交到仓库中，可以在提交commit时，右键文件夹选择Add to .git\info\exclude，或者在.gitignore中添加后清空git缓存再提交
 * Swagger：http://localhost:8080/swagger-ui/index.html
-* 已添加了Lombok插件
+* 已添加了Lombok插件（不需要写setter getter之类的）
 * 已切换使用mybatis-plus（4.14）
+
+# Git使用指南
+
+## 基础须知
+
+1. 每个人fork的项目都是同等地位，即应该只有一个最新版就是github这一版
+2. 每个人fork的项目都是一个下游仓库，所以每个人写的代码（更新项目）都在下游发生
+3. 当写完下游代码后，即可合并给上游（main），彻底完成本次代码的更新
+
+## 常规流程：
+
+1. 每次开发前确保当前要修改的branch与fork的branch完全一致：
+
+   在自己的fork项目中，点击Sync fork即可将上游代码同步到自己的下游
+
+   ![](image/image_kuxfyCKeVc.png)
+2. 对fork的项目添加开发内容
+3. 完成开发后，在ide中找到git commit按钮并点击。（图中的勾✔）
+
+   ![](image/image_gMhXlBaIMb.png)
+
+   ![](image/image_ccSBM1-vn8.png)
+
+   commit时需要添加本次commit的描述：
+
+   ![](image/image_SZHzRSXiN_.png)
+4. commit后代码仍只是在本地修改，需要再push（或者在commit时点commit and push）
+
+   ![](image/image_9g9h236HK7.png)
+
+   此处的push即在修改GitHub上的代码，所以需要注意push的去向是正确的并再次检查本次push修改的代码是否正确
+5. 我们的开发中，每次push只需要向自己fork的仓库push。因此当需要向main上游同步时，点击以下contribute：
+
+   ![image/image_kuxfyCKeVc.png](image/image_kuxfyCKeVc.png)
+
+   这会创建一个merge选项
+6. 由于main branch有保护机制，所以每次merge都必须有一个除merge提交者以外的人检查后，才能准许本次merge（在GitHub上的Pull Request里）
+7. 完成merge后一次完整的git流程结束
+
+## 冲突需知
+
+1. 情况1：
+
+   假如在6：00，我Sync了main后进行开发，编辑了Test.java；另一个人在在6：15像main merge了他的代码，其中也编辑了Test.java。6：30我结束开发向main merge我的代码，会产生冲突，因为main的Test.java发生变化后，我并么有sync而且我对Test.java有修改
+
+   解决方法：Github上会有冲突提示，需要协商后在Github上完成冲突解决
+2. 情况2（可能在情况1发生后）：
+
+   同以上例子：6：30我结束Test.java的开发，此时我将main Sync到本地，Github应该会提示有冲突，因此需要和别人协商后删除或修改代码解决冲突
+
+## Git技巧
+
+使用git后，文件更新会在代码左侧栏出现以下三种情况：
+
+1. 灰色的三角箭头（或红色的箭头）：这里有删除
+2. 蓝色的高亮：这行有修改
+3. 绿色的高亮：这行是新增的
+
+![image/image_0UBnBIhMOR.png](image/image_0UBnBIhMOR.png)
+
+点击左侧高亮，即可展示具体修改了哪些东西，并可以详细对比或一键回撤
+
+![image/image_VeCcDObVsz.png](image/image_VeCcDObVsz.png)
+
+以上技巧也使用于每次push时的界面
+
