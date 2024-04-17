@@ -1,0 +1,70 @@
+.login-box {
+  width: 300px;
+  height: 500px;
+  padding: 0 50px;
+  background-color: rgba(248, 249, 250, 0.705) ;
+
+  margin: 0 auto;
+  margin-top: 250px;
+
+  border-radius: 20px;
+
+  text-align: center;
+  
+}
+
+a:link {
+  background-color: #51cf66;
+  padding: 10px 20px;
+  text-decoration: none;
+  font-size: 24px;
+  color: #f8f9fa;
+  border-radius: 20px;
+
+  display: inline-block;
+  box-shadow: 5px 5px 5px 5px rgba(33, 37, 41, 0.178);
+  letter-spacing: 3px;
+}
+
+a:visited {
+  background-color: #51cf66;
+  padding: 10px 20px;
+  text-decoration: none;
+  font-size: 24px;
+  color: #f8f9fa;
+  border-radius: 20px;
+
+  display: inline-block;
+  box-shadow: 5px 5px 5px 5px rgba(33, 37, 41, 0.15);
+  letter-spacing: 3px;
+
+}
+
+a:hover {
+  background-color: #51cf66;
+  padding: 11px 22px;
+  text-decoration: none;
+  font-size: 24px;
+  color: #f8f9fa;
+  border-radius: 20px;
+
+  display: inline-block;
+  box-shadow: 5px 5px 5px 5px rgba(33, 37, 41, 0.25);
+  letter-spacing: 3px;
+
+}
+
+a:active {
+  background-color: #51cf66;
+  padding: 10px 20px;
+  text-decoration: none;
+  font-size: 24px;
+  color: #f8f9fa;
+  border-radius: 20px;
+
+  display: inline-block;
+  box-shadow: 5px 5px 5px 5px rgba(33, 37, 41, 0.05);
+  letter-spacing: 3px;
+
+}
+

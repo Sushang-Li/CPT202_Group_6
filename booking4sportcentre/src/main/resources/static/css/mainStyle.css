@@ -1,0 +1,38 @@
+/*
+SPACING SYSTEM (px)
+2 / 4 / 8 / 12 / 16 / 24 / 32 / 48 / 64 / 80 / 96 / 128
+
+FONT SIZE SYSTEM (px)
+10 / 12 / 14 / 16 / 18 / 20 / 24 / 30 / 36 / 44 / 52 / 62 / 74 / 86 / 98
+*/
+
+/* MainColor: #339af0 #748ffc*/
+/* GrayColor: #f8f9fa #e9ecef #343a40 #212529*/
+/* Secondary color： #37b24d #51cf66 */
+
+body {
+  font-family: "Roboto", sans-serif;
+  font-size: 30px;
+  font-weight: bold;
+  color: #212529;
+}
+
+.nav-container {
+  display: flex;
+  justify-content: flex-end;
+  gap: 30px;
+  margin-right: 100px;
+  margin-top: 20px;
+}
+
+.logo {
+  align-self: flex-start;
+  margin-right: 1000px;
+}
+
+
+nav a {
+  color: #339af0;
+  text-decoration: none;
+  font-size: 20px;
+}

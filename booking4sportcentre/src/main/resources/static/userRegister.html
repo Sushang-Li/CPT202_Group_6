@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/mainStyle.css">
+    <link rel="stylesheet" href="css/userRegisterStyle.css">
+    <link href="https://fonts.googlefonts.cn/css?family=Roboto:400,500,700,900" rel="stylesheet">
+    <title>Register</title>
+</head>
+
+<body style="background-image: url('images/userLogin.jpg'); background-size: cover;">
+<div class="content">
+    <div class="register-box">
+        <br>
+        <p>REGISTER</p>
+        <form action="userLogin.html" method="post" enctype="multipart/form-data">
+            <fieldset>
+                <legend>Create your Account</legend>
+
+                <label for="username" >Username:</label>
+                <input id="username" name="username" type="text" placeholder="Your XJTLU ID" aria-required="true" pattern="^\d{7}$" title="XJTLU IDs consist of 7 numbers." tabindex="1" autocorrect="off" autocapitalize="none" required autofocus value="">
+                <br>
+                <span id="username-error" class="form-error">XJTLU ID consists of 7 numbers.</span>
+                <br>
+
+                <label for="email" >Email:</label>
+                <input id="email" name="email" type="email" placeholder="Your Email" aria-required="true" tabindex="2" autocorrect="off" autocapitalize="none" required>
+                <br>
+                <span id="email-error" class="form-error">Email must end with @(student.)xjtlu.edu.cn.</span>
+                <br>
+
+                <label for="password" >Password:</label>
+                <input id="password" name="password" type="password" placeholder="Your Password" aria-required="true" pattern="^.{6,}$"  title="Passwords are at least 6 characters long and can consist of letters, numbers, and the following symbols: !@#$%^&*().," tabindex="3" autocorrect="off" autocapitalize="none" required>
+                <br>
+                <span id="password-error" class="form-error">Passwords are at least 6 characters long.</span>
+                <br>
+
+                <label for="confirm-password" >Confirm Password:</label>
+                <input id="confirm-password" name="confirm-password" type="password" placeholder="Confirm Your Password" aria-required="true" pattern="^.{6,}$"  title="Passwords are at least 6 characters long and can consist of letters, numbers, and the following symbols: !@#$%^&*().," tabindex="4" autocorrect="off" autocapitalize="none" required>
+                <br>
+                <span id="confirm-password-error" class="form-error">Passwords do not match.</span>
+                <br>
+
+
+
+            </fieldset>
+<br>
+
+            <fieldset>
+                <legend>Personal Information</legend>
+                <label for="firstname" >First Name:</label>
+                <input id="firstname" name="firstname" type="text" placeholder="Your First Name" aria-required="true" tabindex="6" autocorrect="off" autocapitalize="none" required>
+                <br>
+                <br>
+
+                <label for="lastname" >Last Name:</label>
+                <input id="lastname" name="lastname" type="text" placeholder="Your Last Name" aria-required="true" tabindex="7" autocorrect="off" autocapitalize="none" required>
+                <br>
+                <br>
+
+                <label for="dob" >Date of Birth:</label>
+                <input id="dob" name="dob" type="date" placeholder="Your Date of Birth" aria-required="true" tabindex="8" autocorrect="off" autocapitalize="none" required>
+                <br>
+                <br>
+
+                <label for="phone" >Phone Number:</label>
+                <input id="phone" name="phone" type="tel" placeholder="Your Phone Number" aria-required="true" tabindex="9" autocorrect="off" autocapitalize="none" required>
+                <br>
+                <br>
+
+                <label for="address" >Address:</label>
+                <input id="address" name="address" type="text" placeholder="Your Address" aria-required="true" tabindex="10" autocorrect="off" autocapitalize="none" required>
+                <br>
+                <br>
+
+                <label  class="gender-label">Gender:</label>
+                <input type="radio" name="gender" value="1" id="male"> <label for="male">Male</label>
+                <input type="radio" name="gender" value="2" id="female"> <label for="female">Female</label>
+                <br>
+
+                <label for="profile" class="avatar-label">Avatar: </label>
+                <input type="file" name="avatar" id="profile">
+                <br>
+                <br>
+
+            </fieldset>
+            <br>
+
+            <div>
+                <button class="primary-button" type="submit" name="_eventId_proceed" tabindex="5">Register</button>
+                <br>
+                <br>
+                <label id="login" class="form-label" >Already have an account? <a href="userLogin.html">LOG IN</a></label>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!--js-->
+<script>
+    // 获取输入框和错误消息元素
+    var inputUsername = document.getElementById('username');
+    var errorUsername = document.getElementById('username-error');
+
+    // 添加输入事件监听器
+    inputUsername.addEventListener('input', function() {
+        // 检查输入的值是否是7个数字
+        var isValidUsername = /^\d{7}$/.test(inputUsername.value);
+
+        // 如果输入的值不是7个数字，显示错误消息
+        if (!isValidUsername) {
+            errorUsername.style.display = 'block';
+        } else {
+            // 如果输入的值是7个数字，隐藏错误消息
+            errorUsername.style.display = 'none';
+        }
+    });
+
+    // 获取输入框和错误消息元素
+    var inputPassword = document.getElementById('password');
+    var errorPassword = document.getElementById('password-error');
+
+    // 添加输入事件监听器
+    inputPassword.addEventListener('input', function() {
+        // 检查输入的值是否至少有6个字符
+        var isValidPassword = /^.{6,}$/.test(inputPassword.value);
+
+        // 如果输入的值不至少有6个字符，显示错误消息
+        if (!isValidPassword) {
+            errorPassword.style.display = 'block';
+        } else {
+            // 如果输入的值至少有6个字符，隐藏错误消息
+            errorPassword.style.display = 'none';
+        }
+    });
+
+    // 获取输入框和错误消息元素
+    var inputConfirmPassword = document.getElementById('confirm-password');
+    var errorConfirmPassword = document.getElementById('confirm-password-error');
+
+    // 添加输入事件监听器
+    inputConfirmPassword.addEventListener('input', function() {
+        // 检查输入的值是否与密码输入框的值相同
+        var isMatch = inputConfirmPassword.value === inputPassword.value;
+
+        // 如果输入的值与密码输入框的值不相同，显示错误消息
+        if (!isMatch) {
+            errorConfirmPassword.style.display = 'block';
+        } else {
+            // 如果输入的值与密码输入框的值相同，隐藏错误消息
+            errorConfirmPassword.style.display = 'none';
+        }
+    });
+
+    // 获取输入框和错误消息元素
+    var inputEmail = document.getElementById('email');
+    var errorEmail = document.getElementById('email-error');
+
+    // 添加输入事件监听器
+    inputEmail.addEventListener('input', function() {
+        // 检查输入的值是否以数字或字母开头，并以@student.xjtlu.edu.cn或@xjtlu.edu.cn为域名
+        var isValidEmail = /^[a-zA-Z0-9]+@(student\.)?xjtlu\.edu\.cn$/.test(inputEmail.value);
+
+        // 如果输入的值的格式不正确，显示错误消息
+        if (!isValidEmail) {
+            errorEmail.style.display = 'block';
+        } else {
+            // 如果输入的值的格式正确，隐藏错误消息
+            errorEmail.style.display = 'none';
+        }
+    });
+</script>
+</body>
+
+</html>

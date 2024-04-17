@@ -1,0 +1,179 @@
+.register-box {
+    width: 600px;
+    height: 1000px;
+    padding: 0 50px;
+    background-color: rgba(248, 249, 250, 0.705) ;
+    font-size: 20px;
+    margin: 0 auto;
+    margin-top: 250px;
+
+    border-radius: 20px;
+
+    text-align: center;
+
+}
+
+.primary-button {
+    background-color: #51cf66;
+    padding: 10px 20px;
+    text-decoration: none;
+    font-size: 24px;
+    color: #f8f9fa;
+    border-radius: 20px;
+
+    display: inline-block;
+    box-shadow: 5px 5px 5px 5px rgba(33, 37, 41, 0.178);
+    letter-spacing: 3px;
+}
+
+.primary-button:hover {
+    background-color: #51cf66;
+    padding: 11px 22px;
+    text-decoration: none;
+    font-size: 24px;
+    color: #f8f9fa;
+    border-radius: 20px;
+
+    display: inline-block;
+    box-shadow: 5px 5px 5px 5px rgba(33, 37, 41, 0.25);
+    letter-spacing: 3px;
+}
+
+.primary-button:active {
+    background-color: #51cf66;
+    padding: 10px 20px;
+    text-decoration: none;
+    font-size: 24px;
+    color: #f8f9fa;
+    border-radius: 20px;
+
+    display: inline-block;
+    box-shadow: 5px 5px 5px 5px rgba(33, 37, 41, 0.05);
+    letter-spacing: 3px;
+}
+
+p{
+    font-size: 30px;
+
+}
+
+/* 调整登录框中的字体大小 */
+.register-box {
+
+
+}
+legend{
+    font-size: 28px;
+    font-style: italic;
+}
+#username {
+    width: 260px;
+    height: 20px;
+    margin-left: 80px;
+}
+
+#email {
+    width: 260px;
+    height: 20px;
+    margin-left: 120px;
+}
+#password {
+    width: 260px;
+    height: 20px;
+    margin-left: 80px;
+}
+#confirm-password {
+    width: 260px;
+    height: 20px;
+
+}
+#firstname{
+    width: 260px;
+    height: 20px;
+    margin-left: 80px;
+}
+#lastname{
+    width: 260px;
+    height: 20px;
+    margin-left: 80px;
+}
+#profile {
+    width: 260px;
+    height: 20px;
+    margin-left: 80px;
+}
+#dob {
+    width: 260px;
+    height: 20px;
+    margin-left: 66px;
+}
+#phone {
+    width: 260px;
+    height: 20px;
+    margin-left: 47px;
+}
+#address{
+    width: 260px;
+    height: 20px;
+    margin-left: 106px;
+}
+#male{
+    margin-left: 120px;
+}
+#female{
+    margin-left: 90px;
+}
+
+
+/* 调整错误消息的字体大小 */
+.form-error {
+    font-size: 14px;
+    color: brown;
+}
+#username-error {
+    /* 调整左边距 */
+    margin-left: 120px;
+}
+#email-error {
+    /* 调整左边距 */
+    margin-left: 195px;
+}
+#password-error {
+    /* 调整左边距 */
+    margin-left: 170px;
+}
+#confirm-password-error {
+    /* 调整左边距 */
+    margin-left: 70px;
+}
+/* 调整按钮的字体大小 */
+.primary-button {
+    font-size: 25px;
+}
+
+/* 调整链接的字体大小 */
+a {
+    font-size: 18px;
+    font-style: italic;
+}
+.form-label{
+    font-size: 18px;
+}
+
+/* 调整性别选择的位置 */
+label[for="male"],
+label[for="female"] {
+    display: inline-block;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    margin-left: 4px;
+}
+
+/* 调整头像上传的位置 */
+label[for="profile"],
+#profile {
+    display: inline-block;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-left: 60px;
+}

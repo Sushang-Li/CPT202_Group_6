@@ -1,0 +1,98 @@
+.login-box {
+  width: 500px;
+  height: 500px;
+  padding: 0 50px;
+  background-color: rgba(248, 249, 250, 0.705) ;
+  font-size: 20px;
+  margin: 0 auto;
+  margin-top: 250px;
+
+  border-radius: 20px;
+
+  text-align: center;
+  
+}
+
+.primary-button {
+  background-color: #51cf66;
+  padding: 10px 20px;
+  text-decoration: none;
+  font-size: 24px;
+  color: #f8f9fa;
+  border-radius: 20px;
+
+  display: inline-block;
+  box-shadow: 5px 5px 5px 5px rgba(33, 37, 41, 0.178);
+  letter-spacing: 3px;
+}
+
+.primary-button:hover {
+  background-color: #51cf66;
+  padding: 11px 22px;
+  text-decoration: none;
+  font-size: 24px;
+  color: #f8f9fa;
+  border-radius: 20px;
+
+  display: inline-block;
+  box-shadow: 5px 5px 5px 5px rgba(33, 37, 41, 0.25);
+  letter-spacing: 3px;
+}
+
+.primary-button:active {
+  background-color: #51cf66;
+  padding: 10px 20px;
+  text-decoration: none;
+  font-size: 24px;
+  color: #f8f9fa;
+  border-radius: 20px;
+
+  display: inline-block;
+  box-shadow: 5px 5px 5px 5px rgba(33, 37, 41, 0.05);
+  letter-spacing: 3px;
+}
+
+p{
+    font-size: 30px;
+
+}
+
+legend{
+  font-size: 28px;
+  font-style: italic;
+}
+#logon {
+  width: 260px;  /* 调整宽度 */
+  height: 20px;  /* 调整高度 */
+}
+
+#pass {
+  width: 260px;  /* 调整宽度 */
+  height: 20px;  /* 调整高度 */
+}
+/* 调整错误消息的字体大小 */
+.form-error {
+  font-size: 14px;
+  color: brown;
+}
+#logon-error {
+  /* 调整左边距 */
+  margin-left: 45px;
+}
+#pass-error {
+  /* 调整左边距 */
+  margin-left: 100px;
+}
+/* 调整按钮的字体大小 */
+.primary-button {
+  font-size: 25px;
+}
+
+/* 调整链接的字体大小 */
+a {
+  font-size: 18px;
+  font-style: italic;
+}
+.form-label{
+  font-size: 18px;
+}
