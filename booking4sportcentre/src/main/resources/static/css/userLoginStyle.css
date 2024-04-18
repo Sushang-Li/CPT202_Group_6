@@ -1,55 +1,85 @@
 .login-box {
-  width: 500px;
+  width: 350px;
   height: 500px;
   padding: 0 50px;
-  background-color: rgba(248, 249, 250, 0.705) ;
+  background-color: rgba(248, 249, 250, 0.87) ;
   font-size: 20px;
   margin: 0 auto;
   margin-top: 250px;
 
-  border-radius: 20px;
+  border-radius: 5px;
 
   text-align: center;
+
+  box-shadow: 5px 5px 5px 10px rgba(0, 0, 0, 0.473);
   
 }
 
+.login {
+  font-size: 40px;
+  letter-spacing: 2px;
+  margin-bottom: 10px;
+  color: #339af0;
+}
+
+
+
 .primary-button {
-  background-color: #51cf66;
+  width: 300px;
+  height: 40px;
+  background-color: #339af0;
   padding: 10px 20px;
   text-decoration: none;
   font-size: 24px;
   color: #f8f9fa;
-  border-radius: 20px;
-
-  display: inline-block;
-  box-shadow: 5px 5px 5px 5px rgba(33, 37, 41, 0.178);
-  letter-spacing: 3px;
-}
-
-.primary-button:hover {
-  background-color: #51cf66;
-  padding: 11px 22px;
-  text-decoration: none;
-  font-size: 24px;
-  color: #f8f9fa;
-  border-radius: 20px;
-
-  display: inline-block;
-  box-shadow: 5px 5px 5px 5px rgba(33, 37, 41, 0.25);
-  letter-spacing: 3px;
-}
-
-.primary-button:active {
-  background-color: #51cf66;
-  padding: 10px 20px;
-  text-decoration: none;
-  font-size: 24px;
-  color: #f8f9fa;
-  border-radius: 20px;
+  border-radius: 5px;
 
   display: inline-block;
   box-shadow: 5px 5px 5px 5px rgba(33, 37, 41, 0.05);
-  letter-spacing: 3px;
+  letter-spacing: 2px;
+
+  text-transform: uppercase;
+
+  border: none;
+}
+
+.primary-button:hover {
+  width: 300px;
+  height: 40px;
+  background-color: #339af0;
+  padding: 10px 20px;
+  text-decoration: none;
+  font-size: 24px;
+  color: #f8f9fa;
+  border-radius: 5px;
+
+  display: inline-block;
+  box-shadow: 5px 5px 5px 5px rgba(33, 37, 41, 0.10);
+  letter-spacing: 2px;
+
+  cursor: pointer;
+  text-transform: uppercase;
+
+  border: none;
+}
+
+.primary-button:active {
+  width: 300px;
+  height: 40px;
+  background-color: #339af0;
+  padding: 10px 20px;
+  text-decoration: none;
+  font-size: 24px;
+  color: #f8f9fa;
+  border-radius: 5px;
+
+  display: inline-block;
+  box-shadow: 5px 5px 5px 5px rgba(33, 37, 41, 0.01);
+  letter-spacing: 2px;
+
+  text-transform: uppercase;
+
+  border: none;
 }
 
 p{
@@ -62,37 +92,54 @@ legend{
   font-style: italic;
 }
 #logon {
-  width: 260px;  /* 调整宽度 */
-  height: 20px;  /* 调整高度 */
+  width: 300px;  /* 调整宽度 */
+  height: 40px;  /* 调整高度 */
+  border-radius: 5px;
+  border: 1px solid #339af0;
+  background-color: rgba(248, 249, 250, 0.20) ;
+  
 }
 
 #pass {
-  width: 260px;  /* 调整宽度 */
-  height: 20px;  /* 调整高度 */
+  width: 300px;  /* 调整宽度 */
+  height: 40px;  /* 调整高度 */
+  border-radius: 5px;
+  border: 1px solid #339af0;
+  background-color: rgba(248, 249, 250, 0.20) ;
+  margin-top: 20px;
 }
 /* 调整错误消息的字体大小 */
 .form-error {
   font-size: 14px;
-  color: brown;
+  color: #339af0;
 }
 #logon-error {
   /* 调整左边距 */
-  margin-left: 45px;
+  margin-left: -100px;
 }
 #pass-error {
   /* 调整左边距 */
-  margin-left: 100px;
+  margin-left: -40px;
 }
 /* 调整按钮的字体大小 */
 .primary-button {
+  margin-top: 20px;
   font-size: 25px;
+  padding-bottom: 10px;
+  margin-bottom: 40px;
 }
 
 /* 调整链接的字体大小 */
 a {
   font-size: 18px;
-  font-style: italic;
+  color: #339af0;
+  text-decoration: none;
 }
 .form-label{
   font-size: 18px;
+}
+
+#forgot {
+  display: inline-block;
+  margin-bottom: 10px;
 }

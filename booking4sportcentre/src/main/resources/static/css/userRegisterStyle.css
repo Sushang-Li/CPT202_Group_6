@@ -2,54 +2,90 @@
     width: 600px;
     height: 1000px;
     padding: 0 50px;
-    background-color: rgba(248, 249, 250, 0.705) ;
+    background-color: rgba(248, 249, 250, 0.87) ;
     font-size: 20px;
     margin: 0 auto;
-    margin-top: 250px;
-
-    border-radius: 20px;
-
+    margin-top: 50px;
+  
+    border-radius: 5px;
+  
     text-align: center;
+  
+    box-shadow: 5px 5px 5px 10px rgba(0, 0, 0, 0.473);
 
+}
+
+.register {
+    font-size: 40px;
+    letter-spacing: 2px;
+    margin-bottom: 10px;
+    margin-top: 5px;
+    color: #339af0;
+}
+
+.input-items {
+    width: 300px;  /* 调整宽度 */
+    height: 40px;  /* 调整高度 */
+    border-radius: 5px;
+    border: 1px solid #339af0;
+    background-color: rgba(248, 249, 250, 0.20) ;
 }
 
 .primary-button {
-    background-color: #51cf66;
+    width: 300px;
+    height: 40px;
+    background-color: #339af0;
     padding: 10px 20px;
     text-decoration: none;
     font-size: 24px;
     color: #f8f9fa;
-    border-radius: 20px;
-
+    border-radius: 5px;
+  
     display: inline-block;
-    box-shadow: 5px 5px 5px 5px rgba(33, 37, 41, 0.178);
-    letter-spacing: 3px;
+    box-shadow: 5px 5px 5px 5px rgba(33, 37, 41, 0.05);
+    letter-spacing: 2px;
+  
+    text-transform: uppercase;
+  
+    border: none;
 }
 
 .primary-button:hover {
-    background-color: #51cf66;
-    padding: 11px 22px;
-    text-decoration: none;
-    font-size: 24px;
-    color: #f8f9fa;
-    border-radius: 20px;
-
-    display: inline-block;
-    box-shadow: 5px 5px 5px 5px rgba(33, 37, 41, 0.25);
-    letter-spacing: 3px;
-}
-
-.primary-button:active {
-    background-color: #51cf66;
+    width: 300px;
+    height: 40px;
+    background-color: #339af0;
     padding: 10px 20px;
     text-decoration: none;
     font-size: 24px;
     color: #f8f9fa;
-    border-radius: 20px;
-
+    border-radius: 5px;
+  
     display: inline-block;
-    box-shadow: 5px 5px 5px 5px rgba(33, 37, 41, 0.05);
-    letter-spacing: 3px;
+    box-shadow: 5px 5px 5px 5px rgba(33, 37, 41, 0.10);
+    letter-spacing: 2px;
+  
+    text-transform: uppercase;
+  
+    border: none;
+}
+
+.primary-button:active {
+    width: 300px;
+    height: 40px;
+    background-color: #339af0;
+    padding: 10px 20px;
+    text-decoration: none;
+    font-size: 24px;
+    color: #f8f9fa;
+    border-radius: 5px;
+  
+    display: inline-block;
+    box-shadow: 5px 5px 5px 5px rgba(33, 37, 41, 0.01);
+    letter-spacing: 2px;
+  
+    text-transform: uppercase;
+  
+    border: none;
 }
 
 p{
@@ -57,94 +93,48 @@ p{
 
 }
 
-/* 调整登录框中的字体大小 */
-.register-box {
 
-
-}
-legend{
-    font-size: 28px;
-    font-style: italic;
-}
-#username {
-    width: 260px;
-    height: 20px;
-    margin-left: 80px;
-}
-
-#email {
-    width: 260px;
-    height: 20px;
-    margin-left: 120px;
-}
-#password {
-    width: 260px;
-    height: 20px;
-    margin-left: 80px;
-}
-#confirm-password {
-    width: 260px;
-    height: 20px;
-
-}
-#firstname{
-    width: 260px;
-    height: 20px;
-    margin-left: 80px;
-}
-#lastname{
-    width: 260px;
-    height: 20px;
-    margin-left: 80px;
-}
-#profile {
-    width: 260px;
-    height: 20px;
-    margin-left: 80px;
-}
-#dob {
-    width: 260px;
-    height: 20px;
-    margin-left: 66px;
-}
-#phone {
-    width: 260px;
-    height: 20px;
-    margin-left: 47px;
-}
-#address{
-    width: 260px;
-    height: 20px;
-    margin-left: 106px;
-}
 #male{
-    margin-left: 120px;
+    margin-left: 20px;
 }
 #female{
-    margin-left: 90px;
+    margin-left: 70px;
+}
+
+.gender {
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border: 1px solid #339af0;
+    border-radius: 2px;
+    cursor: pointer;
+}
+
+.gender:checked {
+    background-color: #339af0;
 }
 
 
 /* 调整错误消息的字体大小 */
 .form-error {
     font-size: 14px;
-    color: brown;
+    color: #339af0;
 }
 #username-error {
     /* 调整左边距 */
-    margin-left: 120px;
+    margin-left: -100px;
 }
 #email-error {
     /* 调整左边距 */
-    margin-left: 195px;
+    margin-left: -25px;
 }
 #password-error {
     /* 调整左边距 */
-    margin-left: 170px;
+    margin-left: -50px;
 }
 #confirm-password-error {
     /* 调整左边距 */
-    margin-left: 70px;
+    margin-left: -150px;
 }
 /* 调整按钮的字体大小 */
 .primary-button {
@@ -154,26 +144,107 @@ legend{
 /* 调整链接的字体大小 */
 a {
     font-size: 18px;
-    font-style: italic;
+    color: #339af0;
+    text-decoration: none;
 }
 .form-label{
     font-size: 18px;
 }
 
-/* 调整性别选择的位置 */
-label[for="male"],
-label[for="female"] {
-    display: inline-block;
-    margin-right: 10px;
-    margin-bottom: 10px;
-    margin-left: 4px;
+
+
+#profile {
+    display: none;
 }
 
-/* 调整头像上传的位置 */
-label[for="profile"],
-#profile {
-    display: inline-block;
-    margin-top: 10px;
-    margin-bottom: 10px;
-    margin-left: 60px;
+.avatar-label {
+    margin-top: 100px;
+    padding: 10px 20px;
+    font-size: 12px;
+    color: #339af0;
+    border: 1px solid #339af0;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.user-svg {
+    position: relative;
+    top: 10px;
+    width: 30px;
+    height: 30px;
+    color: #339af0;
+}
+
+.password-svg {
+    position: relative;
+    top: 10px;
+    width: 30px;
+    height: 30px;
+    color: #339af0;
+}
+
+.check-svg {
+    position: relative;
+    top: 10px;
+    width: 30px;
+    height: 30px;
+    color: #339af0;
+}
+
+.email-svg {
+    position: relative;
+    top: 10px;
+    width: 30px;
+    height: 30px;
+    color: #339af0;
+}
+
+
+.birth-svg {
+    position: relative;
+    top: 10px;
+    width: 30px;
+    height: 30px;
+    color: #339af0;
+    
+}
+
+.firstname-svg {
+    position: relative;
+    top: 10px;
+    width: 30px;
+    height: 30px;
+    color: #339af0;
+}
+
+.lastname-svg {
+    position: relative;
+    top: 10px;
+    width: 30px;
+    height: 30px;
+    color: #339af0;
+}
+
+.cellphone-svg {
+    position: relative;
+    top: 10px;
+    width: 30px;
+    height: 30px;
+    color: #339af0;
+}
+
+.address-svg {
+    position: relative;
+    top: 10px;
+    width: 30px;
+    height: 30px;
+    color: #339af0;
+}
+
+.upload-svg {
+    position: relative;
+    top: 10px;
+    width: 30px;
+    height: 30px;
+    color: #339af0;
 }

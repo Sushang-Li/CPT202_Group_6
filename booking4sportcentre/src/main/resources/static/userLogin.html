@@ -16,38 +16,44 @@
   <div class="content">
     <div class="login-box">
       <br>
-      <p>LOGIN</p>
+      <p class="login">LOGIN</p>
       <form action="userHomepage.html" method="post">
-        <fieldset>
-          <legend>Sign In with your XJTLU ID</legend>
 
-          <label for="logon" >Username:</label>
-          <label for="logon"><span hidden>Your XJTLU ID</span>
-            <input id="logon" name="j_username" type="text" placeholder="Your XJTLU ID" aria-required="true" pattern="^\d{7}$" title="XJTLU IDs consist of 7 numbers." tabindex="1" autocorrect="off" autocapitalize="none" required autofocus value="">
-            <br>
 
-            <span id="logon-error" class="form-error">XJTLU ID consists of 7 numbers.</span>
-          </label>
+        <!-- <legend>Sign In with your XJTLU ID</legend> -->
+
+        <!-- <label for="logon">Username:</label> -->
+        <label for="logon"><span hidden>Your XJTLU ID</span>
+          <input id="logon" name="j_username" type="text" placeholder="Your XJTLU ID" aria-required="true"
+            pattern="^\d{7}$" title="XJTLU IDs consist of 7 numbers." tabindex="1" autocorrect="off"
+            autocapitalize="none" required autofocus value="">
           <br>
 
+          <span id="logon-error" class="form-error">XJTLU ID consists of 7 numbers.</span>
+        </label>
+
+
+        <br>
+        <!-- <label for="pass">Password:</label> -->
+        <label for="pass"><span hidden>Your XJTLU Logon Password</span>
+          <input id="pass" name="j_password" type="password" placeholder="Your Password" aria-required="true"
+            pattern="^.{6,}$"
+            title="Passwords are at least 6 characters long and can consist of letters, numbers, and the following symbols: !@#$%^&*().,"
+            tabindex="2" autocorrect="off" autocapitalize="none" required>
           <br>
-          <label for="pass" >Password:</label>
-          <label for="pass"><span hidden>Your XJTLU Logon Password</span>
-            <input id="pass" name="j_password" type="password" placeholder="Your Password" aria-required="true" pattern="^.{6,}$"  title="Passwords are at least 6 characters long and can consist of letters, numbers, and the following symbols: !@#$%^&*().," tabindex="2" autocorrect="off" autocapitalize="none" required>
-            <br>
-            <span id="pass-error" class="form-error">Passwords are at least 6 characters long.</span>
-          </label>
-        </fieldset>
+          <span id="pass-error" class="form-error">Passwords are at least 6 characters long.</span>
+        </label>
         <br>
 
         <div>
-          <button class="primary-button" type="submit" name="_eventId_proceed" tabindex="3">Log In</button>
+          <button class="primary-button" type="submit" name="_eventId_proceed" tabindex="3">LOGIN</button>
           <br>
           <br>
-          <label id="forgot" class="form-label" >Forgot your <a href="https://sso.xjtlu.edu.cn/forgetPassword" title="Reset your password">Password</a> ?</label>
+          <label id="forgot" class="form-label">Forgot your password?<a href="https://sso.xjtlu.edu.cn/forgetPassword">
+              RETRIEVE</a></label>
+
           <br>
-          <br>
-          <label id="register" class="form-label" >Don't have an account? <a href="userRegister.html">SIGN UP</a></label>
+          <label id="register" class="form-label">Don't have an account? <a href="userRegister.html">SIGN UP</a></label>
 
         </div>
       </form>
@@ -64,7 +70,7 @@
     var error = document.getElementById('logon-error');
 
     // 添加输入事件监听器
-    input.addEventListener('input', function() {
+    input.addEventListener('input', function () {
       // 检查输入的值是否是7个数字
       var isValid = /^\d{7}$/.test(input.value);
 
@@ -82,7 +88,7 @@
     var errorPass = document.getElementById('pass-error');
 
     // 添加输入事件监听器
-    inputPass.addEventListener('input', function() {
+    inputPass.addEventListener('input', function () {
       // 检查输入的值是否至少有6个字符
       var isValidPass = /^.{6,}$/.test(inputPass.value);
 
