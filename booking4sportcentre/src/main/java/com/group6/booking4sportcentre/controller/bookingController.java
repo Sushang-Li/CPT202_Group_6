@@ -5,5 +5,5 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class bookingController {
-//什么也没有
+//还什么也没有
 }
