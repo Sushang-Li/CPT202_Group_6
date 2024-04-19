@@ -36,3 +36,114 @@ nav a {
   text-decoration: none;
   font-size: 20px;
 }
+
+#wrapper{
+  position: relative;
+  width: 100%
+}
+#sidebar-wrapper {
+  transform: translateX(-100%);
+  transition: transform 0.3s ease-in-out;
+  height: 100vh;
+  z-index: 1050;
+}
+
+#sidebar-wrapper .list-group-item {
+  color: cornflowerblue;
+  font-family: "Roboto", sans-serif;
+}
+
+#sidebar-close {
+  visibility: hidden;
+}
+
+#menu-toggle {
+  visibility: visible;
+}
+
+#wrapper.toggled #sidebar-wrapper {
+  transform: translateX(0);
+}
+
+#wrapper.toggled #menu-toggle {
+  visibility: hidden;
+}
+
+#wrapper.toggled #sidebar-close {
+  visibility: visible;
+}
+
+.menu-toggle {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 50px;
+  height: 50px;
+  z-index: 1000;
+}
+
+.btn-position {
+  background-color: transparent;
+  border: none;
+}
+
+.btn-position svg {
+  width: 24px;
+  height: 24px;
+  color: #212529;
+}
+
+#sidebar-close {
+  background-color: transparent
+
+}
+
+#sidebar-close svg {
+  width: 24px;
+  height: 24px;
+  color: #212529;
+}
+#page-content-wrapper {
+  position: fixed;
+  padding-top: 70px;
+  left: 10px;
+    width: 100%;
+
+}
+.container-fluid {
+  padding-left: 0;
+  padding-right: 0;
+}
+#overlay {
+  display: none;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1040;
+}
+
+
+
+.btn-large {
+  width: 200px;
+  height: 200px;
+  padding: 0;
+  overflow: hidden;
+  margin: 15px;
+}
+
+.btn-large img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+h2{
+  color: dodgerblue;
+  font-weight: bold;
+}
+
+h3{
+  color:lightskyblue;
+}

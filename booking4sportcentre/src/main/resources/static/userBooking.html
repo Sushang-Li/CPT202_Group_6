@@ -2,41 +2,152 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="css/mainStyle.css">
-  <link href="https://fonts.googlefonts.cn/css?family=Roboto:400,500,700,900" rel="stylesheet">
-  <title>Welcome</title>
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/mainStyle.css">
+    <link href="https://fonts.googlefonts.cn/css?family=Roboto:400,500,700,900" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <title>Welcome</title>
 </head>
 
 <body>
-  <!-- <h1>这里是用户订单页</h1> -->
+<div id="overlay"></div>
+<div class="d-flex" id="wrapper">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+        <a class="navbar-brand" href="#"></a>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <!--menu按钮-->
+            <button class="btn btn-primary btn-position menu-toggle" id="menu-toggle">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+                </svg>
+            </button>
+            <!-- navigation items -->
 
-  <nav>
-    <div class="nav-container">
-      <div class="logo">
-        <a href="userHomepage.html">:D</a>
-      </div>
-      <div class="homepage">
-        <a href="userHomepage.html">HOMEPAGE</a>
-      </div>
-      <div class="information">
-        <a href="userInformation.html">INFORMATION</a>
-      </div>
-      <div class="wallet">
-        <a href="userWallet.html">WALLET</a>
-      </div>
-      <div class="booking">
-        <a href="userBooking.html">BOOKING</a>
-      </div>
-      <div class="statistics">
-        <a href="userStatistics.html">STATISTICS</a>
-      </div>
+        </div>
+        <a class="nav-link float-right" href="userHomepage.html">Homepage</a>
+        <a class="nav-link float-right" href="userInformation.html">Information</a>
+        <a class="nav-link float-right" href="userWallet.html">Wallet</a>
+        <a class="nav-link float-right" href="userBooking.html">Booking</a>
+        <a class="nav-link float-right" href="userStatistics.html">Statistics</a>
+        <a class="nav-link float-right" href="userLogin.html">Sign In</a>
+    </nav>
+    <!-- Sidebar侧边栏 -->
+    <div class="bg-light border-right" id="sidebar-wrapper">
+        <div class="sidebar-heading">
+            <!--关闭button-->
+            <button class="btn btn-position" id="sidebar-close">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+                </svg>
+            </button>
+        </div>
+        <div class="list-group list-group-flush">
+            <a href="userHomepage.html" class="list-group-item list-group-item-action bg-light">HOMEPAGE</a>
+            <a href="userInformation.html" class="list-group-item list-group-item-action bg-light">INFORMATION</a>
+            <a href="userWallet.html" class="list-group-item list-group-item-action bg-light">WALLET</a>
+            <a href="userBooking.html" class="list-group-item list-group-item-action bg-light">BOOKING</a>
+            <a href="userStatistics.html" class="list-group-item list-group-item-action bg-light">STATISTICS</a>
+        </div>
     </div>
-  </nav>
-  <p style="text-align: center;">增删改查预定表</p>
-  <p style="text-align: center;">这里应该有一个表</p>
+
+    <div id="page-content-wrapper">
+            <!--页面内容-->
+            <div class="container-fluid">
+                <h2 class="mt-4">Bookings （暂时随便做一下）</h2>
+                <h3 class="mt-4">Upcoming (1)</h3>
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Date</th>
+                        <th scope="col">Time</th>
+                        <th scope="col">Venue</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <th scope="row">1</th>
+                        <td>2023-03-15</td>
+                        <td>10:00 - 12:00</td>
+                        <td>Basketball Court 1</td>
+                        <td>Confirmed</td>
+                        <td>
+                            <button class="btn btn-danger">Cancel</button>
+                        </td>
+                    </tr>
+                    <!-- More... -->
+                    </tbody>
+                </table>
+
+                <br>
+                <br>
+
+
+                <h2 class="mt-4">New Booking</h2>
+                <!--后面要实现 点击跳转不同活动的预定页面-->
+                <div class="booking-options">
+                    <button class="btn btn-primary btn-large">
+                        <img src="images/basketball.jpg" alt="Basketball" class="icon">
+                    </button>
+
+                    <button class="btn btn-primary btn-large">
+                        <img src="images/tennis.jpg" alt="Tennis" class="icon">
+                    </button>
+
+                    <button class="btn btn-primary btn-large">
+                        <img src="images/golf.jpeg" alt="Golf" class="icon">
+                    </button>
+                    <!--more...-->
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <!-- /#page-content-wrapper -->
+
+<!-- /#wrapper -->
+
+<!--js-->
+
+<script>
+    $("#menu-toggle, #sidebar-close").click(function(e) {
+        e.preventDefault();//阻止默认点击行为
+        $("#wrapper").toggleClass("toggled");//控制侧边栏的显示与隐藏
+        $("#sidebar-wrapper .list-group-item").toggleClass("hidden");//控制侧边栏的显示与隐藏
+        $("#menu-toggle").toggleClass("hidden");//控制菜单按钮的显示与隐藏
+
+        if ($("#wrapper").hasClass("toggled")) {
+            $("#overlay").show();
+        } else {
+            $("#overlay").hide();
+        }
+    });
+
+    // 取消按钮
+    var cancelButtons = document.querySelectorAll('.btn-danger');
+    cancelButtons.forEach(function(button) {
+        button.addEventListener('click', function() {
+            // 显示确认对话框
+            var isConfirmed = confirm('Are you sure you want to cancel?');
+            if (isConfirmed) {
+                // 获取要取消的预订的ID
+                // 发送DELETE请求到后端
+                // 如果后端成功删除了预订，从前端删除这行
+                // 如果后端没有成功删除预订，显示错误消息
+            }
+        });
+    });
+
+    //还要实现：当检查到已登陆，sign up按钮消失，sign in按钮变为sign out/用户名
+
+
+</script>
+
+
 </body>
 
 </html>
