@@ -1,6 +1,10 @@
 package com.group6.booking4sportcentre.model;
 
 import com.baomidou.mybatisplus.annotation.TableName;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import lombok.Data;
 
 /**
@@ -13,7 +17,11 @@ import lombok.Data;
 // Database: need to set up the username and password before running the program(Admin has to be set up manually)
 @TableName("admin_info")
 @Data
+@Entity
 public class AdminInfo {
     private String username;
     private String password;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 }
