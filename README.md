@@ -18,7 +18,7 @@ XJTLU Year 3 Software Engineering Group Project CPT202 Project.
 2. 本地测试代码是否可用（测试本地数据库，jdk等）：
    1. 先打开本地数据库（Mac与视频里一致，Win可在任务管理器的服务中找到MySql并启动）
    2. 同视频中创建新scheme：命名为sport_centre
-   3. 编辑项目中的application.properties中的password为自己数据库的密码
+   3. 在IDE中编辑环境变量：databasePassword:xxxx（以IDEA为例：顶部工具栏Run->edit configurations->Modify options->Environment variables->输入面的环境变量）
    4. 启动项目(查看控制台处是否返回类似“_Started Booking4sportcentreApplication in 2.735 seconds (process running for 3.179)_”)
    5. 使用postman或类似软件GET：http://localhost:8080/api/testMapper 如果返回200，控制台输出“查询成功！”代表配置成功
 
