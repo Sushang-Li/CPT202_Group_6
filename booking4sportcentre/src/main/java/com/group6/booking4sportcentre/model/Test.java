@@ -11,6 +11,6 @@ import lombok.Data;
 public class Test {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
 
 }
