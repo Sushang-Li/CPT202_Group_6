@@ -33,34 +33,6 @@ public class BookingControllerTest {
         assertNotNull(bookingList);
     }
 
-
-
-  /*  // Test the createBooking method
-    @Test
-    public void testCreateBooking() {
-        BookingInfo booking = new BookingInfo();
-        booking.setDate(LocalDate.now());
-        booking.setStartTime(LocalTime.of(9, 0));
-        booking.setEndTime(LocalTime.of(10, 0));
-        booking.setVenue("Basketball Court");
-        booking.setStatus(BookingStatus.PENDING);
-        booking.setName("Basketball");
-        booking.setPrice(100.0);
-        Long id = bookingController.createBooking(booking);
-        // Assert that the result is greater than 0
-        assertNotNull(id);
-        this.createdBookingId = id;
-    }
-    private Long createdBookingId;
-
-
-    // Test the getBooking method
-    @Test
-    public void testGetBooking() {
-        BookingInfo booking = bookingController.getBooking(this.createdBookingId);
-        // Assert that the result is not empty
-        assertNotNull(booking);
-    }*/
   // Test the createBooking method
   @Test
   public void testCreateBooking() {
