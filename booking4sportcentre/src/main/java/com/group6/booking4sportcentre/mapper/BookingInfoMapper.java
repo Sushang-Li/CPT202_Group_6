@@ -11,6 +11,7 @@ import java.util.List;
  */
 
 // Mapper for manipulating the booking_info database
+@Mapper
 public interface BookingInfoMapper {
     // Get all bookings
     @Select("SELECT * FROM booking_info")
@@ -24,14 +25,14 @@ public interface BookingInfoMapper {
     @Select("SELECT * FROM booking_info WHERE date = #{date}")
     List<BookingInfo> getBookingByDate(@Param("date") LocalDate date);
 
-   // Create a new booking
-    @Insert("INSERT INTO booking_info(date, startTime, endTime, venue, status, name, price) VALUES(#{date}, #{startTime}, #{endTime}, #{venue}, #{status}, #{name}, #{price})")
+    // Create a booking
+    @Insert("INSERT INTO booking_info(date, start_time, end_time, venue, status, name, price) VALUES(#{date}, #{startTime}, #{endTime}, #{venue}, #{status}, #{name}, #{price})")
     @Options(useGeneratedKeys = true, keyProperty = "id")
-    int createBooking(BookingInfo booking);
+    void createBooking(BookingInfo booking);
 
     // Update a booking
-    @Update("UPDATE booking_info SET date = #{date}, startTime = #{startTime}, endTime = #{endTime}, venue = #{venue}, status = #{status}, name = #{name}, price = #{price} WHERE id = #{id}")
-    int updateBooking(Long id, BookingInfo booking);
+    @Update("UPDATE booking_info SET date = #{booking.date}, start_time = #{booking.startTime}, end_time = #{booking.endTime}, venue = #{booking.venue}, status = #{booking.status}, name = #{booking.name}, price = #{booking.price} WHERE id = #{id}")
+    int updateBooking(@Param("id") Long id, @Param("booking") BookingInfo booking);
 
     @Delete("DELETE FROM booking_info WHERE id = #{id}")
     int deleteBooking(@Param("id") Long id);
