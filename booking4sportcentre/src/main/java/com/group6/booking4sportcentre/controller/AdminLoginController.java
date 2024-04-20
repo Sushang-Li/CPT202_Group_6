@@ -21,7 +21,7 @@ public class AdminLoginController {
 //    管理员登录：数据库中已存有管理员信息，通过用户名和密码进行登录验证
 //    Administrator login: The database has stored the administrator information,
 //    through the username and password login verification
-    @PostMapping("/api/login")
+    @PostMapping("/api/adminlogin")
     public String adminLogin(@RequestParam String username, @RequestParam String password) {
         // Get all administrator information
         List<AdminInfo> admins = adminInfoMapper.selectList(null);
