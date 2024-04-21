@@ -33,30 +33,40 @@ public class BookingControllerTest {
         assertNotNull(bookingList);
     }
 
+  // Test the createBooking method
+  @Test
+  public void testCreateBooking() {
+      BookingInfo booking = new BookingInfo();
+      booking.setDate(LocalDate.now());
+      booking.setStartTime(LocalTime.of(9, 0));
+      booking.setEndTime(LocalTime.of(10, 0));
+      booking.setVenue("Basketball Court");
+      booking.setStatus(BookingStatus.PENDING);
+      booking.setName("Basketball");
+      booking.setPrice(100.0);
+      Long id = bookingController.createBooking(booking);
+      // Assert that the result is greater than 0
+      assertNotNull(id);
+  }
+
     // Test the getBooking method
     @Test
     public void testGetBooking() {
-        BookingInfo booking = bookingController.getBooking(1L);
-        // Assert that the result is not empty
+        // Create a new booking
+        BookingInfo newBooking = new BookingInfo();
+        newBooking.setDate(LocalDate.now());
+        newBooking.setStartTime(LocalTime.of(9, 0));
+        newBooking.setEndTime(LocalTime.of(10, 0));
+        newBooking.setVenue("Basketball Court");
+        newBooking.setStatus(BookingStatus.PENDING);
+        newBooking.setName("Basketball");
+        newBooking.setPrice(100.0);
+        Long id = bookingController.createBooking(newBooking);
+        // Use the generated ID to get the booking
+        BookingInfo booking = bookingController.getBooking(id);
+        // Assert that the result is not null
         assertNotNull(booking);
     }
-
-    // Test the createBooking method
-    @Test
-    public void testCreateBooking() {
-        BookingInfo booking = new BookingInfo();
-        booking.setDate(LocalDate.now());
-        booking.setStartTime(LocalTime.of(9, 0));
-        booking.setEndTime(LocalTime.of(10, 0));
-        booking.setVenue("Basketball Court");
-        booking.setStatus(BookingStatus.PENDING);
-        booking.setName("Basketball");
-        booking.setPrice(100.0);
-        int result = bookingController.createBooking(booking);
-        // Assert that the result is greater than 0
-        assertTrue(result > 0);
-    }
-
     // Test the updateBooking method
     @Test
     public void testUpdateBooking() {
@@ -68,7 +78,9 @@ public class BookingControllerTest {
         booking.setStatus(BookingStatus.PENDING);
         booking.setName("Golf");
         booking.setPrice(200.0);
-        int result = bookingController.updateBooking(1L, booking);
+        Long id = bookingController.createBooking(booking);
+        assertNotNull(id);
+        int result = bookingController.updateBooking(id, booking);
         // Assert that the result is greater than 0
         assertTrue(result > 0);
     }

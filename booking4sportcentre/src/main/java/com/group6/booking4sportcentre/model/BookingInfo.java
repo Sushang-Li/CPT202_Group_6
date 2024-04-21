@@ -24,7 +24,9 @@ public class BookingInfo {
     private Long id;
 
     private LocalDate date;
+    @Column(name = "start_time")
     private LocalTime startTime;
+    @Column(name = "end_time")
     private LocalTime endTime;
     private String venue;
     //BookingStatus: PENDING, CONFIRMED, CANCELLED
@@ -32,6 +34,20 @@ public class BookingInfo {
     private BookingStatus status;
     private String name;
     private double price;
+
+    @Override
+    public String toString() {
+        return "BookingInfo{" +
+                "id=" + id +
+                ", date=" + date +
+                ", startTime=" + startTime +
+                ", endTime=" + endTime +
+                ", venue='" + venue + '\'' +
+                ", status=" + status +
+                ", name='" + name + '\'' +
+                ", price=" + price +
+                '}';
+    }
 
 
 }
