@@ -8,7 +8,7 @@
     border:none;
     text-decoration: none;
     text-transform: capitalize;
-    transiiton:all .2s linear;
+    transition:all .2s linear;
 }
 .box-container{
     max-width: 1200px;
