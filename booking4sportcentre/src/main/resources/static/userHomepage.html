@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="css/mainStyle.css">
   <link rel="stylesheet" href="css/userHomepageStyle.css">
+  <link rel="stylesheet" href="css/homepagebooking.css">
   <link href="https://fonts.googlefonts.cn/css?family=Roboto:400,500,700,900" rel="stylesheet">
   <title>Welcome</title>
 </head>
@@ -39,13 +40,41 @@
   <div class="carousel">
     这里应该是轮播图，但是我还不会做
   </div>
-
+ 
   <div class="cards">
     <div class="information-card">
       <p>information</p>
     </div>
+    
     <div class="booking-card">
-      <p>booking</p>
+      <a href="booking.html">booking</a>
+      <div class = "sports-container">
+        <div class = "sports">
+          <a href = "football.html">football</a>
+        </div>
+        <div class = "sports">
+          <a href = "basketball.html">basketball</a>
+        </div>
+        <div class = "sports">
+          <a href = "tennis.html">tennis</a>
+        </div>
+        <div class = "sports">
+          <a href = "archery.html">archery</a>
+        </div>
+        <div class = "sports">
+          <a href = "pingpong.html">pingpong</a>
+        </div>
+        <div class = "sports">
+          <a href = "billiard.html">billiard</a>
+        </div>
+        <div class = "sports">
+          <a href = "shuttlecock.html">shuttlecock</a>
+        </div>
+        <div class = "sports">
+          <a href = "workout.html">workout</a>
+        </div>
+      </div>
+      <div id = "check-more">check more</div>
     </div>
     <div class="wallet-card">
       <p>wallet</p>
@@ -54,7 +83,16 @@
       <p>statistics</p>
     </div>
   </div>
-
+<script>
+  let checkmorebtn = document.querySelector('#check-more');
+  let currentItem = 4;
+  checkmorebtn.onclick = () =>{
+    let sport = [...document.querySelectorAll('.cards .booking-card .sports-container .sports')];
+    for(var i = currentItem; i < currentItem + 4; i++){
+      sport[i].style.display = 'inline-block';
+    }
+  }
+</script>
 </body>
 
 </html>

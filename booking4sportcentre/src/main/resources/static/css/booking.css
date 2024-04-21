@@ -1,0 +1,53 @@
+@import url(‘https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600&display=swap’);
+*{
+    font-family: 'Monterrat', sans-serif;
+    margin: 0; 
+    padding: 0;
+    box-sizing: border-box;
+    outline: none;
+    border:none;
+    text-decoration: none;
+    text-transform: capitalize;
+    transition:all .2s linear;
+}
+.box-container{
+    max-width: 1200px;
+    margin:0 auto;
+    text-align: center;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 20px;
+}
+.box-container .sports{
+    background-color: #fff;
+    padding:20px;
+    border-radius:5px;
+    box-shadow: 0.5px 10px rgba(0, 0, 0, 0.2);
+
+}
+.box-container .sports .image{
+    margin-bottom: 20px;
+    overflow: hidden;
+    height: 250px;
+    border-radius: 5px;
+}
+.box-container .sports .image img{
+    height:100%;
+    width:100%;
+    object-fit:cover;
+}
+.box-container .sports:hover .image img{
+    transform: scale(1.1);
+}
+.box-container .sports .content .icons{
+    display:flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 25px;
+    padding-top: 15px;
+    border-top: 1px solid #334;
+}
+.box-container .sports .content .a{
+    font-size: 20px;
+    color: #334;
+}

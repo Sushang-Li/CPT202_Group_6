@@ -1,0 +1,29 @@
+.sports-container{
+    display: grid;
+    grid-template-columns: repeat(4, 150px);
+    grid-template-rows: 30px 30px;
+    column-gap: 5px;
+    row-gap: 50px;
+    justify-content: center;
+    margin-bottom: 10px;
+    margin-top: 5px;
+}
+.sports{
+    display:none; 
+}
+.sports:nth-child(1),
+.sports:nth-child(2),
+.sports:nth-child(3),
+.sports:nth-child(4){
+    display:inline-block;
+} 
+
+#check-more{
+    display:inline-block;
+    cursor: pointer;
+}
+#check-more:hover{
+    background-color:aqua;
+    border-color: aqua;
+    color: #fff;
+}
