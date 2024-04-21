@@ -30,6 +30,7 @@ public class BookingController {
     //If the id does not exist, return null
     @GetMapping("/{id}")
     public BookingInfo getBooking(@PathVariable Long id) {
+
         System.out.println("id: " + id);
         BookingInfo booking = bookingInfoMapper.getBookingById(id);
         System.out.println("booking: " + booking);
@@ -50,6 +51,7 @@ public class BookingController {
     //If the booking information is not complete, return 0
     @PutMapping("/{id}")
     public int updateBooking(@PathVariable Long id, @RequestBody BookingInfo booking) {
+
         if (id == null || booking == null) {
             return 0;
         }

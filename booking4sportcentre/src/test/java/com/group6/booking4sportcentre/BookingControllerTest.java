@@ -67,7 +67,6 @@ public class BookingControllerTest {
         // Assert that the result is not null
         assertNotNull(booking);
     }
-
     // Test the updateBooking method
     @Test
     public void testUpdateBooking() {
