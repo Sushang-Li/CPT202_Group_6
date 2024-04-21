@@ -30,20 +30,31 @@ public class BookingController {
     //If the id does not exist, return null
     @GetMapping("/{id}")
     public BookingInfo getBooking(@PathVariable Long id) {
-        return bookingInfoMapper.getBookingById(id);
+
+        System.out.println("id: " + id);
+        BookingInfo booking = bookingInfoMapper.getBookingById(id);
+        System.out.println("booking: " + booking);
+        return booking;
     }
 
     //create a new booking
-    //If the booking information is not complete, return 0
     @PostMapping
-    public int createBooking(@RequestBody BookingInfo booking) {
-        return bookingInfoMapper.createBooking(booking);
+    public Long createBooking(@RequestBody BookingInfo booking) {
+        if (booking == null) {
+            return null;
+        }
+        bookingInfoMapper.createBooking(booking);
+        return booking.getId();
     }
 
     //update a booking
     //If the booking information is not complete, return 0
     @PutMapping("/{id}")
     public int updateBooking(@PathVariable Long id, @RequestBody BookingInfo booking) {
+
+        if (id == null || booking == null) {
+            return 0;
+        }
         return bookingInfoMapper.updateBooking(id, booking);
     }
 
