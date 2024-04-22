@@ -125,6 +125,9 @@ li.slide {
   /* In relation to PARENTE ELEMENT */
   left: 0;
   top: 50%;
+  width: 50px;
+  height: 50px;
+  cursor: pointer;
 
   /* In relation to ELEMENT ITSELF */
   transform: translate(-50%, -50%);
@@ -133,6 +136,11 @@ li.slide {
 .btn--right {
   right: 0;
   top: 50%;
+  width: 50px;
+  height: 50px;
+  cursor: pointer;
+
+
 
   transform: translate(50%, -50%);
 }
@@ -141,6 +149,7 @@ li.slide {
   height: 24px;
   width: 24px;
   stroke: #087f5b;
+  pointer-events: none;
 }
 
 
@@ -235,3 +244,4 @@ input[type="radio"] {
 
   text-align: center;
 }
+

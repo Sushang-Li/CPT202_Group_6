@@ -195,6 +195,36 @@
       sport[i].style.display = 'inline-block';
     }
   }
+
+
+  let slideIndex = 0;
+  const slides = document.querySelectorAll('.slides input');
+  const btnLefts = document.querySelectorAll('.btn--left');
+  const btnRights = document.querySelectorAll('.btn--right');
+
+
+  function showNextSlide() {
+    slideIndex++;
+    if (slideIndex >= slides.length) {
+      slideIndex = 0;
+    }
+    slides[slideIndex].checked = true;
+  }
+
+  function showPreviousSlide() {
+    slideIndex--;
+    if (slideIndex < 0) {
+      slideIndex = slides.length - 1;
+    }
+    slides[slideIndex].checked = true;
+  }
+
+  // Attach event listener
+  btnRights.forEach(btn => btn.addEventListener('click', showNextSlide));
+  btnLefts.forEach(btn => btn.addEventListener('click', showPreviousSlide));
+
+  // Start the automatic slideshow
+  setInterval(showNextSlide, 10000);
 </script>
 </body>
 
