@@ -1,6 +1,4 @@
-package com.group6.booking4sportcentre.repository;
-
-import com.group6.booking4sportcentre.model.StudentInfo;
+package com.group6.booking4sportcentre.model;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,5 +8,4 @@ public class Message {
     public String message;
     //Message content
     public List<StudentInfo> objects = new ArrayList<StudentInfo>();
-
 }

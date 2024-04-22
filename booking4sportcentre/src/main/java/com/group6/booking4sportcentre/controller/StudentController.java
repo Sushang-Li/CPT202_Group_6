@@ -1,8 +1,8 @@
 package com.group6.booking4sportcentre.controller;
 
 import com.group6.booking4sportcentre.mapper.StudentMapper;
+import com.group6.booking4sportcentre.model.Message;
 import com.group6.booking4sportcentre.model.StudentInfo;
-import com.group6.booking4sportcentre.repository.Message;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
