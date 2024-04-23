@@ -103,6 +103,45 @@ margin-left: 500px;
 margin-top: -500px;
 text-align: center;
 }
+
+/* 增加Coach弹出框样式 */
+    /*    内容外围       */
+    .modal {
+        display: none;
+        position: fixed;
+        z-index: 1;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgb(0,0,0);
+        background-color: rgba(0,0,0,0.4);
+    }
+    /*    输入内容      */
+    .modal-content {
+        background-color: #fefefe;
+        margin: 15% auto;
+        padding: 20px;
+        border: 1px solid #888;
+        width: 50%;
+        text-align: center;
+    }
+    /*关闭*/
+    .close {
+        color: #aaaaaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+    }
+
+    .close:hover,
+    .close:focus {
+        color: #000;
+        text-decoration: none;
+        cursor: pointer;
+    }
+/* 增加Coach弹出框样式 */
 </style>
 
 </head>
@@ -138,38 +177,116 @@ text-align: center;
                 </ul>
             </div>
 
-         <!-- </div> -->
-         <div id="main" >
-          <!--   <img src="img/manage3.png "   width="100%" height="700px">  -->
-          <p style="font-size: 50px;margin-left: 30%; ">Sport Activities</p>
+        <!-- Popup page：add coach 增加教练弹出框 -->
+        <div id="addModal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <form id="addCoachForm">
+<!--                    <label class="name">Name:</label>-->
+<!--                    <input type="text" class="name" name="name"><br>-->
+                    <label>Name: <input type="text" class="name" name="name"></label><br>
+                    <label >Contact:<input type="text" class="contact" name="contact"></label>
+                    <br>
 
+                    <label >Start Time:<input type="time" class="startTime" name="startTime"></label>
+                    <br>
 
-          <div class="row">
-            <div class="columnLeft">
-            <div class="bar">
-              <div class="card">
-                <br>
-                
-                <p></p>
-              </div>
-              </div>
+                    <label >End Time:<input type="time" class="endTime" name="endTime"></label>
+                    <br>
+
+                    <label >Status:<select class="status" name="status">
+                        <option value="WORKING">Working</option>
+                        <option value="IDLE">Not working</option>
+                        <option value="OFF">Not on duty</option>
+                    </select></label>
+                    <br>
+
+                    <label >Activity:<input type="text" class="activity" name="activity"></label>
+                    <br>
+
+                    <button type="submit">Add Coach</button>
+                </form>
             </div>
+        </div>
+
+        <!-- Popup page：updateModel 更新弹出框 -->
+        <div id="updateModal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <form id="updateCoachForm">
+                    <label >ID:<input type="text" class="id" name="id" readonly></label>
+                    <br>
+
+                    <label>Name: <input type="text" class="name" name="name"></label>
+                    <br>
+<!--                    <label for="name">Name:</label>-->
+<!--                    <input type="text" class="name" name="name"><br>-->
+                    <label >Contact:<input type="text" class="contact" name="contact"></label>
+                    <br>
+
+                    <label >Start Time:<input type="time" class="startTime" name="startTime"></label>
+                    <br>
+
+                    <label >End Time<input type="time" class="endTime" name="endTime"></label>
+                    <br>
+
+                    <label >Status:<select class="status" name="status">
+                        <option value="WORKING">Working</option>
+                        <option value="IDLE">Not working</option>
+                        <option value="OFF">Not on duty</option>
+                    </select></label>
+                    <br>
+
+                    <label >Activity:<input type="text" class="activity" name="activity"></label>
+                    <br>
+                    <button type="submit">Update Coach</button>
+                </form>
+            </div>
+        </div>
 
 
+        <div id="main">
+            <!-- <img src="img/manage3.png" width="100%" height="700px"> -->
+            <p style="font-size: 50px; margin-left: 30%;">Sport Activities</p>
 
-          </div>
+            <div class="row">
+                <div class="columnLeft">
+                    <div class="bar">
+                        <!-- 教练表格 -->
+                        <table class="table table-hover" style="font-size: 20px;">
+                            <caption style="font-size: 30px;">4.22</caption>
+                            <p>
+                                <button type="button" class="glyphicon glyphicon-pencil" style="margin-left: 700px; margin-top: 10px; font-size: 20px;"></button>
+                                <button type="button" id="openModalBottom" class="glyphicon glyphicon-plus" style="font-size: 20px;"></button>
+                                <button type="button" class="glyphicon glyphicon-minus" style="font-size: 20px;"></button>
+                            </p>
+                            <thead>
+                            <tr>
+                                <th>#Id</th>
+                                <th>Name</th>
+                                <th>Contact</th>
+                                <th>StartTime</th>
+                                <th>EndTime</th>
+                                <th>Status</th>
+                                <th>Activities</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <!-- 这里将由 JS 动态添加教练信息 -->
+                            </tbody>
+                        </table>
+                        <!-- 教练表格 -->
+                    </div>
+                </div>
+            </div>
+        </div>
 
-
-
-      </div>
     </div>  
 </div>
 
 <script>
 
-
-
-  // JavaScript代码
+// JavaScript代码
 document.getElementById('a1').addEventListener('click', function() {
             var submenu = this.querySelector('ul');
             if (submenu.style.display === 'none') {
@@ -178,6 +295,161 @@ document.getElementById('a1').addEventListener('click', function() {
                 submenu.style.display = 'none';
             }
         });
+
+// Get a list of coach information 获取教练信息以列表
+fetch('/api/coachinfo')
+  .then(response => response.json())
+    .then(data => {
+        console.log(data); // 在控制台输出数据以确保正确获取到
+        const tableBody = document.querySelector('table tbody');
+
+        // Empty the form
+        tableBody.innerHTML = '';
+
+        // If the coach information array is empty, display "There is no coach..."
+        // 如果教练信息数组为空，则显示 "There is no coach..."
+        if (data.length === 0) {
+            const row = document.createElement('tr');
+            row.innerHTML = '<td colspan="7">“There is no \n' + 'coach information yet. Please add coach first. </td>';
+            tableBody.appendChild(row);
+        } else {
+            // Loop through the coach information array, creating a row for each coach
+            // 循环遍历教练信息数组，为每个教练创建一行
+            data.forEach(coach => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+        <td>${coach.id}</td>
+        <td>${coach.name}</td>
+        <td>${coach.contact}</td>
+        <td>${coach.startTime}</td>
+        <td>${coach.endTime}</td>
+        <td>${coach.status}</td>
+        <td>${coach.activity}</td>
+        <td>
+        <button class="updateBottom" type="button"  style="font-size: 20px;">Modify</button>
+        </td>
+      `;
+        tableBody.appendChild(row);
+                const updateBottom = row.querySelector('.updateBottom');
+
+                updateBottom.addEventListener('click', function() {
+                console.log('updateBottom clicked');
+                });
+            });
+        }
+    })
+    .catch(error => {
+        console.error('Error fetching data:', error);
+    });
+
+// 获取弹出框及关闭按钮
+// Gets the pop-up and close buttons for adding a coach
+const modal = document.getElementById('addModal');
+const closeBottom = document.getElementsByClassName('close')[0];
+const openModalBottom = document.getElementById('openModalBottom');
+
+// 当点击按钮时显示弹出框
+// Displays a pop-up when the button is clicked
+openModalBottom.onclick = function() {
+  modal.style.display = 'block';
+}
+
+// 当点击关闭按钮时关闭弹出框
+// Closes the pop-up when the close button is clicked
+closeBottom.onclick = function() {
+  modal.style.display = 'none';
+}
+
+// 当用户点击弹出框外部时关闭弹出框
+// Closes the pop-up when the user clicks outside the pop-up
+window.onclick = function(event) {
+  if (event.target === modal) {
+      modal.style.display = 'none';
+  }
+}
+
+// 监听表单提交事件
+// Listens for form submission events
+document.getElementById('addCoachForm').addEventListener('submit', function(event) {
+    event.preventDefault();
+
+    const formData = new FormData(this);
+    fetch('/api/add_coach', {
+        method: 'POST',
+        body: formData
+    })
+        .then(response => response.text())
+        .then(message => {
+            alert(message);
+            modal.style.display = 'none'; 
+        })
+        .catch(error => {
+            console.error('Error adding coach:', error);
+        });
+});
+
+
+//   ***********************更新******************************************************
+// 更新教练信息
+// Update coach information
+const updateModal = document.getElementById('updateModal');
+const updateCloseBottom = updateModal.getElementsByClassName('close')[0];
+
+// 监听表格点击事件并显示弹出框以更新教练信息
+// Listens for table click events and displays a pop-up to update coach information
+document.addEventListener('click', function(event) {
+    if (event.target.classList.contains('updateBottom')) {
+        updateModal.style.display = 'block';
+        // console.log('updateBtn clicked');
+        // 获取当前按钮所在的行
+        // Gets the row where the current button is located
+        const currentRow = event.target.closest('tr');
+        // 获取当前行的教练信息并填充到表单中
+        // Gets the coach information of the current row and fills it into the form
+        document.querySelector('#updateModal .id').value = currentRow.cells[0].innerText;
+        document.querySelector('#updateModal .name').value = currentRow.cells[1].innerText;
+        document.querySelector('#updateModal .contact').value = currentRow.cells[2].innerText;
+        document.querySelector('#updateModal .startTime').value = currentRow.cells[3].innerText;
+        document.querySelector('#updateModal .endTime').value = currentRow.cells[4].innerText;
+        document.querySelector('#updateModal .status').value = currentRow.cells[5].innerText;
+        document.querySelector('#updateModal .activity').value = currentRow.cells[6].innerText;
+
+    }
+});
+
+// 当点击关闭按钮时关闭弹出框
+// Closes the pop-up when the close button is clicked
+updateCloseBottom.onclick = function() {
+  updateModal.style.display = 'none';
+}
+
+// 当用户点击弹出框外部时关闭弹出框
+// Closes the pop-up when the user clicks outside the pop-up
+window.onclick = function(event) {
+  if (event.target === updateModal) {
+      updateModal.style.display = 'none';
+  }
+}
+
+// 监听更新表单提交事件
+// Listens for update form submission events
+document.getElementById('updateCoachForm').addEventListener('submit', function(event) {
+  event.preventDefault();
+
+  const formData = new FormData(this);
+  fetch('/api/update_coach', {
+      method: 'POST',
+      body: formData
+  })
+      .then(response => response.text())
+      .then(message => {
+          alert(message);
+          updateModal.style.display = 'none'; 
+      })
+      .catch(error => {
+          console.error('Error updating coach:', error);
+      });
+});
 
 </script>
 </body>
