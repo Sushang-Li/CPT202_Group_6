@@ -8,6 +8,7 @@
   <link rel="stylesheet" href="css/userHomepageStyle.css">
   <link rel="stylesheet" href="css/homepagebooking.css">
   <link href="https://fonts.googlefonts.cn/css?family=Roboto:400,500,700,900" rel="stylesheet">
+ 
   <title>Welcome</title>
 </head>
 
@@ -144,70 +145,63 @@
     <div class="information-card">
       <p>information</p>
     </div>
-
+    
+    
     
     <div class="booking-card">
       <a href="booking.html">booking</a>
       <div class = "sports-container">
         <div class = "sports">
-          <a href = "football.html">football</a>
+          <svg class="icon" aria-hidden="true">
+            <use xlink:href="#icon-zuqiu"></use>
+          </svg><br>
+          <a href="football.html">football</a>
         </div>
         <div class = "sports">
+          <svg class="icon" aria-hidden="true">
+            <use xlink:href="#icon-lanqiu"></use>
+          </svg><br>
           <a href = "basketball.html">basketball</a>
         </div>
         <div class = "sports">
+          <svg class="icon" aria-hidden="true">
+            <use xlink:href="#icon-wangqiu"></use>
+          </svg><br>
           <a href = "tennis.html">tennis</a>
         </div>
         <div class = "sports">
+          <svg class="icon" aria-hidden="true">
+            <use xlink:href="#icon-shejian"></use>
+          </svg><br>
           <a href = "archery.html">archery</a>
         </div>
         <div class = "sports">
+          <svg class="icon" aria-hidden="true">
+            <use xlink:href="#icon-pingpangqiu"></use>
+          </svg><br>
           <a href = "pingpong.html">pingpong</a>
         </div>
         <div class = "sports">
+          <svg class="icon" aria-hidden="true">
+            <use xlink:href="#icon-zhuoqiu"></use>
+          </svg><br>
           <a href = "billiard.html">billiard</a>
         </div>
         <div class = "sports">
+          <svg class="icon" aria-hidden="true">
+            <use xlink:href="#icon-yumaoqiu"></use>
+          </svg><br>
           <a href = "shuttlecock.html">shuttlecock</a>
         </div>
         <div class = "sports">
+          <svg class="icon" aria-hidden="true">
+            <use xlink:href="#icon-jianshen"></use>
+          </svg><br>
           <a href = "workout.html">workout</a>
         </div>
       </div>
       <div id = "check-more">check more</div>
     </div>
-
-
-      <div class="booking-card">
-          <a href="booking.html">booking</a>
-          <div class = "sports-container">
-              <div class = "sports">
-                  <a href = "football.html">football</a>
-              </div>
-              <div class = "sports">
-                  <a href = "basketball.html">basketball</a>
-              </div>
-              <div class = "sports">
-                  <a href = "tennis.html">tennis</a>
-              </div>
-              <div class = "sports">
-                  <a href = "archery.html">archery</a>
-              </div>
-              <div class = "sports">
-                  <a href = "pingpong.html">pingpong</a>
-              </div>
-              <div class = "sports">
-                  <a href = "billiard.html">billiard</a>
-              </div>
-              <div class = "sports">
-                  <a href = "shuttlecock.html">shuttlecock</a>
-              </div>
-              <div class = "sports">
-                  <a href = "workout.html">workout</a>
-              </div>
-          </div>
-          <div id = "check-more">check more</div>
-      </div>
 
     <div class="wallet-card">
       <p>wallet</p>
@@ -216,6 +210,7 @@
       <p>statistics</p>
     </div>
   </div>
+<script src="./iconfont.js"></script>
 <script>
   let checkmorebtn = document.querySelector('#check-more');
   let currentItem = 4;
