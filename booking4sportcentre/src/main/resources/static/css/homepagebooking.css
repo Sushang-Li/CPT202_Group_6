@@ -1,12 +1,25 @@
+@import url(‘https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600&display=swap’);
+*{
+    font-family: 'Monterrat', sans-serif;
+    margin: 0; 
+    padding: 0;
+    box-sizing: border-box;
+    outline: none;
+    border:none;
+    text-decoration: none;
+    text-transform: capitalize;
+    transition:all .2s linear;
+}
 .sports-container{
     display: grid;
     grid-template-columns: repeat(4, 150px);
-    grid-template-rows: 30px 30px;
-    column-gap: 5px;
-    row-gap: 50px;
+    grid-template-rows: 10px 50px;
+    column-gap: 20px;
+    row-gap: 70px;
     justify-content: center;
-    margin-bottom: 10px;
-    margin-top: 5px;
+    margin-bottom: 20px;
+    margin-top: 20px;
+    
 }
 .sports{
     display:none; 
@@ -20,10 +33,22 @@
 
 #check-more{
     display:inline-block;
+    padding:2px 30px;
+    border:1px solid #334;
+    color:#334;
+    font-size: 16px;
     cursor: pointer;
 }
 #check-more:hover{
-    background-color:aqua;
-    border-color: aqua;
+    background-color:cornflowerblue;
+    border-color: cornflowerblue;
     color: #fff;
 }
+.icon {
+    width: 1em;
+    height: 1em;
+    vertical-align: -0.15em;
+    fill: currentColor;
+    overflow: hidden;
+  }
+ 
