@@ -1,0 +1,58 @@
+
+    /* 样式可以根据自己的需求进行调整 */
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+    }
+    table {
+      margin: 20px auto;
+      border-collapse: collapse;
+      border: none;
+    }
+    th, td {
+      border: none;
+      padding: 10px;
+    }
+    th {
+      background-color: #f2f2f2;
+    }
+    td button {
+      width: 100%;
+      height: 100%;
+      border:1px solid #334;
+      border-radius:15px;
+      background-color:#fff;
+      cursor: pointer;
+    }
+    td button:hover{
+        background-color:cornflowerblue;
+        border-color: cornflowerblue;
+        color: #fff;
+    }
+    .date{
+        margin-bottom: 50px;
+        margin-top: 50px;
+    }
+    .nav-container {
+        font-family: "Roboto", sans-serif;
+        font-size: 30px;
+        font-weight: bold;
+        color: #212529;
+        display: flex;
+        justify-content: flex-end;
+        gap: 30px;
+        margin-right: 100px;
+        margin-top: 20px;
+      }
+      
+      .logo {
+        align-self: flex-start;
+        margin-right: 1000px;
+      }
+      
+      
+      nav a {
+        color: #339af0;
+        text-decoration: none;
+        font-size: 20px;
+      }
