@@ -51,3 +51,27 @@
     font-size: 20px;
     color: #334;
 }
+.nav-container {
+    font-family: "Roboto", sans-serif;
+  font-size: 30px;
+  font-weight: bold;
+  color: #212529;
+    display: flex;
+    justify-content: flex-end;
+    gap: 30px;
+    margin-right: 100px;
+    margin-top: 20px;
+  }
+  
+  .logo {
+    align-self: flex-start;
+    margin-right: 1000px;
+  }
+  
+  
+  nav a {
+    color: #339af0;
+    text-decoration: none;
+    font-size: 20px;
+  }
+ 
