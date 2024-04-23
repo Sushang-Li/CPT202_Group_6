@@ -3,6 +3,7 @@ package com.group6.booking4sportcentre.model;
 
 import java.time.LocalDate;
 
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 
 import jakarta.persistence.Column;
@@ -18,6 +19,7 @@ import lombok.Data;
 public class UserInfo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @TableId
     private Integer id;
     private String username;
     private String password;
