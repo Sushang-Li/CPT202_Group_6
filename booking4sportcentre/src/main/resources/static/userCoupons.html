@@ -1,0 +1,325 @@
+
+<!DOCTYPE html>
+
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <meta name="renderer" content="webkit">
+  <link href="https://fonts.googlefonts.cn/css?family=Roboto:400,500,700,900" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"/>
+  <link rel="stylesheet" href="css/couponStyle.css">
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <title>Coupons</title>
+
+</head>
+
+<body>
+
+<div class="wave">
+
+<div id="overlay"></div>
+
+<div class="d-flex" id="wrapper">
+  <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+    <a class="navbar-brand" href="#"></a>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <!--menu 按钮-->
+      <button class="btn btn-primary btn-position menu-toggle" id="menu-toggle">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+        </svg>
+      </button>
+
+
+
+    </div>
+    <a class="nav-link float-right" href="userHomepage.html">Homepage</a>
+    <a class="nav-link float-right" href="userInformation.html">Information</a>
+    <a class="nav-link float-right" href="userWallet.html">Wallet</a>
+    <a class="nav-link float-right" href="userBooking.html">Booking</a>
+    <a class="nav-link float-right" href="userStatistics.html">Statistics</a>
+    <a class="nav-link float-right" href="userLogin.html">Sign In</a>
+  </nav>
+
+
+
+<!-- Sidebar侧边栏 -->
+<div class="bg-light border-right" id="sidebar-wrapper">
+    <div class="sidebar-heading">
+        <!--关闭button-->
+        <button class="btn btn-position" id="sidebar-close">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+            </svg>
+        </button>
+    </div>
+    <div class="list-group list-group-flush">
+        <a href="userHomepage.html" class="list-group-item list-group-item-action bg-light">HOMEPAGE</a>
+        <a href="userInformation.html" class="list-group-item list-group-item-action bg-light">INFORMATION</a>
+        <a href="userWallet.html" class="list-group-item list-group-item-action bg-light">WALLET</a>
+        <a href="userBooking.html" class="list-group-item list-group-item-action bg-light">BOOKING</a>
+        <a href="userStatistics.html" class="list-group-item list-group-item-action bg-light">STATISTICS</a>
+        <a href="userCoupons.html" class="list-group-item list-group-item-action bg-light">COUPONS</a>
+    </div>
+</div>
+
+  <div id="page-content-wrapper">
+    <div class="container-fluid">
+      <br>
+      <br>
+      <div class="button-container">
+      <button class="valid" > Valid</button>
+      <button class="invalid" > Expired</button>
+      </div>
+
+
+<div class="coupon-wrapper round-border">
+
+  <div class="coupon-item round-border2">
+
+    <div class="style-one">
+
+      <div class="info-box">
+
+
+
+        <div class="coupon-money">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6" style="width: 6rem; height: 10rem; margin-right: 2rem; z-index: 108; margin-left: 1rem">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 6v.75m0 3v.75m0 3v.75m0 3V18m-9-5.25h5.25M7.5 15h3M3.375 5.25c-.621 0-1.125.504-1.125 1.125v3.026a2.999 2.999 0 0 1 0 5.198v3.026c0 .621.504 1.125 1.125 1.125h17.25c.621 0 1.125-.504 1.125-1.125v-3.026a2.999 2.999 0 0 1 0-5.198V6.375c0-.621-.504-1.125-1.125-1.125H3.375Z" />
+          </svg>
+          <div class="lay of">￥<em>100</em></div>
+
+          <div class="lay" style="display: flex; justify-content: space-between; align-items: center;">
+            <div>
+            <p class="nick">Apr Coupon</p>
+            <p class="tit"> Valid Until: </p>
+            <p class="demand">2024/04/30</p>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+      <a href="booking.html" class="get-btn">
+      <!--链接需要改-->
+        <span>Use</span>
+
+      </a>
+
+    </div>
+
+    <!--2-->
+    <div class="style-one">
+
+      <div class="info-box">
+
+
+
+        <div class="coupon-money">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6" style="width: 6rem; height: 10rem; margin-right: 2rem; z-index: 108; margin-left: 1rem">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 6v.75m0 3v.75m0 3v.75m0 3V18m-9-5.25h5.25M7.5 15h3M3.375 5.25c-.621 0-1.125.504-1.125 1.125v3.026a2.999 2.999 0 0 1 0 5.198v3.026c0 .621.504 1.125 1.125 1.125h17.25c.621 0 1.125-.504 1.125-1.125v-3.026a2.999 2.999 0 0 1 0-5.198V6.375c0-.621-.504-1.125-1.125-1.125H3.375Z" />
+          </svg>
+          <div class="lay of">￥<em>100</em></div>
+
+          <div class="lay" style="display: flex; justify-content: space-between; align-items: center;">
+            <div>
+              <p class="nick">Mar Coupon</p>
+              <p class="tit"> Valid Until: </p>
+              <p class="demand">2024/03/31</p>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+      <a href="booking.html" class="get-btn">
+        <!--链接需要改-->
+        <span>Use</span>
+
+      </a>
+
+    </div>
+
+    <!--3-->
+    <div class="style-one">
+
+      <div class="info-box">
+
+
+
+        <div class="coupon-money">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6" style="width: 6rem; height: 10rem; margin-right: 2rem; z-index: 108; margin-left: 1rem">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 6v.75m0 3v.75m0 3v.75m0 3V18m-9-5.25h5.25M7.5 15h3M3.375 5.25c-.621 0-1.125.504-1.125 1.125v3.026a2.999 2.999 0 0 1 0 5.198v3.026c0 .621.504 1.125 1.125 1.125h17.25c.621 0 1.125-.504 1.125-1.125v-3.026a2.999 2.999 0 0 1 0-5.198V6.375c0-.621-.504-1.125-1.125-1.125H3.375Z" />
+          </svg>
+          <div class="lay of">￥<em>100</em></div>
+
+          <div class="lay" style="display: flex; justify-content: space-between; align-items: center;">
+            <div>
+              <p class="nick">Jan Coupon</p>
+              <p class="tit"> Valid Until: </p>
+              <p class="demand">2024/01/31</p>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+      <a href="booking.html" class="get-btn">
+        <!--链接需要改-->
+        <span>Use</span>
+
+      </a>
+
+    </div>
+
+
+    <!--4-->
+    <div class="style-one">
+
+      <div class="info-box">
+
+
+
+        <div class="coupon-money">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6" style="width: 6rem; height: 10rem; margin-right: 2rem; z-index: 108; margin-left: 1rem">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 6v.75m0 3v.75m0 3v.75m0 3V18m-9-5.25h5.25M7.5 15h3M3.375 5.25c-.621 0-1.125.504-1.125 1.125v3.026a2.999 2.999 0 0 1 0 5.198v3.026c0 .621.504 1.125 1.125 1.125h17.25c.621 0 1.125-.504 1.125-1.125v-3.026a2.999 2.999 0 0 1 0-5.198V6.375c0-.621-.504-1.125-1.125-1.125H3.375Z" />
+          </svg>
+          <div class="lay of">￥<em>100</em></div>
+
+          <div class="lay" style="display: flex; justify-content: space-between; align-items: center;">
+            <div>
+              <p class="nick">May Coupon</p>
+              <p class="tit"> Valid Until: </p>
+              <p class="demand">2024/05/31</p>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+      <a href="booking.html" class="get-btn">
+        <!--链接需要改-->
+        <span>Use</span>
+
+      </a>
+
+    </div>
+
+    <!--5-->
+
+    <div class="style-one">
+
+      <div class="info-box">
+
+
+
+        <div class="coupon-money">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6" style="width: 6rem; height: 10rem; margin-right: 2rem; z-index: 108; margin-left: 1rem">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 6v.75m0 3v.75m0 3v.75m0 3V18m-9-5.25h5.25M7.5 15h3M3.375 5.25c-.621 0-1.125.504-1.125 1.125v3.026a2.999 2.999 0 0 1 0 5.198v3.026c0 .621.504 1.125 1.125 1.125h17.25c.621 0 1.125-.504 1.125-1.125v-3.026a2.999 2.999 0 0 1 0-5.198V6.375c0-.621-.504-1.125-1.125-1.125H3.375Z" />
+          </svg>
+          <div class="lay of">￥<em>100</em></div>
+
+          <div class="lay" style="display: flex; justify-content: space-between; align-items: center;">
+            <div>
+              <p class="nick">Sep Coupon</p>
+              <p class="tit"> Valid Until: </p>
+              <p class="demand">2024/09/30</p>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+      <a href="booking.html" class="get-btn">
+        <!--链接需要改-->
+        <span>Use</span>
+
+      </a>
+
+    </div>
+
+
+
+  </div>
+
+
+
+
+  <!--已过期-->
+
+  <div class="coupon-item expired round-border3">
+
+    <div class="style-one have">
+
+      <div class="info-box">
+
+
+
+        <div class="coupon-money">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6" style="width: 6rem; height: 10rem; margin-right: 2rem; z-index: 108; margin-left: 1rem">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 6v.75m0 3v.75m0 3v.75m0 3V18m-9-5.25h5.25M7.5 15h3M3.375 5.25c-.621 0-1.125.504-1.125 1.125v3.026a2.999 2.999 0 0 1 0 5.198v3.026c0 .621.504 1.125 1.125 1.125h17.25c.621 0 1.125-.504 1.125-1.125v-3.026a2.999 2.999 0 0 1 0-5.198V6.375c0-.621-.504-1.125-1.125-1.125H3.375Z" />
+          </svg>
+
+          <div class="lay of">￥<em>   0   </em></div>
+
+          <div class="lay">
+            <p class="nick2">Mar Coupon</p>
+
+            <p class="tit">Valid until:</p>
+
+            <p class="demand">2024/04/30</p>
+
+          </div>
+
+        </div>
+
+      </div>
+
+      <a href="userCoupons.html" class="get-btn">
+<!--后面需要改-->
+        <span>Expired</span>
+
+      </a>
+
+    </div>
+
+  </div>
+</div>
+    </div>
+  </div>
+</div>
+
+<script>
+    $("#menu-toggle, #sidebar-close").click(function(e) {
+        e.preventDefault();//阻止默认点击行为
+        $("#wrapper").toggleClass("toggled");//控制侧边栏的显示与隐藏
+        $("#sidebar-wrapper .list-group-item").toggleClass("hidden");//控制侧边栏的显示与隐藏
+        $("#menu-toggle").toggleClass("hidden");//控制菜单按钮的显示与隐藏
+
+        if ($("#wrapper").hasClass("toggled")) {
+            $("#overlay").show();
+        } else {
+            $("#overlay").hide();
+        }
+    });
+</script>
+
+
+</div>
+
+</body>
+
+</html>
