@@ -141,7 +141,7 @@ text-align: center;
         text-decoration: none;
         cursor: pointer;
     }
-
+/* 增加Coach弹出框样式 */
 </style>
 
 </head>
@@ -177,8 +177,8 @@ text-align: center;
                 </ul>
             </div>
 
-        <!-- 增加教练弹出框 -->
-        <div id="myModal" class="modal">
+        <!-- Popup page：add coach 增加教练弹出框 -->
+        <div id="addModal" class="modal">
             <div class="modal-content">
                 <span class="close">&times;</span>
                 <form id="addCoachForm">
@@ -209,15 +209,18 @@ text-align: center;
             </div>
         </div>
 
-        <!-- 弹出框 -->
+        <!-- Popup page：updateModel 更新弹出框 -->
         <div id="updateModal" class="modal">
             <div class="modal-content">
                 <span class="close">&times;</span>
                 <form id="updateCoachForm">
-                    <label>Name: <input type="text" class="name" name="name"></label><br>
+                    <label >ID:<input type="text" class="id" name="id" readonly></label>
+                    <br>
+
+                    <label>Name: <input type="text" class="name" name="name"></label>
+                    <br>
 <!--                    <label for="name">Name:</label>-->
 <!--                    <input type="text" class="name" name="name"><br>-->
-
                     <label >Contact:<input type="text" class="contact" name="contact"></label>
                     <br>
 
@@ -234,7 +237,7 @@ text-align: center;
                     </select></label>
                     <br>
 
-                    <label >Activities:<input type="text" class="activity" name="activities"></label>
+                    <label >Activity:<input type="text" class="activity" name="activity"></label>
                     <br>
                     <button type="submit">Update Coach</button>
                 </form>
@@ -254,7 +257,7 @@ text-align: center;
                             <caption style="font-size: 30px;">4.22</caption>
                             <p>
                                 <button type="button" class="glyphicon glyphicon-pencil" style="margin-left: 700px; margin-top: 10px; font-size: 20px;"></button>
-                                <button type="button" id="openModalBtn" class="glyphicon glyphicon-plus" style="font-size: 20px;"></button>
+                                <button type="button" id="openModalBottom" class="glyphicon glyphicon-plus" style="font-size: 20px;"></button>
                                 <button type="button" class="glyphicon glyphicon-minus" style="font-size: 20px;"></button>
                             </p>
                             <thead>
@@ -269,9 +272,10 @@ text-align: center;
                             </tr>
                             </thead>
                             <tbody>
-                            <!-- 这里将由 JavaScript 代码动态添加教练信息 -->
+                            <!-- 这里将由 JS 动态添加教练信息 -->
                             </tbody>
                         </table>
+                        <!-- 教练表格 -->
                     </div>
                 </div>
             </div>
@@ -292,23 +296,24 @@ document.getElementById('a1').addEventListener('click', function() {
             }
         });
 
-// 获取教练信息以列表
+// Get a list of coach information 获取教练信息以列表
 fetch('/api/coachinfo')
   .then(response => response.json())
     .then(data => {
         console.log(data); // 在控制台输出数据以确保正确获取到
         const tableBody = document.querySelector('table tbody');
 
-        // 清空表格
+        // Empty the form
         tableBody.innerHTML = '';
 
+        // If the coach information array is empty, display "There is no coach..."
         // 如果教练信息数组为空，则显示 "There is no coach..."
         if (data.length === 0) {
             const row = document.createElement('tr');
-            // 合并单元格以适应整行
             row.innerHTML = '<td colspan="7">“There is no \n' + 'coach information yet. Please add coach first. </td>';
             tableBody.appendChild(row);
         } else {
+            // Loop through the coach information array, creating a row for each coach
             // 循环遍历教练信息数组，为每个教练创建一行
             data.forEach(coach => {
                 const row = document.createElement('tr');
@@ -321,17 +326,14 @@ fetch('/api/coachinfo')
         <td>${coach.status}</td>
         <td>${coach.activity}</td>
         <td>
-        <button class="updateBtn" type="button"  style="font-size: 20px;">Modify</button>
+        <button class="updateBottom" type="button"  style="font-size: 20px;">Modify</button>
         </td>
       `;
         tableBody.appendChild(row);
-                // 获取刚刚添加的按钮
-                const updateBtn = row.querySelector('.updateBtn');
+                const updateBottom = row.querySelector('.updateBottom');
 
-                // 添加按钮事件监听器
-                updateBtn.addEventListener('click', function() {
-                    console.log('updateBtn clicked');
-                    // 剩余代码保持不变
+                updateBottom.addEventListener('click', function() {
+                console.log('updateBottom clicked');
                 });
             });
         }
@@ -341,30 +343,35 @@ fetch('/api/coachinfo')
     });
 
 // 获取弹出框及关闭按钮
-const modal = document.getElementById('myModal');
-const closeBtn = document.getElementsByClassName('close')[0];
-const openModalBtn = document.getElementById('openModalBtn');
+// Gets the pop-up and close buttons for adding a coach
+const modal = document.getElementById('addModal');
+const closeBottom = document.getElementsByClassName('close')[0];
+const openModalBottom = document.getElementById('openModalBottom');
 
 // 当点击按钮时显示弹出框
-openModalBtn.onclick = function() {
+// Displays a pop-up when the button is clicked
+openModalBottom.onclick = function() {
   modal.style.display = 'block';
 }
 
 // 当点击关闭按钮时关闭弹出框
-closeBtn.onclick = function() {
+// Closes the pop-up when the close button is clicked
+closeBottom.onclick = function() {
   modal.style.display = 'none';
 }
 
 // 当用户点击弹出框外部时关闭弹出框
+// Closes the pop-up when the user clicks outside the pop-up
 window.onclick = function(event) {
-  if (event.target == modal) {
+  if (event.target === modal) {
       modal.style.display = 'none';
   }
-  }
+}
 
 // 监听表单提交事件
+// Listens for form submission events
 document.getElementById('addCoachForm').addEventListener('submit', function(event) {
-    event.preventDefault(); // 阻止表单默认提交行为
+    event.preventDefault();
 
     const formData = new FormData(this);
     fetch('/api/add_coach', {
@@ -373,8 +380,8 @@ document.getElementById('addCoachForm').addEventListener('submit', function(even
     })
         .then(response => response.text())
         .then(message => {
-            alert(message); // 显示后端返回的消息
-            modal.style.display = 'none'; // 添加成功后关闭弹出框
+            alert(message);
+            modal.style.display = 'none'; 
         })
         .catch(error => {
             console.error('Error adding coach:', error);
@@ -383,52 +390,51 @@ document.getElementById('addCoachForm').addEventListener('submit', function(even
 
 
 //   ***********************更新******************************************************
-// TODO: post请求有误
-// 获取弹出框及关闭按钮
-
+// 更新教练信息
+// Update coach information
 const updateModal = document.getElementById('updateModal');
-const updateCloseBtn = updateModal.getElementsByClassName('close')[0];
-const updateBtns = document.getElementsByClassName('updateBtn');
+const updateCloseBottom = updateModal.getElementsByClassName('close')[0];
 
+// 监听表格点击事件并显示弹出框以更新教练信息
+// Listens for table click events and displays a pop-up to update coach information
 document.addEventListener('click', function(event) {
-    // 检查点击的元素是否是修改按钮
-    if (event.target.classList.contains('updateBtn')) {
+    if (event.target.classList.contains('updateBottom')) {
         updateModal.style.display = 'block';
-        console.log('updateBtn clicked');
+        // console.log('updateBtn clicked');
         // 获取当前按钮所在的行
+        // Gets the row where the current button is located
         const currentRow = event.target.closest('tr');
         // 获取当前行的教练信息并填充到表单中
+        // Gets the coach information of the current row and fills it into the form
+        document.querySelector('#updateModal .id').value = currentRow.cells[0].innerText;
         document.querySelector('#updateModal .name').value = currentRow.cells[1].innerText;
         document.querySelector('#updateModal .contact').value = currentRow.cells[2].innerText;
         document.querySelector('#updateModal .startTime').value = currentRow.cells[3].innerText;
         document.querySelector('#updateModal .endTime').value = currentRow.cells[4].innerText;
         document.querySelector('#updateModal .status').value = currentRow.cells[5].innerText;
         document.querySelector('#updateModal .activity').value = currentRow.cells[6].innerText;
-        document.querySelector('#updateModal .id').value = currentRow.cells[0].innerText;
 
-        // document.getElementById('contact').value = currentRow.cells[2].innerText;
-        // document.getElementById('startTime').value = currentRow.cells[3].innerText;
-        // document.getElementById('endTime').value = currentRow.cells[4].innerText;
-        // document.getElementById('status').value = currentRow.cells[5].innerText;
-        // document.getElementById('updateActivities').value = currentRow.cells[6].innerText;
     }
 });
 
 // 当点击关闭按钮时关闭弹出框
-updateCloseBtn.onclick = function() {
+// Closes the pop-up when the close button is clicked
+updateCloseBottom.onclick = function() {
   updateModal.style.display = 'none';
 }
 
 // 当用户点击弹出框外部时关闭弹出框
+// Closes the pop-up when the user clicks outside the pop-up
 window.onclick = function(event) {
-  if (event.target == updateModal) {
+  if (event.target === updateModal) {
       updateModal.style.display = 'none';
   }
 }
 
-// 监听表单提交事件
+// 监听更新表单提交事件
+// Listens for update form submission events
 document.getElementById('updateCoachForm').addEventListener('submit', function(event) {
-  event.preventDefault(); // 阻止表单默认提交行为
+  event.preventDefault();
 
   const formData = new FormData(this);
   fetch('/api/update_coach', {
@@ -437,8 +443,8 @@ document.getElementById('updateCoachForm').addEventListener('submit', function(e
   })
       .then(response => response.text())
       .then(message => {
-          alert(message); // 显示后端返回的消息
-          updateModal.style.display = 'none'; // 修改成功后关闭弹出框
+          alert(message);
+          updateModal.style.display = 'none'; 
       })
       .catch(error => {
           console.error('Error updating coach:', error);
