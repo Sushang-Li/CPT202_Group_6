@@ -3,57 +3,283 @@
   grid-template-columns: repeat(6, 200px);
   grid-template-rows: repeat(5, 200px);
   gap: 50px;
+  row-gap: 100px;
   margin-top: 50px;
   justify-content: center;
 }
 
+.avatar {
+  position: absolute;
+  text-transform: uppercase;
+  left: 0;
+  top: -50px;
+  background-color: #748ffc;
+  transform: translate(-25%, 0);
+  padding: 2px 10px 2px;
+  border-radius: 5px;
+  color: #f8f9fa;
+  box-shadow: 12px 12px 12px 0px rgba(0, 0, 0, 0.15);
+}
+
+.btn1 {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  transform: translate(10%, 20%);
+}
+
 .photo {
-  background-color: #7AA2E3;
+  position: relative;
+  background-color: #339af0;
   text-align: center;
   grid-column: 1 / 3;
   grid-row: 1 / 3;
+  border-radius: 10px;
+  text-align: left;
+  /* padding-left: 20px; */
+  box-shadow: 12px 12px 12px 0px rgba(0, 0, 0, 0.25);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+
+}
+
+.username-password {
+  position: absolute;
+  text-transform: uppercase;
+  left: 0;
+  top: -50px;
+  background-color: #748ffc;
+  transform: translate(-7%, 0);
+  padding: 2px 10px 2px;
+  border-radius: 5px;
+  color: #f8f9fa;
+  box-shadow: 12px 12px 12px 0px rgba(0, 0, 0, 0.15);
+}
+
+.btn2 {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  transform: translate(10%, 20%);
 }
 
 .datas1 {
-  background-color: #97E7E1;
+  position: relative;
+  background-color: #339af0;
   text-align: center;
   grid-column: 3 / 5;
+  grid-row: 1 / 3;
+  border-radius: 10px;
+  text-align: left;
+  padding-left: 20px;
+  box-shadow: 12px 12px 12px 0px rgba(0, 0, 0, 0.25);
+  color: #f8f9fa;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.other {
+  position: absolute;
+  text-transform: uppercase;
+  left: 0;
+  top: -50px;
+  background-color: #748ffc;
+  transform: translate(-25%, 0);
+  padding: 2px 10px 2px;
+  border-radius: 5px;
+  color: #f8f9fa;
+  box-shadow: 12px 12px 12px 0px rgba(0, 0, 0, 0.15);
+}
+
+.btn3 {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  transform: translate(10%, 20%);
 }
 
 .datas2 {
-  background-color: #7AA2E3;
+  position: relative;
+  background-color: #339af0;
   text-align: center;
   grid-column: 5 / 7;
+  grid-row: 1 / 3;
+  border-radius: 10px;
+  text-align: left;
+  padding-left: 20px;
+  box-shadow: 12px 12px 12px 0px rgba(0, 0, 0, 0.25);
+  color: #f8f9fa;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
-.datas3 {
-  background-color: #97E7E1;
+.tip {
+  background-color: #748ffc;
   text-align: center;
-  grid-column: 3 / 5;
-  grid-row: 2 / 3;
+  grid-column: 1 / 7;
+  border-radius: 10px;
+  color: #f8f9fa;
 }
 
-.datas4 {
-  background-color: #7AA2E3;
+#insert-test-data {
+  background-color: #ff6b6b;
+}
+.test {
+  background-color: #845ef7;
   text-align: center;
-  grid-column: 5 / 7;
-  grid-row: 2 / 3;
+  cursor: pointer;
+  border-radius: 10px;
+  border: none;
+  font-size: 16px;
+  font-weight: bold;
+  color: #f8f9fa;
+}
+
+.signature-heading{
+  position: absolute;
+  text-transform: uppercase;
+  left: 0;
+  top: -50px;
+  background-color: #748ffc;
+  transform: translate(-17%, 0);
+  padding: 2px 10px 2px;
+  border-radius: 5px;
+  color: #f8f9fa;
+  box-shadow: 12px 12px 12px 0px rgba(0, 0, 0, 0.15);
+}
+
+.btn4 {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  transform: translate(10%, 20%);
 }
 
 .datas5 {
-  background-color: #97E7E1;
+  position: relative;
+  background-color: #339af0;
   text-align: center;
   grid-column: 1 / 7;
   grid-row: 3 / 4;
+  border-radius: 10px;
+  text-align: left;
+  padding-left: 20px;
+  box-shadow: 12px 12px 12px 0px rgba(0, 0, 0, 0.25);
+  color: #f8f9fa;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
-.change {
-
+.change-btn {
+  text-transform: uppercase;
   text-align: center;
-  grid-column: 3 / 5;
-  height: 100px;
+  background-color: #748ffc;
+  border: 3px solid #f8f9fa;
+  font-size: 28px;
+  font-weight: bold;
+  padding: 2px 10px 2px;
+  border-radius: 5px;
+  color: #f8f9fa;
+  box-shadow: 12px 12px 12px 0px rgba(0, 0, 0, 0.15);
+  cursor: pointer;
+  
+}
+
+.main-content {
+  position: relative;
+}
+
+#popup {
+  /* 相对页面固定的位置 */
+  position: fixed;
+  /* 这样设置会从上面飞进来 */
+  top: -100%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1000;
+  background-color: #fff;
+  width: 450px;
+  padding: 80px 50px 50px;
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+  transition: 0.5s;
+
+  /* 默认是隐藏的 */
+  visibility: hidden;
+}
+
+.tips {
+  font-size: 16px;
+  text-transform: uppercase;
+}
+
+#popup.active {
+  visibility: visible;
+  top: 50%;
+}
+
+#popup .popup-content {
+  width: 100%;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
 
 }
+
+#popup .popup-content .inputBox {
+  position: relative;
+  width: 100%;
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+
+#popup .popup-content .inputBox input {
+  width: 100%;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  padding: 15px;
+  outline: none;
+  font-size: 18px;
+}
+
+#popup .popup-content .inputBox input[type="submit"] {
+  cursor: pointer;
+}
+
+.close {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  cursor: pointer;
+
+}
+
+.close-icon {
+  stroke: #339af0;
+  width: 50px;
+  height: 50px;
+}
+
+#submit-btn {
+  background-color: #339af0;
+}
+
+
 
 .alt:link {
   background-color: #51cf66;
@@ -109,3 +335,4 @@
   letter-spacing: 3px;
 
 }
+
