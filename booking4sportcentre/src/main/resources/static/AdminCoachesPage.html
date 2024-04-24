@@ -244,6 +244,18 @@ text-align: center;
             </div>
         </div>
 
+        <!-- Popup page：add coach 增加教练弹出框 -->
+        <div id="confirmationModal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <form id="deleteCoachForm">
+                    <p>Are you sure you want to delete coach <span id="coachName"></span>?</p>
+                    <button id="confirmDeleteBottom" class="confirmBottom" type="button">Confirm</button>
+                    <button id="cancelDeleteBottom" class="cancelBottom" type="button">Cancel</button>
+                </form>
+            </div>
+        </div>
+
 
         <div id="main">
             <!-- <img src="img/manage3.png" width="100%" height="700px"> -->
@@ -312,7 +324,7 @@ function getCoachInfoList() {
             // 如果教练信息数组为空，则显示 "There is no coach..."
             if (data.length === 0) {
                 const row = document.createElement('tr');
-                row.innerHTML = '<td colspan="7">“There is no \n' + 'coach information yet. Please add coach first. </td>';
+                row.innerHTML = '<td colspan="7">There is no \n' + 'coach information yet. Please add coach first. </td>';
                 tableBody.appendChild(row);
             } else {
                 // Loop through the coach information array, creating a row for each coach
@@ -400,7 +412,6 @@ const updateCloseBottom = updateModal.getElementsByClassName('close')[0];
 document.addEventListener('click', function(event) {
     if (event.target.classList.contains('updateBottom')) {
         updateModal.style.display = 'block';
-        // console.log('updateBtn clicked');
         // 获取当前按钮所在的行
         // Gets the row where the current button is located
         const currentRow = event.target.closest('tr');
@@ -456,19 +467,38 @@ document.addEventListener('click', function(event) {
         const currentRow = event.target.closest('tr');
         const coachId = currentRow.cells[0].innerText;
 
-        // 发送删除请求到后端
-        // Sends a delete request to the backend
-        fetch('/api/delete_coach?id=' + coachId, {
-            method: 'POST'
-        })
-            .then(response => response.text())
-            .then(message => {
-                alert(message);
-                getCoachInfoList();
+        // 设置弹出框中的教练名字
+        // Sets the coach name in the pop-up
+        document.getElementById('coachName').textContent = currentRow.cells[1].innerText;
+
+        const confirmationModal = document.getElementById('confirmationModal');
+        confirmationModal.style.display = 'block';
+
+        // 点击确认删除按钮
+        document.getElementById('confirmDeleteBottom').addEventListener('click', function() {
+            fetch('/api/delete_coach?id=' + coachId, {
+                method: 'POST'
             })
-            .catch(error => {
-                console.error('Error deleting coach:', error);
-            });
+                .then(response => response.text())
+                .then(message => {
+                    // alert(message);
+                    getCoachInfoList();
+                    confirmationModal.style.display = 'none';
+                })
+                .catch(error => {
+                    console.error('Error deleting coach:', error);
+                });
+        });
+
+        // 点击取消删除按钮
+        document.getElementById('cancelDeleteBottom').addEventListener('click', function() {
+            confirmationModal.style.display = 'none';
+        });
+        window.onclick = function(event) {
+            if (event.target === confirmationModal) {
+                confirmationModal.style.display = 'none';
+            }
+        };
     }
 });
 </script>
