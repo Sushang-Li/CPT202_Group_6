@@ -8,4 +8,5 @@ public class Message {
     public String message;
     //Message content
     public List<StudentInfo> objects = new ArrayList<StudentInfo>();
+    public List<StaffInfo> result = new ArrayList<>();
 }
