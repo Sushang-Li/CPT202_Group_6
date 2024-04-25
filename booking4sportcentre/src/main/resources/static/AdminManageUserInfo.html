@@ -3,29 +3,29 @@
 <head>
     <title>User registration information page</title>
     <meta charset="utf-8" />
-    <link rel="stylesheet" type="text/css" href="css/EditUserInfoPage.css">
-    <!-- 引入jQuery库 -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <!-- 引入Bootstrap样式库 -->
-    <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.1.3/css/bootstrap.min.css" />
-    <!-- 引入Bootstrap JS库 -->
-    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
 
+    <link rel="stylesheet" type="text/css" href="css/EditUserInfoPage.css">
+
+    <!-- 引入jQuery库 -->
+    <script src="jquery-3.7.1.js"></script>
+    <!-- 引入Bootstrap样式库 -->
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css" />
+    <!-- 引入Bootstrap JS库 -->
+    <script src="bootstrap/js/bootstrap.bundle.min.js"></script>
 
 </head>
 
 <body style="background: whitesmoke" class="body">
     <div class="container-row" style="text-align: center">
-        <!--<a class="navbar-brand" href="#">User registration information page</a>-->
         <font face="" color="black" size="7">User registration information page</font>
 
     </div>
-</nav>
+
 
 <div class="container my-4">
     <h2><i style="padding-right: 100px">User list</i>
         <button onclick="showAddModal()" id="add" class="btn btn-primary layui-btn-fluid">Add</button>
-        <input  type="text" id="search-input" placeholder="Please enter ID" />
+        <input type="text" id="search-input" placeholder="Please enter ID" >
         <button class="btn btn-primary btn-large" >Search</button></h2>
 
 
@@ -96,9 +96,9 @@
                         </div>
                         <div class="mb-3">
                             <label for="position" class="form-label">Position</label>
-                            <select  class="form-select" aria-label="Default select example" id="position" name="position">
+                            <select  class="form-control" aria-label="Default select example" id="position" name="position">
                                 <option value="Staff">Staff</option>
-                                <option value="Sthdent">Student</option>
+                                <option value="Student">Student</option>
                             </select>
                         </div>
                         <div class="mb-3">
@@ -107,7 +107,7 @@
                         </div>
                         <div class="mb-3">
                             <label for="gender" class="form-label">gender</label>
-                            <select class="form-select" aria-label="Default select example" id="gender" name="gender">
+                            <select class="form-control" aria-label="Default select example" id="gender" name="gender">
                                 <option value="male">male</option>
                                 <option value="female">female</option>
                             </select>
