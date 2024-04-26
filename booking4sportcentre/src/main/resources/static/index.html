@@ -35,47 +35,125 @@
   </div>
 
   <div class="introduction">
-    <h2>event</h2>
-    <div class="event1">
-      <p>2024.04.17 | 如履薄冰</p>
-    </div>
-    <div class="event2">
-      <p>2024.13.13 | 苦中作乐</p>
-    </div>
-    <div class="event3">
-      <p>2024.14.14 | 不想掉头发</p>
+
+
+    <h2>what can we do</h2>
+    <div class="one-container">
+      <div class="intros intro1">
+        <img src="images/Simple.svg" alt="simple" id="simple">
+        <div class="text">
+          <h4>Convenient and quick</h4>
+          <p> With our online booking system, you can book your venue at the Sports Centre anytime,
+            anywhere, without waiting in line or making a phone call.</p>
+        </div>
+      </div>
+      <div class="intros intro2">
+        <div class="text">
+          <h4>Wide selection</h4>
+          <p>Our system covers a variety of sports, including badminton, basketball, table tennis,
+            etc., to meet the needs of different users.</p>
+        </div>
+        <img src="images/Football.svg" alt="football" id="football">
+      </div>
+      <div class="intros intro3">
+        <img src="images/Balloon.svg" alt="easy" id="easy">
+        <div class="text">
+          <h4>Easy to use</h4>
+          <p>Our system is simple to operate and user-friendly, making it easy for even novices to book venues.</p>
+        </div>
+      </div>
+      <div class="intros intro4">
+        <div class="text">
+          <h4>Secure and reliable</h4>
+          <p>Your personal information is strictly protected in our system, so that you can use it with confidence.</p>
+        </div>
+        <img src="images/Security.svg" alt="security" id="security">
+
+      </div>
+      <div class="intros intro5">
+
+        <img src="images/Wallet.svg" alt="wallet" id="wallet">
+        <div class="text">
+          <h4>Promotional activities</h4>
+          <p>We regularly launch promotional activities to let you enjoy more benefits.</p>
+        </div>
+      </div>
     </div>
 
-    <h2>HAPPY</h2>
-    <div class="one-container">
-      <div class="con-1">
-        <img src="images/basketball.jpg" alt="basketball" width="400px">
+    <h2>FAQ</h2>
+    <div class="accordion">
+      <div class="item">
+        <p class="number">01</p>
+        <p class="text-faq">Can I cancel a reservation?</p>
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+        </svg>
+        <div class="hidden-box">
+          <p>
+            Yes, you can find the reserved venue in the system and choose to cancel the reservation. Please note that
+            cancellations may be subject to certain rules and fees.
+          </p>
+        </div>
       </div>
-      <div class="con-2">
-        <h3>打篮球有助于睡眠</h3>
-        <p>我们有一万个篮球</p>
+
+      <div class="item">
+        <p class="number">02</p>
+        <p class="text-faq">Does the system support online payment?</p>
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+        </svg>
+        <div class="hidden-box">
+          <p>
+            Yes, we support a variety of online payment methods, including Alipay, wechat Pay, etc., so that you can
+            easily and quickly complete the payment.
+          </p>
+        </div>
       </div>
-      <div class="con-3">
-        <img src="images/tennis.jpg" alt="tennis" width="400px">
+
+      <div class="item">
+        <p class="number">03</p>
+        <p class="text-faq">How do I view my booking history?</p>
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+        </svg>
+        <div class="hidden-box">
+          <p>
+            You can log in your account in the system, find the "My reservation" page, you can view your reservation
+            record and details.
+          </p>
+        </div>
       </div>
-      <div class="con-4">
-        <h3>打网球可以提升口语流畅度</h3>
-        <p>我们的网球是绿色的</p>
-      </div>
-      <div class="con-5">
-        <img src="images/swim.jpg" alt="swim" width="400px">
-      </div>
-      <div class="con-6">
-        <h3>游泳得穿泳装</h3>
-        <p>蓝色的水蓝色的帽子</p>
-      </div>
-      <div class="con-7">
-        <p>Sleep</p>
-      </div>
+    </div>
+
+
+    <h2>event record</h2>
+    <div class="event1">
+      <p>2024.04.17 | project startup :D</p>
+    </div>
+    <div class="event2">
+      <p>2024.04.25 | Basic functions are completed :D</p>
+    </div>
+    <div class="event3">
+      <p>2024.04.26 | Wait for the login function to complete :D</p>
     </div>
   </div>
 
 
+  <script>
+    document.querySelectorAll('.item').forEach(item => {
+      const icon = item.querySelector('.icon');
+      const hiddenBox = item.querySelector('.hidden-box');
+
+      icon.addEventListener('click', () => {
+        item.classList.toggle('open');
+        if (item.classList.contains('open')) {
+          hiddenBox.style.display = 'block';
+        } else {
+          hiddenBox.style.display = 'none';
+        }
+      });
+    });
+  </script>
 </body>
 
 </html>

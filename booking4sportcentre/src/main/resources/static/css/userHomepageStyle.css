@@ -214,34 +214,162 @@ input[type="radio"] {
   justify-content: center;
   margin-bottom: 50px;
   margin-top: 100px;
+
+  color: #f8f9fa;
 }
 
 .information-card {
-  background-color: #6AD4DD;
+  background-color: #339af0;
   grid-column: 1 / 3;
   grid-row: 1 / 3;
-
+  display: flex;
+  justify-content: center;
+  align-items: center;
   text-align: center;
 
 }
 
+.information-card a:link {
+  font-size: 50px;
+  color: #f8f9fa;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-transform: uppercase;
+}
+
+.information-card a:hover {
+  font-size: 70px;
+  color: #f8f9fa;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-transform: uppercase;
+}
+
+.information-card a:visited {
+  color: #f8f9fa;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-transform: uppercase;
+}
+
+
+
 .booking-card {
-  background-color: #7AA2E3;
+  background-color: #339af0;
   grid-column: 3 / 5;
   grid-row: 1 / 2;
 
   text-align: center;
 }
 
+
+
 .wallet-card {
-  background-color: #7AA2E3;
+  background-color: #339af0;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
   text-align: center;
 }
 
+.wallet-card a:link {
+  font-size: 50px;
+  color: #f8f9fa;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-transform: uppercase;
+}
+
+.wallet-card a:hover {
+  font-size: 70px;
+  color: #f8f9fa;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-transform: uppercase;
+}
+
+.wallet-card a:visited {
+  color: #f8f9fa;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-transform: uppercase;
+}
+
 .statistics-card {
-  background-color: #6AD4DD;
+  background-color: #339af0;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
   text-align: center;
+}
+
+.statistics-card a:link {
+  font-size: 50px;
+  color: #f8f9fa;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-transform: uppercase;
+}
+
+.statistics-card a:hover {
+  font-size: 70px;
+  color: #f8f9fa;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-transform: uppercase;
+}
+
+.statistics-card a:visited {
+  color: #f8f9fa;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-transform: uppercase;
+}
+
+.cards .information-card {
+  border-radius: 8px;
+}
+
+.cards .booking-card {
+  border-radius: 8px;
+}
+
+.cards .wallet-card {
+  border-radius: 8px;
+}
+
+.cards .statistics-card {
+  border-radius: 8px;
 }
 
