@@ -6,12 +6,12 @@ import lombok.Data;
 
 @Entity
 @Data
-@TableName("student_info")
-public class StudentInfo {
+@TableName("staff_info")
+public class StaffInfo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
-    private Integer id;
+    private int id;
 
     @Column(name = "username")
     private String username;
@@ -30,6 +30,4 @@ public class StudentInfo {
 
     @Column(name = "emergency_ContactNumber")
     private String emergencyContactNumber;
-
-
 }

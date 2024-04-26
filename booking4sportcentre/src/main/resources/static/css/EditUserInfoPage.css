@@ -1,0 +1,29 @@
+.body{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    background: rgba(245,245,245,0.5);
+
+@media screen and (max-width: 600px) {
+    .modal-content {
+        width: 90%;
+    }}
+
+    .modal {
+        display: none;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) scale(0.8); /* 缩小模态框到原来的0.8倍 */
+        background: whitesmoke;
+        width: 1000px;
+        height: 800px;
+        padding: 20px;
+        overflow: auto; /* 添加这一行，使文本不会超出模态框 */
+        border: thin solid black;
+        transition: all .5s;
+    }
+
+    /* 其他样式 */
+}
+
