@@ -26,14 +26,17 @@ public interface BookingInfoMapper {
     List<BookingInfo> getBookingByDate(@Param("date") LocalDate date);
 
     // Create a booking
-    @Insert("INSERT INTO booking_info(date, start_time, end_time, venue, status, name, price) VALUES(#{date}, #{startTime}, #{endTime}, #{venue}, #{status}, #{name}, #{price})")
+    @Insert("INSERT INTO booking_info(user_name, date, start_time, end_time, venue, status, act_name, price) VALUES(#{userName},#{date}, #{startTime}, #{endTime}, #{venue}, #{status}, #{actName}, #{price})")
     @Options(useGeneratedKeys = true, keyProperty = "id")
     void createBooking(BookingInfo booking);
 
     // Update a booking
-    @Update("UPDATE booking_info SET date = #{booking.date}, start_time = #{booking.startTime}, end_time = #{booking.endTime}, venue = #{booking.venue}, status = #{booking.status}, name = #{booking.name}, price = #{booking.price} WHERE id = #{id}")
+    @Update("UPDATE booking_info SET user_name = #{booking.userName},date = #{booking.date}, start_time = #{booking.startTime}, end_time = #{booking.endTime}, venue = #{booking.venue}, status = #{booking.status}, act_name = #{booking.actName}, price = #{booking.price} WHERE id = #{id}")
     int updateBooking(@Param("id") Long id, @Param("booking") BookingInfo booking);
 
+    // Delete a booking
     @Delete("DELETE FROM booking_info WHERE id = #{id}")
     int deleteBooking(@Param("id") Long id);
+
+    //
 }
