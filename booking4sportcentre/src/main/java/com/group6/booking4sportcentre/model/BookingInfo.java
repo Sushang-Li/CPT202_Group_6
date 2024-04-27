@@ -22,7 +22,9 @@ public class BookingInfo {
     @TableId(type = IdType.AUTO)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
+    //用户name
+    @Column(name = "user_name")
+    private String userName;
     private LocalDate date;
     @Column(name = "start_time")
     private LocalTime startTime;
@@ -32,7 +34,10 @@ public class BookingInfo {
     //BookingStatus: PENDING, CONFIRMED, CANCELLED
     @Enumerated(EnumType.STRING)
     private BookingStatus status;
-    private String name;
+    //活动name
+    @Column(name = "act_name")
+    private String actName;
+
     private double price;
 
     @Override
@@ -44,7 +49,7 @@ public class BookingInfo {
                 ", endTime=" + endTime +
                 ", venue='" + venue + '\'' +
                 ", status=" + status +
-                ", name='" + name + '\'' +
+                ", name='" + actName + '\'' +
                 ", price=" + price +
                 '}';
     }

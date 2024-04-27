@@ -23,8 +23,8 @@
                     <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
                 </svg>
             </button>
-            <!-- navigation items -->
 
+            <!-- navigation items -->
         </div>
         <a class="nav-link float-right" href="userHomepage.html">Homepage</a>
         <a class="nav-link float-right" href="userInformation.html">Information</a>
@@ -33,6 +33,8 @@
         <a class="nav-link float-right" href="userStatistics.html">Statistics</a>
         <a class="nav-link float-right" href="userLogin.html">Sign In</a>
     </nav>
+
+
     <!-- Sidebar侧边栏 -->
     <div class="bg-light border-right" id="sidebar-wrapper">
         <div class="sidebar-heading">
@@ -52,59 +54,112 @@
         </div>
     </div>
 
+
     <div id="page-content-wrapper">
             <!--页面内容-->
-            <div class="container-fluid">
-                <h2 class="mt-4">Bookings （暂时随便做一下）</h2>
-                <h3 class="mt-4">Upcoming (1)</h3>
-                <table class="table table-striped">
+
+        <!--upcoming all bookings unpaid-->
+        <div class="container-fluid">
+            <ul class="nav nav-tabs justify-content-between">
+                <li class="nav-item">
+                    <a class="nav-link active" id="upcoming-tab"  href="#upcoming-tab">Upcoming</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="all-tab" href="#all-tab">All</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="unpaid-tab" href="#unpaid-tab">Unpaid</a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="tab-content">
+            <div class="tab active" id="upcoming">
+                <table class="table" id="upcoming-table">
                     <thead>
                     <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">Date</th>
-                        <th scope="col">Time</th>
-                        <th scope="col">Venue</th>
-                        <th scope="col">Status</th>
-                        <th scope="col">Actions</th>
-                    </tr>
+                        <th>Booking ID</th>
+                        <th>Sport Name</th>
+                        <th>Start Time</th>
+                        <th>End Time</th>
+                        <th>Price</th>
+                        <th>Status</th>
+                        <th>Cancel</th>
                     </thead>
                     <tbody>
                     <tr>
-                        <th scope="row">1</th>
-                        <td>2023-03-15</td>
-                        <td>10:00 - 12:00</td>
-                        <td>Basketball Court 1</td>
-                        <td>Confirmed</td>
-                        <td>
-                            <button class="btn btn-danger">Cancel</button>
-                        </td>
+                        <td id="booking-id"></td>
+                        <td id="booking-name"></td>
+                        <td id="booking-startTime"></td>
+                        <td id="booking-endTime"></td>
+                        <td id="booking-price"></td>
+                        <td id="booking-status"></td>
+                        <td id="booking-cancel"><button class="btn btn-danger">Cancel</button></td>
                     </tr>
-                    <!-- More... -->
-                    </tbody>
                 </table>
 
-                <br>
-                <br>
+            </div>
+            <div class="tab" id="all">
+                <table class="table" id="all-table">
+                    <thead>
+                    <tr>
+                        <th>Booking ID</th>
+                        <th>Sport Name</th>
+                        <th>Start Time</th>
+                        <th>End Time</th>
+                        <th>Price</th>
+                        <th>Status</th>
 
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td id="booking-id2"></td>
+                        <td id="booking-name2"></td>
+                        <td id="booking-startTime2"></td>
+                        <td id="booking-endTime2"></td>
+                        <td id="booking-price2"></td>
+                        <td id="booking-status2"></td>
+                    </tr>
+                </table>
+            </div>
+            <div class="tab" id="unpaid">
+                <table class="table" id="unpaid-table">
+                    <thead>
+                    <tr>
+                        <th>Booking ID</th>
+                        <th>Sport Name</th>
+                        <th>Start Time</th>
+                        <th>End Time</th>
+                        <th>Price</th>
+                        <th>Status</th>
 
-                <h2 class="mt-4">New Booking</h2>
-                <!--后面要实现 点击跳转不同活动的预定页面-->
-                <div class="booking-options">
-                    <button class="btn btn-primary btn-large">
-                        <img src="images/basketball.jpg" alt="Basketball" class="icon">
-                    </button>
-
-                    <button class="btn btn-primary btn-large">
-                        <img src="images/tennis.jpg" alt="Tennis" class="icon">
-                    </button>
-
-                    <button class="btn btn-primary btn-large">
-                        <img src="images/golf.jpeg" alt="Golf" class="icon">
-                    </button>
-                    <!--more...-->
-                </div>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td id="booking-id3"></td>
+                        <td id="booking-name3"></td>
+                        <td id="booking-startTime3"></td>
+                        <td id="booking-endTime3"></td>
+                        <td id="booking-price3"></td>
+                        <td id="booking-status3"></td>
+                    </tr>
+                </table>
             </div>
         </div>
+
+
+        </div>
+    <!--<div class="container-fluid">
+
+
+
+
+                <br>
+                <br>
+
+
+
+            </div>-->
 
     </div>
     <!-- /#page-content-wrapper -->
@@ -128,21 +183,95 @@
     });
 
     // 取消按钮
-    var cancelButtons = document.querySelectorAll('.btn-danger');
+    let cancelButtons = document.querySelectorAll('.btn-danger');
     cancelButtons.forEach(function(button) {
         button.addEventListener('click', function() {
             // 显示确认对话框
             var isConfirmed = confirm('Are you sure you want to cancel?');
             if (isConfirmed) {
                 // 获取要取消的预订的ID
+                var bookingId = this.closest('tr').querySelector('th').innerText;
+                console.log('Cancel booking with ID: ' + bookingId);
                 // 发送DELETE请求到后端
-                // 如果后端成功删除了预订，从前端删除这行
-                // 如果后端没有成功删除预订，显示错误消息
+                $.ajax({
+                    url: '/api/bookings/' + bookingId,
+                    type: 'DELETE',
+                    success: function() {
+                        console.log('Booking with ID ' + bookingId + ' is cancelled');
+                        // 如果后端成功删除了预订，从前端删除这行
+                        this.closest('tr').remove();
+                    },
+                        // 如果后端没有成功删除预订，显示错误消息
+                    error: function() {
+                        alert('Failed to cancel booking with ID ' + bookingId);
+                    }
+                });
             }
         });
     });
 
-    //还要实现：当检查到已登陆，sign up按钮消失，sign in按钮变为sign out/用户名
+
+
+
+    window.onload = function () {
+
+        fetch('http://localhost:8080/api/bookings', {
+            method: "GET"
+        })
+            .then(response => response.json())
+            .then(bookings => {
+                var upcomingTable = document.querySelector('#upcoming-table tbody');
+                upcomingTable.innerHTML = ''; // 清空表格
+
+                bookings.forEach((booking) => {
+                    if (booking.status === 'CONFIRMED') {
+                        var row = document.createElement('tr');
+                        row.innerHTML = `
+                     <td id="booking-id-${booking.id}">${booking.id}</td>
+                     <td id="booking-name-${booking.id}">${booking.name}</td>
+                     <td id="booking-startTime-${booking.id}">${booking.startTime}</td>
+                     <td id="booking-endTime-${booking.id}">${booking.endTime}</td>
+                     <td id="booking-price-${booking.id}">${booking.price}</td>
+                     <td id="booking-status-${booking.id}">${booking.status}</td>
+                     <td id="booking-cancel-${booking.id}"><button class="btn btn-danger">Cancel</button></td>
+            `;
+                        upcomingTable.appendChild(row);
+                    }
+                });
+            });
+    };
+
+
+
+/*upcoming all unpaid*/
+    $(document).ready(function () {
+        //当选项卡被点击时
+        $('.nav-link').click(function () {
+            //移除所有选项卡的active类
+            $('.nav-link').removeClass('active');
+            //给当前选项卡添加active类
+            $(this).addClass('active');
+            //获取当前选项卡的id
+            var tabId = $(this).attr('id');
+            //移除所有选项卡内容的active类
+            $('.tab').removeClass('active');
+            //给当前选项卡内容添加active类
+            $('#' + tabId).addClass('active');
+        });
+    })
+
+    $(document).ready(function() {
+        // Handle the tab click event
+        $('.nav-link').click(function() {
+            // Get the id of the clicked tab
+            var tabId = $(this).attr('id').replace('-tab', '');
+            // Hide all tables
+            $('.tab').hide();
+            // Show the corresponding table
+            $('#' + tabId).show();
+        });
+    });
+
 
 
 </script>
