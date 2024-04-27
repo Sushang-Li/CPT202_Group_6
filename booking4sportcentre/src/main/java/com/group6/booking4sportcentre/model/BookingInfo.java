@@ -44,6 +44,7 @@ public class BookingInfo {
     public String toString() {
         return "BookingInfo{" +
                 "id=" + id +
+                ", userName='" + userName + '\'' +
                 ", date=" + date +
                 ", startTime=" + startTime +
                 ", endTime=" + endTime +
