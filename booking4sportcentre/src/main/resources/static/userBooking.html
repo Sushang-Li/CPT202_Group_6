@@ -65,10 +65,10 @@
                     <a class="nav-link active" id="upcoming-tab"  href="#upcoming-tab">Upcoming</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" id="all-tab" href="#all-tab">All</a>
+                    <a class="nav-link" id="all-tab" href="#all-tab" onclick="showAll()">All</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" id="unpaid-tab" href="#unpaid-tab">Unpaid</a>
+                    <a class="nav-link" id="unpaid-tab" href="#unpaid-tab" onclick="showUnpaid()">Unpaid</a>
                 </li>
             </ul>
         </div>
@@ -228,7 +228,7 @@
                         var row = document.createElement('tr');
                         row.innerHTML = `
                      <td id="booking-id-${booking.id}">${booking.id}</td>
-                     <td id="booking-name-${booking.id}">${booking.name}</td>
+                     <td id="booking-name-${booking.id}">${booking.actName}</td>
                      <td id="booking-startTime-${booking.id}">${booking.startTime}</td>
                      <td id="booking-endTime-${booking.id}">${booking.endTime}</td>
                      <td id="booking-price-${booking.id}">${booking.price}</td>
@@ -240,7 +240,74 @@
                 });
             });
     };
+    
+    
+    function showAll() {
 
+    fetch('http://localhost:8080/api/bookings', {
+        //method: "GET"
+    })
+    .then(response => response.json())
+    .then(bookings => {
+        var allTable = document.querySelector('#all-table tbody');
+        allTable.innerHTML = ''; // 清空表格
+
+        bookings.forEach((booking) => {
+            if (booking.status === 'CANCELLED'){
+                var row = document.createElement('tr');
+                row.innerHTML = `
+            <td id="booking-id-${booking.id}">${booking.id}</td>
+             <td id="booking-name-${booking.id}">${booking.actName}</td>
+             <td id="booking-startTime-${booking.id}">${booking.startTime}</td>
+             <td id="booking-endTime-${booking.id}">${booking.endTime}</td>
+             <td id="booking-price-${booking.id}">${booking.price}</td>
+            <td id="booking-status-${booking.id}">${booking.status}</td>`
+            }else{
+            var row = document.createElement('tr');
+            row.innerHTML = `
+            <td id="booking-id-${booking.id}">${booking.id}</td>
+             <td id="booking-name-${booking.id}">${booking.actName}</td>
+             <td id="booking-startTime-${booking.id}">${booking.startTime}</td>
+             <td id="booking-endTime-${booking.id}">${booking.endTime}</td>
+             <td id="booking-price-${booking.id}">${booking.price}</td>
+            <td id="booking-status-${booking.id}">${booking.status}</td>
+            <td id="booking-cancel-${booking.id}"><button class="btn btn-danger">Cancel</button></td>
+            `;
+            }
+            
+                allTable.appendChild(row);
+            });
+        });
+    };
+    
+    
+    function showUnpaid() {
+
+    fetch('http://localhost:8080/api/bookings', {
+    //method: "GET"
+    })
+    .then(response => response.json())
+    .then(bookings => {
+        var unpaidTable = document.querySelector('#unpaid-table tbody');
+        unpaidTable.innerHTML = ''; // 清空表格
+
+        bookings.forEach((booking) => {
+            if (booking.status === 'PENDING') {
+                var row = document.createElement('tr');
+               row.innerHTML = `
+            <td id="booking-id-${booking.id}">${booking.id}</td>
+            <td id="booking-name-${booking.id}">${booking.actName}</td>
+            <td id="booking-startTime-${booking.id}">${booking.startTime}</td>
+            <td id="booking-endTime-${booking.id}">${booking.endTime}</td>
+            <td id="booking-price-${booking.id}">${booking.price}</td>
+            <td id="booking-status-${booking.id}">${booking.status}</td>
+            <td id="booking-cancel-${booking.id}"><button class="btn btn-danger">Cancel</button></td>
+`;
+            unpaidTable.appendChild(row);
+            }
+        });
+    });
+};
 
 
 /*upcoming all unpaid*/
