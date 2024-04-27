@@ -244,6 +244,18 @@ text-align: center;
             </div>
         </div>
 
+        <!-- Popup page：add coach 增加教练弹出框 -->
+        <div id="confirmationModal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <form id="deleteCoachForm">
+                    <p>Are you sure you want to delete coach <span id="coachName"></span>?</p>
+                    <button id="confirmDeleteBottom" class="confirmBottom" type="button">Confirm</button>
+                    <button id="cancelDeleteBottom" class="cancelBottom" type="button">Cancel</button>
+                </form>
+            </div>
+        </div>
+
 
         <div id="main">
             <!-- <img src="img/manage3.png" width="100%" height="700px"> -->
@@ -297,27 +309,29 @@ document.getElementById('a1').addEventListener('click', function() {
         });
 
 // Get a list of coach information 获取教练信息以列表
-fetch('/api/coachinfo')
-  .then(response => response.json())
-    .then(data => {
-        console.log(data); // 在控制台输出数据以确保正确获取到
-        const tableBody = document.querySelector('table tbody');
+// 获取教练信息列表的函数
+function getCoachInfoList() {
+    fetch('/api/coachinfo')
+        .then(response => response.json())
+        .then(data => {
+            console.log(data); // 在控制台输出数据以确保正确获取到
+            const tableBody = document.querySelector('table tbody');
 
-        // Empty the form
-        tableBody.innerHTML = '';
+            // Empty the form
+            tableBody.innerHTML = '';
 
-        // If the coach information array is empty, display "There is no coach..."
-        // 如果教练信息数组为空，则显示 "There is no coach..."
-        if (data.length === 0) {
-            const row = document.createElement('tr');
-            row.innerHTML = '<td colspan="7">“There is no \n' + 'coach information yet. Please add coach first. </td>';
-            tableBody.appendChild(row);
-        } else {
-            // Loop through the coach information array, creating a row for each coach
-            // 循环遍历教练信息数组，为每个教练创建一行
-            data.forEach(coach => {
+            // If the coach information array is empty, display "There is no coach..."
+            // 如果教练信息数组为空，则显示 "There is no coach..."
+            if (data.length === 0) {
                 const row = document.createElement('tr');
-                row.innerHTML = `
+                row.innerHTML = '<td colspan="7">There is no \n' + 'coach information yet. Please add coach first. </td>';
+                tableBody.appendChild(row);
+            } else {
+                // Loop through the coach information array, creating a row for each coach
+                // 循环遍历教练信息数组，为每个教练创建一行
+                data.forEach(coach => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
         <td>${coach.id}</td>
         <td>${coach.name}</td>
         <td>${coach.contact}</td>
@@ -326,22 +340,19 @@ fetch('/api/coachinfo')
         <td>${coach.status}</td>
         <td>${coach.activity}</td>
         <td>
-        <button class="updateBottom" type="button"  style="font-size: 20px;">Modify</button>
+        <button class="updateBottom" type="button"  style="font-size: 20px;">Modify</button><td>
+        <button class="deleteBottom" type="button" style="font-size: 20px;">Delete</button>
         </td>
       `;
-        tableBody.appendChild(row);
-                const updateBottom = row.querySelector('.updateBottom');
-
-                updateBottom.addEventListener('click', function() {
-                console.log('updateBottom clicked');
+                    tableBody.appendChild(row);
                 });
-            });
-        }
-    })
-    .catch(error => {
-        console.error('Error fetching data:', error);
-    });
-
+            }
+        })
+        .catch(error => {
+            console.error('Error fetching data:', error);
+        });
+}
+getCoachInfoList();
 // 获取弹出框及关闭按钮
 // Gets the pop-up and close buttons for adding a coach
 const modal = document.getElementById('addModal');
@@ -369,7 +380,7 @@ window.onclick = function(event) {
 }
 
 // 监听表单提交事件
-// Listens for form submission events
+// Listens for form submission events for adding a coach
 document.getElementById('addCoachForm').addEventListener('submit', function(event) {
     event.preventDefault();
 
@@ -381,7 +392,8 @@ document.getElementById('addCoachForm').addEventListener('submit', function(even
         .then(response => response.text())
         .then(message => {
             alert(message);
-            modal.style.display = 'none'; 
+            modal.style.display = 'none';
+            getCoachInfoList();
         })
         .catch(error => {
             console.error('Error adding coach:', error);
@@ -400,7 +412,6 @@ const updateCloseBottom = updateModal.getElementsByClassName('close')[0];
 document.addEventListener('click', function(event) {
     if (event.target.classList.contains('updateBottom')) {
         updateModal.style.display = 'block';
-        // console.log('updateBtn clicked');
         // 获取当前按钮所在的行
         // Gets the row where the current button is located
         const currentRow = event.target.closest('tr');
@@ -416,13 +427,11 @@ document.addEventListener('click', function(event) {
 
     }
 });
-
 // 当点击关闭按钮时关闭弹出框
 // Closes the pop-up when the close button is clicked
 updateCloseBottom.onclick = function() {
   updateModal.style.display = 'none';
 }
-
 // 当用户点击弹出框外部时关闭弹出框
 // Closes the pop-up when the user clicks outside the pop-up
 window.onclick = function(event) {
@@ -430,7 +439,6 @@ window.onclick = function(event) {
       updateModal.style.display = 'none';
   }
 }
-
 // 监听更新表单提交事件
 // Listens for update form submission events
 document.getElementById('updateCoachForm').addEventListener('submit', function(event) {
@@ -444,13 +452,55 @@ document.getElementById('updateCoachForm').addEventListener('submit', function(e
       .then(response => response.text())
       .then(message => {
           alert(message);
-          updateModal.style.display = 'none'; 
+          updateModal.style.display = 'none';
+          getCoachInfoList();
       })
       .catch(error => {
           console.error('Error updating coach:', error);
       });
 });
+//   ***********************删除******************************************************
+document.addEventListener('click', function(event) {
+    if (event.target.classList.contains('deleteBottom')) {
+        console.log('delete clicked');
+        // 获取当前行的教练 ID
+        const currentRow = event.target.closest('tr');
+        const coachId = currentRow.cells[0].innerText;
 
+        // 设置弹出框中的教练名字
+        // Sets the coach name in the pop-up
+        document.getElementById('coachName').textContent = currentRow.cells[1].innerText;
+
+        const confirmationModal = document.getElementById('confirmationModal');
+        confirmationModal.style.display = 'block';
+
+        // 点击确认删除按钮
+        document.getElementById('confirmDeleteBottom').addEventListener('click', function() {
+            fetch('/api/delete_coach?id=' + coachId, {
+                method: 'POST'
+            })
+                .then(response => response.text())
+                .then(message => {
+                    // alert(message);
+                    getCoachInfoList();
+                    confirmationModal.style.display = 'none';
+                })
+                .catch(error => {
+                    console.error('Error deleting coach:', error);
+                });
+        });
+
+        // 点击取消删除按钮
+        document.getElementById('cancelDeleteBottom').addEventListener('click', function() {
+            confirmationModal.style.display = 'none';
+        });
+        window.onclick = function(event) {
+            if (event.target === confirmationModal) {
+                confirmationModal.style.display = 'none';
+            }
+        };
+    }
+});
 </script>
 </body>
 </html>

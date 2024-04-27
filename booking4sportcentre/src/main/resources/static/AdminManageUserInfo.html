@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>User registration information page</title>
+    <meta charset="utf-8" />
+
+    <link rel="stylesheet" type="text/css" href="css/EditUserInfoPage.css">
+
+    <!-- 引入jQuery库 -->
+    <script src="jquery-3.7.1.js"></script>
+    <!-- 引入Bootstrap样式库 -->
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css" />
+    <!-- 引入Bootstrap JS库 -->
+    <script src="bootstrap/js/bootstrap.bundle.min.js"></script>
+
+</head>
+
+<body style="background: whitesmoke" class="body">
+    <div class="container-row" style="text-align: center">
+        <font face="" color="black" size="7">User registration information page</font>
+
+    </div>
+
+
+<div class="container my-4">
+    <h2><i style="padding-right: 100px">User list</i>
+        <button onclick="showAddModal()" id="add" class="btn btn-primary layui-btn-fluid">Add</button>
+        <input type="text" id="search-input" placeholder="Please enter ID" >
+        <button class="btn btn-primary btn-large" >Search</button></h2>
+
+
+
+    <table id="studentTable" class="table table-striped">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Username</th>
+            <th>Position</th>
+            <th>Mobile Number</th>
+            <th>Gender</th>
+            <th>School email</th>
+            <th>Emergency contact number</th>
+            <th>operate</th>
+        </tr>
+        <tr>
+            <td>2145057</td>
+            <td>2145057</td>
+            <td>Student</td>
+            <td>13847263384</td>
+            <td>male</td>
+            <td>2145057@email.com</td>
+            <td>13847263384</td>
+
+            <!--//更新和删除按钮-->
+            <td>
+                <button onclick="showUpdateModal()" class="btn btn-primary btn-sm">Update</button>
+                <button class="btn btn-primary btn-sm">Delete</button>
+            </td>
+        </tr>
+        <tr>
+            <td>2145561</td>
+            <td>2145561</td>
+            <td>Student</td>
+            <td>15239796206</td>
+            <td>male</td>
+            <td>2145561@email.com</td>
+            <td>15239796206</td>
+
+            <!--//更新和删除按钮-->
+            <td>
+                <button onclick="showUpdateModal()" class="btn btn-primary btn-sm">Update</button>
+                <button class="btn btn-primary btn-sm">Delete</button>
+            </td>
+        </tr>
+        </thead>
+        <tbody>
+        <!-- 学生信息将由JavaScript动态添加到表格中 -->
+        </tbody>
+    </table>
+
+    <!-- 弹出添加/更新学生信息的模态框 -->
+    <div id="studentModal" class="modal">
+        <h2 id="modalTitle"></h2>
+        <form id="studentForm">
+            <div class="input-box-wrpper">
+                <div class="box1">
+
+                    <form>
+                        <div class="mb-3">
+                            <label for="id" class="form-label">ID</label>
+                            <input  type="text" class="form-control" id="id" name="id" />
+                        </div>
+                        <div class="mb-3">
+                            <label for="username" class="form-label">Username</label>
+                            <input  type="text" class="form-control" id="username" name="username" />
+                        </div>
+                        <div class="mb-3">
+                            <label for="position" class="form-label">Position</label>
+                            <select  class="form-control" aria-label="Default select example" id="position" name="position">
+                                <option value="Staff">Staff</option>
+                                <option value="Student">Student</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="mobilePhone" class="form-label">mobile phone</label>
+                            <input  type="text" class="form-control" id="mobilePhone" name="mobilePhone" />
+                        </div>
+                        <div class="mb-3">
+                            <label for="gender" class="form-label">gender</label>
+                            <select class="form-control" aria-label="Default select example" id="gender" name="gender">
+                                <option value="male">male</option>
+                                <option value="female">female</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="schoolEmail" class="form-label">School email</label>
+                            <input  type="text" class="form-control" id="schoolEmail" name="schoolEmail" />
+                        </div>
+                        <div class="mb-3">
+                            <label for="emergencyContactNumber" class="form-label">Emergency contact phone</label>
+                            <input  type="text" class="form-control" id="emergencyContactNumber" name="emergencyContactNumber" />
+                        </div>
+
+                    </form>
+                </div>
+            <div>
+                <button type="submit" id="saveButton" class="btn btn-primary btn-sm"></button>
+                <button type="button" onclick="closeModal()" class="btn btn-primary btn-sm">Close</button>
+            </div>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        // 获取学生信息并渲染到表格中
+        fetch('http://localhost:8080/StuInfo')
+            .then(response => response.json())
+            .then(data => {
+                renderStudents(data);
+            })
+            .catch(error => console.error('Error fetching students', error));
+
+        function renderStudents(students) {
+            var tableBody = document.querySelector('#studentTable tbody');
+            tableBody.innerHTML = '';
+            students.forEach(function (student) {
+                var row = `<tr>
+                    <td>${student.id}</td>
+                    <td>${student.username}</td>
+                    <td>${student.position}</td>
+                    <td>${student.mobilePhone}</td>
+                    <td>${student.gender}</td>
+                    <td>${student.schoolEmail}</td>
+                    <td>${student.emergencyContactNumber}</td>
+                    <td>
+                        <button onclick="openEditModal(${student.id})">Update</button>
+                        <button onclick="deleteStudent(${student.id})">Delete</button>
+                    </td>
+                </tr>`;
+                tableBody.innerHTML += row;
+            });
+        }
+
+        function showAddModal() {
+            document.getElementById('modalTitle').textContent = 'Add user information';
+            document.getElementById('saveButton').textContent = 'Add';
+            document.getElementById('studentForm').reset(); // 清空表单
+            document.getElementById('studentModal').style.display = 'block';
+        }
+
+        function showUpdateModal() {
+            document.getElementById('modalTitle').textContent = 'Update user information';
+            document.getElementById('saveButton').textContent = 'Update';
+            document.getElementById('studentForm').reset(); // 清空表单
+            document.getElementById('studentModal').style.display = 'block';
+        }
+        //获取表单元素，添加事件监听器
+        document.getElementById('studentForm').addEventListener('submit', function(event) {
+            event.preventDefault();//阻止浏览器的默认提交动作
+            var formData = new FormData(document.getElementById('studentForm'));//从表单中获取数据
+            var studentData = {};//保存表单数据
+            formData.forEach(function(value, key) {
+                studentData[key] = value;
+            });//遍历表单数据，存储在studentData中
+
+            fetch('http://localhost:8080/updateStudent', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(studentData)
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('HTTP error ' + response.status);
+                    }
+                    return response.json()
+                })
+                .then(response => response.json())
+                .then(data => {
+                    closeModal();
+                    //获取更新后的学生数据
+                    fetch('http://localhost:8080/StuInfo')
+                        .then(response => response.json())
+                        .then(data => {
+                            renderStudents(data);
+                        })
+                        .catch(error => console.error('Error fetching students', error));
+                })
+                .catch(error => console.error('Error saving student', error));
+        });
+
+        function closeModal() {
+            document.getElementById('studentModal').style.display = 'none';
+        }
+
+        function openEditModal(id) {
+            document.getElementById('modalTitle').textContent = '编辑学生信息';
+            document.getElementById('saveButton').textContent = '保存';
+            // 根据id从后端获取学生信息并填充到模态框中
+            fetch(`http://localhost:8080/getStudentById/${id}`)
+                .then(response => response.json())
+                .then(student => {
+                    document.getElementById('id').value = student.id;
+                    document.getElementById('username').value = student.username;
+                    document.getElementById('position').value = student.position;
+                    // 填充其他字段的值
+                    document.getElementById('studentModal').style.display = 'block';
+                })
+                .catch(error => console.error('Error fetching student', error));
+        }
+
+        function deleteStudent(id) {
+            fetch(`http://localhost:8080/deleteStudent/${id}`, {
+                method: 'DELETE'
+            })
+                .then(() => {
+                    fetch('http://localhost:8080/StuInfo')
+                        .then(response => response.json())
+                        .then(data => {
+                            renderStudents(data);
+                        })
+                        .catch(error => console.error('Error fetching students', error));
+                })
+                .catch(error => console.error('Error deleting student', error));
+        }
+    </script>
+
+</div>
+</body>
+</html>
