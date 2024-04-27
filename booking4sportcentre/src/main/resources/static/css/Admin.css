@@ -1,0 +1,109 @@
+body {
+    margin: 0;
+    background-color:rgb(243, 245, 250);
+  }
+  /* 侧边栏样式 */
+  #side{
+    list-style-type: none; 
+    margin-left: 20px;
+    padding: 0;
+  
+    width: 25%;
+    background-color:rgba(255, 255, 255,0.25);
+    position: fixed;
+    height: 100%;
+    overflow: auto;
+    font-family: Helvetica, sans-serif;
+  
+  }
+  
+  /* 右边页面 */
+   #main { 
+    margin-top: 50px;
+      margin-left: 28%;
+      height: auto; 
+      
+  }
+  /* 第一个侧边框的样式 */
+  #bb{
+    font-family: 'Trebuchet MS', sans-serif;
+    background-color: rgb(243, 245, 250);
+    font-size: 27px;
+    margin-bottom: 15px;
+  }
+  /* 三个侧边框的样式 */
+  #aa{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 25px;
+    margin-bottom: 5px;
+  }
+  a{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 25px;
+    margin-bottom: 5px;
+  }
+  
+      /* 侧边框字体颜色 */
+  li a {
+    display: block;
+    color:rgb(30, 32, 34);
+    padding: 8px 16px;
+    text-decoration: none;
+  }
+  /* Home默认选中状态 */
+  li a.active {
+   color: rgba(38, 93, 241,0.8);
+  }
+  /* 主要侧边栏选中状态 */
+  #aa:hover:not(.active) {
+    background-color:white;
+    color:red;
+  /*   box-shadow:2px 2px 4px rgba(34,34,34,1); */
+    text-shadow: rgba(34,93,241,0.6) 5px 4px 4px;
+  }
+  
+  /* manage侧边栏选中状态 */
+  #a2:hover:not(.active) {
+    color: rgba(38, 93, 241,0.8);
+    text-shadow: rgba(34,93,241,0.6) 5px 4px 4px;
+  }
+  /* manage子侧边栏 */
+  #a3:hover:not(.active) {
+    color: rgba(38, 93, 241,0.8);
+  /*   box-shadow:2px 2px 4px rgba(34,34,34,1); */
+    text-shadow: rgba(34,93,241,0.3) 5px 4px 4px;
+  }
+  /* Sport System侧边栏选中状态 */
+  #bb:hover:not(.active) {
+    color: rgb(48,65,86);
+  }
+  .columnLeft {   
+  background-color: rgba(255, 255, 255,0.3);
+  height:500px;
+  width: 900px;
+  margin: 0 auto ;
+  }
+  
+  
+  
+  /* 提示文本样式 */
+  [title] {
+              position: relative;
+              cursor: help; /* 鼠标悬停样式为帮助指针 */
+          }
+  
+          /* 提示文本的样式 */
+          [title]:hover::after {
+              content: attr(title);
+              position: absolute;
+              background-color: rgba(0, 0, 0, 0.55);
+              color: #fff;
+              padding: 4px 8px;
+              border-radius: 4px;
+              font-size: 18px;
+              bottom: 30px;
+              left: 50%;
+              transform: translateX(-50%);
+              white-space: nowrap;
+          }
+          
