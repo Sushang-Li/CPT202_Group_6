@@ -37,12 +37,13 @@ public class BookingControllerTest {
   @Test
   public void testCreateBooking() {
       BookingInfo booking = new BookingInfo();
+      booking.setUserName("Fuyu Xing");
       booking.setDate(LocalDate.now());
       booking.setStartTime(LocalTime.of(9, 0));
       booking.setEndTime(LocalTime.of(10, 0));
       booking.setVenue("Basketball Court");
       booking.setStatus(BookingStatus.PENDING);
-      booking.setName("Basketball");
+      booking.setActName("Basketball");
       booking.setPrice(100.0);
       Long id = bookingController.createBooking(booking);
       // Assert that the result is greater than 0
@@ -54,12 +55,13 @@ public class BookingControllerTest {
     public void testGetBooking() {
         // Create a new booking
         BookingInfo newBooking = new BookingInfo();
+        newBooking.setUserName("belle");
         newBooking.setDate(LocalDate.now());
         newBooking.setStartTime(LocalTime.of(9, 0));
         newBooking.setEndTime(LocalTime.of(10, 0));
         newBooking.setVenue("Basketball Court");
         newBooking.setStatus(BookingStatus.PENDING);
-        newBooking.setName("Basketball");
+        newBooking.setActName("Basketball");
         newBooking.setPrice(100.0);
         Long id = bookingController.createBooking(newBooking);
         // Use the generated ID to get the booking
@@ -71,12 +73,13 @@ public class BookingControllerTest {
     @Test
     public void testUpdateBooking() {
         BookingInfo booking = new BookingInfo();
+        booking.setUserName("xiaoyu");
         booking.setDate(LocalDate.now());
         booking.setStartTime(LocalTime.of(9, 0));
         booking.setEndTime(LocalTime.of(10, 0));
         booking.setVenue("Golf Room");
         booking.setStatus(BookingStatus.PENDING);
-        booking.setName("Golf");
+        booking.setActName("Golf");
         booking.setPrice(200.0);
         Long id = bookingController.createBooking(booking);
         assertNotNull(id);
