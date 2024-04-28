@@ -1,12 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="css/booking.css">
   <link href="https://fonts.googlefonts.cn/css?family=Roboto:400,500,700,900" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 <title>Welcome</title>
+
+ 
 </head>
 <body>
   <!-- <h1>这里是用户主页</h1> -->
@@ -37,7 +40,6 @@
 <div class = box-container>
     <button onclick="window.location.href='football.html';">
     <div class = sports>
-        
         <div class = "image">
             <img src = "images/football.png" alt = "">
         </div>
@@ -48,7 +50,6 @@
                 <span><i class = "fas fa-user"></i>by coach</span>
             </div>
         </div>
-   
     </div>
 </button>
     <button onclick="window.location.href='basketball.html';">
@@ -63,7 +64,6 @@
                 <span><i class = "fas fa-user"></i>by coach</span>
             </div>
         </div>
-        
     </div>
 </button>
     <button onclick="window.location.href='tennis.html';">
@@ -78,7 +78,6 @@
                 <span><i class = "fas fa-user"></i>by coach</span>
             </div>
         </div>
-        
     </div>
 </button>
     <button onclick="window.location.href='archery.html';">
@@ -93,7 +92,6 @@
                 <span><i class = "fas fa-user"></i>by coach</span>
             </div>
         </div>
-        
     </div>
 </button>
     <button onclick="window.location.href='pingpong.html';">
@@ -106,9 +104,9 @@
             <p>20rmb</p>
             <div class = "icons">
                 <span><i class = "fas fa-user"></i>by coach</span>
+
             </div>
         </div>
-        
     </div>
 </button>
     <button onclick="window.location.href='billiard.html';">
@@ -122,9 +120,9 @@
             <div class = "icons">
                 <span><i class = "fas fa-user"></i>by coach</span>
             </div>
+            </div>
+
         </div>
-        
-    </div>
 </button>
     <button onclick="window.location.href='shuttlecock.html';">
     <div class = sports>
@@ -136,14 +134,17 @@
             <p>20rmb</p>
             <div class = "icons">
                 <span><i class = "fas fa-user"></i>by coach</span>
+
+                </div>
             </div>
+
         </div>
+
   
     </div>
 </button>
     <button onclick="window.location.href='workout.html';">
     <div class = sports>
-        
         <div class = "image">
             <img src = "images/workout.png" alt = "">
         </div>
@@ -152,12 +153,45 @@
             <p>20rmb</p>
             <div class = "icons">
                 <span><i class = "fas fa-user"></i>by coach</span>
+                </div>
             </div>
+
         </div>
+
    
     </div>
 </button>
 </div>
+
+    </div>
+
+    <script>
+        //复制自主页
+        var urlParams = new URLSearchParams(window.location.search);
+        var userId = urlParams.get('id');
+        console.log(userId);
+
+        var userLink = document.getElementById('logo-nav');
+        userLink.href = "userHomepage.html?id=" + userId;
+
+        var userLink = document.getElementById('homepage-nav');
+        userLink.href = "userHomepage.html?id=" + userId;
+
+        var userLink = document.getElementById('information-nav');
+        userLink.href = "userInformation.html?id=" + userId;
+
+        var userLink = document.getElementById('wallet-nav');
+        userLink.href = "userWallet.html?id=" + userId;
+
+        var userLink = document.getElementById('booking-nav');
+        userLink.href = "userBooking.html?id=" + userId;
+
+        var userLink = document.getElementById('statistics-nav');
+        userLink.href = "userStatistics.html?id=" + userId;
+    </script>
+
 </body>
+
+
 
 </html>
