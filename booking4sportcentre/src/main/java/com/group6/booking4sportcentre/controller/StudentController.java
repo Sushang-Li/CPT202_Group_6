@@ -20,19 +20,21 @@ public class StudentController {
     private StudentMapper studentMapper;
 
     //View all student registration information
-    @GetMapping("StuInfo")
+    @GetMapping("/api/StuInfo")
+    @Transactional
     public List<StudentInfo> findAll() {
         return studentMapper.findAll();
     }
 
     //View student registration by id
-    @GetMapping("getStudentById")
+    @GetMapping("/api/getStudentById")
+    @Transactional
     public List<StudentInfo> findById(Integer id){
         return studentMapper.selectById(id);
     }
 
     //Add student registration information
-    @PostMapping("/addStudent")
+    @PostMapping("/api/addStudent")
     public Message addStudent(StudentInfo studentInfo){
         int add = studentMapper.insert(studentInfo);
         //Message returned during verification
@@ -47,7 +49,7 @@ public class StudentController {
 
     //Update student registration information
     @Transactional
-    @PostMapping("/updateStudent")
+    @PostMapping("/api/updateStudent")
     public Message updateStudent(StudentInfo studentInfo) {
         int i = studentMapper.updateById(studentInfo);
         if (i == 0) {
@@ -65,7 +67,7 @@ public class StudentController {
 
     //Delete student registration information
     @Transactional
-    @DeleteMapping("/deleteStudent")
+    @DeleteMapping("/api/deleteStudent")
     public Message deleteStudent(Integer id) {
         int i = studentMapper.deleteById(id);
         if (i == 0){
