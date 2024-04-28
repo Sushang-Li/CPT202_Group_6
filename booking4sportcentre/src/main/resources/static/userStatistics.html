@@ -15,25 +15,26 @@
 <body>
   <!-- <h1>这里是用户统计信息页</h1> -->
 
+
   <nav>
     <div class="nav-container">
       <div class="logo">
-        <a href="userHomepage.html">:D</a>
+        <a href="userHomepage.html" id="logo-nav">:D</a>
       </div>
       <div class="homepage">
-        <a href="userHomepage.html">HOMEPAGE</a>
+        <a href="userHomepage.html" id="homepage-nav">HOMEPAGE</a>
       </div>
       <div class="information">
-        <a href="userInformation.html">INFORMATION</a>
+        <a href="userInformation.html" id="information-nav">INFORMATION</a>
       </div>
       <div class="wallet">
-        <a href="userWallet.html">WALLET</a>
+        <a href="userWallet.html" id="wallet-nav">WALLET</a>
       </div>
       <div class="booking">
-        <a href="userBooking.html">BOOKING</a>
+        <a href="userBooking.html" id="booking-nav">BOOKING</a>
       </div>
       <div class="statistics">
-        <a href="userStatistics.html">STATISTICS</a>
+        <a href="userStatistics.html" id="statistics-nav">STATISTICS</a>
       </div>
     </div>
   </nav>
@@ -41,6 +42,30 @@
     <p>Our sports center has not opened yet, so there is no user statistics for the time being :D</p>
   </div>
 
+  <script>
+    //复制自主页
+    var urlParams = new URLSearchParams(window.location.search);
+    var userId = urlParams.get('id');
+    console.log(userId);
+
+    var userLink = document.getElementById('logo-nav');
+    userLink.href = "userHomepage.html?id=" + userId;
+
+    var userLink = document.getElementById('homepage-nav');
+    userLink.href = "userHomepage.html?id=" + userId;
+
+    var userLink = document.getElementById('information-nav');
+    userLink.href = "userInformation.html?id=" + userId;
+
+    var userLink = document.getElementById('wallet-nav');
+    userLink.href = "userWallet.html?id=" + userId;
+
+    var userLink = document.getElementById('booking-nav');
+    userLink.href = "userBooking.html?id=" + userId;
+
+    var userLink = document.getElementById('statistics-nav');
+    userLink.href = "userStatistics.html?id=" + userId;
+  </script>
 
 </body>
 
