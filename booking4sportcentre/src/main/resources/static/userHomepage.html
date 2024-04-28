@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,13 +7,10 @@
   <link rel="stylesheet" href="css/userHomepageStyle.css">
   <link rel="stylesheet" href="css/homepagebooking.css">
   <link href="https://fonts.googlefonts.cn/css?family=Roboto:400,500,700,900" rel="stylesheet">
- 
   <title>Welcome</title>
 </head>
-
 <body>
   <!-- <h1>这里是用户主页</h1> -->
-
   <nav>
     <div class="nav-container">
       <div class="logo">
@@ -37,9 +33,7 @@
       </div>
     </div>
   </nav>
-
   <div class="carousel-box">
-
     <ul class="slides">
       <input type="radio" id="control-1" name="control" checked>
       <input type="radio" id="control-2" name="control">
@@ -131,23 +125,17 @@
           </button>
         </div>
       </li>
-
       <div class="controls-visible">
         <label for="control-1"></label>
         <label for="control-2"></label>
         <label for="control-3"></label>
       </div>
-
     </ul>
-
   </div>
   <div class="cards">
     <div class="information-card">
       <p>information</p>
     </div>
-    
-    
-    
     <div class="booking-card">
       <a href="booking.html">booking</a>
       <div class = "sports-container">
@@ -241,7 +229,6 @@
     }
     slides[slideIndex].checked = true;
   }
-
   // Attach event listener
   btnRights.forEach(btn => btn.addEventListener('click', showNextSlide));
   btnLefts.forEach(btn => btn.addEventListener('click', showPreviousSlide));
@@ -251,5 +238,4 @@
 
 </script>
 </body>
-
 </html>

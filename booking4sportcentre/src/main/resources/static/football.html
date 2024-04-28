@@ -4,6 +4,8 @@
    
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
         <link rel="stylesheet" href="css/timeandareaSelecting.css">
         <title>Welcome</title>
       
@@ -32,10 +34,7 @@
           </div>
         </div>
       </nav>
-      <!-- <div class = "toptext" style="background-color: #00a8c6;text-align: center;">
-        test1
-    </div> -->
-    <br>
+      
       <label>
         <span>选择日期</span>
         <input type="date" id = "date1" value= "" />
@@ -54,15 +53,15 @@
     <tbody>
       <tr>
         <td>8:00 - 9:00</td>
-        <td><button onclick="selectTimeAndLocation('8:00 - 9:00', 'GM1')">Booked</button></td>
-        <td><button onclick="selectTimeAndLocation('8:00 - 9:00', 'GM2');">Booked</button></td>
-        <td><button onclick="selectTimeAndLocation('8:00 - 9:00', 'GM3');">Booked</button></td>
+        <td><button onclick="selectTimeAndLocation('8:00 - 9:00', 'GM1');window.location.href='bookingpay.html'">Booked</button></td>
+        <td><button onclick="selectTimeAndLocation('8:00 - 9:00', 'GM2');window.location.href='bookingpay.html'">Booked</button></td>
+        <td><button onclick="selectTimeAndLocation('8:00 - 9:00', 'GM3');window.location.href='bookingpay.html'">Booked</button></td>
       </tr>
       <tr>
         <td>9:00 - 10:00</td>
-        <td><button onclick="selectTimeAndLocation('9:00 - 10:00', 'GM1');">Booked</button></td>
-        <td><button onclick="selectTimeAndLocation('9:00 - 10:00', 'GM2');">Booked</button></td>
-        <td><button onclick="selectTimeAndLocation('9:00 - 10:00', 'GM3');">Booked</button></td>
+        <td><button onclick="selectTimeAndLocation('9:00 - 10:00', 'GM1');window.location.href='bookingpay.html'">Booked</button></td>
+        <td><button onclick="selectTimeAndLocation('9:00 - 10:00', 'GM2');window.location.href='bookingpay.html'">Booked</button></td>
+        <td><button onclick="selectTimeAndLocation('9:00 - 10:00', 'GM3');window.location.href='bookingpay.html'">Booked</button></td>
       </tr>
       <tr>
         <td>10:00 - 11:00</td>
@@ -111,16 +110,15 @@
     var year=d.getFullYear()
     var shijian = year + "-" + (month < 10 ? "0" : "") + month + "-" + (day < 10 ? "0" : "") + day;
     document.getElementById("date1").value=shijian;
+    
     function selectTimeAndLocation(time, location) {
       const dateControl = document.querySelector('input[type="date"]');
       // 在这里处理用户选择的时间和场地
-      
       if(confirm('Choosing date: '+dateControl.value+'\n'+'Choosing time slot：'+time +"\n"+'Choosing area：'+location)){  
         window.location.href='bookingpay.html'
       }
     } 
     
-  
   
   </script>
 </body>
