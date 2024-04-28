@@ -2,11 +2,13 @@ package com.group6.booking4sportcentre.controller;
 
 import com.group6.booking4sportcentre.mapper.BookingInfoMapper;
 import com.group6.booking4sportcentre.model.BookingInfo;
+import com.group6.booking4sportcentre.service.WalletService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author Fuyu.Xing
@@ -18,6 +20,9 @@ import java.util.List;
 public class BookingController {
     @Autowired
     private BookingInfoMapper bookingInfoMapper;
+
+    @Autowired
+    private WalletService walletService;
 
     //get all bookings
     //If there is no booking information, return empty list
@@ -44,6 +49,7 @@ public class BookingController {
             return null;
         }
         bookingInfoMapper.createBooking(booking);
+
         return booking.getId();
     }
 
@@ -54,6 +60,9 @@ public class BookingController {
 
         if (id == null || booking == null) {
             return 0;
+        }
+        if (booking.getWalletInfo() != null) {
+            bookingInfoMapper.updateWalletInfoId(booking.getId(), booking.getWalletInfo().getId());
         }
         return bookingInfoMapper.updateBooking(id, booking);
     }
@@ -72,5 +81,20 @@ public class BookingController {
         LocalDate localDate= LocalDate.parse(date);
         return bookingInfoMapper.getBookingByDate(localDate);
     }
+
+    @PostMapping("/confirm")
+    public void confirmBooking(@RequestParam Long bookingInfoId) {
+        Map<String, Object> bookingInfo = bookingInfoMapper.getBookingCostAndWalletInfoIdById(bookingInfoId);
+        Double bookingCost = (Double) bookingInfo.get("price");
+        Long walletInfoId = (Long) bookingInfo.get("wallet_info_id");
+        walletService.reduceBookingCost(walletInfoId, bookingCost);
+    }
+
+    @PostMapping("/updateWalletInfoId")
+    public void updateWalletInfoId(@RequestParam Long bookingInfoId, @RequestParam Long walletInfoId) {
+        bookingInfoMapper.updateWalletInfoId(bookingInfoId, walletInfoId);
+    }
+
+
 
 }
