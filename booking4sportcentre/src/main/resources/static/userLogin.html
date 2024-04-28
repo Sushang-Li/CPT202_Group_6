@@ -17,14 +17,14 @@
     <div class="login-box">
       <br>
       <p class="login">LOGIN</p>
-      <form action="userHomepage.html" method="post">
+      <form action="/stuLogin" method="post">
 
 
         <!-- <legend>Sign In with your XJTLU ID</legend> -->
 
         <!-- <label for="logon">Username:</label> -->
         <label for="logon"><span hidden>Your XJTLU ID</span>
-          <input id="logon" name="j_username" type="text" placeholder="Your XJTLU ID" aria-required="true"
+          <input id="logon" name="username" type="text" placeholder="Your XJTLU ID" aria-required="true"
             pattern="^\d{7}$" title="XJTLU IDs consist of 7 numbers." tabindex="1" autocorrect="off"
             autocapitalize="none" required autofocus value="">
           <br>
@@ -36,7 +36,7 @@
         <br>
         <!-- <label for="pass">Password:</label> -->
         <label for="pass"><span hidden>Your XJTLU Logon Password</span>
-          <input id="pass" name="j_password" type="password" placeholder="Your Password" aria-required="true"
+          <input id="pass" name="password" type="password" placeholder="Your Password" aria-required="true"
             pattern="^.{6,}$"
             title="Passwords are at least 6 characters long and can consist of letters, numbers, and the following symbols: !@#$%^&*().,"
             tabindex="2" autocorrect="off" autocapitalize="none" required>

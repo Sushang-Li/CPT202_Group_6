@@ -8,35 +8,45 @@
   display: flex;
   justify-content: center;
   gap: 5px;
+  filter: none;
 }
 
+
 .user-login {
-  background-color: #339af0;
-  flex-grow: 0.75;
+  background-image: url("../images/AdmLogBackground.jpg");
+  flex-grow: 0; /* 禁止伸展 */
+  flex-basis: 50%; /* 设置初始宽度为 50% */
   height: 100vh;
   padding-left: 100px;
   padding-top: 300px;
   border-radius: 20px;
+  /* 添加灰度滤镜效果 */
+  filter: grayscale(100%);
+  transition: filter 0.3s ease; /* 添加过渡效果 */
+  background-size: cover;
 }
 
 .user-login:hover {
-  background-color: #748ffc;
-  border-radius: 20px;
+  filter: none;
 }
 
 
 .admin-login {
-  background-color: #339af0;
-  flex-grow: 1;
+  background-image: url("../images/StuLogBackground.jpg");
+  flex-grow: 0; /* 禁止伸展 */
+  flex-basis: 50%; /* 设置初始宽度为 50% */
   height: 100vh;
   padding-left: 100px;
   padding-top: 300px;
   border-radius: 20px;
+  /* 添加灰度滤镜效果 */
+  filter: grayscale(100%);
+  transition: filter 0.3s ease; /* 添加过渡效果 */
+  background-size: cover;
 }
 
 .admin-login:hover {
-  background-color: #748ffc;
-  border-radius: 20px;
+  filter: none;
 }
 
 a:link {
