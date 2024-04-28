@@ -1,19 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
    
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="css/timeandareaSelecting.css">
         <title>Welcome</title>
       
-
 </head>
-
 <body>
-
     
     <nav>
         <div class="nav-container">
@@ -46,9 +41,8 @@
         <input type="date" id = "date1" value= "" />
       </label>
     
-
   <h1>Selecting timeslot and area</Select></h1>
-  <table border="1" width='500px' height='300px'>
+  <table border = "1" width = '500px' height = '300px'>
     <thead>
       <tr>
         <th></th>
@@ -60,11 +54,9 @@
     <tbody>
       <tr>
         <td>8:00 - 9:00</td>
-
         <td><button onclick="selectTimeAndLocation('8:00 - 9:00', 'GM1')">Booked</button></td>
         <td><button onclick="selectTimeAndLocation('8:00 - 9:00', 'GM2');">Booked</button></td>
         <td><button onclick="selectTimeAndLocation('8:00 - 9:00', 'GM3');">Booked</button></td>
-
       </tr>
       <tr>
         <td>9:00 - 10:00</td>
@@ -113,41 +105,15 @@
 
   <script>
 
-
     var d=new Date()
     var day=d.getDate()
     var month=d.getMonth() + 1
     var year=d.getFullYear()
     var shijian = year + "-" + (month < 10 ? "0" : "") + month + "-" + (day < 10 ? "0" : "") + day;
     document.getElementById("date1").value=shijian;
-
-    //复制自主页
-    var urlParams = new URLSearchParams(window.location.search);
-    var userId = urlParams.get('id');
-    console.log(userId);
-
-    var userLink = document.getElementById('logo-nav');
-    userLink.href = "userHomepage.html?id=" + userId;
-
-    var userLink = document.getElementById('homepage-nav');
-    userLink.href = "userHomepage.html?id=" + userId;
-
-    var userLink = document.getElementById('information-nav');
-    userLink.href = "userInformation.html?id=" + userId;
-
-    var userLink = document.getElementById('wallet-nav');
-    userLink.href = "userWallet.html?id=" + userId;
-
-    var userLink = document.getElementById('booking-nav');
-    userLink.href = "userBooking.html?id=" + userId;
-
-    var userLink = document.getElementById('statistics-nav');
-    userLink.href = "userStatistics.html?id=" + userId;
-
     function selectTimeAndLocation(time, location) {
       const dateControl = document.querySelector('input[type="date"]');
       // 在这里处理用户选择的时间和场地
-
       
       if(confirm('Choosing date: '+dateControl.value+'\n'+'Choosing time slot：'+time +"\n"+'Choosing area：'+location)){  
         window.location.href='bookingpay.html'
@@ -156,8 +122,6 @@
     
   
   
-
   </script>
 </body>
-
 </html>
