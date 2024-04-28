@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>User registration information page</title>
     <meta charset="utf-8" />
@@ -42,38 +42,8 @@
             <th>Emergency contact number</th>
             <th>operate</th>
         </tr>
-        <tr>
-            <td>2145057</td>
-            <td>2145057</td>
-            <td>Student</td>
-            <td>13847263384</td>
-            <td>male</td>
-            <td>2145057@email.com</td>
-            <td>13847263384</td>
-
-            <!--//更新和删除按钮-->
-            <td>
-                <button onclick="showUpdateModal()" class="btn btn-primary btn-sm">Update</button>
-                <button class="btn btn-primary btn-sm">Delete</button>
-            </td>
-        </tr>
-        <tr>
-            <td>2145561</td>
-            <td>2145561</td>
-            <td>Student</td>
-            <td>15239796206</td>
-            <td>male</td>
-            <td>2145561@email.com</td>
-            <td>15239796206</td>
-
-            <!--//更新和删除按钮-->
-            <td>
-                <button onclick="showUpdateModal()" class="btn btn-primary btn-sm">Update</button>
-                <button class="btn btn-primary btn-sm">Delete</button>
-            </td>
-        </tr>
         </thead>
-        <tbody>
+        <tbody id="studentTableBody">
         <!-- 学生信息将由JavaScript动态添加到表格中 -->
         </tbody>
     </table>
@@ -87,7 +57,7 @@
 
                     <form>
                         <div class="mb-3">
-                            <label for="id" class="form-label">ID</label>
+                            <label for="id" class="form-label">Id</label>
                             <input  type="text" class="form-control" id="id" name="id" />
                         </div>
                         <div class="mb-3">
@@ -124,43 +94,49 @@
                     </form>
                 </div>
             <div>
-                <button type="submit" id="saveButton" class="btn btn-primary btn-sm"></button>
+                <button type="submit"  id="saveButton" class="btn btn-primary btn-sm">Submit</button>
                 <button type="button" onclick="closeModal()" class="btn btn-primary btn-sm">Close</button>
             </div>
             </div>
         </form>
     </div>
 
+
     <script>
+
         // 获取学生信息并渲染到表格中
-        fetch('http://localhost:8080/StuInfo')
-            .then(response => response.json())
-            .then(data => {
-                renderStudents(data);
-            })
-            .catch(error => console.error('Error fetching students', error));
+        function fetchAndRenderStudents() {
+            fetch('http://localhost:8080/api/StuInfo')
+                .then(response => response.json())
+                .then(data => {
+                    renderStudents(data);
+                    bindDeleteButtonListeners();
+                })
+                .catch(error => console.error('Error fetching students', error));
+        }
 
         function renderStudents(students) {
             var tableBody = document.querySelector('#studentTable tbody');
             tableBody.innerHTML = '';
             students.forEach(function (student) {
                 var row = `<tr>
-                    <td>${student.id}</td>
-                    <td>${student.username}</td>
-                    <td>${student.position}</td>
-                    <td>${student.mobilePhone}</td>
-                    <td>${student.gender}</td>
-                    <td>${student.schoolEmail}</td>
-                    <td>${student.emergencyContactNumber}</td>
-                    <td>
-                        <button onclick="openEditModal(${student.id})">Update</button>
-                        <button onclick="deleteStudent(${student.id})">Delete</button>
-                    </td>
-                </tr>`;
+            <td>${student.id}</td>
+            <td>${student.username}</td>
+            <td>${student.position}</td>
+            <td>${student.mobilePhone}</td>
+            <td>${student.gender}</td>
+            <td>${student.schoolEmail}</td>
+            <td>${student.emergencyContactNumber}</td>
+            <td>
+                <button onclick="openEditModal(${student.id})">Update</button>
+                <button onclick="deleteStudent(${student.id})" class="delete-button" data-student-id="${student.id}">Delete</button>
+
+            </td>
+        </tr>`;
                 tableBody.innerHTML += row;
             });
         }
-
+        //显示添加信息模态框
         function showAddModal() {
             document.getElementById('modalTitle').textContent = 'Add user information';
             document.getElementById('saveButton').textContent = 'Add';
@@ -168,22 +144,57 @@
             document.getElementById('studentModal').style.display = 'block';
         }
 
-        function showUpdateModal() {
-            document.getElementById('modalTitle').textContent = 'Update user information';
-            document.getElementById('saveButton').textContent = 'Update';
-            document.getElementById('studentForm').reset(); // 清空表单
-            document.getElementById('studentModal').style.display = 'block';
-        }
+        // 监听添加事件
+        document.getElementById('add').addEventListener('click', function() {
+            showAddModal();
+        });
+
+        // 监听表单提交事件
+        document.getElementById('studentForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // 阻止表单的默认提交行为
+
+            // 获取表单数据
+            const formData = new FormData(document.getElementById('studentForm'));
+            const studentData = {};
+            formData.forEach(function(value, key) {
+                console.log(key + ": " + value); // 输出表单数据到控制台
+                studentData[key] = value;
+            });
+
+            // 发起添加学生信息的请求
+            fetch('http://localhost:8080/api/addStudent', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(studentData)
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('HTTP error ' + response.status);
+                    }
+                    return response.json()
+                })
+                .then(data => {
+                    // 添加成功后的操作，例如关闭模态框并刷新学生数据
+                    closeModal();
+                    fetchAndRenderStudents();
+                })
+                .catch(error => console.error('Error adding student', error));
+        });
+
+
         //获取表单元素，添加事件监听器
         document.getElementById('studentForm').addEventListener('submit', function(event) {
-            event.preventDefault();//阻止浏览器的默认提交动作
-            var formData = new FormData(document.getElementById('studentForm'));//从表单中获取数据
-            var studentData = {};//保存表单数据
+            event.preventDefault();
+            var formData = new FormData(document.getElementById('studentForm'));
+            var studentData = {};
             formData.forEach(function(value, key) {
                 studentData[key] = value;
-            });//遍历表单数据，存储在studentData中
+            });
 
-            fetch('http://localhost:8080/updateStudent', {
+            // 确保ID字段被正确地包含在表单数据中
+            fetch('http://localhost:8080/api/updateStudent', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -199,8 +210,7 @@
                 .then(response => response.json())
                 .then(data => {
                     closeModal();
-                    //获取更新后的学生数据
-                    fetch('http://localhost:8080/StuInfo')
+                    fetch('http://localhost:8080/api/StuInfo')
                         .then(response => response.json())
                         .then(data => {
                             renderStudents(data);
@@ -210,13 +220,14 @@
                 .catch(error => console.error('Error saving student', error));
         });
 
+        //关闭模态框
         function closeModal() {
             document.getElementById('studentModal').style.display = 'none';
         }
 
         function openEditModal(id) {
-            document.getElementById('modalTitle').textContent = '编辑学生信息';
-            document.getElementById('saveButton').textContent = '保存';
+            document.getElementById('modalTitle').textContent = 'Update user information';
+            document.getElementById('saveButton').textContent = 'Submit';
             // 根据id从后端获取学生信息并填充到模态框中
             fetch(`http://localhost:8080/getStudentById/${id}`)
                 .then(response => response.json())
@@ -224,28 +235,67 @@
                     document.getElementById('id').value = student.id;
                     document.getElementById('username').value = student.username;
                     document.getElementById('position').value = student.position;
-                    // 填充其他字段的值
+                    document.getElementById('mobilePhone').value = student.mobilePhone;
+                    document.getElementById('gender').value = student.gender;
+                    document.getElementById('schoolEmail').value = student.schoolEmail;
+                    document.getElementById('emergencyContactNumber').value = student.emergencyContactNumber;
                     document.getElementById('studentModal').style.display = 'block';
                 })
                 .catch(error => console.error('Error fetching student', error));
         }
 
+        // 监听所有class为delete-button的按钮点击事件
+        document.querySelectorAll('.delete-button').forEach(button => {
+            button.addEventListener('click', function() {
+                const studentId = this.getAttribute('data-student-id');
+                deleteStudent(studentId);
+            });
+        });
+
+        // 删除学生信息
         function deleteStudent(id) {
-            fetch(`http://localhost:8080/deleteStudent/${id}`, {
+            fetch(`http://localhost:8080/api/deleteStudent/${id}`, {
                 method: 'DELETE'
             })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Error deleting student');
+                    }
+                    return response.json();
+                })
                 .then(() => {
-                    fetch('http://localhost:8080/StuInfo')
-                        .then(response => response.json())
-                        .then(data => {
-                            renderStudents(data);
-                        })
-                        .catch(error => console.error('Error fetching students', error));
+                    fetchAndRenderStudents();
                 })
                 .catch(error => console.error('Error deleting student', error));
         }
-    </script>
 
+        // 初始化页面时获取学生数据
+        document.addEventListener('DOMContentLoaded', function() {
+            fetchAndRenderStudents();
+        });
+
+        // 获取表单元素，添加事件监听器
+        document.getElementById('studentForm').addEventListener('submit', function(event) {
+            // ...略去部分代码，保留原有逻辑
+            fetch('http://localhost:8080/api/updateStudent', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(studentData)
+            }).then(response => {
+                if (!response.ok) {
+                    throw new Error('HTTP error ' + response.status);
+                }
+                return response.json()
+            }).then(response => response.json())
+                .then(data => {
+                    closeModal();
+                    fetchAndRenderStudents();
+                }).catch(error => console.error('Error saving student', error));
+        });
+
+    </script>
 </div>
 </body>
 </html>
