@@ -1,8 +1,8 @@
 package com.group6.booking4sportcentre.controller;
 
 import com.group6.booking4sportcentre.mapper.BookingInfoMapper;
+import com.group6.booking4sportcentre.mapper.WalletInfoMapper;
 import com.group6.booking4sportcentre.model.BookingInfo;
-import com.group6.booking4sportcentre.service.WalletService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,7 +22,7 @@ public class BookingController {
     private BookingInfoMapper bookingInfoMapper;
 
     @Autowired
-    private WalletService walletService;
+    private WalletInfoMapper walletInfoMapper;
 
     //get all bookings
     //If there is no booking information, return empty list
@@ -87,7 +87,7 @@ public class BookingController {
         Map<String, Object> bookingInfo = bookingInfoMapper.getBookingCostAndWalletInfoIdById(bookingInfoId);
         Double bookingCost = (Double) bookingInfo.get("price");
         Long walletInfoId = (Long) bookingInfo.get("wallet_info_id");
-        walletService.reduceBookingCost(walletInfoId, bookingCost);
+        walletInfoMapper.updateWalletBalance(walletInfoId, bookingCost);
     }
 
     @PostMapping("/updateWalletInfoId")

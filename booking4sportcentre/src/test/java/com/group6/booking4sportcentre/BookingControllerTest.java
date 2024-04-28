@@ -5,7 +5,6 @@ import com.group6.booking4sportcentre.mapper.WalletInfoMapper;
 import com.group6.booking4sportcentre.model.BookingInfo;
 import com.group6.booking4sportcentre.model.BookingStatus;
 import com.group6.booking4sportcentre.model.WalletInfo;
-import com.group6.booking4sportcentre.service.WalletService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -30,8 +29,6 @@ public class BookingControllerTest {
     @Autowired
     private WalletInfoMapper walletInfoMapper;
 
-    @Autowired
-    private WalletService walletService;
 
     // Test the getBookings method
     @Test
@@ -137,13 +134,13 @@ public class BookingControllerTest {
 
 
        // Get the initial wallet balance
-    double initialBalance = walletService.getWalletBalance(newBooking.getWalletInfo().getId());
+    double initialBalance = walletInfoMapper.getWalletBalance(newBooking.getWalletInfo().getId());
 
     // Confirm the booking
     bookingController.confirmBooking(id);
 
     // Get the final wallet balance
-    double finalBalance = walletService.getWalletBalance(newBooking.getWalletInfo().getId());
+    double finalBalance = walletInfoMapper.getWalletBalance(newBooking.getWalletInfo().getId());
 
     // Assert that the wallet balance has been reduced by the booking price
     assertEquals(initialBalance - newBooking.getPrice(), finalBalance, 0.01);
