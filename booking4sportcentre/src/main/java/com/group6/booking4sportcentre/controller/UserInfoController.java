@@ -1,6 +1,8 @@
 package com.group6.booking4sportcentre.controller;
 
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import com.group6.booking4sportcentre.mapper.UserInfoMapper;
@@ -9,8 +11,8 @@ import com.group6.booking4sportcentre.model.UserInfo;
 import java.time.LocalDate;
 import java.util.List;
 
-
-@RestController
+@Controller
+//@RestController
 @CrossOrigin
 public class UserInfoController {
     @Autowired
@@ -56,6 +58,22 @@ public class UserInfoController {
     public UserInfo getUser(@RequestParam(value = "id", required = false) int param) {
         UserInfo userInfo = userInfoMapper.selectById(param);
         return userInfo;
+    }
+
+    @PostMapping("/stuLogin")
+    public String login(@RequestParam("username") String username,
+                        @RequestParam("password") String password,
+                        HttpSession session) {
+        System.out.println("login");
+        // 调用UserInfoMapper进行验证
+        UserInfo user = userInfoMapper.selectByUsernameAndPassword(username, password);
+        if (user != null) {
+            // 登录成功，将用户信息存储到Session中
+            session.setAttribute("user", user);
+            return "redirect:/userHomepage.html"; // 登录成功后跳转到用户首页
+        } else {
+            return "redirect:/userLogin.html?error"; // 登录失败，重定向到登录页面并显示错误消息
+        }
     }
     
 }
