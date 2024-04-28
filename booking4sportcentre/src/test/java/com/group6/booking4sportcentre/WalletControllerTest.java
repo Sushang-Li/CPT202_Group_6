@@ -19,10 +19,6 @@ public class WalletControllerTest {
 
     @Autowired
     private WalletController walletController;
-
-    @MockBean
-    private WalletService walletService;
-
     @Test
     public void testCreateWallet() {
     WalletInfo walletInfo = new WalletInfo();
