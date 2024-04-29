@@ -48,7 +48,7 @@ public class UserInfoController {
     //https://localhost:8080/user/information?id=1
     @GetMapping("/user/information")
     public UserInfo getUserInfo(@RequestParam(value = "id", required = false) int id) {
-        UserInfo userInfo = userInfoMapper.selectById(id);
+        UserInfo userInfo = (UserInfo) userInfoMapper.selectById(id);
         return userInfo;
     }
 
@@ -56,7 +56,7 @@ public class UserInfoController {
 
     @GetMapping("/api/user_test")
     public UserInfo getUser(@RequestParam(value = "id", required = false) int param) {
-        UserInfo userInfo = userInfoMapper.selectById(param);
+        UserInfo userInfo = (UserInfo) userInfoMapper.selectById(param);
         return userInfo;
     }
 
