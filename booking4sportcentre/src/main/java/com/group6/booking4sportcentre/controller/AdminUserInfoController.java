@@ -1,8 +1,8 @@
 package com.group6.booking4sportcentre.controller;
 
-import com.group6.booking4sportcentre.mapper.StaffInfoMapper;
+import com.group6.booking4sportcentre.mapper.UserInfoMapper;
 import com.group6.booking4sportcentre.model.Message;
-import com.group6.booking4sportcentre.model.StaffInfo;
+import com.group6.booking4sportcentre.model.UserInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -14,47 +14,46 @@ import java.util.List;
 
 /**
  * @author Yixuan.Wang
- * @create 2024-04-22 18:24
+ * @create 2024-04-28 20:24
  */
-//This class is used by administrators to manage staff registration information
 @RestController
-public class StaffController {
+public class AdminUserInfoController {
     @Autowired
-    private StaffInfoMapper staffInfoMapper;
+    private UserInfoMapper userInfoMapper;
 
-    //View all student registration information
-    @GetMapping("StaffInfo")
-    public List<StaffInfo> findAll() {
-
-        return staffInfoMapper.findAll();
+    //View all user registration information
+    @GetMapping("/api/UserInfo")
+    @Transactional
+    public List<UserInfo> findAll() {
+        return userInfoMapper.findAll();
     }
 
-    //View student registration by id
-    @GetMapping("getStaffById")
-    public List<StaffInfo> findById(Integer id){
-
-        return staffInfoMapper.selectById(id);
+    //View user registration by id
+    @GetMapping("/api/getUserById")
+    @Transactional
+    public List<UserInfo> findById(Integer id){
+        return userInfoMapper.selectById(id);
     }
 
-    //Add student registration information
-    @PostMapping("/addStaff")
-    public Message addStaff(StaffInfo staffInfo){
-        int add = staffInfoMapper.insert(staffInfo);
+    //Add user registration information
+    @PostMapping("/api/addUser")
+    public Message addUser(UserInfo userInfo){
+        int add = userInfoMapper.insert(userInfo);
         //Message returned during verification
         Message mes = new Message();
         mes.message = "Added successfully!";
         //Return the added information
-        mes.result = staffInfoMapper.findAll();
+        mes.objects =userInfoMapper.findAll();
         return mes;
 
     }
 
 
-    //Update student registration information
+    //Update user registration information
     @Transactional
-    @PostMapping("/updateStaff")
-    public Message updateStaff(StaffInfo staffInfo) {
-        int i = staffInfoMapper.updateById(staffInfo);
+    @PostMapping("/api/updateUser")
+    public Message updateUser(UserInfo userInfo) {
+        int i = userInfoMapper.updateById(userInfo);
         if (i == 0) {
             //Message returned during verification
             Message mes = new Message();
@@ -63,16 +62,16 @@ public class StaffController {
         Message mes = new Message();
         mes.message = "Update successful!";
         //Return the updated information
-        mes.result = staffInfoMapper.findAll();
+        mes.objects = userInfoMapper.findAll();
         return mes;
     }
 
 
-    //Delete student registration information
+    //Delete user registration information
     @Transactional
-    @DeleteMapping("/deleteStaff")
-    public Message deleteStaff(Integer id) {
-        int i = staffInfoMapper.deleteById(id);
+    @DeleteMapping("/api/deleteUser")
+    public Message deleteUser(Integer id) {
+        int i = userInfoMapper.deleteById(id);
         if (i == 0){
             //Message returned during verification
             Message mes = new Message();
@@ -83,7 +82,7 @@ public class StaffController {
             Message mes = new Message();
             mes.message = "Delete successful!";
             //Return the deleted information
-            mes.result = staffInfoMapper.findAll();
+            mes.objects = userInfoMapper.findAll();
             return mes;
         }
     }
