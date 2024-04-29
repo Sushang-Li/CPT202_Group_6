@@ -55,5 +55,7 @@ public class BookingInfo {
                 '}';
     }
 
-
+    @ManyToOne
+    @JoinColumn(name = "wallet_info_id")
+    private WalletInfo walletInfo;
 }
