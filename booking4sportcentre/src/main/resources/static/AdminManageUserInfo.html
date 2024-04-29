@@ -199,18 +199,14 @@
         document.getElementById('userForm').addEventListener('submit', function(event) {
             event.preventDefault();
             var formData = new FormData(document.getElementById('userForm'));
-            var userData = {};
-            formData.forEach(function(value, key) {
-                userData[key] = value;
-            });
-
             // 确保ID字段被正确地包含在表单数据中
             fetch('http://localhost:8080/api/updateUser', {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(userData)
+                // headers: {
+                //     'Content-Type': 'application/json'
+                // },
+                // body: JSON.stringify(userData)
+                body: formData
             })
                 .then(response => {
                     if (!response.ok) {
@@ -218,7 +214,7 @@
                     }
                     return response.json()
                 })
-                .then(response => response.json())
+                // .then(response => response.json())
                 .then(data => {
                     closeModal();
                     fetch('http://localhost:8080/api/UserInfo')
