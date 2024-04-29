@@ -103,6 +103,8 @@
                                 <td id="booking-price"></td>
                                 <td id="booking-status"></td>
                                 <td id="booking-cancel"><button class="btn btn-danger">Cancel</button></td>
+                                <td id="booking-cancel"><button class="btn btn-success">Pay</button></td>
+                                <td id="booking-cancel"><button class="btn btn-warning">Delete</button></td>
                             </tr>
                     </table>
 
@@ -219,7 +221,6 @@
     <script>
         $("#menu-toggle, #sidebar-close").click(function (e) {
             e.preventDefault();//阻止默认点击行为
-            $("#wrapper").toggleClass("toggled");//控制侧边栏的显示与隐藏
             $("#sidebar-wrapper .list-group-item").toggleClass("hidden");//控制侧边栏的显示与隐藏
             $("#menu-toggle").toggleClass("hidden");//控制菜单按钮的显示与隐藏
 
@@ -229,35 +230,37 @@
                 $("#overlay").hide();
             }
         });
+        function cancelBooking(bookingId) {
+            var isConfirmed = confirm('Are you sure you want to cancel?');
+            if (isConfirmed) {
+                var table = document.querySelector('#upcoming-table'); // 获取表格元素
+                var rows = table.querySelectorAll('tr'); // 获取所有行元素
 
-        // 取消按钮
-        let cancelButtons = document.querySelectorAll('.btn-danger');
-        cancelButtons.forEach(function (button) {
-            button.addEventListener('click', function () {
-                // 显示确认对话框
-                var isConfirmed = confirm('Are you sure you want to cancel?');
-                if (isConfirmed) {
-                    // 获取要取消的预订的ID
-                    var bookingId = this.closest('tr').querySelector('th').innerText;
-                    console.log('Cancel booking with ID: ' + bookingId);
-                    // 发送DELETE请求到后端
-                    $.ajax({
-                        url: '/api/bookings/' + bookingId,
-                        type: 'DELETE',
-                        success: function () {
-                            console.log('Booking with ID ' + bookingId + ' is cancelled');
-                            // 如果后端成功删除了预订，从前端删除这行
-                            this.closest('tr').remove();
-                        },
-                        // 如果后端没有成功删除预订，显示错误消息
-                        error: function () {
-                            alert('Failed to cancel booking with ID ' + bookingId);
-                        }
-                    });
-                }
-            });
-        });
+                rows.forEach(row => {
+                    console.log(row);
+                    var userIdCell = row.querySelector('td:first-child'); // 获取每行中第一列的用户ID单元格
+                    console.log(userIdCell);
+                    if (userIdCell !== null) {// 检查当前行的用户ID是否匹配指定的用户ID
+                        fetch('http://localhost:8080/api/bookings/'+ bookingId, {
+                            method: "DELETE"
+                        })
+                            .then(response => {
+                                if (!response.ok) {
+                                    throw new Error('网络请求失败');
+                                }
+                                return response.json();
+                            })
+                            .then(data => {
+                                console.log(data);
+                            })
+                            .catch(error => {
+                                console.error('发生错误:', error);
+                            });
 
+                    }
+                });
+            }
+        }
 
 
 
@@ -281,13 +284,15 @@
                      <td id="booking-endTime-${booking.id}">${booking.endTime}</td>
                      <td id="booking-price-${booking.id}">${booking.price}</td>
                      <td id="booking-status-${booking.id}">${booking.status}</td>
-                     <td id="booking-cancel-${booking.id}"><button class="btn btn-danger">Cancel</button></td>
+                     <td id="booking-cancel-${booking.id}"><button class="btn btn-danger" onclick="cancelBooking(${booking.id})">Cancel</button></td>
             `;
                             upcomingTable.appendChild(row);
                         }
                     });
                 });
+
         };
+
 
 
         function showAll() {
@@ -309,8 +314,9 @@
              <td id="booking-startTime-${booking.id}">${booking.startTime}</td>
              <td id="booking-endTime-${booking.id}">${booking.endTime}</td>
              <td id="booking-price-${booking.id}">${booking.price}</td>
-            <td id="booking-status-${booking.id}">${booking.status}</td>`
-                        } else {
+            <td id="booking-status-${booking.id}">${booking.status}</td>
+            <td id="booking-cancel-${booking.id}"><button class="btn btn-warning" onclick="cancelBooking(${booking.id})">Delete</button></td>`
+                        } else if (booking.status === 'PENDING') {
                             var row = document.createElement('tr');
                             row.innerHTML = `
             <td id="booking-id-${booking.id}">${booking.id}</td>
@@ -319,8 +325,20 @@
              <td id="booking-endTime-${booking.id}">${booking.endTime}</td>
              <td id="booking-price-${booking.id}">${booking.price}</td>
             <td id="booking-status-${booking.id}">${booking.status}</td>
-            <td id="booking-cancel-${booking.id}"><button class="btn btn-danger">Cancel</button></td>
+            <td id="booking-cancel-${booking.id}"><button class="btn btn-success">Pay</button></td>
             `;
+                        } else {
+                            var row = document.createElement('tr');
+                            row.innerHTML = `
+                     <td id="booking-id-${booking.id}">${booking.id}</td>
+                     <td id="booking-name-${booking.id}">${booking.actName}</td>
+                     <td id="booking-startTime-${booking.id}">${booking.startTime}</td>
+                     <td id="booking-endTime-${booking.id}">${booking.endTime}</td>
+                     <td id="booking-price-${booking.id}">${booking.price}</td>
+                     <td id="booking-status-${booking.id}">${booking.status}</td>
+                     <td id="booking-cancel-${booking.id}"><button class="btn btn-danger" onclick="cancelBooking(${booking.id})">Cancel</button></td>
+            `;
+
                         }
 
                         allTable.appendChild(row);
@@ -349,13 +367,15 @@
             <td id="booking-endTime-${booking.id}">${booking.endTime}</td>
             <td id="booking-price-${booking.id}">${booking.price}</td>
             <td id="booking-status-${booking.id}">${booking.status}</td>
-            <td id="booking-cancel-${booking.id}"><button class="btn btn-danger">Cancel</button></td>
+            <td id="booking-cancel-${booking.id}"><button class="btn btn-success">Pay</button></td>
 `;
                             unpaidTable.appendChild(row);
                         }
                     });
                 });
         };
+
+
 
 
         /*upcoming all unpaid*/
