@@ -1,6 +1,8 @@
 package com.group6.booking4sportcentre.controller;
 
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import com.group6.booking4sportcentre.mapper.UserInfoMapper;
@@ -13,9 +15,9 @@ import java.util.List;
 @RestController
 @CrossOrigin
 public class UserInfoController {
+
     @Autowired
     private UserInfoMapper userInfoMapper;
-
     
     //插入测试数据，temp
     @PostMapping("/user/insertTestData")
@@ -46,7 +48,7 @@ public class UserInfoController {
     //https://localhost:8080/user/information?id=1
     @GetMapping("/user/information")
     public UserInfo getUserInfo(@RequestParam(value = "id", required = false) int id) {
-        UserInfo userInfo = userInfoMapper.selectById(id);
+        UserInfo userInfo = (UserInfo) userInfoMapper.selectById(id);
         return userInfo;
     }
 
@@ -54,8 +56,10 @@ public class UserInfoController {
 
     @GetMapping("/api/user_test")
     public UserInfo getUser(@RequestParam(value = "id", required = false) int param) {
-        UserInfo userInfo = userInfoMapper.selectById(param);
+        UserInfo userInfo = (UserInfo) userInfoMapper.selectById(param);
         return userInfo;
     }
+
+
     
 }

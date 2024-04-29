@@ -34,7 +34,7 @@ public class CouponControllerTest {
     public void testAddCoupon() {
         // Test the addCoupon method
         CouponInfo couponInfo = new CouponInfo();
-        couponInfo.setName("Oct Coupon");
+        couponInfo.setName("O Coupon");
         couponInfo.setFaceValue(100);
         couponInfo.setStartTime(LocalDateTime.parse("2024-04-23T00:00:00"));
         couponInfo.setEndTime(LocalDateTime.parse("2024-04-30T23:59:59"));

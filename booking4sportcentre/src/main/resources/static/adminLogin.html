@@ -8,27 +8,87 @@
   <link rel="stylesheet" href="css/adminLoginStyle.css">
   <link href="https://fonts.googlefonts.cn/css?family=Roboto:400,500,700,900" rel="stylesheet">
   <title>Welcome</title>
-
-
 </head>
 
 <body style="background-image: url('images/adminLogin.jpg'); background-size: cover;">
-  <!-- <h1>这里是管理员登录页</h1> -->
 
-  <div class="content">
-    <div class="login-box">
+<div class="content">
+  <div class="login-box">
+    <br>
+    <p class="login">ADMIN LOGIN</p>
+    <form action="/admLogin" method="post">
+
+
+      <!-- <legend>Sign In with your XJTLU ID</legend> -->
+
+      <!-- <label for="logon">Username:</label> -->
+      <label for="logon"><span hidden>Your XJTLU USERNAME</span>
+        <input id="logon" name="username" type="text" placeholder="Your XJTLU Username" aria-required="true"
+                tabindex="1" autocorrect="off"
+               autocapitalize="none" required autofocus value="">
+        <br>
+      </label>
+
+
       <br>
-      <p>LOGIN</p>
-      <div>这里应该是一个输入框</div>
+      <!-- <label for="pass">Password:</label> -->
+      <label for="pass"><span hidden>Your XJTLU Logon Password</span>
+        <input id="pass" name="password" type="password" placeholder="Your Password" aria-required="true"
+               pattern="^.{6,}$"
+               title="Passwords are at least 6 characters long and can consist of letters, numbers, and the following symbols: !@#$%^&*().,"
+               tabindex="2" autocorrect="off" autocapitalize="none" required>
+        <br>
+      </label>
       <br>
-      <div>这里应该是一个输入框</div>
-      <br>
-      <br>
-      <br>
-      <a href="adminPage.html">LOG IN</a>
-    </div>
+      <div>
+        <button class="primary-button" type="submit" name="_eventId_proceed" tabindex="3">LOGIN</button>
+      </div>
+    </form>
+
+
+
   </div>
+</div>
 
+<!--js-->
+<script>
+  // 获取输入框和错误消息元素
+  var input = document.getElementById('logon');
+  var error = document.getElementById('logon-error');
+
+  // 添加输入事件监听器
+  input.addEventListener('input', function () {
+    // 检查输入的值是否是7个数字
+    var isValid = /^\d{7}$/.test(input.value);
+
+    // 如果输入的值不是7个数字，显示错误消息
+    if (!isValid) {
+      error.style.display = 'block';
+    } else {
+      // 如果输入的值是7个数字，隐藏错误消息
+      error.style.display = 'none';
+    }
+  });
+
+  // 获取输入框和错误消息元素
+  var inputPass = document.getElementById('pass');
+  var errorPass = document.getElementById('pass-error');
+
+  // 添加输入事件监听器
+  inputPass.addEventListener('input', function () {
+    // 检查输入的值是否至少有6个字符
+    var isValidPass = /^.{6,}$/.test(inputPass.value);
+
+    // 如果输入的值不至少有6个字符，显示错误消息
+    if (!isValidPass) {
+      errorPass.style.display = 'block';
+    } else {
+      // 如果输入的值至少有6个字符，隐藏错误消息
+      errorPass.style.display = 'none';
+    }
+  });
+
+</script>
 </body>
 
 </html>
