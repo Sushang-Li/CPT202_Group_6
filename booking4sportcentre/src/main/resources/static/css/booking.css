@@ -1,15 +1,3 @@
-@import url(‘https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600&display=swap’);
-*{
-    font-family: 'Monterrat', sans-serif;
-    margin: 0; 
-    padding: 0;
-    box-sizing: border-box;
-    outline: none;
-    border:none;
-    text-decoration: none;
-    text-transform: capitalize;
-    transition:all .2s linear;
-}
 .box-container{
     max-width: 1200px;
     margin:0 auto;
@@ -53,9 +41,9 @@
 }
 .nav-container {
     font-family: "Roboto", sans-serif;
-  font-size: 30px;
-  font-weight: bold;
-  color: #212529;
+   font-size: 30px;
+   font-weight: bold;
+   color: #212529;
     display: flex;
     justify-content: flex-end;
     gap: 30px;
@@ -63,15 +51,21 @@
     margin-top: 20px;
   }
   
-  .logo {
+.logo {
     align-self: flex-start;
     margin-right: 1000px;
   }
   
   
-  nav a {
+nav a {
     color: #339af0;
     text-decoration: none;
     font-size: 20px;
   }
  
+a {
+	text-decoration: none;
+	}
+a:hover {
+        text-decoration: none;
+}

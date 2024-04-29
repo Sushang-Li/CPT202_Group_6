@@ -11,13 +11,13 @@ import com.group6.booking4sportcentre.model.UserInfo;
 import java.time.LocalDate;
 import java.util.List;
 
-@Controller
-//@RestController
+
+@RestController
 @CrossOrigin
 public class UserInfoController {
+
     @Autowired
     private UserInfoMapper userInfoMapper;
-
     
     //插入测试数据，temp
     @PostMapping("/user/insertTestData")
@@ -48,7 +48,7 @@ public class UserInfoController {
     //https://localhost:8080/user/information?id=1
     @GetMapping("/user/information")
     public UserInfo getUserInfo(@RequestParam(value = "id", required = false) int id) {
-        UserInfo userInfo = userInfoMapper.selectById(id);
+        UserInfo userInfo = (UserInfo) userInfoMapper.selectById(id);
         return userInfo;
     }
 
@@ -56,24 +56,10 @@ public class UserInfoController {
 
     @GetMapping("/api/user_test")
     public UserInfo getUser(@RequestParam(value = "id", required = false) int param) {
-        UserInfo userInfo = userInfoMapper.selectById(param);
+        UserInfo userInfo = (UserInfo) userInfoMapper.selectById(param);
         return userInfo;
     }
 
-    @PostMapping("/stuLogin")
-    public String login(@RequestParam("username") String username,
-                        @RequestParam("password") String password,
-                        HttpSession session) {
-        System.out.println("login");
-        // 调用UserInfoMapper进行验证
-        UserInfo user = userInfoMapper.selectByUsernameAndPassword(username, password);
-        if (user != null) {
-            // 登录成功，将用户信息存储到Session中
-            session.setAttribute("user", user);
-            return "redirect:/userHomepage.html"; // 登录成功后跳转到用户首页
-        } else {
-            return "redirect:/userLogin.html?error"; // 登录失败，重定向到登录页面并显示错误消息
-        }
-    }
+
     
 }

@@ -14,28 +14,30 @@
 <body>
   <!-- <h1>这里是用户个人信息页</h1> -->
 
+
   <nav>
     <div class="nav-container">
       <div class="logo">
-        <a href="userHomepage.html">:D</a>
+        <a href="userHomepage.html" id="logo-nav">:D</a>
       </div>
       <div class="homepage">
-        <a href="userHomepage.html">HOMEPAGE</a>
+        <a href="userHomepage.html" id="homepage-nav">HOMEPAGE</a>
       </div>
       <div class="information">
-        <a href="userInformation.html">INFORMATION</a>
+        <a href="userInformation.html" id="information-nav">INFORMATION</a>
       </div>
       <div class="wallet">
-        <a href="userWallet.html">WALLET</a>
+        <a href="userWallet.html" id="wallet-nav">WALLET</a>
       </div>
       <div class="booking">
-        <a href="userBooking.html">BOOKING</a>
+        <a href="userBooking.html" id="booking-nav">BOOKING</a>
       </div>
       <div class="statistics">
-        <a href="userStatistics.html">STATISTICS</a>
+        <a href="userStatistics.html" id="statistics-nav">STATISTICS</a>
       </div>
     </div>
   </nav>
+
   <div class="main-content">
     <div class="personal-information">
       <div class="photo">
@@ -60,6 +62,15 @@
         <p><span class="signature"></span></p>
         <button class="change-btn btn4" onclick="popupToggle()">update</button>
       </div>
+
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
       <div class="tip">注意！所有的更新操作暂时没有验证功能，就连密码和用户名也是应该是可以直接更改的。
         注册与登录功能实现之前，数据库中没法插入数据，所以临时加了下面的这些按钮用于测试,点击最左侧的按钮之后会自动插入五条
         测试用户数据，然后可以点击后面的五个按钮实现不同用户的切换，然后可以点击上面的几个更改按钮实现更改数据库的数据，注意数据只需要插入一
@@ -116,235 +127,75 @@
 
 
   <script>
-    //用于跟踪当前登录的用户
-    var userId;
-    var userName;
-    var password;
-    var phoneNum;
-    var signature;
-    //testData在注册和登录功能完成后就用不到了
-    const testData = [
-      {
-        id: 1,
-        username: 'GeQianQian',
-        password: 'geqianqian',
-        phoneNum: '18015516203',
-        intro: 'i am Ge Qianqian, nice to meet you:D',
-        reDate: '2024-04-21'
-      },
-      {
-        id: 2,
-        username: 'GeYaoYao',
-        password: 'geyaoyao',
-        phoneNum: '18015516203',
-        intro: 'i am Ge Yaoyao, nice to hate you:D',
-        reDate: '2024-04-22'
-      },
-      {
-        id: 3,
-        username: 'TangXiaoFu',
-        password: 'tangxiaofu',
-        phoneNum: '18015516203',
-        intro: 'i am Tang Xiaofu, nice to meet you:D',
-        reDate: '2024-04-23'
-      },
-      {
-        id: 4,
-        username: 'FangHongJian',
-        password: 'fanghongjian',
-        phoneNum: '18015516203',
-        intro: 'i am Fang Hongjian, nice to meet you:D',
-        reDate: '2024-04-24'
-      },
-      {
-        id: 5,
-        username: 'SpongeBob',
-        password: 'spongebob',
-        phoneNum: '18015516203',
-        intro: 'i am Sponge Bob, nice to meet you:D',
-        reDate: '2024-04-25'
+    //复制自主页
+    var urlParams = new URLSearchParams(window.location.search);
+    var userId = urlParams.get('id');
+    console.log(userId);
+
+    var userLink = document.getElementById('logo-nav');
+    userLink.href = "userHomepage.html?id=" + userId;
+
+    var userLink = document.getElementById('homepage-nav');
+    userLink.href = "userHomepage.html?id=" + userId;
+
+    var userLink = document.getElementById('information-nav');
+    userLink.href = "userInformation.html?id=" + userId;
+
+    var userLink = document.getElementById('wallet-nav');
+    userLink.href = "userWallet.html?id=" + userId;
+
+    var userLink = document.getElementById('booking-nav');
+    userLink.href = "userBooking.html?id=" + userId;
+
+    var userLink = document.getElementById('statistics-nav');
+    userLink.href = "userStatistics.html?id=" + userId;
+
+    function getUserData(userId) {
+
+      // window.location.href = "http://localhost:8080/user/information";
+
+      var url = 'http://localhost:8080/user/information';
+      if (userId) {
+        url += "?id=" + userId;
       }
-    ];
+      fetch(url, {
+        method: "GET"
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          userId = data.id;
+          userName = data.username
+          password = data.password;
+          phoneNum = data.phoneNum;
+          signature = data.intro;
+          document.querySelector('.username').innerHTML = data.username;
+          document.querySelector('.password').innerHTML = data.password;
+          document.querySelector('.phone').innerHTML = data.phoneNum;
+          document.querySelector('.signature').innerHTML = data.intro;
+
+          var id = document.getElementById('input0');
+          id.value = userId;
+
+          var user = document.getElementById('input1');
+          user.value = userName;
+          var pass = document.getElementById('input2');
+          pass.value = password;
+          var num = document.getElementById('input3');
+          num.value = phoneNum;
+          var sign = document.getElementById('input4');
+          sign.value = signature;
+        });
+
+
+    }
+
+    //自动调用得到用户的数据
+    getUserData(userId);
+    console.log('http://localhost:8080/user/information?id=' + userId);
 
     function popupToggle() {
       const popup = document.getElementById('popup');
       popup.classList.toggle('active');
-
-    }
-
-    function insertTestData() {
-      fetch('http://localhost:8080/user/insertTestData', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(testData)
-      })
-        .then((response) => response.json())
-        .then(data => {
-          console.log(data);
-        })
-        .catch(error => {
-          console.log(error);
-        })
-
-    }
-
-    function getUser1Data() {
-      fetch('http://localhost:8080/user/information?id=1', {
-        method: "GET"
-      })
-        .then((response) => response.json())
-        .then((data) => {
-          userId = data.id;
-          userName = data.username
-          password = data.password;
-          phoneNum = data.phoneNum;
-          signature = data.intro;
-          document.querySelector('.username').innerHTML = data.username;
-          document.querySelector('.password').innerHTML = data.password;
-          document.querySelector('.phone').innerHTML = data.phoneNum;
-          document.querySelector('.signature').innerHTML = data.intro;
-
-          var id = document.getElementById('input0');
-          id.value = userId;
-
-          var user = document.getElementById('input1');
-          user.value = userName;
-          var pass = document.getElementById('input2');
-          pass.value = password;
-          var num = document.getElementById('input3');
-          num.value = phoneNum;
-          var sign = document.getElementById('input4');
-          sign.value = signature;
-        });
-
-
-    }
-
-    function getUser2Data() {
-      fetch('http://localhost:8080/user/information?id=2', {
-        method: "GET"
-      })
-        .then((response) => response.json())
-        .then((data) => {
-          userId = data.id;
-          userName = data.username
-          password = data.password;
-          phoneNum = data.phoneNum;
-          signature = data.intro;
-          document.querySelector('.username').innerHTML = data.username;
-          document.querySelector('.password').innerHTML = data.password;
-          document.querySelector('.phone').innerHTML = data.phoneNum;
-          document.querySelector('.signature').innerHTML = data.intro;
-
-          var id = document.getElementById('input0');
-          id.value = userId;
-
-          var user = document.getElementById('input1');
-          user.value = userName;
-          var pass = document.getElementById('input2');
-          pass.value = password;
-          var num = document.getElementById('input3');
-          num.value = phoneNum;
-          var sign = document.getElementById('input4');
-          sign.value = signature;
-        });
-
-    }
-
-    function getUser3Data() {
-      fetch('http://localhost:8080/user/information?id=3', {
-        method: "GET"
-      })
-        .then((response) => response.json())
-        .then((data) => {
-          userId = data.id;
-          userName = data.username
-          password = data.password;
-          phoneNum = data.phoneNum;
-          signature = data.intro;
-          document.querySelector('.username').innerHTML = data.username;
-          document.querySelector('.password').innerHTML = data.password;
-          document.querySelector('.phone').innerHTML = data.phoneNum;
-          document.querySelector('.signature').innerHTML = data.intro;
-
-          var id = document.getElementById('input0');
-          id.value = userId;
-
-          var user = document.getElementById('input1');
-          user.value = userName;
-          var pass = document.getElementById('input2');
-          pass.value = password;
-          var num = document.getElementById('input3');
-          num.value = phoneNum;
-          var sign = document.getElementById('input4');
-          sign.value = signature;
-        });
-
-
-    }
-
-    function getUser4Data() {
-      fetch('http://localhost:8080/user/information?id=4', {
-        method: "GET"
-      })
-        .then((response) => response.json())
-        .then((data) => {
-          userId = data.id;
-          userName = data.username
-          password = data.password;
-          phoneNum = data.phoneNum;
-          signature = data.intro;
-          document.querySelector('.username').innerHTML = data.username;
-          document.querySelector('.password').innerHTML = data.password;
-          document.querySelector('.phone').innerHTML = data.phoneNum;
-          document.querySelector('.signature').innerHTML = data.intro;
-
-          var id = document.getElementById('input0');
-          id.value = userId;
-
-          var user = document.getElementById('input1');
-          user.value = userName;
-          var pass = document.getElementById('input2');
-          pass.value = password;
-          var num = document.getElementById('input3');
-          num.value = phoneNum;
-          var sign = document.getElementById('input4');
-          sign.value = signature;
-        });
-
-
-    }
-
-    function getUser5Data() {
-      fetch('http://localhost:8080/user/information?id=5', {
-        method: "GET"
-      })
-        .then((response) => response.json())
-        .then((data) => {
-          userId = data.id;
-          userName = data.username
-          password = data.password;
-          phoneNum = data.phoneNum;
-          signature = data.intro;
-          document.querySelector('.username').innerHTML = data.username;
-          document.querySelector('.password').innerHTML = data.password;
-          document.querySelector('.phone').innerHTML = data.phoneNum;
-          document.querySelector('.signature').innerHTML = data.intro;
-
-          var id = document.getElementById('input0');
-          id.value = userId;
-
-          var user = document.getElementById('input1');
-          user.value = userName;
-          var pass = document.getElementById('input2');
-          pass.value = password;
-          var num = document.getElementById('input3');
-          num.value = phoneNum;
-          var sign = document.getElementById('input4');
-          sign.value = signature;
-        });
 
     }
 
