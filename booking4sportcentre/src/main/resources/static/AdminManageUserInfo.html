@@ -1,33 +1,27 @@
 <!DOCTYPE html>
-<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+<html>
 <head>
     <title>User registration information page</title>
     <meta charset="utf-8" />
-
     <link rel="stylesheet" type="text/css" href="css/EditUserInfoPage.css">
-
     <!-- 引入jQuery库 -->
     <script src="jquery-3.7.1.js"></script>
     <!-- 引入Bootstrap样式库 -->
     <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css" />
     <!-- 引入Bootstrap JS库 -->
     <script src="bootstrap/js/bootstrap.bundle.min.js"></script>
-
 </head>
 
 <body style="background: whitesmoke" class="body">
 <div class="container-row" style="text-align: center">
     <font face="" color="black" size="7">User registration information page</font>
-
 </div>
-
 
 <div class="container my-4">
     <h2><i style="padding-right: 100px">User list</i>
         <button onclick="showAddModal()" id="add" class="btn btn-primary layui-btn-fluid">Add</button>
         <input type="text" id="search-input" placeholder="Please enter ID" >
         <button id="searchButton" class="btn btn-primary btn-large" >Search</button></h2>
-
 
 
     <table id="userTable" class="table table-striped">
@@ -55,14 +49,13 @@
         <form id="userForm">
             <div class="input-box-wrpper">
                 <div class="box1">
-
                     <form>
                         <div class="mb-3">
                             <label for="id" class="form-label">Id</label>
                             <input  type="text" class="form-control" id="id" name="id" />
                         </div>
                         <div class="mb-3">
-                            <label for="stuId" class="form-label">User ID</label>
+                            <label for="stuId" class="form-label">Student ID</label>
                             <input  type="text" class="form-control" id="stuId" name="stuId" />
                         </div>
                         <div class="mb-3">
@@ -105,19 +98,18 @@
 
 
     <script>
-
         // 获取用户信息并渲染到表格中
         function fetchAndRenderUsers() {
             fetch('http://localhost:8080/api/UserInfo')
                 .then(response => response.json())
                 .then(data => {
                     renderUsers(data);
-                    bindDeleteButtonListeners();
+                    //bindDeleteButtonListeners();
                 })
                 .catch(error => console.error('Error fetching users', error));
         }
 
-        // 搜索用户信息并渲染到表格中
+        // 根据Id搜索用户信息并渲染到表格中
         function searchAndRenderUserById(id) {
             fetch(`http://localhost:8080/api/findUserById/${id}`)
                 .then(response => response.json())
@@ -154,8 +146,6 @@
                 tableBody.innerHTML += row;
             });
         }
-
-
 
         //显示添加信息模态框
         function showAddModal() {
@@ -250,7 +240,7 @@
             document.getElementById('modalTitle').textContent = 'Update user information';
             document.getElementById('saveButton').textContent = 'Submit';
             // 根据id从后端获取用户信息并填充到模态框中
-            fetch(`http://localhost:8080/getUserById/${id}`)
+            fetch(`http://localhost:8080/api/getUserById/${id}`)
                 .then(response => response.json())
                 .then(user => {
                     document.getElementById('id').value = user.id;
@@ -265,7 +255,7 @@
                 })
                 .catch(error => console.error('Error fetching user', error));
         }
-
+/**
         // 监听所有class为delete-button的按钮点击事件
         document.querySelectorAll('.delete-button').forEach(button => {
             button.addEventListener('click', function() {
@@ -273,7 +263,7 @@
                 deleteUser(userId);
             });
         });
-/**
+
         // 删除用户信息
         function deleteUser(id) {
             fetch(`http://localhost:8080/api/deleteUser/${id}`, {
