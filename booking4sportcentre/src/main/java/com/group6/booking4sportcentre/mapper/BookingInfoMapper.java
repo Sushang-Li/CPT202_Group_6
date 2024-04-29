@@ -4,6 +4,7 @@ import com.group6.booking4sportcentre.model.BookingInfo;
 import org.apache.ibatis.annotations.*;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author Fuyu.Xing
@@ -39,4 +40,12 @@ public interface BookingInfoMapper {
     int deleteBooking(@Param("id") Long id);
 
     //
+    @Select("SELECT price, wallet_info_id FROM booking_info WHERE id = #{id}")
+    Map<String, Object> getBookingCostAndWalletInfoIdById(@Param("id") Long id);
+
+
+    @Update("UPDATE booking_info SET wallet_info_id = #{walletInfoId} WHERE id = #{bookingInfoId}")
+    void updateWalletInfoId(@Param("bookingInfoId") Long bookingInfoId, @Param("walletInfoId") Long walletInfoId);
+
 }
+

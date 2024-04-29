@@ -1,8 +1,10 @@
 package com.group6.booking4sportcentre;
 
 import com.group6.booking4sportcentre.controller.BookingController;
+import com.group6.booking4sportcentre.mapper.WalletInfoMapper;
 import com.group6.booking4sportcentre.model.BookingInfo;
 import com.group6.booking4sportcentre.model.BookingStatus;
+import com.group6.booking4sportcentre.model.WalletInfo;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -11,8 +13,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * @author Fuyu.Xing
@@ -24,6 +25,10 @@ public class BookingControllerTest {
 
     @Autowired
     private BookingController bookingController;
+
+    @Autowired
+    private WalletInfoMapper walletInfoMapper;
+
 
     // Test the getBookings method
     @Test
@@ -102,4 +107,42 @@ public class BookingControllerTest {
         // Assert that the result is not empty
         assertNotNull(bookingList);
     }
+
+   @Test
+    public void testConfirmBooking() {
+    // Create a new WalletInfo
+    WalletInfo walletInfo = new WalletInfo();
+    walletInfo.setBalance(1000.0);
+    // Save the WalletInfo
+    walletInfoMapper.createWalletInfo(walletInfo);
+
+    // Create a new booking
+    BookingInfo newBooking = new BookingInfo();
+    newBooking.setUserName("belle");
+    newBooking.setDate(LocalDate.now());
+    newBooking.setStartTime(LocalTime.of(9, 0));
+    newBooking.setEndTime(LocalTime.of(10, 0));
+    newBooking.setVenue("Basketball Court");
+    newBooking.setStatus(BookingStatus.PENDING);
+    newBooking.setActName("Basketball");
+    newBooking.setPrice(200.0);
+    // Set the WalletInfo
+    newBooking.setWalletInfo(walletInfo);
+
+    Long id = bookingController.createBooking(newBooking);
+    bookingController.updateWalletInfoId(id, walletInfo.getId());
+
+
+       // Get the initial wallet balance
+    double initialBalance = walletInfoMapper.getWalletBalance(newBooking.getWalletInfo().getId());
+
+    // Confirm the booking
+    bookingController.confirmBooking(id);
+
+    // Get the final wallet balance
+    double finalBalance = walletInfoMapper.getWalletBalance(newBooking.getWalletInfo().getId());
+
+    // Assert that the wallet balance has been reduced by the booking price
+    assertEquals(initialBalance - newBooking.getPrice(), finalBalance, 0.01);
+}
 }
