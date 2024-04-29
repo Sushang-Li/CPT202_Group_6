@@ -37,9 +37,41 @@
             <th>Date of registration</th>
             <th>Operate</th>
         </tr>
+        <tr>
+            <td>2145057</td>
+            <td>2145057</td>
+            <td>Student</td>
+            <td>13847263384</td>
+            <td>male</td>
+            <td>2145057@email.com</td>
+            <td>13847263384</td>
+
+            <!--//更新和删除按钮-->
+            <td>
+                <button onclick="showUpdateModal()" class="btn btn-primary btn-sm">Update</button>
+                <button class="btn btn-primary btn-sm">Delete</button>
+            </td>
+        </tr>
+        <tr>
+            <td>2145561</td>
+            <td>2145561</td>
+            <td>Student</td>
+            <td>15239796206</td>
+            <td>male</td>
+            <td>2145561@email.com</td>
+            <td>15239796206</td>
+
+            <!--//更新和删除按钮-->
+            <td>
+                <button onclick="showUpdateModal()" class="btn btn-primary btn-sm">Update</button>
+                <button class="btn btn-primary btn-sm">Delete</button>
+            </td>
+        </tr>
         </thead>
+
         <tbody id="userTableBody">
         <!-- 用户信息将由JavaScript动态添加到表格中 -->
+
         </tbody>
     </table>
 
@@ -51,7 +83,7 @@
                 <div class="box1">
                     <form>
                         <div class="mb-3">
-                            <label for="id" class="form-label">Id</label>
+                            <label for="id" class="form-label">ID</label>
                             <input  type="text" class="form-control" id="id" name="id" />
                         </div>
                         <div class="mb-3">
@@ -88,16 +120,18 @@
 
                     </form>
                 </div>
+
                 <div>
                     <button type="submit"  id="saveButton" class="btn btn-primary btn-sm">Submit</button>
                     <button type="button" onclick="closeModal()" class="btn btn-primary btn-sm">Close</button>
                 </div>
+
             </div>
         </form>
     </div>
 
-
     <script>
+
         // 获取用户信息并渲染到表格中
         function fetchAndRenderUsers() {
             fetch('http://localhost:8080/api/UserInfo')
@@ -108,6 +142,7 @@
                 })
                 .catch(error => console.error('Error fetching users', error));
         }
+
 
         // 根据Id搜索用户信息并渲染到表格中
         function searchAndRenderUserById(id) {
@@ -127,6 +162,7 @@
         function renderUsers(users) {
             var tableBody = document.querySelector('#userTable tbody');
             tableBody.innerHTML = '';
+
             users.forEach(function (user) {
                 var row = `<tr>
             <td>${user.id}</td>
@@ -141,19 +177,37 @@
                 <button onclick="openEditModal(${user.id})">Update</button>
                 <!--<button onclick="deleteUser(${user.id})" class="delete-button" data-user-id="${user.id}">Delete</button>-->
 
-            </td>
-        </tr>`;
-                tableBody.innerHTML += row;
+
+            users.forEach(function (user) {
+                var row = `
+            <tr>
+                <td>${user.id}</td>
+                <td>${user.stuId}</td>
+                <td>${user.username}</td>
+                <td>${user.position}</td>
+                <td>${user.password}</td>
+                <td>${user.phoneNum}</td>
+                <td>${user.intro}</td>
+                <td>${user.reDate}</td>
+                <td>
+                    <button class="update-button" data-id="${user.id}">Update</button>
+                </td>
+            </tr>`;
+
+                tableBody.insertAdjacentHTML('beforeend', row);
             });
         }
 
+
         //显示添加信息模态框
+
         function showAddModal() {
             document.getElementById('modalTitle').textContent = 'Add user information';
             document.getElementById('saveButton').textContent = 'Add';
             document.getElementById('userForm').reset(); // 清空表单
             document.getElementById('userModal').style.display = 'block';
         }
+
 
         // 监听添加事件
         document.getElementById('add').addEventListener('click', function() {
@@ -195,17 +249,22 @@
         });
 
 
+
         //获取表单元素，添加事件监听器
         document.getElementById('userForm').addEventListener('submit', function(event) {
             event.preventDefault();
             var formData = new FormData(document.getElementById('userForm'));
             var userData = {};
             formData.forEach(function(value, key) {
+
                 userData[key] = value;
             });
 
             // 确保ID字段被正确地包含在表单数据中
             fetch('http://localhost:8080/api/updateUser', {
+
+        
+
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -221,7 +280,9 @@
                 .then(response => response.json())
                 .then(data => {
                     closeModal();
+
                     fetch('http://localhost:8080/api/UserInfo')
+
                         .then(response => response.json())
                         .then(data => {
                             renderUsers(data);
@@ -231,12 +292,12 @@
                 .catch(error => console.error('Error saving student', error));
         });
 
-        //关闭模态框
         function closeModal() {
             document.getElementById('userModal').style.display = 'none';
         }
 
         function openEditModal(id) {
+
             document.getElementById('modalTitle').textContent = 'Update user information';
             document.getElementById('saveButton').textContent = 'Submit';
             // 根据id从后端获取用户信息并填充到模态框中
@@ -252,9 +313,11 @@
                     document.getElementById('intro').value = user.intro;
                     document.getElementById('reDate').value = user.reDate;
                     document.getElementById('userModal').style.display = 'block';
+
                 })
                 .catch(error => console.error('Error fetching user', error));
         }
+
 /**
         // 监听所有class为delete-button的按钮点击事件
         document.querySelectorAll('.delete-button').forEach(button => {
@@ -267,6 +330,7 @@
         // 删除用户信息
         function deleteUser(id) {
             fetch(`http://localhost:8080/api/deleteUser/${id}`, {
+
                 method: 'DELETE'
             })
                 .then(response => {
@@ -276,10 +340,13 @@
                     return response.json();
                 })
                 .then(() => {
+
                     fetchAndRenderUsers();
+
                 })
                 .catch(error => console.error('Error deleting user', error));
         }
+
             */
 
         // 初始化页面时获取用户数据
@@ -289,6 +356,7 @@
 
 
     </script>
+
 </div>
 </body>
 </html>
