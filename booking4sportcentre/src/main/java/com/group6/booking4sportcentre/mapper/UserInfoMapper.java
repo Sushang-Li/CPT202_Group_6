@@ -20,7 +20,7 @@ public interface UserInfoMapper extends BaseMapper<UserInfo>{
 
     //Get student registration information by id
     @Select("select * from user_info where id = #{id}")
-    List<UserInfo> selectById(Integer id);
+    UserInfo selectById(Integer id);
 
 
 

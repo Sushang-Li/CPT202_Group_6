@@ -5,10 +5,7 @@ import com.group6.booking4sportcentre.model.Message;
 import com.group6.booking4sportcentre.model.UserInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -29,9 +26,9 @@ public class AdminUserInfoController {
     }
 
     //View user registration by id
-    @GetMapping("/api/getUserById")
+    @GetMapping("/api/getUserById/{id}")
     @Transactional
-    public List<UserInfo> findById(Integer id){
+    public UserInfo findById(@PathVariable Integer id){
         return userInfoMapper.selectById(id);
     }
 
