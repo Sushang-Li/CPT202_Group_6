@@ -35,7 +35,7 @@ public class CouponController {
 
     //add coupon
     @PostMapping("/api/add_coupon")
-    public String addCoupon(CouponInfo couponInfo) {
+    public String addCoupon(@RequestBody CouponInfo couponInfo) {
         int i = couponInfoMapper.insert(couponInfo);
         if (i == 0) {
             return "Add coupon information failed";
