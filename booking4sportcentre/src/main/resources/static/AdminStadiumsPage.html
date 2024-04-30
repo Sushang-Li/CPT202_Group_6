@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Bootstrap -->
     <link rel="stylesheet" href="https://cdn.staticfile.net/twitter-bootstrap/3.3.7/css/bootstrap.min.css">  
-    <link rel="shortcut icon" href="img/smallcut.png">
+    <link rel="shortcut icon" href="images/smallcut.png">
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <link rel="stylesheet" href="./css/Admin.css">
 
@@ -44,46 +44,291 @@
             </div>
 
           <!-- </div> -->
-          <div id="main" >
-            <!--   <img src="img/manage3.png "   width="100%" height="700px">  -->
-            <p style="font-size: 50px;margin-left: 30%; ">Sport Activities</p>
-  
-  
-            <div class="row">
-              <div class="columnLeft">
-              <div class="bar">
-                <div class="card">
-                  <br>
+         <!-- 表格内容-->
+         <div id="main" >
+          <!--   <img src="img/manage3.png "   width="100%" height="700px">  -->
+          <p style="font-size: 50px;text-align: center; ">Stadium</p>
+          <div class="row">
+            <div class="columnLeft">
+            <div class="bar">      
+              <div class="card">
+                <table class="table table-hover" style="font-size: 20px;">
+                  <caption style="font-size: 30px;">4.22</caption>
+                  <p>
+                 
+                    <button type="button" class="glyphicon glyphicon-plus" style="font-size: 20px;margin-left: 90%;margin-top: 10px;font-size: 20px;" title="Add" onclick="openAddModal()"></button>
                   
-                  <p></p>
-                </div>
-                </div>
+                  </p>
+                  <thead>
+                    <tr>
+                      <th style="width: 15%;">Id</th>
+                      <th style="width: 25%;">Name</th>
+                      <th style="width: 30%;">Activity</th>
+                      <th>Remaining space</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                     <!-- 表格数据体 -->
+                   
+                      <tbody id="userDataBody"></tbody>
+                  </tbody>
+                </table>
+              
+              <!-- 分页栏 -->
+                <ul class="pagination" style="margin-left: 300px;" >
+                  <li><a href="#">&laquo;</a></li>
+                  <li><a href="#">1</a></li>
+                  <li><a href="#">2</a></li>
+                  <li><a href="#">3</a></li>
+                  <li><a href="#">4</a></li>
+                  <li><a href="#">5</a></li>
+                  <li><a href="#">&raquo;</a></li>
+                </ul>
+                <p></p>
               </div>
-  
-  
-  
+              </div>
             </div>
-  
-  
-  
+          </div>
+      </div>
+    </div>  
+</div>
+ <!-- edit的模态框 -->
+<div id="myModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- 模态框内容 -->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Edit Stadium</h4>
+            </div>
+            <div class="modal-body">
+                <form id="editForm">
+                    <!-- 表单内容 -->
+                    <div class="form-group">
+                        <label for="editId"  >id:</label>
+                        <input type="number" class="form-control" id="editId" readonly>
+                    </div>
+
+                    <div class="form-group">
+                      <label for="editName">Name:</label>
+                      <select class="form-control" id="editName">
+                          <!-- 动态填充选项 -->
+                          <option value="stadium1">Stadium 1</option>
+                          <option value="stadium2">Stadium 2</option>
+                          <option value="stadium3">Stadium 3</option>
+                      </select>
+                  </div>
+
+                    <div class="form-group">
+                        <label for="editActivityName">Activity:</label>
+                        
+                        <select class="form-control" id="editActivityName">
+                            <!-- 动态填充选项 -->
+                            <option value="Football">Football</option>
+                            <option value="Basketball">Basketball</option>
+                            <option value="Tennis">Tennis</option>
+                            <option value="Archery">Archery</option>
+                            <option value="Billiard">Billiard</option>
+                            <option value="Shuttlecock">Shuttlecock</option>
+                            <option value="Workout">Workout</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="editRemainingSpace">Remaining Space:</label>
+                        <input type="number" class="form-control" id="editRemainingSpace" required>
+                    </div>
+                    <button type="button" class="btn btn-primary" onclick="saveChanges()">Save</button>
+
+                   
+                </form>
+            </div>
         </div>
-      </div>  
-  </div>
-  
-  <script>
-  
-  
-  
-    // JavaScript代码
-  document.getElementById('a1').addEventListener('click', function() {
-              var submenu = this.querySelector('ul');
-              if (submenu.style.display === 'none') {
-                  submenu.style.display = 'block';
-              } else {
-                  submenu.style.display = 'none';
-              }
-          });
-  
-  </script>
-  </body>
-  </html>
+    </div>
+</div>
+  <!--add的模态框 -->
+<div id="addModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- 模态框内容 -->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Add stadium</h4>
+            </div>
+            <div class="modal-body">
+                <form id="addForm">
+                    <div class="form-group">
+                        <label for="name">Name:</label>
+                        <select class="form-control" id="name" required>
+                            <!-- 动态填充选项 -->
+                            <option value="stadium1">Stadium 1</option>
+                            <option value="stadium2">Stadium 2</option>
+                            <option value="stadium3">Stadium 3</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                      <label for="activityName">Activity:</label>
+                      
+                      <select class="form-control" id="activityName">
+                          <!-- 动态填充选项 -->
+                          <option value="Football">Football</option>
+                          <option value="Basketball">Basketball</option>
+                          <option value="Tennis">Tennis</option>
+                          <option value="Archery">Archery</option>
+                          <option value="Billiard">Billiard</option>
+                          <option value="Shuttlecock">Shuttlecock</option>
+                          <option value="Workout">Workout</option>
+                      </select>
+                  </div>
+
+                    <div class="form-group">
+                        <label for="remainingSpace">Remaining Space:</label>
+                        <input type="number" class="form-control" id="remainingSpace" required>
+                    </div>
+                    <button type="button" class="btn btn-primary" onclick="addSportStadium()">Add</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+  // JavaScript代码
+document.getElementById('a1').addEventListener('click', function() {
+            var submenu = this.querySelector('ul');
+            if (submenu.style.display === 'none') {
+                submenu.style.display = 'block';
+            } else {
+                submenu.style.display = 'none';
+            }
+        });
+//获取体育活动数据
+axios.get('http://localhost:8080/api/stadium')
+        .then(response => {
+            const activities = response.data;
+            const userDataBody = document.getElementById('userDataBody');
+            userDataBody.innerHTML = ''; // 清空表格内容
+
+            activities.forEach(stadium => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${stadium.id}</td>
+                    <td>${stadium.name}</td>
+                    <td>${stadium.activityName}</td>
+                    <td>${stadium.remainingSpace}</td>
+                    <td>
+                        <button type="button" class="glyphicon glyphicon-pencil" style="font-size: 10px;" title="Edit" data-toggle="modal" data-target="#myModal" onclick="populateEditForm(${stadium.id})"></button>
+                        
+                        <button type="button" class="glyphicon glyphicon-minus" style="font-size: 10px;" title="Delete" onclick="confirmDelete(${stadium.id})"></button>
+                    </td>
+
+                  
+                `;
+                userDataBody.appendChild(row);
+            });
+        })
+.catch(error => {
+    console.error('Error fetching stadium:', error);
+});
+
+// 填充edit表单
+function populateEditForm(id) {
+    // 将数据填入编辑表单中的各个字段
+    
+    axios.get(`http://localhost:8080/api/stadium/${id}`)
+        .then((response) => {
+            const stadium = JSON.stringify(response.data);
+            console.log(response.data);
+
+            // 更新表单中的字段值
+            document.getElementById('editId').value = id;
+            document.getElementById('editName').value = stadium.name;
+            document.getElementById('editActivityName').value = stadium.activityName;
+            document.getElementById('editRemainingSpace').value = stadium.remainingSpace;
+            console.log(stadium);
+            console.log(id);
+        })
+        .catch(error => {
+            console.error('Error fetching sport stadium details:', error);
+            alert('Error fetching sport stadium');
+        });
+
+}
+// 保存修改
+function saveChanges() {
+    const updatedStadium = {
+        id:document.getElementById('editId').value,
+        name: document.getElementById('editName').value,
+        activityName: document.getElementById('editActivityName').value,
+        remainingSpace: document.getElementById('editRemainingSpace').value
+    };
+
+    axios.put(`http://localhost:8080/api/stadium/${updatedStadium.id}`, updatedStadium)
+        .then(response => {
+            console.log('stadium updated successfully:', response.data);
+            alert('Edit successfully.');
+            $('#myModal').modal('hide');
+            location.reload();
+        })
+        .catch(error => {
+            console.error('Error updating stadium:', error);
+            alert('Failed to edit sport stadium.'); 
+        });
+}
+
+
+// 确认删除对话框
+function confirmDelete(stadiumId) {
+            if (confirm('Are you sure you want to delete this sport stadium?')) {
+                deleteSportStadium(stadiumId);
+            }
+        }
+
+        // 删除体育活动
+        function deleteSportStadium(stadiumId) {
+            axios.delete(`http://localhost:8080/api/stadium/delete/${stadiumId}`)
+                .then(response => {
+                    alert(response.data); // 显示删除成功信息
+                    // 刷新页面或重新获取数据
+                    location.reload(); // 可以根据需求刷新页面或重新加载数据
+                })
+                .catch(error => {
+                    console.error('Error deleting sport stadium:', error);
+                    alert('Failed to delete sport stadium.'); // 显示删除失败信息
+                });
+        }
+// 打开add模态框
+function openAddModal() {
+            $('#addModal').modal('show');
+        }
+
+// 添加体育活动
+        function addSportStadium() {
+            const name = document.getElementById('name').value;
+            const activityName = document.getElementById('activityName').value;
+            const remainingSpace = document.getElementById('remainingSpace').value;
+           
+            
+
+            const newStadium = {
+                name: name,
+                activityName: activityName,
+                remainingSpace: remainingSpace
+            };
+
+            axios.post('http://localhost:8080/api/stadium/add', newStadium)
+                .then(response => {
+                    alert('Sport stadium added successfully.');
+                    location.reload(); // 可以根据需求刷新页面或重新加载数据
+                })
+                .catch(error => {
+                    console.error('Error adding sport stadium:', error);
+                    alert('Failed to add sport stadium.');
+                });
+        }
+</script>
+
+
+</body>
+</html>
