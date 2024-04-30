@@ -18,17 +18,23 @@ import java.util.List;
 public class SportActivityController {
     @Autowired
     private SportActivityMapper sportActivityMapper;
+
+    //查看全部体育活动
     @GetMapping
     public List<SportActivity> list(){
-    return sportActivityMapper.list();
+        return sportActivityMapper.list();
     }
 
-   /* @PutMapping("/update/{id}")*/
-   @PutMapping("/update/{id}")
+    //查看特定id的体育活动
+    @GetMapping("/{id}")
+    public List<SportActivity> getById(@PathVariable int id){
+        return  sportActivityMapper.getById(id);
+    }
+
+   @PutMapping("/{id}")
     public String update(@PathVariable int id, @RequestBody SportActivity sportActivity) {
         // 设置要更新的体育活动的 ID
        sportActivity.setId(id);
-       sportActivityMapper.update(sportActivity);
         // 调用 Mapper 接口中的更新方法
         int rowsAffected = sportActivityMapper.update(sportActivity);
 
@@ -38,7 +44,6 @@ public class SportActivityController {
             return "Failed to update sport activity";
         }
     }
-
     @PostMapping("/add")
     public void add(@RequestBody SportActivity sportActivity){
         log.info("体育活动为"+ sportActivity);

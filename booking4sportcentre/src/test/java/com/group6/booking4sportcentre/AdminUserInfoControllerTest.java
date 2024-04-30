@@ -30,7 +30,7 @@ public class AdminUserInfoControllerTest {
     //Test findById method
     @Test
     public void testFindById(){
-        List<UserInfo> userInfoList = adminUserInfoController.findById(1);
+        UserInfo userInfoList = adminUserInfoController.findById(1);
         // Assert that the result is not empty
         assertNotNull(userInfoList);
     }

@@ -38,7 +38,7 @@
     <br>
       <label>
         <span>选择日期</span>
-        <input type="date" id = "date1" value= "" />
+        <input type="date" id = "date" value= "" />
       </label>
     
   <h1>Selecting timeslot and area</Select></h1>
@@ -110,7 +110,7 @@
     var month=d.getMonth() + 1
     var year=d.getFullYear()
     var shijian = year + "-" + (month < 10 ? "0" : "") + month + "-" + (day < 10 ? "0" : "") + day;
-    document.getElementById("date1").value=shijian;
+    document.getElementById("date").value=shijian;
     function selectTimeAndLocation(time, location) {
       const dateControl = document.querySelector('input[type="date"]');
       // 在这里处理用户选择的时间和场地
@@ -120,7 +120,41 @@
       }
     } 
     
-  
+    var btn = document.querySelectorAll('button')
+    btn.onclick = () => {
+    fetch('http://localhost:8080/api/createBooking', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                  startTime: '2022-01-01T09:00:00',
+                  endTime: '2022-01-01T11:00:00',
+                  date: dateControl.value,
+                  venue:location,
+                  actName:'billiard',
+                  price:20,
+             
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('HTTP error ' + response.status);
+                    }
+                    return response.json()
+                })
+              })
+              .then(response => {
+                    if (!response.ok) {
+                        throw new Error('HTTP error ' + response.status);
+                    }
+                    return response.json()
+                })
+                .then(data => {
+                    // 添加成功后的操作，关闭模态框并刷新用户数据
+                    console.log('data')
+                })
+                .catch(error => console.error('Error adding booking', error));
+              }
   
   </script>
 </body>

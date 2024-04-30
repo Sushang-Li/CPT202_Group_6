@@ -27,7 +27,7 @@
                
          
 
-                   <li id="aa" ><a  href="AdminHomePage.html"><span class="glyphicon glyphicon-home"></span> Home</a></li>
+                    <li id="aa" ><a  href="AdminHomePage.html"><span class="glyphicon glyphicon-home"></span> Home</a></li>
                    
                     <li id="a1">
                       <a id="a2" class="active" href="#mangage"><span class="glyphicon glyphicon-edit"></span> manage <span class="glyphicon glyphicon-chevron-right"></span></a>
@@ -110,19 +110,22 @@
             <div class="modal-body">
                 <form id="editForm">
                     <!-- 表单内容 -->
-                    <input type="hidden" id="editId">
-                <!--     <div class="form-group">
-                        <label for="editId">Id:</label>
-                        <input type="number" class="form-control" id="editId" required>
-                    </div> -->
+                    <div class="form-group">
+                        <label for="editId"  >id:</label>
+                        <input type="number" class="form-control" id="editId" readonly>
+                    </div>
                     <div class="form-group">
                         <label for="editName">Name:</label>
                         
                         <select class="form-control" id="editName">
                             <!-- 动态填充选项 -->
-                            <option value="activity1">Activity 1</option>
-                            <option value="activity2">Activity 2</option>
-                            <option value="activity3">Activity 3</option>
+                            <option value="Football">Football</option>
+                            <option value="Basketball">Basketball</option>
+                            <option value="Tennis">Tennis</option>
+                            <option value="Archery">Archery</option>
+                            <option value="Billiard">Billiard</option>
+                            <option value="Shuttlecock">Shuttlecock</option>
+                            <option value="Workout">Workout</option>
                         </select>
                     </div>
                     <div class="form-group">
@@ -182,9 +185,13 @@
                         <label for="name">Name:</label>
                         <select class="form-control" id="name" required>
                             <!-- 动态填充选项 -->
-                            <option value="activity1">Activity 1</option>
-                            <option value="activity2">Activity 2</option>
-                            <option value="activity3">Activity 3</option>
+                            <option value="Football">Football</option>
+                            <option value="Basketball">Basketball</option>
+                            <option value="Tennis">Tennis</option>
+                            <option value="Archery">Archery</option>
+                            <option value="Billiard">Billiard</option>
+                            <option value="Shuttlecock">Shuttlecock</option>
+                            <option value="Workout">Workout</option>
                         </select>
                     </div>
                     <div class="form-group">
@@ -273,30 +280,40 @@ axios.get('http://localhost:8080/api/sportActivity')
 });
 
 // 填充edit表单
-function populateEditForm(activityId) {
-    axios.get(`http://localhost:8080/api/sportActivity/${activityId}`)
-        .then(response => {
-            const activity = response.data;
+function populateEditForm(id) {
+    // 将数据填入编辑表单中的各个字段
+    
+    axios.get(`http://localhost:8080/api/sportActivity/${id}`)
+        .then((response) => {
+      /*       const activity = response.data; */
+            const activity = JSON.stringify(response.data);
+            console.log(response.data);
+
             // 更新表单中的字段值
-            document.getElementById('editId').value = activity.id;
-            document.getElementById('editName').value = activity.name;
+            /* document.getElementById('editId').text=555; */
+            /* document.getElementById('editId').innerHTML = 555; */
+/*             $('#editId').val(111); */
+            document.getElementById('editId').value = id;
+            document.getElementById('editName').value = name;
             document.getElementById('editStartTime').value = activity.startTime;
             document.getElementById('editEndTime').value = activity.endTime;
             document.getElementById('editCoach').value = activity.coach;
             document.getElementById('editStadium').value = activity.stadium;
             document.getElementById('editPrice').value = activity.price;
             document.getElementById('editTicketNumber').value = activity.ticketNumber;
+            console.log(activity);
+            console.log(id);
         })
         .catch(error => {
             console.error('Error fetching sport activity details:', error);
             alert('Error fetching sport activity');
         });
-}
 
+}
 // 保存修改
 function saveChanges() {
     const updatedActivity = {
-        id: document.getElementById('editId').value, // 确保这里获取到的是正确的ID
+        id:document.getElementById('editId').value,
         name: document.getElementById('editName').value,
         startTime: document.getElementById('editStartTime').value,
         endTime: document.getElementById('editEndTime').value,
@@ -305,12 +322,11 @@ function saveChanges() {
         price: document.getElementById('editPrice').value,
         ticketNumber: document.getElementById('editTicketNumber').value
     };
-    console.log("Attempting to update activity with ID:", updatedActivity.id); // 打印ID看是否正确
 
-    axios.put(`http://localhost:8080/api/sportActivity/update/${updatedActivity.id}`, updatedActivity)
+    axios.put(`http://localhost:8080/api/sportActivity/${updatedActivity.id}`, updatedActivity)
         .then(response => {
             console.log('Activity updated successfully:', response.data);
-            alert('edit successfully.');
+            alert('Edit successfully.');
             $('#myModal').modal('hide');
             location.reload();
         })
@@ -319,6 +335,7 @@ function saveChanges() {
             alert('Failed to edit sport activity.'); 
         });
 }
+
 
 // 确认删除对话框
 function confirmDelete(activityId) {
@@ -380,6 +397,3 @@ function openAddModal() {
 
 </body>
 </html>
-
-<!-- edit按钮 -->
-<!-- <button type="button" class="btn btn-info btn-xs" data-toggle="modal" data-target="#myModal" onclick="populateEditForm(${activity.id})">Edit</button> -->
