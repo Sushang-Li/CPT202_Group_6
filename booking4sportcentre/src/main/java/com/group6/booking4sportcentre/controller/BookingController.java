@@ -14,7 +14,7 @@ import java.util.Map;
  * @author Fuyu.Xing
  * @create 2024-04-20 22:13
  */
-//This class is used to control the view of the booking
+// This class is used to control the view of the booking
 @RestController
 @RequestMapping("/api/bookings")
 public class BookingController {
@@ -24,15 +24,15 @@ public class BookingController {
     @Autowired
     private WalletInfoMapper walletInfoMapper;
 
-    //get all bookings
-    //If there is no booking information, return empty list
+    // get all bookings
+    // If there is no booking information, return empty list
     @GetMapping
     public List<BookingInfo> getBookings() {
         return bookingInfoMapper.getAllBookings();
     }
 
-    //get booking by id
-    //If the id does not exist, return null
+    // get booking by id
+    // If the id does not exist, return null
     @GetMapping("/{id}")
     public BookingInfo getBooking(@PathVariable Long id) {
 
@@ -42,8 +42,8 @@ public class BookingController {
         return booking;
     }
 
-    //create a new booking
-    @PostMapping
+    // create a new booking
+    @PostMapping("/api/createBooking")
     public Long createBooking(@RequestBody BookingInfo booking) {
         if (booking == null) {
             return null;
@@ -53,8 +53,8 @@ public class BookingController {
         return booking.getId();
     }
 
-    //update a booking
-    //If the booking information is not complete, return 0
+    // update a booking
+    // If the booking information is not complete, return 0
     @PutMapping("/{id}")
     public int updateBooking(@PathVariable Long id, @RequestBody BookingInfo booking) {
 
@@ -67,18 +67,18 @@ public class BookingController {
         return bookingInfoMapper.updateBooking(id, booking);
     }
 
-    //delete a booking
-    //If the id does not exist, return 0
+    // delete a booking
+    // If the id does not exist, return 0
     @DeleteMapping("/{id}")
     public void deleteBooking(@PathVariable Long id) {
         bookingInfoMapper.deleteBooking(id);
     }
 
-    //get booking by date
-    //If there is no booking information, return empty list
+    // get booking by date
+    // If there is no booking information, return empty list
     @GetMapping("/date/{date}")
     public List<BookingInfo> getBookingByDate(@PathVariable String date) {
-        LocalDate localDate= LocalDate.parse(date);
+        LocalDate localDate = LocalDate.parse(date);
         return bookingInfoMapper.getBookingByDate(localDate);
     }
 
@@ -94,7 +94,5 @@ public class BookingController {
     public void updateWalletInfoId(@RequestParam Long bookingInfoId, @RequestParam Long walletInfoId) {
         bookingInfoMapper.updateWalletInfoId(bookingInfoId, walletInfoId);
     }
-
-
 
 }
