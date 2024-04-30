@@ -1,48 +1,50 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-   
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="css/timeandareaSelecting.css">
-        <title>Welcome</title>
-      
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="css/timeandareaSelecting.css">
+  <title>Welcome</title>
+
 </head>
+
 <body>
-    
-    <nav>
-        <div class="nav-container">
-          <div class="logo">
-            <a href="userHomepage.html">:D</a>
-          </div>
-          <div class="homepage">
-            <a href="userHomepage.html">HOMEPAGE</a>
-          </div>
-          <div class="information">
-            <a href="userInformation.html">INFORMATION</a>
-          </div>
-          <div class="wallet">
-            <a href="userWallet.html">WALLET</a>
-          </div>
-          <div class="booking">
-            <a href="userBooking.html">BOOKING</a>
-          </div>
-          <div class="statistics">
-            <a href="userStatistics.html">STATISTICS</a>
-          </div>
-        </div>
-      </nav>
-      <!-- <div class = "toptext" style="background-color: #00a8c6;text-align: center;">
+
+  <nav>
+    <div class="nav-container">
+      <div class="logo">
+        <a href="userHomepage.html" id="logo-nav">:D</a>
+      </div>
+      <div class="homepage">
+        <a href="userHomepage.html" id="homepage-nav">HOMEPAGE</a>
+      </div>
+      <div class="information">
+        <a href="userInformation.html" id="information-nav">INFORMATION</a>
+      </div>
+      <div class="wallet">
+        <a href="userWallet.html" id="wallet-nav">WALLET</a>
+      </div>
+      <div class="booking">
+        <a href="userBooking.html" id="booking-nav">BOOKING</a>
+      </div>
+      <div class="statistics">
+        <a href="userStatistics.html" id="statistics-nav">STATISTICS</a>
+      </div>
+    </div>
+  </nav>
+  <!-- <div class = "toptext" style="background-color: #00a8c6;text-align: center;">
         test1
     </div> -->
-    <br>
-      <label>
-        <span>选择日期</span>
-        <input type="date" id = "date" value= "" />
-      </label>
-    
+  <br>
+  <label>
+    <span>选择日期</span>
+    <input type="date" id="date" value="" />
+  </label>
+
   <h1>Selecting timeslot and area</Select></h1>
-  <table border = "1" width = '500px' height = '300px'>
+  <table border="1" width='500px' height='300px'>
     <thead>
       <tr>
         <th></th>
@@ -105,57 +107,81 @@
 
   <script>
 
-    var d=new Date()
-    var day=d.getDate()
-    var month=d.getMonth() + 1
-    var year=d.getFullYear()
+    //复制自主页
+    var urlParams = new URLSearchParams(window.location.search);
+    var userId = urlParams.get('id');
+    console.log(userId);
+
+    var userLink = document.getElementById('logo-nav');
+    userLink.href = "userHomepage.html?id=" + userId;
+
+    var userLink = document.getElementById('homepage-nav');
+    userLink.href = "userHomepage.html?id=" + userId;
+
+    var userLink = document.getElementById('information-nav');
+    userLink.href = "userInformation.html?id=" + userId;
+
+    var userLink = document.getElementById('wallet-nav');
+    userLink.href = "userWallet.html?id=" + userId;
+
+    var userLink = document.getElementById('booking-nav');
+    userLink.href = "userBooking.html?id=" + userId;
+
+    var userLink = document.getElementById('statistics-nav');
+    userLink.href = "userStatistics.html?id=" + userId;
+
+    var d = new Date()
+    var day = d.getDate()
+    var month = d.getMonth() + 1
+    var year = d.getFullYear()
     var shijian = year + "-" + (month < 10 ? "0" : "") + month + "-" + (day < 10 ? "0" : "") + day;
-    document.getElementById("date").value=shijian;
+    document.getElementById("date").value = shijian;
     function selectTimeAndLocation(time, location) {
       const dateControl = document.querySelector('input[type="date"]');
       // 在这里处理用户选择的时间和场地
-      
-      if(confirm('Choosing date: '+dateControl.value+'\n'+'Choosing time slot：'+time +"\n"+'Choosing area：'+location)){  
-        window.location.href='bookingpay.html'
+
+      if (confirm('Choosing date: ' + dateControl.value + '\n' + 'Choosing time slot：' + time + "\n" + 'Choosing area：' + location)) {
+        window.location.href = 'bookingpay.html'
       }
-    } 
-    
+    }
+
     var btn = document.querySelectorAll('button')
     btn.onclick = () => {
-    fetch('http://localhost:8080/api/createBooking', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                  startTime: '2022-01-01T09:00:00',
-                  endTime: '2022-01-01T11:00:00',
-                  date: dateControl.value,
-                  venue:location,
-                  actName:'shuttlucock',
-                  price:20,
-             
-            })
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('HTTP error ' + response.status);
-                    }
-                    return response.json()
-                })
-              })
-              .then(response => {
-                    if (!response.ok) {
-                        throw new Error('HTTP error ' + response.status);
-                    }
-                    return response.json()
-                })
-                .then(data => {
-                    // 添加成功后的操作，关闭模态框并刷新用户数据
-                    console.log('data')
-                })
-                .catch(error => console.error('Error adding booking', error));
-              }
-  
+      fetch('http://localhost:8080/api/createBooking', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          startTime: '2022-01-01T09:00:00',
+          endTime: '2022-01-01T11:00:00',
+          date: dateControl.value,
+          venue: location,
+          actName: 'shuttlucock',
+          price: 20,
+
+        })
+          .then(response => {
+            if (!response.ok) {
+              throw new Error('HTTP error ' + response.status);
+            }
+            return response.json()
+          })
+      })
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('HTTP error ' + response.status);
+          }
+          return response.json()
+        })
+        .then(data => {
+          // 添加成功后的操作，关闭模态框并刷新用户数据
+          console.log('data')
+        })
+        .catch(error => console.error('Error adding booking', error));
+    }
+
   </script>
 </body>
+
 </html>
