@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 
 <html lang="en">
@@ -9,7 +8,7 @@
   <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
   <meta name="renderer" content="webkit">
   <link href="https://fonts.googlefonts.cn/css?family=Roboto:400,500,700,900" rel="stylesheet">
-  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
   <link rel="stylesheet" href="css/couponStyle.css">
   <script src="jquery-3.7.1.js"></script>
   <title>Coupons</title>
@@ -18,216 +17,275 @@
 
 <body>
 
-<div class="wave">
+  <div class="wave">
 
-<div id="overlay"></div>
+    <div id="overlay"></div>
 
-<div class="d-flex" id="wrapper">
-  <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
-    <a class="navbar-brand" href="#"></a>
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <!--menu 按钮-->
-      <button class="btn btn-primary btn-position menu-toggle" id="menu-toggle">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
-        </svg>
-      </button>
-
-
-
-    </div>
-    <a class="nav-link float-right" href="userHomepage.html">Homepage</a>
-    <a class="nav-link float-right" href="userInformation.html">Information</a>
-    <a class="nav-link float-right" href="userWallet.html">Wallet</a>
-    <a class="nav-link float-right" href="userBooking.html">Booking</a>
-    <a class="nav-link float-right" href="userStatistics.html">Statistics</a>
-
-  </nav>
-
-
-
-<!-- Sidebar侧边栏 -->
-<div class="bg-light border-right" id="sidebar-wrapper">
-    <div class="sidebar-heading">
-        <!--关闭button-->
-        <button class="btn btn-position" id="sidebar-close">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+    <div class="d-flex" id="wrapper">
+      <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+        <a class="navbar-brand" href="#"></a>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <!--menu 按钮-->
+          <button class="btn btn-primary btn-position menu-toggle" id="menu-toggle">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+              stroke="currentColor" class="w-6 h-6">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
             </svg>
-        </button>
-    </div>
-    <div class="list-group list-group-flush">
-        <a href="userHomepage.html" class="list-group-item list-group-item-action bg-light">HOMEPAGE</a>
-        <a href="userInformation.html" class="list-group-item list-group-item-action bg-light">INFORMATION</a>
-        <a href="userWallet.html" class="list-group-item list-group-item-action bg-light">WALLET</a>
-        <a href="userBooking.html" class="list-group-item list-group-item-action bg-light">BOOKING</a>
-        <a href="userStatistics.html" class="list-group-item list-group-item-action bg-light">STATISTICS</a>
-        <a href="userCoupons.html" class="list-group-item list-group-item-action bg-light">COUPONS</a>
-    </div>
-</div>
+          </button>
 
-  <div id="page-content-wrapper">
-    <div class="container-fluid">
-      <br>
-      <br>
-      <div class="button-container">
-      <button class="valid" > Valid</button>
-      <button class="invalid" > Expired</button>
+
+
+        </div>
+        <a class="nav-link float-right" href="userHomepage.html" id="homepage-nav">Homepage</a>
+        <a class="nav-link float-right" href="userInformation.html" id="information-nav">Information</a>
+        <a class="nav-link float-right" href="userWallet.html" id="wallet-nav">Wallet</a>
+        <a class="nav-link float-right" href="userBooking.html" id="booking-nav">Booking</a>
+        <a class="nav-link float-right" href="userStatistics.html" id="statistics-nav">Statistics</a>
+        <a class="nav-link float-right" href="userLogin.html" id="temp6">Sign In</a>
+
+      </nav>
+
+
+
+      <!-- Sidebar侧边栏 -->
+      <div class="bg-light border-right" id="sidebar-wrapper">
+        <div class="sidebar-heading">
+          <!--关闭button-->
+          <button class="btn btn-position" id="sidebar-close">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+              stroke="currentColor" class="w-6 h-6">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
+        <div class="list-group list-group-flush">
+          <a href="userHomepage.html" class="list-group-item list-group-item-action bg-light"
+            id="homepage-nav2">HOMEPAGE</a>
+          <a href="userInformation.html" class="list-group-item list-group-item-action bg-light"
+            id="information-nav2">INFORMATION</a>
+          <a href="userWallet.html" class="list-group-item list-group-item-action bg-light" id="wallet-nav2">WALLET</a>
+          <a href="userBooking.html" class="list-group-item list-group-item-action bg-light"
+            id="booking-nav2">BOOKING</a>
+          <a href="userStatistics.html" class="list-group-item list-group-item-action bg-light"
+            id="statistics-nav2">STATISTICS</a>
+        </div>
       </div>
 
+      <div id="page-content-wrapper">
+        <div class="container-fluid">
+          <br>
+          <br>
+          <div class="button-container">
+            <button class="valid"> Valid</button>
+            <button class="invalid"> Expired</button>
+          </div>
 
-<div class="coupon-wrapper round-border">
 
-  <div class="coupon-item round-border2">
+          <div class="coupon-wrapper round-border">
 
-    <div class="style-one">
+            <div class="coupon-item round-border2">
 
-      <div class="info-box">
+              <div class="style-one">
+
+                <div class="info-box">
 
 
 
-        <div class="coupon-money">
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6" style="width: 6rem; height: 10rem; margin-right: 2rem; z-index: 108; margin-left: 1rem">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 6v.75m0 3v.75m0 3v.75m0 3V18m-9-5.25h5.25M7.5 15h3M3.375 5.25c-.621 0-1.125.504-1.125 1.125v3.026a2.999 2.999 0 0 1 0 5.198v3.026c0 .621.504 1.125 1.125 1.125h17.25c.621 0 1.125-.504 1.125-1.125v-3.026a2.999 2.999 0 0 1 0-5.198V6.375c0-.621-.504-1.125-1.125-1.125H3.375Z" />
-          </svg>
-          <div class="lay of">￥<em>100</em></div>
+                  <div class="coupon-money">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                      stroke="currentColor" class="w-6 h-6"
+                      style="width: 6rem; height: 10rem; margin-right: 2rem; z-index: 108; margin-left: 1rem">
+                      <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M16.5 6v.75m0 3v.75m0 3v.75m0 3V18m-9-5.25h5.25M7.5 15h3M3.375 5.25c-.621 0-1.125.504-1.125 1.125v3.026a2.999 2.999 0 0 1 0 5.198v3.026c0 .621.504 1.125 1.125 1.125h17.25c.621 0 1.125-.504 1.125-1.125v-3.026a2.999 2.999 0 0 1 0-5.198V6.375c0-.621-.504-1.125-1.125-1.125H3.375Z" />
+                    </svg>
+                    <div class="lay of">￥<em>100</em></div>
 
-          <div class="lay" style="display: flex; justify-content: space-between; align-items: center;">
-            <div>
-            <p class="nick">J Coupon</p>
-            <p class="tit"> Valid Until: </p>
-            <p class="demand">2025/01/31</p>
+                    <div class="lay" style="display: flex; justify-content: space-between; align-items: center;">
+                      <div>
+                        <p class="nick">J Coupon</p>
+                        <p class="tit"> Valid Until: </p>
+                        <p class="demand">2025/01/31</p>
+                      </div>
+
+                    </div>
+
+                  </div>
+
+                </div>
+
+                <a href="booking.html" class="get-btn" id="booking1">
+                  <!--链接需要改-->
+                  <span>Use</span>
+
+                </a>
+
+              </div>
+
+              <!--2-->
+              <div class="style-one">
+
+                <div class="info-box">
+
+
+
+                  <div class="coupon-money">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                      stroke="currentColor" class="w-6 h-6"
+                      style="width: 6rem; height: 10rem; margin-right: 2rem; z-index: 108; margin-left: 1rem">
+                      <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M16.5 6v.75m0 3v.75m0 3v.75m0 3V18m-9-5.25h5.25M7.5 15h3M3.375 5.25c-.621 0-1.125.504-1.125 1.125v3.026a2.999 2.999 0 0 1 0 5.198v3.026c0 .621.504 1.125 1.125 1.125h17.25c.621 0 1.125-.504 1.125-1.125v-3.026a2.999 2.999 0 0 1 0-5.198V6.375c0-.621-.504-1.125-1.125-1.125H3.375Z" />
+                    </svg>
+                    <div class="lay of">￥<em>100</em></div>
+
+                    <div class="lay" style="display: flex; justify-content: space-between; align-items: center;">
+                      <div>
+                        <p class="nick">J Coupon</p>
+                        <p class="tit"> Valid Until: </p>
+                        <p class="demand">2025/01/31</p>
+                      </div>
+
+                    </div>
+
+                  </div>
+
+                </div>
+
+                <a href="booking.html" class="get-btn" id="booking2">
+                  <!--链接需要改-->
+                  <span>Use</span>
+
+                </a>
+
+              </div>
+
+
             </div>
 
-          </div>
-
-        </div>
-
-      </div>
-
-      <a href="booking.html" class="get-btn">
-      <!--链接需要改-->
-        <span>Use</span>
-
-      </a>
-
-    </div>
-
-    <!--2-->
-    <div class="style-one">
-
-      <div class="info-box">
 
 
 
-        <div class="coupon-money">
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6" style="width: 6rem; height: 10rem; margin-right: 2rem; z-index: 108; margin-left: 1rem">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 6v.75m0 3v.75m0 3v.75m0 3V18m-9-5.25h5.25M7.5 15h3M3.375 5.25c-.621 0-1.125.504-1.125 1.125v3.026a2.999 2.999 0 0 1 0 5.198v3.026c0 .621.504 1.125 1.125 1.125h17.25c.621 0 1.125-.504 1.125-1.125v-3.026a2.999 2.999 0 0 1 0-5.198V6.375c0-.621-.504-1.125-1.125-1.125H3.375Z" />
-          </svg>
-          <div class="lay of">￥<em>100</em></div>
+            <!--已过期-->
 
-          <div class="lay" style="display: flex; justify-content: space-between; align-items: center;">
-            <div>
-              <p class="nick">J Coupon</p>
-              <p class="tit"> Valid Until: </p>
-              <p class="demand">2025/01/31</p>
+            <div class="coupon-item expired round-border3">
+
+              <div class="style-one have">
+
+                <div class="info-box">
+
+
+
+                  <div class="coupon-money">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                      stroke="currentColor" class="w-6 h-6"
+                      style="width: 6rem; height: 10rem; margin-right: 2rem; z-index: 108; margin-left: 1rem">
+                      <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M16.5 6v.75m0 3v.75m0 3v.75m0 3V18m-9-5.25h5.25M7.5 15h3M3.375 5.25c-.621 0-1.125.504-1.125 1.125v3.026a2.999 2.999 0 0 1 0 5.198v3.026c0 .621.504 1.125 1.125 1.125h17.25c.621 0 1.125-.504 1.125-1.125v-3.026a2.999 2.999 0 0 1 0-5.198V6.375c0-.621-.504-1.125-1.125-1.125H3.375Z" />
+                    </svg>
+
+                    <div class="lay of">￥<em> 0 </em></div>
+
+                    <div class="lay">
+                      <p class="nick2">S Coupon</p>
+
+                      <p class="tit">Valid until:</p>
+
+                      <p class="demand">2023/09/30</p>
+
+                    </div>
+
+                  </div>
+
+                </div>
+
+                <a href="userCoupons.html" class="get-btn">
+                  <!--后面需要改-->
+                  <span>Expired</span>
+
+                </a>
+
+              </div>
+
             </div>
-
           </div>
-
         </div>
-
       </div>
 
-      <a href="booking.html" class="get-btn">
-        <!--链接需要改-->
-        <span>Use</span>
-
-      </a>
 
     </div>
 
+    <script>
+      //复制自主页
+      var urlParams = new URLSearchParams(window.location.search);
+      var userId = urlParams.get('id');
+      console.log(userId);
 
-  </div>
+      // var userLink = document.getElementById('logo-nav');
+      // userLink.href = "userHomepage.html?id=" + userId;
+      var userLink = document.getElementById('booking1');
+      userLink.href = "booking.html?id=" + userId;
+      var userLink = document.getElementById('booking2');
+      userLink.href = "booking.html?id=" + userId;
 
+      var userLink = document.getElementById('homepage-nav');
+      userLink.href = "userHomepage.html?id=" + userId;
 
+      var userLink = document.getElementById('information-nav');
+      userLink.href = "userInformation.html?id=" + userId;
 
+      var userLink = document.getElementById('wallet-nav');
+      userLink.href = "userWallet.html?id=" + userId;
 
-  <!--已过期-->
+      var userLink = document.getElementById('booking-nav');
+      userLink.href = "userBooking.html?id=" + userId;
 
-  <div class="coupon-item expired round-border3">
+      var userLink = document.getElementById('statistics-nav');
+      userLink.href = "userStatistics.html?id=" + userId;
 
-    <div class="style-one have">
+      var userLink = document.getElementById('homepage-nav2');
+      userLink.href = "userHomepage.html?id=" + userId;
 
-      <div class="info-box">
+      var userLink = document.getElementById('information-nav2');
+      userLink.href = "userInformation.html?id=" + userId;
 
+      var userLink = document.getElementById('wallet-nav2');
+      userLink.href = "userWallet.html?id=" + userId;
 
+      var userLink = document.getElementById('booking-nav2');
+      userLink.href = "userBooking.html?id=" + userId;
 
-        <div class="coupon-money">
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6" style="width: 6rem; height: 10rem; margin-right: 2rem; z-index: 108; margin-left: 1rem">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 6v.75m0 3v.75m0 3v.75m0 3V18m-9-5.25h5.25M7.5 15h3M3.375 5.25c-.621 0-1.125.504-1.125 1.125v3.026a2.999 2.999 0 0 1 0 5.198v3.026c0 .621.504 1.125 1.125 1.125h17.25c.621 0 1.125-.504 1.125-1.125v-3.026a2.999 2.999 0 0 1 0-5.198V6.375c0-.621-.504-1.125-1.125-1.125H3.375Z" />
-          </svg>
+      var userLink = document.getElementById('statistics-nav2');
+      userLink.href = "userStatistics.html?id=" + userId;
+    </script>
 
-          <div class="lay of">￥<em>   0   </em></div>
-
-          <div class="lay">
-            <p class="nick2">S Coupon</p>
-
-            <p class="tit">Valid until:</p>
-
-            <p class="demand">2023/09/30</p>
-
-          </div>
-
-        </div>
-
-      </div>
-
-      <a href="userCoupons.html" class="get-btn">
-<!--后面需要改-->
-        <span>Expired</span>
-
-      </a>
-
-    </div>
-
-  </div>
-</div>
-    </div>
-  </div>
-
-
-</div>
-
-<script>
-    $("#menu-toggle, #sidebar-close").click(function(e) {
+    <script>
+      $("#menu-toggle, #sidebar-close").click(function (e) {
         e.preventDefault();//阻止默认点击行为
         $("#wrapper").toggleClass("toggled");//控制侧边栏的显示与隐藏
         $("#sidebar-wrapper .list-group-item").toggleClass("hidden");//控制侧边栏的显示与隐藏
         $("#menu-toggle").toggleClass("hidden");//控制菜单按钮的显示与隐藏
 
         if ($("#wrapper").hasClass("toggled")) {
-            $("#overlay").show();
+          $("#overlay").show();
         } else {
-            $("#overlay").hide();
+          $("#overlay").hide();
         }
-    });
+      });
 
-    /*添加可用优惠券*/
-window.onload = function () {
-    fetch('http://localhost:8080/api/coupons', {
-        method: "GET"
-    })
-        .then(response => response.json())
-        .then(coupons => {
+      /*添加可用优惠券*/
+      window.onload = function () {
+        fetch('http://localhost:8080/api/coupons', {
+          method: "GET"
+        })
+          .then(response => response.json())
+          .then(coupons => {
             var couponWrapper = document.querySelector('.round-border2');
 
             coupons.forEach((coupon) => {
-                var couponItem = document.createElement('div');
-                couponItem.className = 'style-one';
-                var endTime = new Date(coupon.endTime);
-                var endTimeStr = endTime.toLocaleDateString();
-                couponItem.innerHTML = `
+              var couponItem = document.createElement('div');
+              couponItem.className = 'style-one';
+              var endTime = new Date(coupon.endTime);
+              var endTimeStr = endTime.toLocaleDateString();
+              couponItem.innerHTML = `
                     <div class="info-box">
                         <div class="coupon-money">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6" style="width: 6rem; height: 10rem; margin-right: 2rem; z-index: 108; margin-left: 1rem">
@@ -247,18 +305,21 @@ window.onload = function () {
                         <span>Use</span>
                     </a>
                 `;
-                couponWrapper.appendChild(couponItem);
+              couponWrapper.appendChild(couponItem);
             });
-        })
-        .catch(error => {
+          })
+          .catch(error => {
             console.error('Error:', error);
-        });
-};
-
-</script>
+          });
+      };
 
 
-</div>
+
+
+    </script>
+
+
+  </div>
 
 </body>
 

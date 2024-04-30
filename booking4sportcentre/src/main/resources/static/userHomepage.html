@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,6 +11,7 @@
 
   <title>Welcome</title>
 </head>
+
 <body>
   <!-- <h1>这里是用户主页</h1> -->
   <nav>
@@ -50,7 +52,7 @@
             <p class="carousel-subcontent">Whether you want to learn swimming skills, exercise, or participate in
               competition training, we have a professional coaching team and perfect facilities to provide you with a
               quality swimming experience.</p>
-            <a href="booking.html" class="carousel-href">learn more</a>
+            <a href="booking.html" class="carousel-href" id="booking1">learn more</a>
           </div>
           <button class="btn btn--left">
             <svg xmlns="http://www.w3.org/2000/svg" class="btn-icon" fill="none" viewBox="0 0 24 24"
@@ -79,7 +81,7 @@
             <p class="carousel-subcontent">we can provide you with personalized guidance and training plans to enjoy
               basketball in a pleasant atmosphere.
             </p>
-            <a href="booking.html" class="carousel-href">learn more</a>
+            <a href="booking.html" class="carousel-href" id="booking2">learn more</a>
           </div>
           <button class="btn btn--left">
             <svg xmlns="http://www.w3.org/2000/svg" class="btn-icon" fill="none" viewBox="0 0 24 24"
@@ -110,7 +112,7 @@
             <p class="carousel-subcontent">Let you sweat here and enjoy the happiness and sense of achievement brought
               by football.
             </p>
-            <a href="booking.html" class="carousel-href">learn more</a>
+            <a href="booking.html" class="carousel-href" id="booking3">learn more</a>
           </div>
           <button class="btn btn--left">
             <svg xmlns="http://www.w3.org/2000/svg" class="btn-icon" fill="none" viewBox="0 0 24 24"
@@ -135,69 +137,69 @@
   </div>
   <div class="cards">
     <div class="information-card">
-      <a href="userInformation.html">my information</a>
+      <a href="userInformation.html" id="information2">my information</a>
     </div>
 
     <div class="booking-card">
-      <a href="booking.html">booking</a>
+      <a href="booking.html" id="booking4">booking</a>
       <div class="sports-container">
         <div class="sports">
           <svg class="icon" aria-hidden="true">
             <use xlink:href="#icon-zuqiu"></use>
           </svg><br>
-          <a href="football.html">football</a>
+          <a href="football.html" id="football-booking">football</a>
         </div>
         <div class="sports">
           <svg class="icon" aria-hidden="true">
             <use xlink:href="#icon-lanqiu"></use>
           </svg><br>
-          <a href="basketball.html">basketball</a>
+          <a href="basketball.html" id="basketball-booking">basketball</a>
         </div>
         <div class="sports">
           <svg class="icon" aria-hidden="true">
             <use xlink:href="#icon-wangqiu"></use>
           </svg><br>
-          <a href="tennis.html">tennis</a>
+          <a href="tennis.html" id="tennis-booking">tennis</a>
         </div>
         <div class="sports">
           <svg class="icon" aria-hidden="true">
             <use xlink:href="#icon-shejian"></use>
           </svg><br>
-          <a href="archery.html">archery</a>
+          <a href="archery.html" id="archery-booking">archery</a>
         </div>
         <div class="sports">
           <svg class="icon" aria-hidden="true">
             <use xlink:href="#icon-pingpangqiu"></use>
           </svg><br>
-          <a href="pingpong.html">pingpong</a>
+          <a href="pingpong.html" id="pingpong-booking">pingpong</a>
         </div>
         <div class="sports">
           <svg class="icon" aria-hidden="true">
             <use xlink:href="#icon-zhuoqiu"></use>
           </svg><br>
-          <a href="billiard.html">billiard</a>
+          <a href="billiard.html" id="billiard-booking">billiard</a>
         </div>
         <div class="sports">
           <svg class="icon" aria-hidden="true">
             <use xlink:href="#icon-yumaoqiu"></use>
           </svg><br>
-          <a href="shuttlecock.html">shuttlecock</a>
+          <a href="shuttlecock.html" id="shuttlecock-booking">shuttlecock</a>
         </div>
         <div class="sports">
           <svg class="icon" aria-hidden="true">
             <use xlink:href="#icon-jianshen"></use>
           </svg><br>
-          <a href="workout.html">workout</a>
+          <a href="workout.html" id="workout-booking">workout</a>
         </div>
       </div>
       <div id="check-more">check more</div>
     </div>
 
     <div class="wallet-card">
-      <a href="userWallet.html">my wallet</a>
+      <a href="userWallet.html" id="wallet2">my wallet</a>
     </div>
     <div class="statistics-card">
-      <a href="userStatistics.html">my statistics</a>
+      <a href="userStatistics.html" id="statistics2">my statistics</a>
     </div>
   </div>
   <script src="./iconfont.js"></script>
@@ -207,6 +209,58 @@
     var urlParams = new URLSearchParams(window.location.search);
     var userId = urlParams.get('id');
     console.log(userId);
+
+    var userLink = document.getElementById('booking1');
+    userLink.href = "booking.html?id=" + userId;
+
+    var userLink = document.getElementById('booking2');
+    userLink.href = "booking.html?id=" + userId;
+
+    var userLink = document.getElementById('booking3');
+    userLink.href = "booking.html?id=" + userId;
+
+    var userLink = document.getElementById('booking4');
+    userLink.href = "booking.html?id=" + userId;
+
+    var userLink = document.getElementById('information2');
+    userLink.href = "userInformation.html?id=" + userId;
+
+    var userLink = document.getElementById('wallet2');
+    userLink.href = "userWallet.html?id=" + userId;
+
+    var userLink = document.getElementById('statistics2');
+    userLink.href = "userStatistics.html?id=" + userId;
+
+
+
+
+    var userLink = document.getElementById('football-booking');
+    userLink.href = "football.html?id=" + userId;
+
+    var userLink = document.getElementById('basketball-booking');
+    userLink.href = "basketball.html?id=" + userId;
+
+    var userLink = document.getElementById('tennis-booking');
+    userLink.href = "tennis.html?id=" + userId;
+
+    var userLink = document.getElementById('archery-booking');
+    userLink.href = "archery.html?id=" + userId;
+
+    var userLink = document.getElementById('pingpong-booking');
+    userLink.href = "pingpong.html?id=" + userId;
+
+    var userLink = document.getElementById('billiard-booking');
+    userLink.href = "billiard.html?id=" + userId;
+
+    var userLink = document.getElementById('shuttlecock-booking');
+    userLink.href = "shuttlecock.html?id=" + userId;
+
+    var userLink = document.getElementById('workout-booking');
+    userLink.href = "workout.html?id=" + userId;
+
+
+
+
 
     var userLink = document.getElementById('logo-nav');
     userLink.href = "userHomepage.html?id=" + userId;
@@ -272,4 +326,5 @@
 
   </script>
 </body>
+
 </html>
