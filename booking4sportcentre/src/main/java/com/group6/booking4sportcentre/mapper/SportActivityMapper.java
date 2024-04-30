@@ -10,15 +10,18 @@ public interface SportActivityMapper {
     @Select("select * from sport_activity")
     public List<SportActivity> list();
 
-    @Update("UPDATE sport_activity SET name = #{name}, startTime = #{startTime}, endTime = #{endTime}, " +
-            "coach = #{coach}, stadium = #{stadium}, price = #{price}, ticketNumber = #{ticketNumber} " +
+    @Select("select * from sport_activity where id=#{id}")
+    public List<SportActivity> getById(@Param("id") int id);
+
+    @Update("UPDATE sport_activity SET name = #{name}, start_time = #{startTime}, end_time = #{endTime}, " +
+            "coach = #{coach}, stadium = #{stadium}, price = #{price}, ticket_number = #{ticketNumber} " +
             "WHERE id = #{id}")
-    public int update(SportActivity sportActivity);
+    int update(SportActivity sportActivity);
 
     @Insert("INSERT INTO sport_activity(id, coach, end_time, name, price, stadium, start_time, ticket_number) " +
             "VALUES(#{id}, #{coach}, #{endTime}, #{name}, #{price}, #{stadium}, #{startTime},#{ticketNumber})")
-    public void add(SportActivity sportActivity);
+    void add(SportActivity sportActivity);
 
     @Delete("Delete from sport_activity where id =#{id}")
-    public int delete(int id);
+    int delete(int id);
 }
