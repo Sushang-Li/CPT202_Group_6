@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Coupon Management Page</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" type="text/css" href="css/EditUserInfoPage.css">
+    <script src="jquery-3.7.1.js"></script>
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css" />
+    <script src="bootstrap/js/bootstrap.bundle.min.js"></script>
+</head>
+
+<body style="background: whitesmoke" class="body">
+<div class="container-row" style="text-align: center">
+    <font face="" color="black" size="7">Coupon Management Page</font>
+</div>
+
+<div class="container my-4">
+    <h2><i style="padding-right: 100px">Coupon list</i>
+        <button onclick="showAddModal()" id="add" class="btn btn-primary layui-btn-fluid">Add</button></h2>
+
+    <table id="couponTable" class="table table-striped">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Face Value</th>
+            <th>Start Time</th>
+            <th>End Time</th>
+            <th>Status</th>
+            <th>Operate</th>
+        </tr>
+        </thead>
+        <tbody id="couponTableBody">
+        </tbody>
+    </table>
+
+    <div id="couponModal" class="modal">
+        <h2 id="modalTitle"></h2>
+        <form id="couponForm">
+            <div class="mb-3">
+                <label for="name" class="form-label">Name</label>
+                <input type="text" class="form-control" id="name" name="name" />
+            </div>
+            <div class="mb-3">
+                <label for="faceValue" class="form-label">Face Value</label>
+                <input type="number" class="form-control" id="faceValue" name="faceValue" />
+            </div>
+            <div class="mb-3">
+                <label for="startTime" class="form-label">Start Time</label>
+                <input type="datetime-local" class="form-control" id="startTime" name="startTime" />
+            </div>
+            <div class="mb-3">
+                <label for="endTime" class="form-label">End Time</label>
+                <input type="datetime-local" class="form-control" id="endTime" name="endTime" />
+            </div>
+            <button type="submit" id="saveButton" class="btn btn-primary btn-sm">Submit</button>
+            <button type="button" onclick="closeModal()" class="btn btn-primary btn-sm">Close</button>
+        </form>
+    </div>
+
+    <script>
+        function fetchAndRenderCoupons() {
+            fetch('http://localhost:8080/api/coupons')
+                .then(response => response.json())
+                .then(data => {
+                    renderCoupons(data);
+                })
+                .catch(error => console.error('Error fetching coupons', error));
+        }
+
+        function renderCoupons(coupons) {
+            var tableBody = document.querySelector('#couponTable tbody');
+            tableBody.innerHTML = '';
+            coupons.forEach(function (coupon) {
+                var row = `<tr>
+            <td>${coupon.id}</td>
+            <td>${coupon.name}</td>
+            <td>${coupon.faceValue}</td>
+            <td>${coupon.startTime}</td>
+            <td>${coupon.endTime}</td>
+            <td>${coupon.status}</td>
+            <td>
+                <button onclick="openEditModal(${coupon.id})">Update</button>
+            </td>
+        </tr>`;
+                tableBody.innerHTML += row;
+            });
+        }
+
+        function showAddModal() {
+            document.getElementById('modalTitle').textContent = 'Add Coupon';
+            document.getElementById('saveButton').textContent = 'Add';
+            document.getElementById('couponForm').reset();
+            document.getElementById('couponModal').style.display = 'block';
+        }
+
+        document.getElementById('couponForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const formData = new FormData(document.getElementById('couponForm'));
+            const couponData = {};
+            formData.forEach(function(value, key) {
+                couponData[key] = value;
+            });
+
+            fetch('http://localhost:8080/api/add_coupon', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(couponData)
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('HTTP error ' + response.status);
+                    }
+                    return response.json()
+                })
+                .then(data => {
+                    closeModal();
+                    fetchAndRenderCoupons();
+                })
+                .catch(error => console.error('Error adding coupon', error));
+        });
+
+        function closeModal() {
+            document.getElementById('couponModal').style.display = 'none';
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            fetchAndRenderCoupons();
+        });
+    </script>
+</div>
+</body>
+</html>

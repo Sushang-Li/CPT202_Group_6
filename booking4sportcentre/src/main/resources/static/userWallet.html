@@ -36,6 +36,7 @@
   </nav>
   <p style="text-align: center;">增删改查钱包</p>
   <p style="text-align: center;">这里应该有一个表</p>
+  <a href="userCoupons.html" id="coupon">My Coupons</a>
 </body>
 
 <script>
@@ -61,6 +62,9 @@
 
   var userLink = document.getElementById('statistics-nav');
   userLink.href = "userStatistics.html?id=" + userId;
+
+  var userLink = document.getElementById('coupon');
+  userLink.href = "userCoupons.html?id=" + userId;
 </script>
 
 </html>

@@ -161,6 +161,7 @@
         });
 
         // 监听表单提交事件
+
         document.getElementById('userForm').addEventListener('submit', function(event) {
             event.preventDefault(); // 阻止表单的默认提交行为
 
@@ -174,6 +175,41 @@
 
             // 发起添加用户信息的请求
             fetch('http://localhost:8080/api/addUser', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(userData)
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('HTTP error ' + response.status);
+                    }
+                    return response.json()
+                })
+                .then(data => {
+                    // 添加成功后的操作，关闭模态框并刷新用户数据
+                    closeModal();
+                    fetchAndRenderUsers();
+                })
+                .catch(error => console.error('Error adding user', error));
+        });
+
+
+        //获取表单元素，添加事件监听器
+        document.getElementById('userForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // 阻止表单的默认提交行为
+
+            // 获取表单数据
+            const formData = new FormData(document.getElementById('userForm'));
+            const userData = {};
+            formData.forEach(function(value, key) {
+
+                userData[key] = value;
+            });
+
+            // 确保ID字段被正确地包含在表单数据中
+            fetch('http://localhost:8080/api/updateUser', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
