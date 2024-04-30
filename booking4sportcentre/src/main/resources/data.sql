@@ -1,3 +1,4 @@
+Use sport_centre;
 INSERT INTO user_info (stu_id, email, first_name, last_name, dob, address, gender, username, position, password, phone_num, intro, re_date)
 SELECT * FROM (
                   SELECT 1234567 AS stu_id, 'user1@example.com' AS email, 'John' AS first_name, 'Doe' AS last_name, '1990-01-01' AS dob, '123 Main St' AS address, 1 AS gender, 'user1' AS username, 'Student' AS position, 'password1' AS password, '1234567890' AS phone_num, 'Introduction for user1' AS intro, '2024-04-28' AS re_date
