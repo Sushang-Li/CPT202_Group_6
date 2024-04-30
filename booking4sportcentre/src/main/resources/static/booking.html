@@ -43,7 +43,7 @@
     </nav>
 
     <div class=box-container>
-        <button onclick="window.location.href='football.html';">
+        <button onclick="window.location.href='football.html' + '?id=' + userId;">
             <div class=sports>
                 <div class="image">
                     <img src="images/football.png" alt="">
@@ -57,7 +57,7 @@
                 </div>
             </div>
         </button>
-        <button onclick="window.location.href='basketball.html';">
+        <button onclick="window.location.href='basketball.html' + '?id=' + userId;">
             <div class=sports>
                 <div class="image">
                     <img src="images/basketballbooking.jpg" alt="">
@@ -71,7 +71,7 @@
                 </div>
             </div>
         </button>
-        <button onclick="window.location.href='tennis.html';">
+        <button onclick="window.location.href='tennis.html' + '?id=' + userId;">
             <div class=sports>
                 <div class="image">
                     <img src="images/tennis.jpg" alt="">
@@ -85,7 +85,7 @@
                 </div>
             </div>
         </button>
-        <button onclick="window.location.href='archery.html';">
+        <button onclick="window.location.href='archery.html' + '?id=' + userId;">
             <div class=sports>
                 <div class="image">
                     <img src="images/archery.png" alt="">
@@ -99,7 +99,7 @@
                 </div>
             </div>
         </button>
-        <button onclick="window.location.href='pingpong.html';">
+        <button onclick="window.location.href='pingpong.html' + '?id=' + userId;">
             <div class=sports>
                 <div class="image">
                     <img src="images/pingpong.jpg" alt="">
@@ -111,121 +111,86 @@
                         <span><i class="fas fa-user"></i>by coach</span>
 
                     </div>
-                    <div class=content>
-                        <a href=basketball.html>Basketball</a>
-                        <p>20rmb</p>
-                        <div class="icons">
-                            <span><i class="fas fa-user"></i>by admin</span>
-                        </div>
-                    </div>
+
 
                 </div>
+        </button>
 
-                <div class=sports>
-                    <div class="image">
-                        <img src="images/tennis.jpg" alt="">
-                    </div>
-                    <div class=content>
-                        <a href=tennis.html>Tennis</a>
-                        <p>20rmb</p>
-                        <div class="icons">
-                            <span><i class="fas fa-user"></i>by admin</span>
-                        </div>
-                    </div>
 
+
+        <button onclick="window.location.href='billiard.html' + '?id=' + userId;">
+            <div class="sports">
+                <div class="image">
+                    <img src="images/billiard.png" alt="">
                 </div>
-                <div class=sports>
-                    <div class="image">
-                        <img src="images/archery.png" alt="">
+                <div class=content>
+                    <a href=billiard.html>Billiard</a>
+                    <p>20rmb</p>
+                    <div class="icons">
+                        <span><i class="fas fa-user"></i>by admin</span>
                     </div>
-                    <div class=content>
-                        <a href=archery.html>Archery</a>
-                        <p>20rmb</p>
-                        <div class="icons">
-                            <span><i class="fas fa-user"></i>by admin</span>
-                        </div>
-                    </div>
-
                 </div>
-                <div class=sports>
-                    <div class="image">
-                        <img src="images/pingpong.jpg" alt="">
-                    </div>
-                    <div class=content>
-                        <a href=pingpong.html>Pingpong</a>
-                        <p>20rmb</p>
-                        <div class="icons">
-                            <span><i class="fas fa-user"></i>by admin</span>
-                        </div>
-                    </div>
+            </div>
+        </button>
 
+        <button onclick="window.location.href='shuttlecock.html' + '?id=' + userId;">
+            <div class=sports>
+                <div class="image">
+                    <img src="images/shuttlecock.jpg" alt="">
                 </div>
-                <div class=sports>
-                    <div class="image">
-                        <img src="images/billiard.png" alt="">
+                <div class=content>
+                    <a href=shuttlecock.html>Shuttlecock</a>
+                    <p>20rmb</p>
+                    <div class="icons">
+                        <span><i class="fas fa-user"></i>by admin</span>
                     </div>
-                    <div class=content>
-                        <a href=billiard.html>Billiard</a>
-                        <p>20rmb</p>
-                        <div class="icons">
-                            <span><i class="fas fa-user"></i>by admin</span>
-                        </div>
-                    </div>
-
                 </div>
-                <div class=sports>
-                    <div class="image">
-                        <img src="images/shuttlecock.jpg" alt="">
-                    </div>
-                    <div class=content>
-                        <a href=shuttlecock.html>Shuttlecock</a>
-                        <p>20rmb</p>
-                        <div class="icons">
-                            <span><i class="fas fa-user"></i>by admin</span>
-                        </div>
-                    </div>
 
+            </div>
+        </button>
+        <button onclick="window.location.href='workout.html' + '?id=' + userId;">
+            <div class=sports>
+                <div class="image">
+                    <img src="images/workout.png" alt="">
                 </div>
-                <div class=sports>
-                    <div class="image">
-                        <img src="images/workout.png" alt="">
+                <div class=content>
+                    <a href=workout.html>Workout</a>
+                    <p>20rmb</p>
+                    <div class="icons">
+                        <span><i class="fas fa-user"></i>by admin</span>
                     </div>
-                    <div class=content>
-                        <a href=workout.html>Workout</a>
-                        <p>20rmb</p>
-                        <div class="icons">
-                            <span><i class="fas fa-user"></i>by admin</span>
-                        </div>
-                    </div>
-
                 </div>
             </div>
 
+        </button>
+    </div>
 
-            <script>
-                //复制自主页
-                var urlParams = new URLSearchParams(window.location.search);
-                var userId = urlParams.get('id');
-                console.log(userId);
 
-                var userLink = document.getElementById('logo-nav');
-                userLink.href = "userHomepage.html?id=" + userId;
 
-                var userLink = document.getElementById('homepage-nav');
-                userLink.href = "userHomepage.html?id=" + userId;
+    <script>
+        //复制自主页
+        var urlParams = new URLSearchParams(window.location.search);
+        var userId = urlParams.get('id');
+        console.log(userId);
 
-                var userLink = document.getElementById('information-nav');
-                userLink.href = "userInformation.html?id=" + userId;
+        var userLink = document.getElementById('logo-nav');
+        userLink.href = "userHomepage.html?id=" + userId;
 
-                var userLink = document.getElementById('wallet-nav');
-                userLink.href = "userWallet.html?id=" + userId;
+        var userLink = document.getElementById('homepage-nav');
+        userLink.href = "userHomepage.html?id=" + userId;
 
-                var userLink = document.getElementById('booking-nav');
-                userLink.href = "userBooking.html?id=" + userId;
+        var userLink = document.getElementById('information-nav');
+        userLink.href = "userInformation.html?id=" + userId;
 
-                var userLink = document.getElementById('statistics-nav');
-                userLink.href = "userStatistics.html?id=" + userId;
-            </script>
+        var userLink = document.getElementById('wallet-nav');
+        userLink.href = "userWallet.html?id=" + userId;
+
+        var userLink = document.getElementById('booking-nav');
+        userLink.href = "userBooking.html?id=" + userId;
+
+        var userLink = document.getElementById('statistics-nav');
+        userLink.href = "userStatistics.html?id=" + userId;
+    </script>
 
 </body>
 
