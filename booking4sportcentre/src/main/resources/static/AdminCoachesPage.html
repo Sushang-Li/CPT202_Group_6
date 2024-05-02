@@ -5,7 +5,7 @@
     <title>体育管理系统</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Bootstrap -->
-    <link rel="stylesheet" href="https://cdn.staticfile.net/twitter-bootstrap/3.3.7/css/bootstrap.min.css">  
+    <link rel="stylesheet" href="https://cdn.staticfile.net/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="shortcut icon" href="img/smallcut.png">
 <style>
     /*  */
@@ -137,7 +137,7 @@ li a.active {
     }
 /* 增加Coach弹出框样式 */
 </style>
-
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css">
 </head>
 <body>
 	<!-- jQuery (Bootstrap 插件需要引入) -->
@@ -145,6 +145,7 @@ li a.active {
 <!-- 包含了所有编译插件 -->
 <script src="https://cdn.staticfile.net/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
+<script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
 
 <div >
     <div class="row">
@@ -233,7 +234,7 @@ li a.active {
 
                     <label >Activity:<input type="text" class="activity" name="activity"></label>
                     <br>
-                    <button type="submit">Update Coach</button>
+                    <button class="btn btn-primary" type="submit">Update Coach</button>
                 </form>
             </div>
         </div>
@@ -244,8 +245,8 @@ li a.active {
                 <span class="close">&times;</span>
                 <form id="deleteCoachForm">
                     <p>Are you sure you want to delete coach <span id="coachName"></span>?</p>
-                    <button id="confirmDeleteBottom" class="confirmBottom" type="button">Confirm</button>
-                    <button id="cancelDeleteBottom" class="cancelBottom" type="button">Cancel</button>
+                    <button id="confirmDeleteBottom" class="confirmBottom btn btn-primary" type="button">Confirm</button>
+                    <button id="cancelDeleteBottom" class="cancelBottom btn btn-danger" type="button">Cancel</button>
                 </form>
             </div>
         </div>
@@ -260,22 +261,21 @@ li a.active {
                     <div class="bar">
                         <!-- 教练表格 -->
                         <table class="table table-hover" style="font-size: 20px;">
-                            <caption style="font-size: 30px;">4.22</caption>
+<!--                            <caption style="font-size: 30px;">4.22</caption>-->
                             <p>
-                                <button type="button" class="glyphicon glyphicon-pencil" style="margin-left: 700px; margin-top: 10px; font-size: 20px;"></button>
-                                <button type="button" id="openModalBottom" class="glyphicon glyphicon-plus" style="font-size: 20px;"></button>
-                                <button type="button" class="glyphicon glyphicon-minus" style="font-size: 20px;"></button>
+                                <button type="button" id="openModalBottom" class="glyphicon glyphicon-plus btn btn-success float-right" style="font-size: 20px;">Add</button>
                             </p>
                             <thead>
-                            <tr>
-                                <th>#Id</th>
-                                <th>Name</th>
-                                <th>Contact</th>
-                                <th>StartTime</th>
-                                <th>EndTime</th>
-                                <th>Status</th>
-                                <th>Activities</th>
-                            </tr>
+                                <tr>
+                                    <th>#Id</th>
+                                    <th>Name</th>
+                                    <th>Contact</th>
+                                    <th>StartTime</th>
+                                    <th>EndTime</th>
+                                    <th>Status</th>
+                                    <th>Activities</th>
+                                    <th></th>
+                                </tr>
                             </thead>
                             <tbody>
                             <!-- 这里将由 JS 动态添加教练信息 -->
@@ -291,7 +291,14 @@ li a.active {
 </div>
 
 <script>
-
+<!--    载入DataTable 只针对前7列-->
+$(document).ready(function() {
+    $('.table').DataTable({
+        "columnDefs": [
+            { "orderable": false, "targets": 7 }  // 索引从0开始，7表示第八列
+        ]
+    });
+});
 // JavaScript代码
 document.getElementById('a1').addEventListener('click', function() {
             var submenu = this.querySelector('ul');
@@ -303,42 +310,75 @@ document.getElementById('a1').addEventListener('click', function() {
         });
 
 // Get a list of coach information 获取教练信息以列表
-// 获取教练信息列表的函数
+// 旧版获取教练信息列表的函数
+// function getCoachInfoList() {
+//     fetch('/api/coachinfo')
+//         .then(response => response.json())
+//         .then(data => {
+//             console.log(data); // 在控制台输出数据以确保正确获取到
+//             const tableBody = document.querySelector('table tbody');
+//
+//             // Empty the form
+//             tableBody.innerHTML = '';
+//
+//             // If the coach information array is empty, display "There is no coach..."
+//             // 如果教练信息数组为空，则显示 "There is no coach..."
+//             if (data.length === 0) {
+//                 const row = document.createElement('tr');
+//                 row.innerHTML = '<td colspan="7">There is no \n' + 'coach information yet. Please add coach first. </td>';
+//                 tableBody.appendChild(row);
+//             } else {
+//                 // Loop through the coach information array, creating a row for each coach
+//                 // 循环遍历教练信息数组，为每个教练创建一行
+//                 data.forEach(coach => {
+//                     const row = document.createElement('tr');
+//                     row.innerHTML = `
+//         <td>${coach.id}</td>
+//         <td>${coach.name}</td>
+//         <td>${coach.contact}</td>
+//         <td>${coach.startTime}</td>
+//         <td>${coach.endTime}</td>
+//         <td>${coach.status}</td>
+//         <td>${coach.activity}</td>
+//         <td>
+//         <button class="updateBottom" type="button"  style="font-size: 20px;">Modify</button>
+//         <button class="deleteBottom" type="button" style="font-size: 20px;">Delete</button>
+//         </td>
+//       `;
+//                     tableBody.appendChild(row);
+//                 });
+//             }
+//             // 重新初始化 DataTable
+//             // 重新初始化 DataTable，添加所需的参数
+//             $('.table').DataTable();
+//         })
+//         .catch(error => {
+//             console.error('Error fetching data:', error);
+//         });
+// }
+// 新版获取教练信息列表的函数
 function getCoachInfoList() {
     fetch('/api/coachinfo')
         .then(response => response.json())
         .then(data => {
-            console.log(data); // 在控制台输出数据以确保正确获取到
-            const tableBody = document.querySelector('table tbody');
+            const table = $('.table').DataTable();
+            table.clear(); // 清除现有的数据
 
-            // Empty the form
-            tableBody.innerHTML = '';
-
-            // If the coach information array is empty, display "There is no coach..."
-            // 如果教练信息数组为空，则显示 "There is no coach..."
             if (data.length === 0) {
-                const row = document.createElement('tr');
-                row.innerHTML = '<td colspan="7">There is no \n' + 'coach information yet. Please add coach first. </td>';
-                tableBody.appendChild(row);
+                table.row.add(['', 'There is no coach information yet. Please add coach first.', '', '', '', '', '']).draw();
             } else {
-                // Loop through the coach information array, creating a row for each coach
-                // 循环遍历教练信息数组，为每个教练创建一行
                 data.forEach(coach => {
-                    const row = document.createElement('tr');
-                    row.innerHTML = `
-        <td>${coach.id}</td>
-        <td>${coach.name}</td>
-        <td>${coach.contact}</td>
-        <td>${coach.startTime}</td>
-        <td>${coach.endTime}</td>
-        <td>${coach.status}</td>
-        <td>${coach.activity}</td>
-        <td>
-        <button class="updateBottom" type="button"  style="font-size: 20px;">Modify</button><td>
-        <button class="deleteBottom" type="button" style="font-size: 20px;">Delete</button>
-        </td>
-      `;
-                    tableBody.appendChild(row);
+                    table.row.add([
+                        coach.id,
+                        coach.name,
+                        coach.contact,
+                        coach.startTime,
+                        coach.endTime,
+                        coach.status,
+                        coach.activity,
+                        `<button class="updateBottom btn btn-primary" type="button" style="font-size: 20px;">Modify</button>
+                         <button class="deleteBottom btn btn-danger" type="button" style="font-size: 20px;">Delete</button>`
+                    ]).draw(false); // 添加新数据并更新表格
                 });
             }
         })
