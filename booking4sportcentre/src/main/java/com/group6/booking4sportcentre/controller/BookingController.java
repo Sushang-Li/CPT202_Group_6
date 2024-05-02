@@ -42,12 +42,11 @@ public class BookingController {
 //            "actName": "Music Concert",
 //            "price": 50.0
 //    }
-    @PostMapping("/addTest1")
+    @PostMapping("/addOneBooking")
     public void addOneBooking(@RequestBody BookingInfo bookingInfo) {
         bookingInfoMapper.insert(bookingInfo);
 
         //新增结束后，应该接着删除活动中的一张票
-//        sportActivityMapper.updateById();
 
     }
     //end

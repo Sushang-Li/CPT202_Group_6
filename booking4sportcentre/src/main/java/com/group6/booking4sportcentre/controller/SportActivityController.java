@@ -23,10 +23,21 @@ public class SportActivityController {
     //注意：得到的应该是空闲的所有的体育活动,目前还是所有的体育活动
     //每个项目预定也是先调用这个接口
     //测试成功，接口等待更改
-    @GetMapping("/api/test11")
+    @GetMapping("/allActivities")
     public List<SportActivity> getAllSportActivities() {
         List<SportActivity> list = sportActivityMapper.selectList(null);
         return list;
+    }
+
+    //更新票数
+    @PostMapping("/updateTicketNumber")
+    public void updateTicketNumber(@RequestParam int id, @RequestParam int current, @RequestParam int price) {
+        SportActivity sportActivity = new SportActivity();
+        sportActivity.setId(id);
+        sportActivity.setTicketNumber(current);
+        sportActivity.setPrice(price);
+
+        sportActivityMapper.updateById(sportActivity);
     }
 
     //查看全部体育活动
