@@ -1,5 +1,6 @@
 package com.group6.booking4sportcentre.mapper;
 
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.group6.booking4sportcentre.model.BookingInfo;
 import org.apache.ibatis.annotations.*;
 import java.time.LocalDate;
@@ -13,7 +14,11 @@ import java.util.Map;
 
 // Mapper for manipulating the booking_info database
 @Mapper
-public interface BookingInfoMapper {
+public interface BookingInfoMapper extends BaseMapper<BookingInfo> {
+    //添加使用mybatisPlus
+    //
+
+    //下面的内容都是刑富玉之前写的，暂时未更改
     // Get all bookings
     @Select("SELECT * FROM booking_info")
     List<BookingInfo> getAllBookings();
