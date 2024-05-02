@@ -1,4 +1,3 @@
-
 package com.group6.booking4sportcentre;
 
 import com.group6.booking4sportcentre.controller.AdminUserInfoController;
