@@ -41,7 +41,6 @@ public class BookingInfo {
     //活动name
     @Column(name = "act_name")
     private String actName;
-    private Long quantity;
 
     private double price;
 
@@ -63,16 +62,4 @@ public class BookingInfo {
     @ManyToOne
     @JoinColumn(name = "wallet_info_id")
     private WalletInfo walletInfo;
-
-    public long getQuantity() {
-        return this.quantity;
-    }
-
-    public double getPrice() {
-        return this.price;
-    }
-
-    public LocalDate getDate(){
-        return this.date;
-    }
 }

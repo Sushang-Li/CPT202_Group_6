@@ -18,7 +18,7 @@ public class UserInfoController {
 
     @Autowired
     private UserInfoMapper userInfoMapper;
-
+    
     //插入测试数据，temp
     @PostMapping("/user/insertTestData")
     public void insertTestData(@RequestBody List<UserInfo> list) {
@@ -61,5 +61,5 @@ public class UserInfoController {
     }
 
 
-
+    
 }
