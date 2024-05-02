@@ -20,4 +20,5 @@ public interface WalletInfoMapper extends BaseMapper<WalletInfo> {
 
    @Update("UPDATE wallet_info SET balance = balance - #{amount} WHERE id = #{walletInfoId}")
    void updateWalletBalance(@Param("walletInfoId") Long walletInfoId, @Param("amount") Double amount);
+
 }
