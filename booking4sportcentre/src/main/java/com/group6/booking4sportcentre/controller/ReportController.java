@@ -22,16 +22,15 @@ import java.util.Map;
 public class ReportController {
     private ReportMapper reportMapper;
 
-
     @Autowired
     public ReportController(ReportMapper reportMapper) {
         this.reportMapper = reportMapper;
     }
-//查询并根据月份计算总门票数和总销售额
+
     @GetMapping("/api/report")
-    @Transactional
     public Map<String, Map<String, Object>> getMonthlySalesReport() {
         List<BookingInfo> tickets = reportMapper.getAllBooking();
+        int quantity = reportMapper.getQuantity();
 
         Map<String, Map<String, Object>> monthlyData = new HashMap<>();
 
@@ -40,11 +39,11 @@ public class ReportController {
 
             if (!monthlyData.containsKey(month)) {
                 monthlyData.put(month, new HashMap<>());
-                monthlyData.get(month).put("totalTickets", ticket.getQuantity());
-                monthlyData.get(month).put("totalSales", ticket.getQuantity() * ticket.getPrice());
+                monthlyData.get(month).put("totalTickets", quantity);
+                monthlyData.get(month).put("totalSales", quantity * ticket.getPrice());
             } else {
-                long totalTickets = (long) monthlyData.get(month).get("totalTickets") + ticket.getQuantity();
-                double totalSales = (double) monthlyData.get(month).get("totalSales") + ticket.getQuantity() * ticket.getPrice();
+                int totalTickets = (int) monthlyData.get(month).get("totalTickets") + quantity;
+                double totalSales = (double) monthlyData.get(month).get("totalSales") + quantity * ticket.getPrice();
                 monthlyData.get(month).put("totalTickets", totalTickets);
                 monthlyData.get(month).put("totalSales", totalSales);
             }
