@@ -9,6 +9,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import lombok.Data;
 
+import java.time.LocalDate;
 import java.time.LocalTime;
 
 @TableName("sport_activity")
@@ -20,6 +21,8 @@ public class SportActivity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String name;
+    //添加了日期
+    private LocalDate date;
     private LocalTime startTime;
     private LocalTime endTime;
     private String coach;

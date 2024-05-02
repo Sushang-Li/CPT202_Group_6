@@ -1,6 +1,7 @@
 package com.group6.booking4sportcentre.controller;
 
 import com.group6.booking4sportcentre.mapper.BookingInfoMapper;
+import com.group6.booking4sportcentre.mapper.SportActivityMapper;
 import com.group6.booking4sportcentre.mapper.WalletInfoMapper;
 import com.group6.booking4sportcentre.model.BookingInfo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +15,7 @@ import java.util.Map;
  * @author Fuyu.Xing
  * @create 2024-04-20 22:13
  */
-//This class is used to control the view of the booking
+// This class is used to control the view of the booking
 @RestController
 @RequestMapping("/api/bookings")
 public class BookingController {
@@ -24,15 +25,42 @@ public class BookingController {
     @Autowired
     private WalletInfoMapper walletInfoMapper;
 
-    //get all bookings
-    //If there is no booking information, return empty list
+    //一些新增的部分，主要是预定的添加和活动票数的减少
+    @Autowired
+    private SportActivityMapper sportActivityMapper;
+
+
+    //从前端获得表单，在数据库中新增一条表单
+    //后端测试成功，前端需要完善一些细节
+//    {
+//            "userName": "John Doe",
+//            "date": "2024-05-01",
+//            "startTime": "10:00:00",
+//            "endTime": "12:00:00",
+//            "venue": "Main Hall",
+//            "status": "CONFIRMED",
+//            "actName": "Music Concert",
+//            "price": 50.0
+//    }
+    @PostMapping("/addTest1")
+    public void addOneBooking(@RequestBody BookingInfo bookingInfo) {
+        bookingInfoMapper.insert(bookingInfo);
+
+        //新增结束后，应该接着删除活动中的一张票
+//        sportActivityMapper.updateById();
+
+    }
+    //end
+
+    // get all bookings
+    // If there is no booking information, return empty list
     @GetMapping
     public List<BookingInfo> getBookings() {
         return bookingInfoMapper.getAllBookings();
     }
 
-    //get booking by id
-    //If the id does not exist, return null
+    // get booking by id
+    // If the id does not exist, return null
     @GetMapping("/{id}")
     public BookingInfo getBooking(@PathVariable Long id) {
 
@@ -42,8 +70,8 @@ public class BookingController {
         return booking;
     }
 
-    //create a new booking
-    @PostMapping
+    // create a new booking
+    @PostMapping("/api/createBooking")
     public Long createBooking(@RequestBody BookingInfo booking) {
         if (booking == null) {
             return null;
@@ -53,8 +81,8 @@ public class BookingController {
         return booking.getId();
     }
 
-    //update a booking
-    //If the booking information is not complete, return 0
+    // update a booking
+    // If the booking information is not complete, return 0
     @PutMapping("/{id}")
     public int updateBooking(@PathVariable Long id, @RequestBody BookingInfo booking) {
 
@@ -67,18 +95,18 @@ public class BookingController {
         return bookingInfoMapper.updateBooking(id, booking);
     }
 
-    //delete a booking
-    //If the id does not exist, return 0
+    // delete a booking
+    // If the id does not exist, return 0
     @DeleteMapping("/{id}")
     public void deleteBooking(@PathVariable Long id) {
         bookingInfoMapper.deleteBooking(id);
     }
 
-    //get booking by date
-    //If there is no booking information, return empty list
+    // get booking by date
+    // If there is no booking information, return empty list
     @GetMapping("/date/{date}")
     public List<BookingInfo> getBookingByDate(@PathVariable String date) {
-        LocalDate localDate= LocalDate.parse(date);
+        LocalDate localDate = LocalDate.parse(date);
         return bookingInfoMapper.getBookingByDate(localDate);
     }
 
@@ -94,7 +122,5 @@ public class BookingController {
     public void updateWalletInfoId(@RequestParam Long bookingInfoId, @RequestParam Long walletInfoId) {
         bookingInfoMapper.updateWalletInfoId(bookingInfoId, walletInfoId);
     }
-
-
 
 }

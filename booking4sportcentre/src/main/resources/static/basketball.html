@@ -37,79 +37,35 @@
     </div>
   </nav>
 
-  <!-- <div class = "toptext" style="background-color: #00a8c6;text-align: center;">
-        test1
-    </div> -->
   <br>
   <label>
-    <span>选择日期</span>
+    <span>Selecting Date</span>
     <input type="date" id="date" value="" />
   </label>
 
 
   <h1>Selecting timeslot and area</Select></h1>
-  <table border="1" width='500px' height='300px'>
-    <thead>
-      <tr>
-        <th></th>
-        <th>GM1</th>
-        <th>GM2</th>
-        <th>GM3</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>8:00 - 9:00</td>
 
-        <td><button onclick="selectTimeAndLocation('8:00 AM', '场地1')" Onclick="btnAction">Booked</button></td>
-        <td><button onclick="selectTimeAndLocation('8:00 AM', '场地2')">Booked</button></td>
-        <td><button onclick="selectTimeAndLocation('8:00 AM', '场地3')">Booked</button></td>
+  <!-- 这里是一个表格，从sportActivity表得到现在还有票的活动 -->
+  <table id="activity-table">
+    <tr>
+      <th>activityID</th>
+      <th>activityName</th>
+      <th>activityDate</th>
+      <th>startTime</th>
+      <th>endTime</th>
+      <th>coach</th>
+      <th>stadium</th>
+      <th>price</th>
+      <th>ticketNumber</th>
+      <th>operation1</th>
+      <th>operation2</th>
+    </tr>
 
-      </tr>
-      <tr>
-        <td>9:00 - 10:00</td>
-        <td><button onclick="selectTimeAndLocation('9:00 - 10:00', 'GM1');">Booked</button></td>
-        <td><button onclick="selectTimeAndLocation('9:00 - 10:00', 'GM2');">Booked</button></td>
-        <td><button onclick="selectTimeAndLocation('9:00 - 10:00', 'GM3');">Booked</button></td>
-      </tr>
-      <tr>
-        <td>10:00 - 11:00</td>
-        <td><button onclick="selectTimeAndLocation('10:00 - 11:00', 'GM1');">Booked</button></td>
-        <td><button onclick="selectTimeAndLocation('10:00 - 11:00', 'GM2');">Booked</button></td>
-        <td><button onclick="selectTimeAndLocation('10:00 - 11:00', 'GM3');">Booked</button></td>
-      </tr>
-      <tr>
-        <td>11:00 - 12:00</td>
-        <td><button onclick="selectTimeAndLocation('11:00 - 12:00', 'GM1');">Booked</button></td>
-        <td><button onclick="selectTimeAndLocation('11:00 - 12:00', 'GM2');">Booked</button></td>
-        <td><button onclick="selectTimeAndLocation('11:00 - 12:00', 'GM3');">Booked</button></td>
-      </tr>
-      <tr>
-        <td>13:00 - 14:00</td>
-        <td><button onclick="selectTimeAndLocation('13:00 - 14:00', 'GM1');">Booked</button></td>
-        <td><button onclick="selectTimeAndLocation('13:00 - 14:00', 'GM2');">Booked</button></td>
-        <td><button onclick="selectTimeAndLocation('13:00 - 14:00', 'GM3');">Booked</button></td>
-      </tr>
-      <tr>
-        <td>14:00 - 15:00</td>
-        <td><button onclick="selectTimeAndLocation('14:00 - 15:00', 'GM1');">Booked</button></td>
-        <td><button onclick="selectTimeAndLocation('14:00 - 15:00', 'GM2');">Booked</button></td>
-        <td><button onclick="selectTimeAndLocation('14:00 - 15:00', 'GM3');">Booked</button></td>
-      </tr>
-      <tr>
-        <td>15:00 - 16:00</td>
-        <td><button onclick="selectTimeAndLocation('15:00 - 16:00', 'GM1');">Booked</button></td>
-        <td><button onclick="selectTimeAndLocation('15:00 - 16:00', 'GM2');">Booked</button></td>
-        <td><button onclick="selectTimeAndLocation('15:00 - 16:00', 'GM3');">Booked</button></td>
-      </tr>
-      <tr>
-        <td>17:00 - 18:00</td>
-        <td><button onclick="selectTimeAndLocation('17:00 - 18:00', 'GM1');">Booked</button></td>
-        <td><button onclick="selectTimeAndLocation('17:00 - 18:00', 'GM2');">Booked</button></td>
-        <td><button onclick="selectTimeAndLocation('17:00 - 18:00', 'GM3');">Booked</button></td>
-      </tr>
-    </tbody>
+
+
   </table>
+
 
   <script>
 
@@ -137,6 +93,147 @@
     userLink.href = "userStatistics.html?id=" + userId;
 
 
+    function payForActivity(activity) {
+      console.log(activity);  // 用于测试，将活动记录到控制台
+
+      var actname = activity.name;
+      var coachname = activity.coach;
+      var date = activity.date;
+      var starttime = activity.startTime;
+      var endtime = activity.endTime;
+      var price = activity.price;
+      var position = activity.stadium;
+      var uid = userId;
+
+      //先新增一条未支付的预定
+      fetch('http://localhost:8080/api/bookings/addTest1', {
+        method: "POST",
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          userId: uid,
+          date: date,
+          startTime: starttime,
+          endTime: endtime,
+          venue: position,
+          status: "PENDING",
+          actName: actname,
+          price: price
+        })
+      })
+        .then(response => {
+          if (response.status === 200) {
+            return response.json(); // 返回响应数据
+          } else {
+            throw new Error('HTTP 错误 ' + response.status);
+          }
+        })
+        .then(data => {
+          alert("成功");
+          console.log(data); // 记录任何接收到的响应数据
+        })
+        .catch(error => {
+          console.log("错误：", error);
+          alert("失败");
+        });
+    }
+
+
+    function addToCart(activity) {
+      console.log(activity);  // 用于测试，将活动记录到控制台
+
+      var actname = activity.name;
+      var coachname = activity.coach;
+      var date = activity.date;
+      var starttime = activity.startTime;
+      var endtime = activity.endTime;
+      var price = activity.price;
+      var position = activity.stadium;
+      var uid = userId;
+
+      //先新增一条未支付的预定
+      fetch('http://localhost:8080/api/bookings/addTest1', {
+        method: "POST",
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          userId: uid,
+          date: date,
+          startTime: starttime,
+          endTime: endtime,
+          venue: position,
+          status: "PENDING",
+          actName: actname,
+          price: price
+        })
+      })
+        .then(response => {
+          if (response.status === 200) {
+            return response.json(); // 返回响应数据
+          } else {
+            throw new Error('HTTP 错误 ' + response.status);
+          }
+        })
+        .then(data => {
+          alert("成功");
+          console.log(data); // 记录任何接收到的响应数据
+        })
+        .catch(error => {
+          console.log("错误：", error);
+          alert("失败");
+        });
+    }
+
+    // 存储后端返回的活动表
+    window.onload = function () {
+      fetch('http://localhost:8080/api/test11', {
+        method: 'GET'
+      })
+        .then((response) => response.json())
+        .then((data) => {
+
+          var table = document.getElementById('activity-table');
+          data.forEach(activity => {
+            //票数不为零的话就会显示出来,且活动名为basketball
+            //我在这里找了一个小时的bug，发现是参数传递的问题
+            if (activity.ticketNumber != 0 && activity.name === "basketball") {
+              var row = document.createElement("tr");
+              row.innerHTML = `
+              <td id="activity-id-${activity.id}">${activity.id}</td>
+              <td id="activity-name-${activity.name}">${activity.name}</td>
+              <td id="activity-date-${activity.date}">${activity.date}</td>
+              <td id="activity-startTime-${activity.startTime}">${activity.startTime}</td>
+              <td id="activity-endTime-${activity.endTime}">${activity.endTime}</td>
+              <td id="activity-coach-${activity.coach}">${activity.coach}</td>
+              <td id="activity-stadium-${activity.stadium}">${activity.stadium}</td>
+              <td id="activity-price-${activity.price}">${activity.price}</td>
+              <td id="activity-number-${activity.ticketNumber}">${activity.ticketNumber}</td>
+              <td id="activity-pay-${activity.id}">
+              <button onclick="payForActivity(${JSON.stringify(activity).replace(/"/g, "&quot;")})">Pay</button>
+              </td>
+              <td id="activity-add-${activity.id}">
+              <button button onclick="addToCart(${JSON.stringify(activity).replace(/"/g, "&quot;")})">Add to Cart</button>
+              </td>
+              
+              `;
+
+              table.appendChild(row);
+
+            }
+          });
+
+
+
+
+
+
+        })
+    }
+
+
+
     var d = new Date()
     var day = d.getDate()
     var month = d.getMonth() + 1
@@ -144,28 +241,7 @@
     var shijian = year + "-" + (month < 10 ? "0" : "") + month + "-" + (day < 10 ? "0" : "") + day;
     document.getElementById("date").value = shijian;
 
-    //复制自主页
-    var urlParams = new URLSearchParams(window.location.search);
-    var userId = urlParams.get('id');
-    console.log(userId);
 
-    var userLink = document.getElementById('logo-nav');
-    userLink.href = "userHomepage.html?id=" + userId;
-
-    var userLink = document.getElementById('homepage-nav');
-    userLink.href = "userHomepage.html?id=" + userId;
-
-    var userLink = document.getElementById('information-nav');
-    userLink.href = "userInformation.html?id=" + userId;
-
-    var userLink = document.getElementById('wallet-nav');
-    userLink.href = "userWallet.html?id=" + userId;
-
-    var userLink = document.getElementById('booking-nav');
-    userLink.href = "userBooking.html?id=" + userId;
-
-    var userLink = document.getElementById('statistics-nav');
-    userLink.href = "userStatistics.html?id=" + userId;
 
     function selectTimeAndLocation(time, location) {
       const dateControl = document.querySelector('input[type="date"]');
@@ -174,7 +250,7 @@
 
 
       if (confirm('Choosing date: ' + dateControl.value + '\n' + 'Choosing time slot：' + time + "\n" + 'Choosing area：' + location)) {
-        window.location.href = 'bookingpay.html'
+        window.location.href = 'bookingpay.html' + '?id=' + userId
       }
     }
 
