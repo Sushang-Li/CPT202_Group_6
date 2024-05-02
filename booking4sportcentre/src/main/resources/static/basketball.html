@@ -37,14 +37,7 @@
     </div>
   </nav>
 
-  <br>
-  <label>
-    <span>Selecting Date</span>
-    <input type="date" id="date" value="" />
-  </label>
-
-
-  <h1>Selecting timeslot and area</Select></h1>
+  <h1>Basketball</h1>
 
   <!-- 这里是一个表格，从sportActivity表得到现在还有票的活动 -->
   <table id="activity-table">
@@ -61,8 +54,6 @@
       <th>operation1</th>
       <th>operation2</th>
     </tr>
-
-
 
   </table>
 
@@ -105,8 +96,11 @@
       var position = activity.stadium;
       var uid = userId;
 
+
+
+
       //先新增一条未支付的预定
-      fetch('http://localhost:8080/api/bookings/addTest1', {
+      fetch('http://localhost:8080/api/bookings/addOneBooking', {
         method: "POST",
         headers: {
           'Content-Type': 'application/json'
@@ -124,21 +118,45 @@
       })
         .then(response => {
           if (response.status === 200) {
-            return response.json(); // 返回响应数据
+            // alert("Successful!");
           } else {
             throw new Error('HTTP 错误 ' + response.status);
           }
         })
-        .then(data => {
-          alert("成功");
-          console.log(data); // 记录任何接收到的响应数据
-        })
         .catch(error => {
           console.log("错误：", error);
-          alert("失败");
+          alert("Fail!");
+        });
+
+      //记录当前的票数
+      var currentNum = activity.ticketNumber;
+      currentNum -= 1;
+      const data = new URLSearchParams();
+      data.append('id', activity.id);
+      data.append('current', currentNum);
+      data.append('price', activity.price);
+
+      //向后端发起更新活动票数的请求
+      fetch('http://localhost:8080/api/sportActivity/updateTicketNumber', {
+        method: "POST",
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        body: data
+      })
+        .then(response => {
+          if (response.ok) {
+            console.log('Request successful');
+            alert("successful");
+            location.reload();
+          } else {
+            console.error('Request failed');
+          }
+        })
+        .catch(error => {
+          console.error('Error:', error);
         });
     }
-
 
     function addToCart(activity) {
       console.log(activity);  // 用于测试，将活动记录到控制台
@@ -152,8 +170,10 @@
       var position = activity.stadium;
       var uid = userId;
 
+
+
       //先新增一条未支付的预定
-      fetch('http://localhost:8080/api/bookings/addTest1', {
+      fetch('http://localhost:8080/api/bookings/addOneBooking', {
         method: "POST",
         headers: {
           'Content-Type': 'application/json'
@@ -171,24 +191,49 @@
       })
         .then(response => {
           if (response.status === 200) {
-            return response.json(); // 返回响应数据
+            // alert("Successful!");
           } else {
             throw new Error('HTTP 错误 ' + response.status);
           }
         })
-        .then(data => {
-          alert("成功");
-          console.log(data); // 记录任何接收到的响应数据
-        })
         .catch(error => {
           console.log("错误：", error);
-          alert("失败");
+          alert("Fail!");
+        });
+
+      //记录当前的票数
+      var currentNum = activity.ticketNumber;
+      currentNum -= 1;
+      const data = new URLSearchParams();
+      data.append('id', activity.id);
+      data.append('current', currentNum);
+      data.append('price', activity.price);
+
+      //向后端发起更新活动票数的请求
+      fetch('http://localhost:8080/api/sportActivity/updateTicketNumber', {
+        method: "POST",
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        body: data
+      })
+        .then(response => {
+          if (response.ok) {
+            console.log('Request successful');
+            alert("successful");
+            location.reload();
+          } else {
+            console.error('Request failed');
+          }
+        })
+        .catch(error => {
+          console.error('Error:', error);
         });
     }
 
     // 存储后端返回的活动表
     window.onload = function () {
-      fetch('http://localhost:8080/api/test11', {
+      fetch('http://localhost:8080/api/sportActivity/allActivities', {
         method: 'GET'
       })
         .then((response) => response.json())
@@ -221,74 +266,12 @@
 
               table.appendChild(row);
 
+
+
+
             }
           });
-
-
-
-
-
-
         })
-    }
-
-
-
-    var d = new Date()
-    var day = d.getDate()
-    var month = d.getMonth() + 1
-    var year = d.getFullYear()
-    var shijian = year + "-" + (month < 10 ? "0" : "") + month + "-" + (day < 10 ? "0" : "") + day;
-    document.getElementById("date").value = shijian;
-
-
-
-    function selectTimeAndLocation(time, location) {
-      const dateControl = document.querySelector('input[type="date"]');
-      // 在这里处理用户选择的时间和场地
-
-
-
-      if (confirm('Choosing date: ' + dateControl.value + '\n' + 'Choosing time slot：' + time + "\n" + 'Choosing area：' + location)) {
-        window.location.href = 'bookingpay.html' + '?id=' + userId
-      }
-    }
-
-
-    var btn = document.querySelectorAll('button')
-    btn.onclick = () => {
-      fetch('http://localhost:8080/api/createBooking', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          startTime: '2022-01-01T09:00:00',
-          endTime: '2022-01-01T11:00:00',
-          date: dateControl.value,
-          venue: location,
-          actName: 'basketball',
-          price: 20,
-
-        })
-          .then(response => {
-            if (!response.ok) {
-              throw new Error('HTTP error ' + response.status);
-            }
-            return response.json()
-          })
-      })
-        .then(response => {
-          if (!response.ok) {
-            throw new Error('HTTP error ' + response.status);
-          }
-          return response.json()
-        })
-        .then(data => {
-          // 添加成功后的操作，关闭模态框并刷新用户数据
-          console.log('data')
-        })
-        .catch(error => console.error('Error adding booking', error));
     }
 
 
