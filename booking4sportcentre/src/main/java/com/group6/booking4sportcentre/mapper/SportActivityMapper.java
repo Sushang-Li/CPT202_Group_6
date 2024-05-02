@@ -1,12 +1,16 @@
 package com.group6.booking4sportcentre.mapper;
 
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.group6.booking4sportcentre.model.SportActivity;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
 @Mapper
-public interface SportActivityMapper {
+public interface SportActivityMapper extends BaseMapper<SportActivity> {
+
+
+
     @Select("select * from sport_activity")
     public List<SportActivity> list();
 

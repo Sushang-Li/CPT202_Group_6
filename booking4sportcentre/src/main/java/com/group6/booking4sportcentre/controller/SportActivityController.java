@@ -19,6 +19,16 @@ public class SportActivityController {
     @Autowired
     private SportActivityMapper sportActivityMapper;
 
+    //得到目前所有的体育活动
+    //注意：得到的应该是空闲的所有的体育活动,目前还是所有的体育活动
+    //每个项目预定也是先调用这个接口
+    //测试成功，接口等待更改
+    @GetMapping("/api/test11")
+    public List<SportActivity> getAllSportActivities() {
+        List<SportActivity> list = sportActivityMapper.selectList(null);
+        return list;
+    }
+
     //查看全部体育活动
     @GetMapping
     public List<SportActivity> list(){
