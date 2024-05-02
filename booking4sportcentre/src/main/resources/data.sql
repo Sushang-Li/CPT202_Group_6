@@ -31,3 +31,55 @@ WHERE NOT EXISTS (
     SELECT 1 FROM admin_info WHERE username = tmp.username
 ) LIMIT 5;
 
+
+INSERT INTO sport_activity (name, date, start_time, end_time, coach, stadium, price, ticket_number)
+SELECT * FROM (SELECT 'basketball', '2024-05-02', '09:00:00', '11:00:00', 'Coach1', 'GM102A', 20, 100) AS tmp
+WHERE NOT EXISTS (
+    SELECT name, date, start_time, end_time, coach, stadium, price FROM sport_activity WHERE name = 'basketball' AND date = '2024-05-02' AND start_time = '09:00:00' AND end_time = '11:00:00' AND coach = 'Coach1' AND stadium = 'GM102A' AND price = 20
+) LIMIT 1;
+
+INSERT INTO sport_activity (name, date, start_time, end_time, coach, stadium, price, ticket_number)
+SELECT * FROM (SELECT 'archery', '2024-05-02', '09:00:00', '11:00:00', 'Coach2', 'GM123A', 20, 100) AS tmp
+WHERE NOT EXISTS (
+    SELECT name, date, start_time, end_time, coach, stadium, price FROM sport_activity WHERE name = 'archery' AND date = '2024-05-02' AND start_time = '09:00:00' AND end_time = '11:00:00' AND coach = 'Coach2' AND stadium = 'GM123A' AND price = 20
+) LIMIT 1;
+
+INSERT INTO sport_activity (name, date, start_time, end_time, coach, stadium, price, ticket_number)
+SELECT * FROM (SELECT 'billiard', '2024-05-02', '09:00:00', '11:00:00', 'Coach1', 'GM102A', 20, 100) AS tmp
+WHERE NOT EXISTS (
+    SELECT name, date, start_time, end_time, coach, stadium, price FROM sport_activity WHERE name = 'billiard' AND date = '2024-05-02' AND start_time = '09:00:00' AND end_time = '11:00:00' AND coach = 'Coach1' AND stadium = 'GM102A' AND price = 20
+) LIMIT 1;
+
+INSERT INTO sport_activity (name, date, start_time, end_time, coach, stadium, price, ticket_number)
+SELECT * FROM (SELECT 'football', '2024-05-02', '09:00:00', '11:00:00', 'Coach1', 'GM102A', 20, 100) AS tmp
+WHERE NOT EXISTS (
+    SELECT name, date, start_time, end_time, coach, stadium, price FROM sport_activity WHERE name = 'football' AND date = '2024-05-02' AND start_time = '09:00:00' AND end_time = '11:00:00' AND coach = 'Coach1' AND stadium = 'GM102A' AND price = 20
+) LIMIT 1;
+
+INSERT INTO sport_activity (name, date, start_time, end_time, coach, stadium, price, ticket_number)
+SELECT * FROM (SELECT 'pingpong', '2024-05-02', '09:00:00', '11:00:00', 'Coach1', 'GM102A', 20, 100) AS tmp
+WHERE NOT EXISTS (
+    SELECT name, date, start_time, end_time, coach, stadium, price FROM sport_activity WHERE name = 'pingpong' AND date = '2024-05-02' AND start_time = '09:00:00' AND end_time = '11:00:00' AND coach = 'Coach1' AND stadium = 'GM102A' AND price = 20
+) LIMIT 1;
+
+INSERT INTO sport_activity (name, date, start_time, end_time, coach, stadium, price, ticket_number)
+SELECT * FROM (SELECT 'shuttlecock', '2024-05-02', '09:00:00', '11:00:00', 'Coach1', 'GM102A', 20, 100) AS tmp
+WHERE NOT EXISTS (
+    SELECT name, date, start_time, end_time, coach, stadium, price FROM sport_activity WHERE name = 'shuttlecock' AND date = '2024-05-02' AND start_time = '09:00:00' AND end_time = '11:00:00' AND coach = 'Coach1' AND stadium = 'GM102A' AND price = 20
+) LIMIT 1;
+
+INSERT INTO sport_activity (name, date, start_time, end_time, coach, stadium, price, ticket_number)
+SELECT * FROM (SELECT 'tennis', '2024-05-02', '09:00:00', '11:00:00', 'Coach1', 'GM102A', 20, 100) AS tmp
+WHERE NOT EXISTS (
+    SELECT name, date, start_time, end_time, coach, stadium, price FROM sport_activity WHERE name = 'tennis' AND date = '2024-05-02' AND start_time = '09:00:00' AND end_time = '11:00:00' AND coach = 'Coach1' AND stadium = 'GM102A' AND price = 20
+) LIMIT 1;
+
+INSERT INTO sport_activity (name, date, start_time, end_time, coach, stadium, price, ticket_number)
+SELECT * FROM (SELECT 'workout', '2024-05-02', '09:00:00', '11:00:00', 'Coach1', 'GM102A', 20, 100) AS tmp
+WHERE NOT EXISTS (
+    SELECT name, date, start_time, end_time, coach, stadium, price FROM sport_activity WHERE name = 'workout' AND date = '2024-05-02' AND start_time = '09:00:00' AND end_time = '11:00:00' AND coach = 'Coach1' AND stadium = 'GM102A' AND price = 20
+) LIMIT 1;
+
+
+
+
