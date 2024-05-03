@@ -1,6 +1,7 @@
 package com.group6.booking4sportcentre.controller;
 
 import com.group6.booking4sportcentre.mapper.BookingInfoMapper;
+import com.group6.booking4sportcentre.mapper.SportActivityMapper;
 import com.group6.booking4sportcentre.mapper.WalletInfoMapper;
 import com.group6.booking4sportcentre.model.BookingInfo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,32 @@ public class BookingController {
 
     @Autowired
     private WalletInfoMapper walletInfoMapper;
+
+    //一些新增的部分，主要是预定的添加和活动票数的减少
+    @Autowired
+    private SportActivityMapper sportActivityMapper;
+
+
+    //从前端获得表单，在数据库中新增一条表单
+    //后端测试成功，前端需要完善一些细节
+//    {
+//            "userName": "John Doe",
+//            "date": "2024-05-01",
+//            "startTime": "10:00:00",
+//            "endTime": "12:00:00",
+//            "venue": "Main Hall",
+//            "status": "CONFIRMED",
+//            "actName": "Music Concert",
+//            "price": 50.0
+//    }
+    @PostMapping("/addOneBooking")
+    public void addOneBooking(@RequestBody BookingInfo bookingInfo) {
+        bookingInfoMapper.insert(bookingInfo);
+
+        //新增结束后，应该接着删除活动中的一张票
+
+    }
+    //end
 
     // get all bookings
     // If there is no booking information, return empty list

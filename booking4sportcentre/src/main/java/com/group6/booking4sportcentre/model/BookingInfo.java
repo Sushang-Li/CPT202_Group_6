@@ -25,6 +25,10 @@ public class BookingInfo {
     //用户name
     @Column(name = "user_name")
     private String userName;
+
+    //新增： 用户的ID
+    private Integer userId;
+
     private LocalDate date;
     @Column(name = "start_time")
     private LocalTime startTime;
