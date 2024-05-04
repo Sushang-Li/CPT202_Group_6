@@ -17,6 +17,7 @@ import java.util.Map;
  * @create 2024-05-2 18:24
  */
 
+
 @RestController
 @RequestMapping
 public class ReportController {
@@ -28,26 +29,28 @@ public class ReportController {
     }
 
     @GetMapping("/api/report")
-    public Map<String, Map<String, Object>> getMonthlySalesReport() {
-        List<BookingInfo> tickets = reportMapper.getAllBooking();
-        int quantity = reportMapper.getQuantity();
+    @Transactional
+    public Map<String, Object> getMonthlySalesAndQuantity() {
+        List<Map<String, Number>> monthlyTotalList = reportMapper.getMonthlyTotal();
+        List<Map<String, Number>> monthlyQuantityList = reportMapper.getQuantityByMonth();
 
-        Map<String, Map<String, Object>> monthlyData = new HashMap<>();
-
-        for (BookingInfo ticket : tickets) {
-            String month = ticket.getDate().getMonth().toString();
-
-            if (!monthlyData.containsKey(month)) {
-                monthlyData.put(month, new HashMap<>());
-                monthlyData.get(month).put("totalTickets", quantity);
-                monthlyData.get(month).put("totalSales", quantity * ticket.getPrice());
-            } else {
-                int totalTickets = (int) monthlyData.get(month).get("totalTickets") + quantity;
-                double totalSales = (double) monthlyData.get(month).get("totalSales") + quantity * ticket.getPrice();
-                monthlyData.get(month).put("totalTickets", totalTickets);
-                monthlyData.get(month).put("totalSales", totalSales);
-            }
+        Map<String, Object> results = new HashMap<>();
+        // Convert List to Map for easy matching
+        Map<String, Number> monthlyTotalMap = new HashMap<>();
+        for (Map<String, Number> map : monthlyTotalList) {
+            monthlyTotalMap.put(map.get("month").toString(), map.get("monthlyTotal"));
         }
-        return monthlyData;
+
+        // Loop through quantity list, match with total Map
+        for (Map<String, Number> map : monthlyQuantityList) {
+            Map<String, Object> monthData = new HashMap<>();
+            monthData.put("total", monthlyTotalMap.get(map.get("month").toString()));
+            monthData.put("quantity", map.get("rowcount"));
+            results.put(map.get("month").toString(), monthData);
+        }
+
+        return results;
     }
+
 }
+

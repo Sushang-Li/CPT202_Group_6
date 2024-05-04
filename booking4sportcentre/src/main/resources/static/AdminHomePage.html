@@ -7,6 +7,8 @@
     <!-- Bootstrap -->
     <link rel="stylesheet" href="https://cdn.staticfile.net/twitter-bootstrap/3.3.7/css/bootstrap.min.css">  
     <link rel="shortcut icon" href="images/smallcut.png">
+    <script src="https://cdn.staticfile.org/jquery/2.2.4/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/echarts/4.3.0/echarts.min.js"></script>
 <style>
     /*  */
 body {
@@ -128,69 +130,107 @@ text-align: center;
                       <a id="a2" href="#mangage"><span class="glyphicon glyphicon-edit"></span> manage <span class="glyphicon glyphicon-chevron-right"></span></a>
                     <ul>
                       <li><a id="a3" href="AdminSportActivitiesPage.html">manage sport activities</a></li>
-                      <li><a id="a3" href="AdminStadiumsPage.html">manage stadiums</a></li>
-                      <li><a id="a3" href="AdminCoachesPage.html">manage coaches</a></li>
-                      <li><a id="a3" href="AdminOrdersPage.html">manage orders</a></li>
+                      <li><a id="a4" href="AdminStadiumsPage.html">manage stadiums</a></li>
+                      <li><a id="a5" href="AdminCoachesPage.html">manage coaches</a></li>
+                      <li><a id="a6" href="AdminOrdersPage.html">manage orders</a></li>
+                        <li><a id="a7" href="AdminManageUserInfo.html">manage user information</a></li>
                   </ul>
               </li>
-                    <li id="aa"><a href="AdminUserPage.html"><span class="glyphicon glyphicon-user"></span> User</a></li>
-                    <li id="aa"><a href="AdminSettingsPage.html"><span class="glyphicon glyphicon-cog"></span> System settings</a></li>
+                    <li id="a8"><a href="AdminUserPage.html"><span class="glyphicon glyphicon-user"></span> User</a></li>
+                    <li id="a9"><a href="AdminSettingsPage.html"><span class="glyphicon glyphicon-cog"></span> System settings</a></li>
                 </ul>
             </div>
 
         <!-- </div> -->
         <div id="main" >
           <!--   <img src="img/manage3.png "   width="100%" height="700px">  -->
-          <p style="font-size: 55px;margin-left: 32%; ">Dashboard</p>
-
-
-          <div class="row">
-            <div class="columnLeft">
-            <div class="bar">
-              <div class="card">
-                <br>
-                <h2 style="font-weight: bold;font-size: 45px;">Income</h2>
-                <p style="font-size: 45px;">+19080 USD</p>
-                <p style="font-size: 25px;">Last month's income</p>
-                <img src="images/digram1.png" width="90%">
-                <br>
-                <br>
-                <p style="font-size: 25px;">+5080 +30.23% This Month</p>
-                <p></p>
-              </div>
-              </div>
-            </div>
-
-            <div class="columnRight">
-            <div class="bar">
-              <div class="card">
-                <br>
-                <h2 style="font-weight: bold;font-size: 45px;">Ticket sales</h2>
-                <p style="font-size: 45px;">77880</p>
-                <img src="images/order.png" width="90%">
-                <br>
-                <br>
-                <br>
-                <p style="font-size: 35px;">Total Sales</p>
-                <p style="font-size: 45px;">$389420</p>
-                <p></p>
-              </div>
-            </div>
-
+          <p style="font-size: 55px;margin-left: 32%; ">Monthly Report</p>
+            <div id="totalSales" style="width: 800px;height:450px;"></div>
+            <div id="quantity" style="width: 800px;height:450px;"></div>
           </div>
-
           </div>
-
-
-
       </div>
-    </div>  
-</div>
+
+    <script type="text/javascript">
+        //chart:tickets quantity,total sales
+        $(document).ready(function(){
+            var months=[];
+            var totals=[];
+            var quantities=[];
+            $.ajax({
+                type : "get",
+                async : true,
+                url : "http://localhost:8080/api/report",
+                data : {},
+                dataType : "json",
+                success : function(result) {
+                    if (result) {
+                        for(var month in result){
+                            months.push(month);
+                            totals.push(result[month].total);
+                            quantities.push(result[month].quantity);
+                        }
+                        var myChartTotal = echarts.init(document.getElementById('totalSales'));
+                        myChartTotal.setOption({
+                            title:{
+                                text: 'Total Sales'
+                            },
+                            legend: {
+                                data:['Total Sales']
+                            },
+                            xAxis: {
+                                data: months,
+                                name: 'Month',
+                                axisLabel:{
+                                    interval: 0
+                                }
+                            },
+                            yAxis: {
+                                type: 'value',
+                                name: 'Sales'
+                            },
+                            series: [{
+                                name: 'Total Sales',
+                                type: 'line',
+                                data: totals
+                            }]
+                        });
+
+                        var myChartQuantity = echarts.init(document.getElementById('quantity'));
+                        myChartQuantity.setOption({
+                            title:{
+                                text: 'Tickets Quantity'
+                            },
+                            legend: {
+                                data:['Quantity']
+                            },
+                            xAxis: {
+                                data: months,
+                                name: 'Month',
+                                axisLabel:{
+                                    interval: 0
+                                }
+                            },
+                            yAxis: {
+                                type: 'value',
+                                name: 'Number of tickets'
+                            },
+                            series: [{
+                                name: 'Quantity',
+                                type: 'line',
+                                data: quantities
+                            }]
+                        });
+                    }
+                },
+                error : function(errorMsg) {
+                    alert("Failed to request data!");
+                }
+            });
+        });
+    </script>
 
 <script>
-
-
-
   // JavaScript代码
 document.getElementById('a1').addEventListener('click', function() {
             var submenu = this.querySelector('ul');
