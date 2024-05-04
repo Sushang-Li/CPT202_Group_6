@@ -23,9 +23,6 @@
         border: thin solid black;
         transition: all .5s;
     }
-    #add, #search-input, #searchButton {
-        display: none;
-    }
 
     /* 其他样式 */
 }
