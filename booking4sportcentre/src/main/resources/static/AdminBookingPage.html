@@ -10,6 +10,46 @@
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <link rel="stylesheet" href="./css/Admin.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css">
+<style>
+    /* 增加Coach弹出框样式 */
+    /*    内容外围       */
+    .modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0,0.4);
+    }
+    /*    输入内容      */
+    .modal-content {
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 50%;
+    text-align: center;
+    }
+    /*关闭*/
+    .close {
+    color: #aaaaaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    }
+
+    .close:hover,
+    .close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+    }
+    /* 增加Coach弹出框样式 */
+</style>
 </head>
 <body>
 	<!-- jQuery (Bootstrap 插件需要引入) -->
@@ -33,15 +73,74 @@
                       <a id="a2" class="active" href="#mangage"><span class="glyphicon glyphicon-edit"></span> manage <span class="glyphicon glyphicon-chevron-right"></span></a>
                       <ul>
                       <li><a id="a3" href="AdminSportActivitiesPage.html">manage sport activities</a></li>
-                      <li><a id="a3" href="AdminStadiumsPage.html">manage stadiums</a></li>
-                      <li><a id="a3" href="AdminCoachesPage.html">manage coaches</a></li>
-                      <li><a id="a3"class="active" href="AdminBookingPage.html">manage bookings</a></li>
+                      <li><a id="a4" href="AdminStadiumsPage.html">manage stadiums</a></li>
+                      <li><a id="a5" href="AdminCoachesPage.html">manage coaches</a></li>
+                      <li><a id="a6"class="active" href="AdminBookingPage.html">manage bookings</a></li>
+                      <li><a id="a7" href="AdminManageUserInfo.html">manage user information</a></li>
                   </ul>
               </li>
-                    <li id="aa"><a  href="AdminUserPage.html"><span class="glyphicon glyphicon-user"></span> User</a></li>
-                    <li id="aa"><a href="AdminSettingsPage.html"><span class="glyphicon glyphicon-cog"></span> System settings</a></li>
+                    <li id="a8"><a  href="AdminUserPage.html"><span class="glyphicon glyphicon-user"></span> User</a></li>
+                    <li id="a9"><a href="AdminSettingsPage.html"><span class="glyphicon glyphicon-cog"></span> System settings</a></li>
                 </ul>
             </div>
+
+        <!-- Modal for editing booking -->
+        <div id="editModal" class="modal">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <span class="close">&times;</span>
+                    <div class="modal-header">
+                        <h4 class="modal-title">Edit Booking</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form id="editForm">
+                            <input type="hidden" id="bookingId">
+                            <div class="form-group">
+                                <label>User Name:</label>
+                                <input type="text" class="form-control" id="userName">
+                            </div>
+                            <div class="form-group">
+                                <label>Date:</label>
+                                <input type="date" class="form-control" id="date">
+                            </div>
+                            <div class="form-group">
+                                <label>Start Time:</label>
+                                <input type="time" class="form-control" id="startTime">
+                            </div>
+                            <div class="form-group">
+                                <label>End Time:</label>
+                                <input type="time" class="form-control" id="endTime">
+                            </div>
+                            <div class="form-group">
+                                <label>Venue:</label>
+                                <input type="text" class="form-control" id="venue">
+                            </div>
+                            <div class="form-group">
+                                <label>Status:</label>
+                                <select class="form-control" id="status">
+                                    <option>PENDING</option>
+                                    <option>CONFIRMED</option>
+                                    <option>CANCELLED</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Activity Name:</label>
+                                <input type="text" class="form-control" id="actName">
+                            </div>
+                            <div class="form-group">
+                                <label>Price:</label>
+                                <input type="number" step="0.01" class="form-control" id="price">
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" onclick="updateBooking()">Save Changes</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
 
           <!-- </div> -->
 <!--        显示所有订单      -->
@@ -81,7 +180,7 @@
   </div>
   
   <script>
-      <!--    载入DataTable 只针对前7列-->
+      <!--    载入DataTable 只针对前10列-->
       $(document).ready(function() {
           $('.table').DataTable({
               "columnDefs": [
@@ -90,6 +189,7 @@
           });
       });
       fetchBookings();
+      // Fetch booking data from the server
       function fetchBookings() {
           fetch('/api/bookings/admin_get_BookingInfo')
               .then(response => response.json())
@@ -112,7 +212,7 @@
                               booking.status,
                               booking.actName,
                               `$${booking.price.toFixed(2)}`,
-                                  `<button class="btn btn-primary" type="button" style="font-size: 20px;">Modify</button>
+                                  `<button class="modifybookings btn btn-primary" type="button" style="font-size: 20px;">Modify</button>
                                 `
                           ]).draw(false); // Add new data and update table
                       });
@@ -122,8 +222,74 @@
                   console.error('Error fetching booking data:', error);
               });
       }
+      // Edit booking modal(fill in the form with the existing booking details)
+      $(document).ready(function() {
+          $('.table').on('click', '.modifybookings', function() {
+              var row = $(this).closest('tr').find('td');
+              var bookingId = row.eq(0).text();
+              var userName = row.eq(1).text();
+              var userId = row.eq(2).text();
+              var date = row.eq(3).text();
+              var startTime = row.eq(4).text();
+              var endTime = row.eq(5).text();
+              var venue = row.eq(6).text();
+              var status = row.eq(7).text();
+              var actName = row.eq(8).text();
+              var price = row.eq(9).text();
 
-    // JavaScript代码
+              // Set the values in the modal form
+              $('#bookingId').val(bookingId);
+              $('#userName').val(userName);
+              $('#userId').val(userId);
+              $('#date').val(date);
+              $('#startTime').val(startTime);
+              $('#endTime').val(endTime);
+              $('#venue').val(venue);
+              $('#status').val(status);
+              $('#actName').val(actName);
+              $('#price').val(parseFloat(price.substring(1))); // Assuming price is prefixed with a currency symbol
+
+              $('#editModal').show();
+          });
+
+          // Close the modal on clicking 'x' or 'Close'
+          $('.close, .btn-default').on('click', function() {
+              $('#editModal').hide();
+          });
+      });
+      // Update booking details
+      function updateBooking() {
+          var id = $('#bookingId').val();
+          var bookingInfo = {
+              userName: $('#userName').val(),
+              date: $('#date').val(),
+              startTime: $('#startTime').val(),
+              endTime: $('#endTime').val(),
+              venue: $('#venue').val(),
+              status: $('#status').val(),
+              actName: $('#actName').val(),
+              price: $('#price').val(),
+          };
+
+          $.ajax({
+              url: `/api/bookings/${id}`,
+              method: 'PUT',
+              contentType: 'application/json',
+              data: JSON.stringify(bookingInfo),
+              success: function(response) {
+                  // console.log('Update successful', response);
+                  alert('Update successful', response);
+                  $('#editModal').hide();
+                  fetchBookings();
+              },
+              error: function(error) {
+                  console.error('Error updating booking', error);
+              }
+          });
+      }
+
+
+      // JavaScript代码
   document.getElementById('a1').addEventListener('click', function() {
               var submenu = this.querySelector('ul');
               if (submenu.style.display === 'none') {
