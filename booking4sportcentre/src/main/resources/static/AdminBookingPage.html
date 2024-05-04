@@ -35,7 +35,7 @@
                       <li><a id="a3" href="AdminSportActivitiesPage.html">manage sport activities</a></li>
                       <li><a id="a3" href="AdminStadiumsPage.html">manage stadiums</a></li>
                       <li><a id="a3" href="AdminCoachesPage.html">manage coaches</a></li>
-                      <li><a id="a3"class="active" href="AdminBookingPage.html">manage orders</a></li>
+                      <li><a id="a3"class="active" href="AdminBookingPage.html">manage bookings</a></li>
                   </ul>
               </li>
                     <li id="aa"><a  href="AdminUserPage.html"><span class="glyphicon glyphicon-user"></span> User</a></li>
@@ -46,7 +46,7 @@
           <!-- </div> -->
 <!--        显示所有订单      -->
         <div id="main">
-            <p style="font-size: 50px; margin-left: 30%;">Sport Activities</p>
+            <p style="font-size: 50px; margin-left: 30%;">Bookings</p>
             <div class="row">
                 <div class="columnLeft">
                     <div class="bar">
@@ -113,7 +113,7 @@
                               booking.actName,
                               `$${booking.price.toFixed(2)}`,
                                   `<button class="btn btn-primary" type="button" style="font-size: 20px;">Modify</button>
-                                <button class="btn btn-danger" type="button" style="font-size: 20px;">Delete</button>`
+                                `
                           ]).draw(false); // Add new data and update table
                       });
                   }
