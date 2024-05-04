@@ -122,4 +122,10 @@ public class BookingController {
         bookingInfoMapper.updateWalletInfoId(bookingInfoId, walletInfoId);
     }
 
+//    Admin查看所有预定信息
+    @GetMapping("/admin_get_BookingInfo")
+    public List<BookingInfo> getBookingsForAdmin() {
+        return bookingInfoMapper.getAllBookings();
+    }
+
 }
