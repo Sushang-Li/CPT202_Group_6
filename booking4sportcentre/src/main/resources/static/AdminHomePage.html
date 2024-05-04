@@ -1,245 +1,206 @@
+
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="utf-8">
+    <meta charset="utf-8">
     <title>体育管理系统</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Bootstrap -->
-    <link rel="stylesheet" href="https://cdn.staticfile.net/twitter-bootstrap/3.3.7/css/bootstrap.min.css">  
+    <link rel="stylesheet" href="https://cdn.staticfile.net/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="shortcut icon" href="images/smallcut.png">
-    <script src="https://cdn.staticfile.org/jquery/2.2.4/jquery.min.js"></script>
-    <script src="https://cdn.staticfile.org/echarts/4.3.0/echarts.min.js"></script>
-<style>
-    /*  */
-body {
-  margin: 0;
-  background-color:rgb(243, 245, 250);
-}
-/* 侧边栏样式 */
-#side{
-  list-style-type: none;
-  margin-left: 20px;
-  padding: 0;
+    <style>
+        /*  */
+        body {
+            margin: 0;
+            background-color:rgb(243, 245, 250);
+        }
+        /* 侧边栏样式 */
+        #side{
+            list-style-type: none;
+            margin-left: 20px;
+            padding: 0;
 
-  width: 25%;
-  background-color:rgb(243, 245, 250);
-  position: fixed;
-  height: 100%;
-  overflow: auto;
-  font-family: Helvetica, sans-serif;
+            width: 25%;
+            background-color:rgb(243, 245, 250);
+            position: fixed;
+            height: 100%;
+            overflow: auto;
+            font-family: Helvetica, sans-serif;
 
-}
+        }
 
-/* 右边页面 */
- #main { 
-  margin-top: 50px;
-    margin-left: 28%;
-    height: auto; 
-    
-}
-/* 第一个侧边框的样式 */
-#bb{
-  font-family: 'Trebuchet MS', sans-serif;
-  background-color: rgb(243, 245, 250);
-  font-size: 27px;
-  margin-bottom: 15px;
-}
-/* 三个侧边框的样式 */
-#aa{
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: 25px;
-  margin-bottom: 5px;
-}
-a{
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: 25px;
-  margin-bottom: 5px;
-}
+        /* 右边页面 */
+        #main {
+            margin-top: 50px;
+            margin-left: 28%;
+            height: auto;
 
-    /* 侧边框字体颜色 */
-li a {
-  display: block;
-  color:rgb(30, 32, 34);
-  padding: 8px 16px;
-  text-decoration: none;
-}
-/* Home默认选中状态 */
-li a.active {
- color: rgba(38, 93, 241,0.8);
-}
-/* 主要侧边栏选中状态 */
-#aa:hover:not(.active) {
-  background-color:white;
-  color:red;
-/*   box-shadow:2px 2px 4px rgba(34,34,34,1); */
-  text-shadow: rgba(34,93,241,0.6) 5px 4px 4px;
-}
+        }
+        /* 第一个侧边框的样式 */
+        #bb{
+            font-family: 'Trebuchet MS', sans-serif;
+            background-color: rgb(243, 245, 250);
+            font-size: 27px;
+            margin-bottom: 15px;
+        }
+        /* 三个侧边框的样式 */
+        #aa{
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 25px;
+            margin-bottom: 5px;
+        }
+        a{
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 25px;
+            margin-bottom: 5px;
+        }
 
-/* manage侧边栏选中状态 */
-#a2:hover:not(.active) {
-  color: rgba(38, 93, 241,0.8);
-  text-shadow: rgba(34,93,241,0.6) 5px 4px 4px;
-}
-/* manage子侧边栏 */
-#a3:hover:not(.active) {
-  color: rgba(38, 93, 241,0.8);
-/*   box-shadow:2px 2px 4px rgba(34,34,34,1); */
-  text-shadow: rgba(34,93,241,0.3) 5px 4px 4px;
-}
-/* Sport System侧边栏选中状态 */
-#bb:hover:not(.active) {
-  color: rgb(48,65,86);
-}
-.columnLeft {   
-  background-color: rgba(255, 255, 255,0.5);
-height:500px;
-width: 400px;
-margin-left: 20px;
-text-align: center;
+        /* 侧边框字体颜色 */
+        li a {
+            display: block;
+            color:rgb(30, 32, 34);
+            padding: 8px 16px;
+            text-decoration: none;
+        }
+        /* Home默认选中状态 */
+        li a.active {
+            color: rgba(38, 93, 241,0.8);
+        }
+        /* 主要侧边栏选中状态 */
+        #aa:hover:not(.active) {
+            background-color:white;
+            color:red;
+            /*   box-shadow:2px 2px 4px rgba(34,34,34,1); */
+            text-shadow: rgba(34,93,241,0.6) 5px 4px 4px;
+        }
 
-}
-.columnRight {   
-background-color: white;
-height:500px;
-width: 400px;
-margin-left: 500px;
-margin-top: -500px;
-text-align: center;
-}
-</style>
+        /* manage侧边栏选中状态 */
+        #a2:hover:not(.active) {
+            color: rgba(38, 93, 241,0.8);
+            text-shadow: rgba(34,93,241,0.6) 5px 4px 4px;
+        }
+        /* manage子侧边栏 */
+        #a3:hover:not(.active) {
+            color: rgba(38, 93, 241,0.8);
+            /*   box-shadow:2px 2px 4px rgba(34,34,34,1); */
+            text-shadow: rgba(34,93,241,0.3) 5px 4px 4px;
+        }
+        /* Sport System侧边栏选中状态 */
+        #bb:hover:not(.active) {
+            color: rgb(48,65,86);
+        }
+        .columnLeft {
+            background-color: rgba(255, 255, 255,0.5);
+            height:500px;
+            width: 400px;
+            margin-left: 20px;
+            text-align: center;
+
+        }
+        .columnRight {
+            background-color: white;
+            height:500px;
+            width: 400px;
+            margin-left: 500px;
+            margin-top: -500px;
+            text-align: center;
+        }
+    </style>
 
 </head>
 <body>
-	<!-- jQuery -->
+<!-- jQuery -->
 <script src="https://cdn.staticfile.net/jquery/2.1.1/jquery.min.js"></script>
 <script src="https://cdn.staticfile.net/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
 
 <div >
     <div class="row">
-       <!--  <div class="col-lg-2"> -->
-            <div class="sidebar">
-                <ul id="side" class="nav nav-pills nav-stacked">
-                    <li id="bb"><a href="#"><span class="glyphicon glyphicon-globe"></span><b> Sport manage system</b> </a></li>
-               
-         
+        <!--  <div class="col-lg-2"> -->
+        <div class="sidebar">
+            <ul id="side" class="nav nav-pills nav-stacked">
+                <li id="bb"><a href="#"><span class="glyphicon glyphicon-globe"></span><b> Sport manage system</b> </a></li>
 
-                   <li id="aa" ><a class="active" href="AdminHomePage.html"><span class="glyphicon glyphicon-home"></span> Home</a></li>
-                   
-                    <li id="a1">
-                      <a id="a2" href="#mangage"><span class="glyphicon glyphicon-edit"></span> manage <span class="glyphicon glyphicon-chevron-right"></span></a>
+
+
+                <li id="aa" ><a class="active" href="AdminHomePage.html"><span class="glyphicon glyphicon-home"></span> Home</a></li>
+
+                <li id="a1">
+                    <a id="a2" href="#mangage"><span class="glyphicon glyphicon-edit"></span> manage <span class="glyphicon glyphicon-chevron-right"></span></a>
                     <ul>
-                      <li><a id="a3" href="AdminSportActivitiesPage.html">manage sport activities</a></li>
-                      <li><a id="a4" href="AdminStadiumsPage.html">manage stadiums</a></li>
-                      <li><a id="a5" href="AdminCoachesPage.html">manage coaches</a></li>
-                      <li><a id="a6" href="AdminOrdersPage.html">manage orders</a></li>
-                        <li><a id="a7" href="AdminManageUserInfo.html">manage user information</a></li>
-                  </ul>
-              </li>
-                    <li id="a8"><a href="AdminUserPage.html"><span class="glyphicon glyphicon-user"></span> User</a></li>
-                    <li id="a9"><a href="AdminSettingsPage.html"><span class="glyphicon glyphicon-cog"></span> System settings</a></li>
-                </ul>
-            </div>
+                        <li><a id="a3" href="AdminSportActivitiesPage.html">manage sport activities</a></li>
+                        <li><a id="a3" href="AdminStadiumsPage.html">manage stadiums</a></li>
+                        <li><a id="a3" href="AdminCoachesPage.html">manage coaches</a></li>
+                        <li><a id="a3" href="AdminBookingPage.html">manage orders</a></li>
+                    </ul>
+                </li>
+                <li id="aa"><a href="AdminUserPage.html"><span class="glyphicon glyphicon-user"></span> User</a></li>
+                <li id="aa"><a href="AdminSettingsPage.html"><span class="glyphicon glyphicon-cog"></span> System settings</a></li>
+            </ul>
+        </div>
 
         <!-- </div> -->
         <div id="main" >
-          <!--   <img src="img/manage3.png "   width="100%" height="700px">  -->
-          <p style="font-size: 55px;margin-left: 32%; ">Monthly Report</p>
-            <div id="totalSales" style="width: 800px;height:450px;"></div>
-            <div id="quantity" style="width: 800px;height:450px;"></div>
-          </div>
-          </div>
-      </div>
+            <!--   <img src="img/manage3.png "   width="100%" height="700px">  -->
+            <p style="font-size: 55px;margin-left: 32%; ">Dashboard</p>
 
-    <script type="text/javascript">
-        //chart:tickets quantity,total sales
-        $(document).ready(function(){
-            var months=[];
-            var totals=[];
-            var quantities=[];
-            $.ajax({
-                type : "get",
-                async : true,
-                url : "http://localhost:8080/api/report",
-                data : {},
-                dataType : "json",
-                success : function(result) {
-                    if (result) {
-                        for(var month in result){
-                            months.push(month);
-                            totals.push(result[month].total);
-                            quantities.push(result[month].quantity);
-                        }
-                        var myChartTotal = echarts.init(document.getElementById('totalSales'));
-                        myChartTotal.setOption({
-                            title:{
-                                text: 'Total Sales'
-                            },
-                            legend: {
-                                data:['Total Sales']
-                            },
-                            xAxis: {
-                                data: months,
-                                name: 'Month',
-                                axisLabel:{
-                                    interval: 0
-                                }
-                            },
-                            yAxis: {
-                                type: 'value',
-                                name: 'Sales'
-                            },
-                            series: [{
-                                name: 'Total Sales',
-                                type: 'line',
-                                data: totals
-                            }]
-                        });
 
-                        var myChartQuantity = echarts.init(document.getElementById('quantity'));
-                        myChartQuantity.setOption({
-                            title:{
-                                text: 'Tickets Quantity'
-                            },
-                            legend: {
-                                data:['Quantity']
-                            },
-                            xAxis: {
-                                data: months,
-                                name: 'Month',
-                                axisLabel:{
-                                    interval: 0
-                                }
-                            },
-                            yAxis: {
-                                type: 'value',
-                                name: 'Number of tickets'
-                            },
-                            series: [{
-                                name: 'Quantity',
-                                type: 'line',
-                                data: quantities
-                            }]
-                        });
-                    }
-                },
-                error : function(errorMsg) {
-                    alert("Failed to request data!");
-                }
-            });
-        });
-    </script>
+            <div class="row">
+                <div class="columnLeft">
+                    <div class="bar">
+                        <div class="card">
+                            <br>
+                            <h2 style="font-weight: bold;font-size: 45px;">Income</h2>
+                            <p style="font-size: 45px;">+19080 USD</p>
+                            <p style="font-size: 25px;">Last month's income</p>
+                            <img src="images/digram1.png" width="90%">
+                            <br>
+                            <br>
+                            <p style="font-size: 25px;">+5080 +30.23% This Month</p>
+                            <p></p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="columnRight">
+                    <div class="bar">
+                        <div class="card">
+                            <br>
+                            <h2 style="font-weight: bold;font-size: 45px;">Ticket sales</h2>
+                            <p style="font-size: 45px;">77880</p>
+                            <img src="images/order.png" width="90%">
+                            <br>
+                            <br>
+                            <br>
+                            <p style="font-size: 35px;">Total Sales</p>
+                            <p style="font-size: 45px;">$389420</p>
+                            <p></p>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+        </div>
+    </div>
+</div>
 
 <script>
-  // JavaScript代码
-document.getElementById('a1').addEventListener('click', function() {
-            var submenu = this.querySelector('ul');
-            if (submenu.style.display === 'none') {
-                submenu.style.display = 'block';
-            } else {
-                submenu.style.display = 'none';
-            }
-        });
+
+
+
+    // JavaScript代码
+    document.getElementById('a1').addEventListener('click', function() {
+        var submenu = this.querySelector('ul');
+        if (submenu.style.display === 'none') {
+            submenu.style.display = 'block';
+        } else {
+            submenu.style.display = 'none';
+        }
+    });
 
 </script>
 </body>

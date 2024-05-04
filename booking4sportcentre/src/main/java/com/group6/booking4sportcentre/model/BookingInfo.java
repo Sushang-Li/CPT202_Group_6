@@ -41,6 +41,7 @@ public class BookingInfo {
     //活动name
     @Column(name = "act_name")
     private String actName;
+
     private double price;
 
     @Override
@@ -61,5 +62,4 @@ public class BookingInfo {
     @ManyToOne
     @JoinColumn(name = "wallet_info_id")
     private WalletInfo walletInfo;
-
 }
