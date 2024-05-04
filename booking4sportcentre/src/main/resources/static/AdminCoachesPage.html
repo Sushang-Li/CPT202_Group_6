@@ -177,6 +177,9 @@
         <div id="addModal" class="modal">
             <div class="modal-content">
                 <span class="close">&times;</span>
+                <div class="modal-header">
+                    <h4 class="modal-title">Add Coach</h4>
+                </div>
                 <form id="addCoachForm">
                     <!--                    <label class="name">Name:</label>-->
                     <!--                    <input type="text" class="name" name="name"><br>-->
@@ -209,6 +212,9 @@
         <div id="updateModal" class="modal">
             <div class="modal-content">
                 <span class="close">&times;</span>
+                <div class="modal-header">
+                    <h4 class="modal-title">Update Coach</h4>
+                </div>
                 <form id="updateCoachForm">
                     <label >ID:<input type="text" class="id" name="id" readonly></label>
                     <br>
@@ -243,9 +249,11 @@
         <!-- Popup page：add coach 增加教练弹出框 -->
         <div id="confirmationModal" class="modal">
             <div class="modal-content">
-                <span class="close">&times;</span>
+                <div class="modal-header">
+                    <h4 class="modal-title">Warning！</h4>
+                </div>
                 <form id="deleteCoachForm">
-                    <p>Are you sure you want to delete coach <span id="coachName"></span>?</p>
+                    <p>Are you sure you want to delete coach <span id="coachName" style="color: red; font-weight: bold;"></span>?</p>
                     <button id="confirmDeleteBottom" class="confirmBottom btn btn-primary" type="button">Confirm</button>
                     <button id="cancelDeleteBottom" class="cancelBottom btn btn-danger" type="button">Cancel</button>
                 </form>
@@ -311,52 +319,7 @@
     });
 
     // Get a list of coach information 获取教练信息以列表
-    // 旧版获取教练信息列表的函数
-    // function getCoachInfoList() {
-    //     fetch('/api/coachinfo')
-    //         .then(response => response.json())
-    //         .then(data => {
-    //             console.log(data); // 在控制台输出数据以确保正确获取到
-    //             const tableBody = document.querySelector('table tbody');
-    //
-    //             // Empty the form
-    //             tableBody.innerHTML = '';
-    //
-    //             // If the coach information array is empty, display "There is no coach..."
-    //             // 如果教练信息数组为空，则显示 "There is no coach..."
-    //             if (data.length === 0) {
-    //                 const row = document.createElement('tr');
-    //                 row.innerHTML = '<td colspan="7">There is no \n' + 'coach information yet. Please add coach first. </td>';
-    //                 tableBody.appendChild(row);
-    //             } else {
-    //                 // Loop through the coach information array, creating a row for each coach
-    //                 // 循环遍历教练信息数组，为每个教练创建一行
-    //                 data.forEach(coach => {
-    //                     const row = document.createElement('tr');
-    //                     row.innerHTML = `
-    //         <td>${coach.id}</td>
-    //         <td>${coach.name}</td>
-    //         <td>${coach.contact}</td>
-    //         <td>${coach.startTime}</td>
-    //         <td>${coach.endTime}</td>
-    //         <td>${coach.status}</td>
-    //         <td>${coach.activity}</td>
-    //         <td>
-    //         <button class="updateBottom" type="button"  style="font-size: 20px;">Modify</button>
-    //         <button class="deleteBottom" type="button" style="font-size: 20px;">Delete</button>
-    //         </td>
-    //       `;
-    //                     tableBody.appendChild(row);
-    //                 });
-    //             }
-    //             // 重新初始化 DataTable
-    //             // 重新初始化 DataTable，添加所需的参数
-    //             $('.table').DataTable();
-    //         })
-    //         .catch(error => {
-    //             console.error('Error fetching data:', error);
-    //         });
-    // }
+
     // 新版获取教练信息列表的函数
     function getCoachInfoList() {
         fetch('/api/coachinfo')
