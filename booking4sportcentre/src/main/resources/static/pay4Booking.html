@@ -1,0 +1,162 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/mainStyle.css">
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+
+    <title>Activity Payment</title>
+</head>
+<body>
+<nav>
+    <div class="nav-container">
+        <div class="logo">
+            <a href="userHomepage.html" id="logo-nav">:D</a>
+        </div>
+        <div class="homepage">
+            <a href="userHomepage.html" id="homepage-nav">HOMEPAGE</a>
+        </div>
+        <div class="information">
+            <a href="userInformation.html" id="information-nav">INFORMATION</a>
+        </div>
+        <div class="wallet">
+            <a href="userWallet.html" id="wallet-nav">WALLET</a>
+        </div>
+        <div class="booking">
+            <a href="userBooking.html" id="booking-nav">BOOKING</a>
+        </div>
+        <div class="statistics">
+            <a href="userStatistics.html" id="statistics-nav">STATISTICS</a>
+        </div>
+    </div>
+</nav>
+<h1>Activity Payment</h1>
+<div id="activity-info">
+    <p id="activity-name"> Name: </p>
+    <p id="activity-stadium">Stadium: </p>
+    <p id="activity-date">Date: </p>
+    <p id="activity-timeslot">Time: </p>
+    <p id="activity-price">Price: </p>
+</div>
+
+<button id="confirm-payment">Confirm Payment</button>
+
+<div id="payment-modal" style="display:none;">
+    <p>Select your payment method:</p>
+    <button id="pay-with-wallet" onclick="confirmWalletPayment()">Pay with Cash (Balance: $<span id="wallet-balance">0</span>)</button>
+    <button id="pay-with-coupon">Pay with Coupon <span id="coupon"></span></button>
+
+</div>
+
+
+
+
+<script>
+    var urlParams = new URLSearchParams(window.location.search);
+    var userId = urlParams.get('id');
+    console.log(userId);
+
+    var userLink = document.getElementById('logo-nav');
+    userLink.href = "userHomepage.html?id=" + userId;
+
+    var userLink = document.getElementById('homepage-nav');
+    userLink.href = "userHomepage.html?id=" + userId;
+
+    var userLink = document.getElementById('information-nav');
+    userLink.href = "userInformation.html?id=" + userId;
+
+    var userLink = document.getElementById('wallet-nav');
+    userLink.href = "userWallet.html?id=" + userId;
+
+    var userLink = document.getElementById('booking-nav');
+    userLink.href = "userBooking.html?id=" + userId;
+
+    var userLink = document.getElementById('statistics-nav');
+    userLink.href = "userStatistics.html?id=" + userId;
+
+    var activityId = new URLSearchParams(window.location.search).get('activityId');
+    console.log(activityId)
+    window.onload = function() {
+        fetch(`api/sportActivity/getActivity/${activityId}`)
+            .then((response) => {
+                console.log(response.status, response.statusText);
+                if (!response.ok) {
+                    throw new Error('Failed to fetch activity details');
+                }
+                return response.json();
+            })
+            .then((data) => {
+                console.log(data);  // 确保能看到活动数据
+                if (data.length > 0) {
+                    let activity = data[0]; // 获取数组的第一个元素
+                    document.getElementById('activity-name').textContent = `Name: ${activity.name} (${activity.stadium})`;
+                    document.getElementById('activity-stadium').textContent = `Stadium: ${activity.stadium}`;
+                    document.getElementById('activity-date').textContent = `Date: ${activity.date}`;
+                    document.getElementById('activity-timeslot').textContent = `Time: ${activity.startTime} - ${activity.endTime}`;
+                    document.getElementById('activity-price').textContent = `Price: $${activity.price}`;
+                } else {
+                    alert("No activity details available.");
+                }
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+                alert('Error fetching activity details.');
+            });
+    };
+    document.getElementById('confirm-payment').addEventListener('click', function() {
+        document.getElementById('payment-modal').style.display = 'block';
+        fetchWalletBalance(); // Fetch wallet balance when payment modal is shown
+    });
+
+    function fetchWalletBalance() {
+        // 测试用，设置钱包余额为$1000
+        document.getElementById('wallet-balance').textContent = '1000';
+    }
+    function confirmWalletPayment() {
+        const confirmation = confirm("Are you sure you want to pay using your wallet balance?");
+        if (confirmation) {
+            payWithWallet();
+        }
+    }
+    function payWithWallet() {
+        const price = parseFloat(document.getElementById('activity-price').textContent.replace('Price: $', ''));
+        const balance = parseFloat(document.getElementById('wallet-balance').textContent);
+        if (balance >= price) {
+            alert('Payment successful');
+            window.location.href = 'userBooking.html'; // Redirect to booking page
+        } else {
+            alert('Insufficient funds in wallet.');
+        }
+    }
+
+
+    function confirmPayment() {
+        const selectedCouponId = document.querySelector('input[name="coupon"]:checked')?.value;
+        if (!selectedCouponId) {
+            alert('Please select a coupon.');
+            return;
+        }
+        fetch(`api/coupons/use/${selectedCouponId}`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ bookingCost: document.getElementById('activity-price').textContent.replace('Price: $', '') })
+        })
+            .then(response => response.json())
+            .then(result => {
+                alert(result.message);
+                if (result.success) {
+                    window.location.href = 'confirmationPage.html'; // Redirect or update UI accordingly
+                }
+            })
+            .catch(error => console.error('Error using coupon:', error));
+    }
+
+
+
+
+</script>
+</body>
+</html>
+
