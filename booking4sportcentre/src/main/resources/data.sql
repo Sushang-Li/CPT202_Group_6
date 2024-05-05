@@ -87,8 +87,5 @@ VALUES
     ('May', 100, '2023-10-01', '2024-05-01', 'ACTIVE', 1),
     ('May', 75, '2023-05-01', '2023-05-15', 'EXPIRED', 1);
 
-UPDATE wallet_info
-SET balance = 2000
-WHERE id = 1;
 
 

@@ -6,6 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -21,6 +22,8 @@ public class WalletController {
     @Autowired
     private WalletInfoMapper walletInfoMapper;
 
+
+    //create wallet
    @PostMapping
     public Long createWallet(@RequestBody WalletInfo walletInfo) {
         walletInfoMapper.createWalletInfo(walletInfo);
@@ -41,12 +44,18 @@ public class WalletController {
 
     // Pay with wallet
     @PostMapping("/pay")
-    public ResponseEntity<String> payWithWallet(@RequestParam Long walletInfoId, @RequestParam Double bookingCost) {
+    public ResponseEntity<?> payWithWallet(@RequestParam Long walletInfoId, @RequestParam Double bookingCost) {
         try {
             double currentBalance = walletInfoMapper.getWalletBalance(walletInfoId);
             if (currentBalance >= bookingCost) {
-                walletInfoMapper.updateWalletBalance(walletInfoId, currentBalance - bookingCost);
-                return ResponseEntity.ok("Payment successful");
+                double newBalance = currentBalance - bookingCost;
+                walletInfoMapper.updateWalletBalance(walletInfoId, newBalance);
+                double updatedBalance = walletInfoMapper.getWalletBalance(walletInfoId);
+                System.out.println(updatedBalance);
+                // 使用 Map 创建 JSON 响应
+                Map<String, Object> response = new HashMap<>();
+                response.put("Payment", "successful");
+                return ResponseEntity.ok(response);
             } else {
                 return ResponseEntity.badRequest().body("Insufficient balance");
             }
@@ -56,4 +65,6 @@ public class WalletController {
     }
 
 
-    }
+
+
+}
