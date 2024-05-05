@@ -90,7 +90,7 @@
 
     function payForActivity(activity) {
       console.log(activity);  // 用于测试，将活动记录到控制台
-      window.location.href = `pay4Booking.html?activityId=${activity.id}`;
+      window.location.href = `pay4Booking.html?activityId=${activity.id}&userId=${userId}`;
       var actname = activity.name;
       var coachname = activity.coach;
       var date = activity.date;
