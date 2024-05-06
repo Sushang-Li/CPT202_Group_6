@@ -4,19 +4,25 @@
 	<meta charset="utf-8">
     <title>体育管理系统</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Bootstrap -->
-    <link rel="stylesheet" href="https://cdn.staticfile.net/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
-    <link rel="shortcut icon" href="images/smallcut.png">
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <link rel="stylesheet" href="./css/Admin.css">
 
+ <!-- 相对路径的Bootstrap的css -->
+ <link rel="stylesheet" href="bootstrap-3.4.1\css\bootstrap.min.css">  
+    <!-- 网页图标 -->
+    <link rel="shortcut icon" href="images/smallcut.png">
+    <!-- axios引入 -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <!-- 管理员页面css引入 -->
+    <link rel="stylesheet" href="./css/Admin.css">
+    <!-- jquery.dataTables的css -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css">
 </head>
 <body>
-	<!-- jQuery (Bootstrap 插件需要引入) -->
+	<!-- jQuery -->
 <script src="https://cdn.staticfile.net/jquery/2.1.1/jquery.min.js"></script>
-<!-- 包含了所有编译插件 -->
-<script src="https://cdn.staticfile.net/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
+<!-- Bootstrap的js -->
+<script src="bootstrap-3.4.1\js\bootstrap.min.js"></script>
+<!-- jquery.dataTables的js -->
+<script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
 <!-- 侧边栏 -->
 <div >
     <div class="row">
@@ -24,22 +30,23 @@
             <div class="sidebar">
                 <ul id="side" class="nav nav-pills nav-stacked">
                     <li id="bb"><a href="#"><span class="glyphicon glyphicon-globe"></span><b> Sport manage system</b> </a></li>
-
-
+               
+         
 
                     <li id="aa" ><a  href="AdminHomePage.html"><span class="glyphicon glyphicon-home"></span> Home</a></li>
-
+                   
                     <li id="a1">
                       <a id="a2" class="active" href="#mangage"><span class="glyphicon glyphicon-edit"></span> manage <span class="glyphicon glyphicon-chevron-right"></span></a>
                       <ul>
                       <li><a id="a3" class="active" href="AdminSportActivitiesPage.html">manage sport activities</a></li>
-                      <li><a id="a3" href="AdminStadiumsPage.html">manage stadiums</a></li>
-                      <li><a id="a3" href="AdminCoachesPage.html">manage coaches</a></li>
-                      <li><a id="a3" href="AdminOrdersPage.html">manage orders</a></li>
+                      <li><a id="a4" href="AdminStadiumsPage.html">manage stadiums</a></li>
+                      <li><a id="a5" href="AdminCoachesPage.html">manage coaches</a></li>
+                      <li><a id="a6" href="AdminBookingPage.html">manage bookings</a></li>
+                      <li><a id="a7" href="AdminManageUserInfo.html">manage user information</a></li>
                   </ul>
               </li>
-                    <li id="aa"><a  href="AdminUserPage.html"><span class="glyphicon glyphicon-user"></span> User</a></li>
-                    <li id="aa"><a href="AdminSettingsPage.html"><span class="glyphicon glyphicon-cog"></span> System settings</a></li>
+                   
+                    <li id="ab"><a href="AdminSettingsPage.html"><span class="glyphicon glyphicon-cog"></span> System settings</a></li>
                 </ul>
             </div>
 
@@ -49,18 +56,19 @@
           <p style="font-size: 50px;text-align: center; ">Sport Activities</p>
           <div class="row">
             <div class="columnLeft">
-            <div class="bar">
+            <div class="bar">      
               <div class="card">
-                <table class="table table-hover" style="font-size: 20px;">
-                  <caption style="font-size: 30px;">4.22</caption>
+                <table class="table table-hover" style="font-size: 15px;">
+                  <caption id="currentDateCaption" style="font-size: 30px;"></caption>
                   <p>
-
+                 
                     <button type="button" class="glyphicon glyphicon-plus" style="font-size: 20px;margin-left: 90%;margin-top: 10px;font-size: 20px;" title="Add" onclick="openAddModal()"></button>
-
+                  
                   </p>
                   <thead>
                     <tr>
                       <th>Id</th>
+                        
                       <th>Name</th>
                       <th>StartTime</th>
                       <th>EndTime</th>
@@ -70,18 +78,18 @@
                       <th>TicketNumber</th>
                       <th>Actions</th>
                       <th></th>
-
+                      
                     </tr>
                   </thead>
                   <tbody>
                      <!-- 表格数据体 -->
-
+                   
                       <tbody id="userDataBody"></tbody>
                   </tbody>
                 </table>
-
+              
               <!-- 分页栏 -->
-                <ul class="pagination" style="margin-left: 300px;" >
+                <!-- <ul class="pagination" style="margin-left: 300px;" >
                   <li><a href="#">&laquo;</a></li>
                   <li><a href="#">1</a></li>
                   <li><a href="#">2</a></li>
@@ -89,14 +97,14 @@
                   <li><a href="#">4</a></li>
                   <li><a href="#">5</a></li>
                   <li><a href="#">&raquo;</a></li>
-                </ul>
+                </ul> -->
                 <p></p>
               </div>
               </div>
             </div>
           </div>
       </div>
-    </div>
+    </div>  
 </div>
  <!-- edit的模态框 -->
 <div id="myModal" class="modal fade" role="dialog">
@@ -116,8 +124,8 @@
                     </div>
                     <div class="form-group">
                         <label for="editName">Name:</label>
-
-                        <select class="form-control" id="editName">
+                        
+                        <select class="form-control" id="editName" required>
                             <!-- 动态填充选项 -->
                             <option value="Football">Football</option>
                             <option value="Basketball">Basketball</option>
@@ -130,11 +138,11 @@
                     </div>
                     <div class="form-group">
                         <label for="editStartTime">Start Time:</label>
-                        <input type="datetime-local" class="form-control" id="editStartTime">
+                        <input type="time" class="form-control" id="editStartTime">
                     </div>
                     <div class="form-group">
                         <label for="editEndTime">End Time:</label>
-                        <input type="datetime-local" class="form-control" id="editEndTime">
+                        <input type="time" class="form-control" id="editEndTime">
                     </div>
                     <div class="form-group">
                         <label for="editCoach">Coach:</label>
@@ -154,17 +162,18 @@
                             <option value="stadium3">Stadium 3</option>
                         </select>
                     </div>
+                 
                     <div class="form-group">
-                        <label for="price">Price:</label>
+                        <label for="editPrice">Price:</label>
                         <input type="number" class="form-control" id="editPrice" required>
                     </div>
                     <div class="form-group">
-                        <label for="ticketNumber">Ticket Number:</label>
+                        <label for="editTicketNumber">Ticket Number:</label>
                         <input type="number" class="form-control" id="editTicketNumber" required>
                     </div>
                     <button type="button" class="btn btn-primary" onclick="saveChanges()">Save</button>
 
-
+                   
                 </form>
             </div>
         </div>
@@ -204,7 +213,7 @@
                     </div>
                     <div class="form-group">
                         <label for="coach">Coach:</label>
-
+                       
                         <select class="form-control" id="coach" required>
                             <!-- 动态填充选项 -->
                             <option value="coach1">Coach 1</option>
@@ -221,6 +230,7 @@
                             <option value="stadium3">Stadium 3</option>
                         </select>
                     </div>
+                  
                     <div class="form-group">
                         <label for="price">Price:</label>
                         <input type="number" class="form-control" id="price" required>
@@ -236,8 +246,21 @@
     </div>
 </div>
 
+
+
+
+
+
+
+
+
+
+
+
+
+
 <script>
-  // JavaScript代码
+    /* 侧边栏点击 */
 document.getElementById('a1').addEventListener('click', function() {
             var submenu = this.querySelector('ul');
             if (submenu.style.display === 'none') {
@@ -246,70 +269,67 @@ document.getElementById('a1').addEventListener('click', function() {
                 submenu.style.display = 'none';
             }
         });
+  
 //获取体育活动数据
-axios.get('http://localhost:8080/api/sportActivity')
-        .then(response => {
-            const activities = response.data;
-            const userDataBody = document.getElementById('userDataBody');
-            userDataBody.innerHTML = ''; // 清空表格内容
-
-            activities.forEach(activity => {
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                    <td>${activity.id}</td>
-                    <td>${activity.name}</td>
-                    <td>${activity.startTime}</td>
-                    <td>${activity.endTime}</td>
-                    <td>${activity.coach}</td>
-                    <td>${activity.stadium}</td>
-                    <td>${activity.price}</td>
-                    <td>${activity.ticketNumber}</td>
-                    <td>
-                        <button type="button" class="glyphicon glyphicon-pencil" style="font-size: 10px;" title="Edit" data-toggle="modal" data-target="#myModal" onclick="populateEditForm(${activity.id})"></button>
-
-                        <button type="button" class="glyphicon glyphicon-minus" style="font-size: 10px;" title="Delete" onclick="confirmDelete(${activity.id})"></button>
-                    </td>
-
-
-                `;
-                userDataBody.appendChild(row);
-            });
-        })
-.catch(error => {
-    console.error('Error fetching sport activities:', error);
+$(document).ready(function() {
+    $('.table').DataTable({
+        "ajax": {
+            "url": "http://localhost:8080/api/sportActivity",
+            "dataSrc": ""
+        },
+        "columns": [
+            { "data": "id" },
+            { "data": "name" },
+            { "data": "startTime" },
+            { "data": "endTime" },
+            { "data": "coach" },
+            { "data": "stadium" },
+            { "data": "price" },
+            { "data": "ticketNumber" },
+            { "data": null }
+        ],
+        "columnDefs": [
+            { 
+                "orderable": false, 
+                "targets": 8,
+                "render": function(data, type, row) {
+                    return `<button type='button' class='glyphicon glyphicon-pencil' style='font-size: 10px' title='Edit' data-toggle='modal' data-target='#myModal' onclick='populateEditForm(${row.id})'></button>
+                            <button type='button' class='glyphicon glyphicon-minus' style='font-size: 10px;' title='Delete' onclick='confirmDelete(${row.id})'></button>`;
+                }
+            }
+        ]
+    });
 });
+
+
 
 // 填充edit表单
 function populateEditForm(id) {
     // 将数据填入编辑表单中的各个字段
 
-    axios.get(`http://localhost:8080/api/sportActivity/${id}`)
-        .then((response) => {
-      /*       const activity = response.data; */
-            const activity = JSON.stringify(response.data);
-            console.log(response.data);
+    axios.get(`http://localhost:8080/api/sportActivity/getActivity/${id}`)
 
+
+        .then((response) => {
+            // 假设返回的数据是一个数组，且我们需要的数据是数组的第一个元素
+            const activity = response.data[0]; // 取数组的第一个元素
+            console.log(activity);
             // 更新表单中的字段值
-            /* document.getElementById('editId').text=555; */
-            /* document.getElementById('editId').innerHTML = 555; */
-/*             $('#editId').val(111); */
-            document.getElementById('editId').value = id;
-            document.getElementById('editName').value = name;
-            document.getElementById('editStartTime').value = activity.startTime;
-            document.getElementById('editEndTime').value = activity.endTime;
-            document.getElementById('editCoach').value = activity.coach;
-            document.getElementById('editStadium').value = activity.stadium;
+            document.getElementById('editId').value = activity.id;
             document.getElementById('editPrice').value = activity.price;
             document.getElementById('editTicketNumber').value = activity.ticketNumber;
-            console.log(activity);
-            console.log(id);
+            document.getElementById('editName').value = activity.name;
+            document.getElementById('editCoach').value = activity.coach;
+            document.getElementById('editStadium').value = activity.stadium;
+            document.getElementById('editStartTime').value = activity.startTime;
+            document.getElementById('editEndTime').value = activity.endTime;
         })
         .catch(error => {
             console.error('Error fetching sport activity details:', error);
-            alert('Error fetching sport activity');
+            console.log('Error fetching sport activity');
         });
-
 }
+
 // 保存修改
 function saveChanges() {
     const updatedActivity = {
@@ -332,7 +352,7 @@ function saveChanges() {
         })
         .catch(error => {
             console.error('Error updating activity:', error);
-            alert('Failed to edit sport activity.');
+            alert('Failed to edit sport activity.'); 
         });
 }
 
@@ -392,6 +412,15 @@ function openAddModal() {
                     alert('Failed to add sport activity.');
                 });
         }
+
+
+
+
+function sortById(){
+    
+
+
+}
 </script>
 
 
