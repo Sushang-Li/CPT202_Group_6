@@ -90,7 +90,9 @@
 
     function payForActivity(activity) {
       console.log(activity);  // 用于测试，将活动记录到控制台
-      window.location.href = `pay4Booking.html?activityId=${activity.id}&userId=${userId}`;
+      window.location.href = `pay4Booking.html?activityId=${activity.id}&userId=${userId}&actname=${activity.name}&coachname=${activity.coach}&date=${activity.date}
+      &starttime=${activity.startTime}&endtime=${activity.endTime}&price=${activity.price}&position=${activity.stadium}
+      &uid=${activity.userId}&ticketNum=${activity.ticketNumber}`;
       var actname = activity.name;
       var coachname = activity.coach;
       var date = activity.date;
@@ -100,63 +102,63 @@
       var position = activity.stadium;
       var uid = userId;
 
-      //先新增一条未支付的预定
-      fetch('http://localhost:8080/api/bookings/addOneBooking', {
-        method: "POST",
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          userId: uid,
-          date: date,
-          startTime: starttime,
-          endTime: endtime,
-          venue: position,
-          status: "PENDING",
-          actName: actname,
-          price: price
-        })
-      })
-        .then(response => {
-          if (response.status === 200) {
-            // alert("Successful!");
-          } else {
-            throw new Error('HTTP 错误 ' + response.status);
-          }
-        })
-        .catch(error => {
-          console.log("错误：", error);
-          // alert("Fail!");
-        });
+      // //先新增一条未支付的预定
+      // fetch('http://localhost:8080/api/bookings/addOneBooking', {
+      //   method: "POST",
+      //   headers: {
+      //     'Content-Type': 'application/json'
+      //   },
+      //   body: JSON.stringify({
+      //     userId: uid,
+      //     date: date,
+      //     startTime: starttime,
+      //     endTime: endtime,
+      //     venue: position,
+      //     status: "PENDING",
+      //     actName: actname,
+      //     price: price
+      //   })
+      // })
+      //   .then(response => {
+      //     if (response.status === 200) {
+      //       // alert("Successful!");
+      //     } else {
+      //       throw new Error('HTTP 错误 ' + response.status);
+      //     }
+      //   })
+      //   .catch(error => {
+      //     console.log("错误：", error);
+      //     // alert("Fail!");
+      //   });
 
-      //记录当前的票数
-      var currentNum = activity.ticketNumber;
-      currentNum -= 1;
-      const data = new URLSearchParams();
-      data.append('id', activity.id);
-      data.append('current', currentNum);
-      data.append('price', activity.price);
+      // //记录当前的票数
+      // var currentNum = activity.ticketNumber;
+      // currentNum -= 1;
+      // const data = new URLSearchParams();
+      // data.append('id', activity.id);
+      // data.append('current', currentNum);
+      // data.append('price', activity.price);
 
-      //向后端发起更新活动票数的请求
-      fetch('http://localhost:8080/api/sportActivity/updateTicketNumber', {
-        method: "POST",
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded'
-        },
-        body: data
-      })
-        .then(response => {
-          if (response.ok) {
-            console.log('Request successful');
-            // alert("successful");
-            // location.reload();
-          } else {
-            console.error('Request failed');
-          }
-        })
-        .catch(error => {
-          console.error('Error:', error);
-        });
+      // //向后端发起更新活动票数的请求
+      // fetch('http://localhost:8080/api/sportActivity/updateTicketNumber', {
+      //   method: "POST",
+      //   headers: {
+      //     'Content-Type': 'application/x-www-form-urlencoded'
+      //   },
+      //   body: data
+      // })
+      //   .then(response => {
+      //     if (response.ok) {
+      //       console.log('Request successful');
+      //       // alert("successful");
+      //       // location.reload();
+      //     } else {
+      //       console.error('Request failed');
+      //     }
+      //   })
+      //   .catch(error => {
+      //     console.error('Error:', error);
+      //   });
     }
 
     function addToCart(activity) {
