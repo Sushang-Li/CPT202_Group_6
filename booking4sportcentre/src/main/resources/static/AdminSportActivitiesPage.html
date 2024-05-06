@@ -306,7 +306,10 @@ $(document).ready(function() {
 // 填充edit表单
 function populateEditForm(id) {
     // 将数据填入编辑表单中的各个字段
+
     axios.get(`http://localhost:8080/api/sportActivity/getActivity/${id}`)
+
+
         .then((response) => {
             // 假设返回的数据是一个数组，且我们需要的数据是数组的第一个元素
             const activity = response.data[0]; // 取数组的第一个元素
