@@ -37,6 +37,11 @@ body {
     font-size: 25px;
     margin-bottom: 5px;
   }
+  #bb{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 25px;
+    margin-bottom: 5px;
+  }
   a{
     font-family: Arial, Helvetica, sans-serif;
     font-size: 25px;
@@ -61,6 +66,12 @@ body {
   /*   box-shadow:2px 2px 4px rgba(34,34,34,1); */
     text-shadow: rgba(34,93,241,0.6) 5px 4px 4px;
   }
+  #bb:hover:not(.active) {
+    background-color:white;
+    color:red;
+  /*   box-shadow:2px 2px 4px rgba(34,34,34,1); */
+    text-shadow: rgba(34,93,241,0.6) 5px 4px 4px;
+  }
   
   /* manage侧边栏选中状态 */
   #a2:hover:not(.active) {
@@ -70,17 +81,34 @@ body {
   /* manage子侧边栏 */
   #a3:hover:not(.active) {
     color: rgba(38, 93, 241,0.8);
-  /*   box-shadow:2px 2px 4px rgba(34,34,34,1); */
+    text-shadow: rgba(34,93,241,0.3) 5px 4px 4px;
+  }
+  #a4:hover:not(.active) {
+    color: rgba(38, 93, 241,0.8);
+    text-shadow: rgba(34,93,241,0.3) 5px 4px 4px;
+  }
+  #a5:hover:not(.active) {
+    color: rgba(38, 93, 241,0.8);
+    text-shadow: rgba(34,93,241,0.3) 5px 4px 4px;
+  }
+  #a6:hover:not(.active) {
+    color: rgba(38, 93, 241,0.8);
+    text-shadow: rgba(34,93,241,0.3) 5px 4px 4px;
+  }
+  #a7:hover:not(.active) {
+    color: rgba(38, 93, 241,0.8);
     text-shadow: rgba(34,93,241,0.3) 5px 4px 4px;
   }
   /* Sport System侧边栏选中状态 */
   #bb:hover:not(.active) {
     color: rgb(48,65,86);
   }
+/*   主背景框 */
   .columnLeft {   
   background-color: rgba(255, 255, 255,0.3);
   height:500px;
   width: 900px;
+/*   width: 80%; */
   margin: 0 auto ;
   }
   
