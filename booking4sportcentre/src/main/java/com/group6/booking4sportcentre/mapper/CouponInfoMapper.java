@@ -12,4 +12,8 @@ public interface CouponInfoMapper extends BaseMapper<CouponInfo> {
 
     @Select("SELECT * FROM coupon_info WHERE status = #{status}")
     List<CouponInfo> selectByStatus(String status);
+
+    @Select("SELECT * FROM coupon_info WHERE user_id = #{userId} AND status = #{status}")
+    List<CouponInfo> selectByUserIdAndStatus(Long userId, String status);
+
 }

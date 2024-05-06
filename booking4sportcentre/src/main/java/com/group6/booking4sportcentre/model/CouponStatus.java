@@ -7,12 +7,12 @@ package com.group6.booking4sportcentre.model;
 
 
 public enum CouponStatus {
-    // Unused
-    UNUSED,
-    // Used
-    USED,
     // Expired
-    EXPIRED
+    EXPIRED,
+    //Active
+    ACTIVE,
+    //Used
+    USED
 
 
 }
