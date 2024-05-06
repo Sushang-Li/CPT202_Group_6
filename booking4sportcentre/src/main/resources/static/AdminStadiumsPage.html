@@ -4,18 +4,25 @@
 	<meta charset="utf-8">
     <title>体育管理系统</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Bootstrap -->
-    <link rel="stylesheet" href="https://cdn.staticfile.net/twitter-bootstrap/3.3.7/css/bootstrap.min.css">  
-    <link rel="shortcut icon" href="images/smallcut.png">
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <link rel="stylesheet" href="./css/Admin.css">
+ <!-- 相对路径的Bootstrap的css -->
+ <link rel="stylesheet" href="bootstrap-3.4.1\css\bootstrap.min.css">  
+ <!-- 网页图标 -->
+ <link rel="shortcut icon" href="images/smallcut.png">
+ <!-- axios引入 -->
+ <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+ <!-- 管理员页面的css引入 -->
+ <link rel="stylesheet" href="./css/Admin.css">
+ <!-- jquery.dataTables的css -->
+ <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css">
 
 </head>
 <body>
-	<!-- jQuery (Bootstrap 插件需要引入) -->
-<script src="https://cdn.staticfile.net/jquery/2.1.1/jquery.min.js"></script>
-<!-- 包含了所有编译插件 -->
-<script src="https://cdn.staticfile.net/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<!-- jQuery (Bootstrap的js) -->
+    <script src="https://cdn.staticfile.net/jquery/2.1.1/jquery.min.js"></script>
+    <!-- Bootstrap的js -->
+    <script src="bootstrap-3.4.1\js\bootstrap.min.js"></script>
+    <!-- jquery.dataTables的js -->
+    <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
 
 
 <div >
@@ -32,14 +39,14 @@
                     <li id="a1">
                       <a id="a2" class="active" href="#mangage"><span class="glyphicon glyphicon-edit"></span> manage <span class="glyphicon glyphicon-chevron-right"></span></a>
                       <ul>
-                      <li><a id="a3"  href="AdminSportActivitiesPage.html">manage sport activities</a></li>
-                      <li><a id="a3" class="active" href="AdminStadiumsPage.html">manage stadiums</a></li>
-                      <li><a id="a3" href="AdminCoachesPage.html">manage coaches</a></li>
-                      <li><a id="a3" href="AdminOrdersPage.html">manage orders</a></li>
+                        <li><a id="a3" href="AdminSportActivitiesPage.html">manage sport activities</a></li>
+                        <li><a id="a4"  class="active" href="AdminStadiumsPage.html">manage stadiums</a></li>
+                        <li><a id="a5" href="AdminCoachesPage.html">manage coaches</a></li>
+                        <li><a id="a6" href="AdminBookingPage.html">manage bookings</a></li>
+                        <li><a id="a7" href="AdminManageUserInfo.html">manage user information</a></li>
                   </ul>
               </li>
-                    <li id="aa"><a  href="AdminUserPage.html"><span class="glyphicon glyphicon-user"></span> User</a></li>
-                    <li id="aa"><a href="AdminSettingsPage.html"><span class="glyphicon glyphicon-cog"></span> System settings</a></li>
+              <li id="ab"><a href="AdminSettingsPage.html"><span class="glyphicon glyphicon-cog"></span> System settings</a></li>
                 </ul>
             </div>
 
@@ -62,28 +69,23 @@
                   <thead>
                     <tr>
                       <th style="width: 15%;">Id</th>
-                      <th style="width: 25%;">Name</th>
-                      <th style="width: 30%;">Activity</th>
+                      <th style="width: 15%;">Name</th>
+                      <th style="width: 20%;">Activity</th>
                       <th>Remaining space</th>
+                      <th>Actions</th>
                     </tr>
                   </thead>
-                  <tbody>
+                
                      <!-- 表格数据体 -->
                    
-                      <tbody id="userDataBody"></tbody>
-                  </tbody>
+                      <tbody id="userDataBody">
+
+                      </tbody>
+                
                 </table>
               
-              <!-- 分页栏 -->
-                <ul class="pagination" style="margin-left: 300px;" >
-                  <li><a href="#">&laquo;</a></li>
-                  <li><a href="#">1</a></li>
-                  <li><a href="#">2</a></li>
-                  <li><a href="#">3</a></li>
-                  <li><a href="#">4</a></li>
-                  <li><a href="#">5</a></li>
-                  <li><a href="#">&raquo;</a></li>
-                </ul>
+      
+               
                 <p></p>
               </div>
               </div>
@@ -204,57 +206,54 @@ document.getElementById('a1').addEventListener('click', function() {
             }
         });
 //获取体育活动数据
-axios.get('http://localhost:8080/api/stadium')
-        .then(response => {
-            const activities = response.data;
-            const userDataBody = document.getElementById('userDataBody');
-            userDataBody.innerHTML = ''; // 清空表格内容
-
-            activities.forEach(stadium => {
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                    <td>${stadium.id}</td>
-                    <td>${stadium.name}</td>
-                    <td>${stadium.activityName}</td>
-                    <td>${stadium.remainingSpace}</td>
-                    <td>
-                        <button type="button" class="glyphicon glyphicon-pencil" style="font-size: 10px;" title="Edit" data-toggle="modal" data-target="#myModal" onclick="populateEditForm(${stadium.id})"></button>
-                        
-                        <button type="button" class="glyphicon glyphicon-minus" style="font-size: 10px;" title="Delete" onclick="confirmDelete(${stadium.id})"></button>
-                    </td>
-
-                  
-                `;
-                userDataBody.appendChild(row);
-            });
-        })
-.catch(error => {
-    console.error('Error fetching stadium:', error);
+$(document).ready(function() {
+    $('.table').DataTable({
+        "ajax": {
+            "url": "http://localhost:8080/api/stadium",
+            "dataSrc": ""
+        },
+        "columns": [
+            { "data": "id" },
+            { "data": "name" },
+            { "data": "activityName" },
+            { "data": "remainingSpace" },
+            { "data": null }
+        ],
+        "columnDefs": [
+            { 
+                "orderable": false, 
+                "targets": 4,
+                "render": function(data, type, row) {
+                    return `<button type='button' class='glyphicon glyphicon-pencil' style='font-size: 10px' title='Edit' data-toggle='modal' data-target='#myModal' onclick='populateEditForm(${row.id})'></button>
+                            <button type='button' class='glyphicon glyphicon-minus' style='font-size: 10px;' title='Delete' onclick='confirmDelete(${row.id})'></button>`;
+                }
+            }
+        ]
+    });
 });
 
 // 填充edit表单
 function populateEditForm(id) {
     // 将数据填入编辑表单中的各个字段
-    
     axios.get(`http://localhost:8080/api/stadium/${id}`)
         .then((response) => {
-            const stadium = JSON.stringify(response.data);
-            console.log(response.data);
-
+            // 假设返回的数据是一个数组，且我们需要的数据是数组的第一个元素
+            const stadium = response.data[0]; // 取数组的第一个元素
+            console.log(stadium);
+            console.log(stadium.name);
             // 更新表单中的字段值
-            document.getElementById('editId').value = id;
+            document.getElementById('editId').value = stadium.id;
             document.getElementById('editName').value = stadium.name;
             document.getElementById('editActivityName').value = stadium.activityName;
             document.getElementById('editRemainingSpace').value = stadium.remainingSpace;
-            console.log(stadium);
-            console.log(id);
         })
         .catch(error => {
-            console.error('Error fetching sport stadium details:', error);
-            alert('Error fetching sport stadium');
+            console.error('Error fetching sport activity details:', error);
+            console.log('Error fetching sport activity');
         });
-
 }
+
+
 // 保存修改
 function saveChanges() {
     const updatedStadium = {

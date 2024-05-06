@@ -1,3 +1,4 @@
+
 package com.group6.booking4sportcentre.model;
 
 import com.baomidou.mybatisplus.annotation.IdType;

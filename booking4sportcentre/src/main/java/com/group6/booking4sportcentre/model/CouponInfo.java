@@ -27,8 +27,11 @@ public class CouponInfo {
     private int faceValue;
     private LocalDateTime startTime;
     private LocalDateTime endTime;
-    // CouponStatus: Used, Unused, Expired
+    // CouponStatus: Used, Active, Expired
     @Enumerated(EnumType.STRING)
     private CouponStatus status;
+
+    @Column(name = "user_id")
+    private Integer userId; // Add this in your CouponInfo class
 
 }
