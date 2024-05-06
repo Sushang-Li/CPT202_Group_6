@@ -18,7 +18,7 @@ public interface BookingInfoMapper extends BaseMapper<BookingInfo> {
     //添加使用mybatisPlus
     //
 
-    //下面的内容都是刑富玉之前写的，暂时未更改
+    //下面的内容都是邢富玉之前写的，暂时未更改
     // Get all bookings
     @Select("SELECT * FROM booking_info")
     List<BookingInfo> getAllBookings();

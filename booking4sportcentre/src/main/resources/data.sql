@@ -80,6 +80,12 @@ WHERE NOT EXISTS (
     SELECT name, date, start_time, end_time, coach, stadium, price FROM sport_activity WHERE name = 'workout' AND date = '2024-05-02' AND start_time = '09:00:00' AND end_time = '11:00:00' AND coach = 'Coach1' AND stadium = 'GM102A' AND price = 20
 ) LIMIT 1;
 
+INSERT INTO coupon_info (name, face_value, start_time, end_time, status, user_id)
+VALUES
+    ('Jun', 100, '2023-06-01', '2023-08-31', 'Expired', 1),
+    ('October', 50, '2023-10-01', '2024-10-13', 'ACTIVE', 1),
+    ('May', 100, '2023-10-01', '2024-05-01', 'ACTIVE', 1),
+    ('May', 75, '2023-05-01', '2023-05-15', 'EXPIRED', 1);
 
 
 

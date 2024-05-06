@@ -17,7 +17,25 @@
     <font face="" color="black" size="7">User registration information page</font>
 </div>
 
+<!--添加了<div class="row"> 如下内容，但侧边栏不知道如何做到和其他一致-->
+<div class="row">
+    <div class="sidebar">
+        <ul id="side" class="nav nav-pills nav-stacked">
+    <!--        <li id="bb"><a href="#"><span class="glyphicon glyphicon-globe"></span><b> Sport manage system</b> </a></li>-->
+    <!--        <li id="aa" ><a class="active" href="AdminHomePage.html"><span class="glyphicon glyphicon-home"></span> Home</a></li>-->
 
+            <li id="a1">
+    <!--            <a id="a2" href="#mangage"><span class="glyphicon glyphicon-edit"></span> manage <span class="glyphicon glyphicon-chevron-right"></span></a>-->
+                <ul>
+                    <li><a id="a3" href="AdminSportActivitiesPage.html">manage sport activities</a></li>
+                    <li><a id="a4" href="AdminStadiumsPage.html">manage stadiums</a></li>
+                    <li><a id="a5" href="AdminCoachesPage.html">manage coaches</a></li>
+                    <li><a id="a6" href="AdminBookingPage.html">manage bookings</a></li>
+                    <li><a id="a7" href="AdminManageUserInfo.html">manage user information</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
 <div class="container my-4">
     <h2><i style="padding-right: 100px">User list</i>
         <button onclick="showAddModal()" id="add" class="btn btn-primary layui-btn-fluid">Add</button>
@@ -96,7 +114,7 @@
             </div>
         </form>
     </div>
-
+</div>
 
     <script>
         // 获取用户信息并渲染到表格中
