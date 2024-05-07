@@ -324,7 +324,7 @@
                                     // alert("Successful!");
                                     //如果成功了就减少一张票
 
-
+                                    console.log("该减少票数了");
                                     //记录当前的票数
                                     var currentNum = bookingInfo.get('ticketNum');
                                     currentNum -= 1;
@@ -354,6 +354,13 @@
                                             console.error('Error:', error);
                                         });
 
+                                    //暂时把两个跳转关闭了
+                                    //一秒后跳转
+                                    setTimeout(function () {
+                                        window.location.href = `userBooking.html?id=${encodeURIComponent(userId)}`;
+                                    }, 1000);
+
+
 
 
                                 } else {
@@ -374,7 +381,7 @@
 
                         fetchWalletBalance();
 
-                        window.location.href = `userBooking.html?id=${encodeURIComponent(userId)}`;
+
                     } else {
                         alert('Error processing payment');
                     }
@@ -448,10 +455,15 @@
                                     // alert("Successful!");
                                     //如果成功了就减少一张票
 
+                                    console.log("成功了");
+
 
                                     //记录当前的票数
                                     var currentNum = bookingInfo.get('ticketNum');
+                                    console.log("currentNum= " + currentNum);
+
                                     currentNum -= 1;
+                                    console.log("after -1 is: " + currentNum);
                                     const data = new URLSearchParams();
                                     data.append('id', bookingInfo.get('activityId'));
                                     data.append('current', currentNum);
@@ -478,6 +490,12 @@
                                             console.error('Error:', error);
                                         });
 
+                                    //如果预定成功才会出发重定向
+                                    // window.location.href = `userBooking.html?id=${userId}`; // Redirect or update UI accordingly
+                                    setTimeout(function () {
+                                        window.location.href = `userBooking.html?id=${userId}`;
+                                    }, 1000);
+
 
 
                                 } else {
@@ -488,13 +506,13 @@
                                 console.log(data);
                             })
                             .catch(error => {
-                                console.log("错误：", error);
+                                console.log("这里有一些错误：", error);
                                 // alert("Fail!");
                             });
                         //到这里结束
 
 
-                        window.location.href = `userBooking.html?id=${userId}`; // Redirect or update UI accordingly
+
                     }
                 })
                 .catch(error => console.error('Error using coupon:', error));
