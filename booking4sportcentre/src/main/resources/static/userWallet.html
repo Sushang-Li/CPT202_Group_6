@@ -6,41 +6,122 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="css/mainStyle.css">
   <link href="https://fonts.googlefonts.cn/css?family=Roboto:400,500,700,900" rel="stylesheet">
-  <title>Welcome</title>
+  <title>Wallet</title>
+  <style>
+    body {
+      font-family: 'Roboto', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f4;
+    }
+
+    .wallet-content {
+      max-width: 600px;
+      margin: 20px auto;
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
+    }
+
+    .wallet-content h2 {
+      margin-top: 0;
+      text-align: center;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 20px;
+    }
+
+    th,
+    td {
+      border: 1px solid #ddd;
+      padding: 8px;
+      text-align: left;
+    }
+
+    th {
+      background-color: #f2f2f2;
+    }
+
+    .button {
+      display: block;
+      width: 100%;
+      background-color: #4caf50;
+      color: #fff;
+      text-align: center;
+      padding: 10px 0;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background-color 0.3s ease;
+    }
+
+    .button:hover {
+      background-color: #45a049;
+    }
+  </style>
 </head>
 
 <body>
-  <!-- <h1>这里是用户钱包页</h1> -->
-
-  <nav>
-    <div class="nav-container">
-      <div class="logo">
-        <a href="userHomepage.html" id="logo-nav">:D</a>
-      </div>
-      <div class="homepage">
-        <a href="userHomepage.html" id="homepage-nav">HOMEPAGE</a>
-      </div>
-      <div class="information">
-        <a href="userInformation.html" id="information-nav">INFORMATION</a>
-      </div>
-      <div class="wallet">
-        <a href="userWallet.html" id="wallet-nav">WALLET</a>
-      </div>
-      <div class="booking">
-        <a href="userBooking.html" id="booking-nav">BOOKING</a>
-      </div>
-      <div class="statistics">
-        <a href="userStatistics.html" id="statistics-nav">STATISTICS</a>
-      </div>
+<nav>
+  <div class="nav-container">
+    <div class="logo">
+      <a href="userHomepage.html" id="logo-nav">:D</a>
     </div>
-  </nav>
-  <!-- <p style="text-align: center;">增删改查钱包</p> -->
-  <!-- <p style="text-align: center;">这里应该有一个表</p> -->
-  <a href="userCoupons.html" id="coupon">My Coupons</a>
-</body>
+    <div class="homepage">
+      <a href="userHomepage.html" id="homepage-nav">HOMEPAGE</a>
+    </div>
+    <div class="information">
+      <a href="userInformation.html" id="information-nav">INFORMATION</a>
+    </div>
+    <div class="wallet">
+      <a href="userWallet.html" id="wallet-nav">WALLET</a>
+    </div>
+    <div class="booking">
+      <a href="userBooking.html" id="booking-nav">BOOKING</a>
+    </div>
+    <div class="statistics">
+      <a href="userStatistics.html" id="statistics-nav">STATISTICS</a>
+    </div>
+  </div>
+</nav>
+
+<div class="wallet-content">
+  <h2>My Wallet</h2>
+  <p>Balance: $100.00</p>
+  <table>
+    <thead>
+    <tr>
+      <th>Date</th>
+      <th>Description</th>
+      <th>Amount</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+      <td>2024-05-10</td>
+      <td>Deposit</td>
+      <td>$50.00</td>
+    </tr>
+    <tr>
+      <td>2024-05-15</td>
+      <td>Payment</td>
+      <td>-$20.00</td>
+    </tr>
+    <!-- More transaction rows here -->
+    </tbody>
+  </table>
+  <a href="#" class="button">Recharge</a>
+  <a href="#" class="button">Withdraw</a>
+</div>
+
+<a href="userCoupons.html" id="coupon" style="display: block; text-align: center; margin-top: 20px;">My Coupons</a>
 
 <script>
-  //复制自主页
   var urlParams = new URLSearchParams(window.location.search);
   var userId = urlParams.get('id');
   console.log(userId);
@@ -66,5 +147,6 @@
   var userLink = document.getElementById('coupon');
   userLink.href = "userCoupons.html?id=" + userId;
 </script>
+</body>
 
 </html>
