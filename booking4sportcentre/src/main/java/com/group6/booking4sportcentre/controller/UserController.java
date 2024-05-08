@@ -1,6 +1,5 @@
 package com.group6.booking4sportcentre.controller;
 
-
 import com.group6.booking4sportcentre.mapper.UserInfoMapper;
 import com.group6.booking4sportcentre.model.UserInfo;
 import org.springframework.beans.factory.annotation.Autowired;
