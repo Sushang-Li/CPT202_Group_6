@@ -34,11 +34,13 @@
       </div>
     </div>
   </nav>
-  <input type="text" id="myInput1" onKeyUp="search1()" placeholder="Search..." />
-  <input type="text" id="myInput2" onKeyUp="search2()" placeholder="Search..." />
 
-  <select name="" id="" onchange='change(parseInt(this.value), "myInput");'>
-    <option selected="selected" value="1">coach</option>
+  <input type="text" id="myInput1" onKeyUp="search1()" placeholder="Search..."/>
+  <input type="text" id="myInput2" onKeyUp="search2()" placeholder="Search..."/>
+
+  <select name="" id="" onchange = 'change(parseInt(this.value), "myInput");'>
+    <option selected ="selected" value="1" >coach</option>
+
     <option value="2">stadium</option>
   </select>
   <!-- 这里是一个表格，从sportActivity表得到现在还有票的活动 -->
@@ -61,9 +63,47 @@
     </tr>
 
   </table>
-
+  <div class = remind><p>You should view and agree the property about stadium ,and then you can pay and add to cart</p></div>
+  <div class = 'property'>
+    <input type="checkBox" onclick="if (this.checked) {enable()} else {disable()}">Agree
+    <a onclick="displayWindow()">
+      Stadium Property
+    </a>
+  </div>
+  <!--悬浮窗口-->
+  <div id="window" class="window_css">
+    <a href = '#' onclick="hideWindow()">
+      Close the window
+    </a>
+  </div>
+  <!--出现悬浮窗口后,背景变暗-->
+  <div id="shadow" class="shadow_css"></div>
   <script>
+    function displayWindow() {
+      /*悬浮窗口的显示,需要将display变成block*/
+      document.getElementById("window").style.display = "block";
+      /*将背景变暗*/
+      document.getElementById("shadow").style.display = "block";
+    }
 
+    /*当点击调用此方法,将悬浮窗口和背景全部隐藏*/
+    function hideWindow() {
+      document.getElementById("window").style.display = "none";
+      document.getElementById("shadow").style.display = "none";
+    }
+
+    //disagree property will not pay or add
+    function disable()
+    {
+      document.getElementById("pay").disabled=true
+      document.getElementById("add_cart").disabled=true
+    }
+    //agree property can pay and add
+    function enable()
+    {
+      document.getElementById("pay").disabled=false
+      document.getElementById("add_cart").disabled=false
+    }
     //复制自主页
     var urlParams = new URLSearchParams(window.location.search);
     var userId = urlParams.get('id');
@@ -255,10 +295,10 @@
               <td id="activity-price-${activity.price}">${activity.price}</td>
               <td id="activity-number-${activity.ticketNumber}">${activity.ticketNumber}</td>
               <td id="activity-pay-${activity.id}">
-              <button onclick="payForActivity(${JSON.stringify(activity).replace(/"/g, "&quot;")})">Pay</button>
+              <input type = 'button' disabled="true" id = 'pay' onclick="payForActivity(${JSON.stringify(activity).replace(/"/g, "&quot;")})" value =  'Pay'>
               </td>
               <td id="activity-add-${activity.id}">
-              <button button onclick="addToCart(${JSON.stringify(activity).replace(/"/g, "&quot;")})">Add to Cart</button>
+              <input type="button" disabled="true" id = 'add_cart' onclick="addToCart(${JSON.stringify(activity).replace(/"/g, "&quot;")})" value = 'Add to Cart'>
               </td>
               
               `;
@@ -269,9 +309,11 @@
           });
         })
     }
-    document.getElementById("myInput1").style.display = 'block';
-    document.getElementById("myInput2").style.display = 'none';
-    function change(page, tag) {
+
+    document.getElementById("myInput1").style.display= 'block';
+    document.getElementById("myInput2").style.display= 'none';
+    function change(page, tag){
+
       var i = 1;
       var el;
       while (el = document.getElementById(tag + i)) {
@@ -284,7 +326,9 @@
     }
     function search1() {
       // 声明变量
+
       var input, filter, table, tr, td1, i;
+
       input = document.getElementById("myInput1");
       filter = input.value.toUpperCase();
       table = document.getElementById("activity-table");
@@ -306,7 +350,9 @@
     }
     function search2() {
       // 声明变量
+
       var input, filter, table, tr, td1, i;
+
       input = document.getElementById("myInput2");
       filter = input.value.toUpperCase();
       table = document.getElementById("activity-table");
