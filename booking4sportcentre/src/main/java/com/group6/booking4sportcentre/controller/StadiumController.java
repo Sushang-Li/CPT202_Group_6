@@ -47,9 +47,12 @@ public class StadiumController {
         }
     }
     @PostMapping("/add")
-    public void add(@RequestBody Stadium stadium){
-        log.info("场馆为"+ stadium);
-        stadiumMapper.add(stadium);
+    public String add(@RequestBody Stadium stadium){
+       int i= stadiumMapper.add(stadium);
+       if(i == 0){
+           return "Failed to add stadium";
+       }
+         return "Stadium added successfully";
     }
 
     @DeleteMapping("/delete/{id}")

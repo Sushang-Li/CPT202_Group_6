@@ -18,14 +18,6 @@ public class UserInfoController {
 
     @Autowired
     private UserInfoMapper userInfoMapper;
-    
-    //插入测试数据，temp
-    @PostMapping("/user/insertTestData")
-    public void insertTestData(@RequestBody List<UserInfo> list) {
-        for (UserInfo userInfo : list) {
-            userInfoMapper.insert(userInfo);
-        }
-    }
 
     //用户更新自己的数据,接收前端传过来的用户id以及更改后的数据，把这次更新传递到数据库
     @PostMapping("/user/updateInfo")
@@ -49,14 +41,6 @@ public class UserInfoController {
     @GetMapping("/user/information")
     public UserInfo getUserInfo(@RequestParam(value = "id", required = false) int id) {
         UserInfo userInfo = (UserInfo) userInfoMapper.selectById(id);
-        return userInfo;
-    }
-
-
-
-    @GetMapping("/api/user_test")
-    public UserInfo getUser(@RequestParam(value = "id", required = false) int param) {
-        UserInfo userInfo = (UserInfo) userInfoMapper.selectById(param);
         return userInfo;
     }
 

@@ -65,10 +65,15 @@ public class SportActivityController {
         }
     }
     @PostMapping("/add")
-    public void add(@RequestBody SportActivity sportActivity){
-        log.info("体育活动为"+ sportActivity);
-        sportActivityMapper.add(sportActivity);
+    public String add(@RequestBody SportActivity sportActivity){
+
+        int i = sportActivityMapper.add(sportActivity);
+        if (i == 0) {
+            return "Failed to add sport activity";
+        }
+        return "Sport activity added successfully";
     }
+
 
     @DeleteMapping("/delete/{id}")
     public String deleteSportActivity(@PathVariable int id) {
