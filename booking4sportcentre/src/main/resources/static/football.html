@@ -92,7 +92,9 @@
 
     function payForActivity(activity) {
       console.log(activity);  // 用于测试，将活动记录到控制台
-      window.location.href = `pay4Booking.html?activityId=${activity.id}&userId=${userId}`;
+      window.location.href = `pay4Booking.html?activityId=${activity.id}&userId=${userId}&actname=${activity.name}&coachname=${activity.coach}&date=${activity.date}
+      &starttime=${activity.startTime}&endtime=${activity.endTime}&price=${activity.price}&position=${activity.stadium}
+      &uid=${activity.userId}&ticketNum=${activity.ticketNumber}`;
       var actname = activity.name;
       var coachname = activity.coach;
       var date = activity.date;
@@ -162,6 +164,7 @@
         .catch(error => {
           console.error('Error:', error);
         });
+
 
     }
 

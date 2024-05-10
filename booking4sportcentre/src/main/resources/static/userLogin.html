@@ -8,100 +8,149 @@
   <link rel="stylesheet" href="css/userLoginStyle.css">
   <link href="https://fonts.googlefonts.cn/css?family=Roboto:400,500,700,900" rel="stylesheet">
   <title>Welcome</title>
+  <style>
+    .login-box {
+      position: relative;
+    }
+
+    #agreementContainer {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end; /* 右对齐 */
+      margin-bottom: 10px; /* 调整复选框和链接与登录按钮之间的间距 */
+    }
+
+    #agreementCheckbox {
+      margin-right: 5px;
+      float: right; /* 使用 float:right 将复选框靠右浮动 */
+    }
+
+    /* 自定义复选框和链接的字体大小 */
+    .agreement-label {
+      font-size: 12px; /* 调整字体大小为 12px */
+      float: right; /* 使用 float:right 将链接靠右浮动 */
+    }
+  </style>
 </head>
 
 <body style="background-image: url('images/userLogin.jpg'); background-size: cover;">
-  <!-- <h1>这里是用户登录页</h1> -->
+<div class="content">
+  <div class="login-box">
+    <br>
+    <form action="/stuLogin" method="post">
+      <!-- Terms of Service checkbox and link -->
 
-  <div class="content">
-    <div class="login-box">
+
       <br>
+
       <p class="login">LOGIN</p>
-      <form action="/stuLogin" method="post">
 
-
-        <!-- <legend>Sign In with your XJTLU ID</legend> -->
-
-        <!-- <label for="logon">Username:</label> -->
-        <label for="logon"><span hidden>Your XJTLU ID</span>
-          <input id="logon" name="username" type="text" placeholder="Your XJTLU ID" aria-required="true"
-            pattern="^\d{7}$" title="XJTLU IDs consist of 7 numbers." tabindex="1" autocorrect="off"
-            autocapitalize="none" required autofocus value="">
-          <br>
-
-          <span id="logon-error" class="form-error">XJTLU ID consists of 7 numbers.</span>
-        </label>
-
-
-        <br>
-        <!-- <label for="pass">Password:</label> -->
-        <label for="pass"><span hidden>Your XJTLU Logon Password</span>
-          <input id="pass" name="password" type="password" placeholder="Your Password" aria-required="true"
-            pattern="^.{6,}$"
-            title="Passwords are at least 6 characters long and can consist of letters, numbers, and the following symbols: !@#$%^&*().,"
-            tabindex="2" autocorrect="off" autocapitalize="none" required>
-          <br>
-          <span id="pass-error" class="form-error">Passwords are at least 6 characters long.</span>
-        </label>
+      <!-- <label for="logon">Username:</label> -->
+      <label for="logon"><span hidden>Your XJTLU ID</span>
+        <input id="logon" name="username" type="text" placeholder="Your XJTLU ID" aria-required="true"
+               pattern="^\d{7}$" title="XJTLU IDs consist of 7 numbers." tabindex="1" autocorrect="off"
+               autocapitalize="none" required autofocus value="">
         <br>
 
-        <div>
-          <button class="primary-button" type="submit" name="_eventId_proceed" tabindex="3">LOGIN</button>
-          <br>
-          <br>
-          <label id="forgot" class="form-label">Forgot your password?<a href="https://sso.xjtlu.edu.cn/forgetPassword">
-              RETRIEVE</a></label>
+        <span id="logon-error" class="form-error">XJTLU ID consists of 7 numbers.</span>
+      </label>
 
-          <br>
-          <label id="register" class="form-label">Don't have an account? <a href="userRegister.html">SIGN UP</a></label>
+      <br>
 
-        </div>
-      </form>
+      <!-- <label for="pass">Password:</label> -->
+      <label for="pass"><span hidden>Your XJTLU Logon Password</span>
+        <input id="pass" name="password" type="password" placeholder="Your Password" aria-required="true"
+               pattern="^.{6,}$"
+               title="Passwords are at least 6 characters long and can consist of letters, numbers, and the following symbols: !@#$%^&*().,"
+               tabindex="2" autocorrect="off" autocapitalize="none" required>
+        <br>
+        <span id="pass-error" class="form-error">Passwords are at least 6 characters long.</span>
+      </label>
+      <br>
 
+      <div id="agreementContainer">
+        <input type="checkbox" id="agreementCheckbox" required>
+        <label for="agreementCheckbox" class="agreement-label">I agree to the Terms of Service</label>
+        <a href="#" id="showAgreement" class="agreement-label">View Terms of Service</a>
+      </div>
 
+      <!-- Terms of Service content -->
+      <div id="agreementContent" style="display: none;">
+        <p>This is the detailed content of the Terms of Service.</p>
+      </div>
 
-    </div>
+      <div>
+        <button class="primary-button" type="submit" name="_eventId_proceed" tabindex="3">LOGIN</button>
+        <br>
+        <br>
+        <label id="forgot" class="form-label">Forgot your password?<a href="https://sso.xjtlu.edu.cn/forgetPassword">
+          RETRIEVE</a></label>
+
+        <br>
+        <label id="register" class="form-label">Don't have an account? <a href="userRegister.html">SIGN UP</a></label>
+      </div>
+    </form>
   </div>
+</div>
 
-  <!--js-->
-  <script>
-    // 获取输入框和错误消息元素
-    var input = document.getElementById('logon');
-    var error = document.getElementById('logon-error');
+<!--js-->
+<script>
+  // Get input and error message elements
+  var input = document.getElementById('logon');
+  var error = document.getElementById('logon-error');
 
-    // 添加输入事件监听器
-    input.addEventListener('input', function () {
-      // 检查输入的值是否是7个数字
-      var isValid = /^\d{7}$/.test(input.value);
+  // Add input event listener
+  input.addEventListener('input', function () {
+    // Check if the input value is 7 digits
+    var isValid = /^\d{7}$/.test(input.value);
 
-      // 如果输入的值不是7个数字，显示错误消息
-      if (!isValid) {
-        error.style.display = 'block';
-      } else {
-        // 如果输入的值是7个数字，隐藏错误消息
-        error.style.display = 'none';
-      }
-    });
+    // If the input value is not 7 digits, display error message
+    if (!isValid) {
+      error.style.display = 'block';
+    } else {
+      // If the input value is 7 digits, hide error message
+      error.style.display = 'none';
+    }
+  });
 
-    // 获取输入框和错误消息元素
-    var inputPass = document.getElementById('pass');
-    var errorPass = document.getElementById('pass-error');
+  // Get input and error message elements
+  var inputPass = document.getElementById('pass');
+  var errorPass = document.getElementById('pass-error');
 
-    // 添加输入事件监听器
-    inputPass.addEventListener('input', function () {
-      // 检查输入的值是否至少有6个字符
-      var isValidPass = /^.{6,}$/.test(inputPass.value);
+  // Add input event listener
+  inputPass.addEventListener('input', function () {
+    // Check if the input value has at least 6 characters
+    var isValidPass = /^.{6,}$/.test(inputPass.value);
 
-      // 如果输入的值不至少有6个字符，显示错误消息
-      if (!isValidPass) {
-        errorPass.style.display = 'block';
-      } else {
-        // 如果输入的值至少有6个字符，隐藏错误消息
-        errorPass.style.display = 'none';
-      }
-    });
+    // If the input value does not have at least 6 characters, display error message
+    if (!isValidPass) {
+      errorPass.style.display = 'block';
+    } else {
+      // If the input value has at least 6 characters, hide error message
+      errorPass.style.display = 'none';
+    }
+  });
 
-  </script>
+  // Show/hide Terms of Service
+  document.getElementById("showAgreement").addEventListener("click", function (event) {
+    event.preventDefault();
+    var agreementContent = document.getElementById("agreementContent");
+    if (agreementContent.style.display === "none") {
+      agreementContent.style.display = "block";
+    } else {
+      agreementContent.style.display = "none";
+    }
+  });
+
+  // Login button click event
+  document.querySelector('.primary-button').addEventListener('click', function (event) {
+    var agreementCheckbox = document.getElementById('agreementCheckbox');
+    if (!agreementCheckbox.checked) {
+      event.preventDefault(); // Prevent form submission
+      alert("Please agree to the Terms of Service before logging in.");
+    }
+  });
+</script>
 </body>
 
 </html>
