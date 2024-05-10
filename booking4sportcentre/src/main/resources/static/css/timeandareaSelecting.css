@@ -111,9 +111,19 @@
 
     }
     .property a{
+
+        text-decoration: none;
+
+
         color:#339af0;
     }
 
     .remind{
        color: cornflowerblue;
     }
+
+.window_css a{
+    text-decoration: none;
+    color:#339af0;
+}
+
