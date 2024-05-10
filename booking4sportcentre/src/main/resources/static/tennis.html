@@ -63,9 +63,47 @@
     </tr>
 
   </table>
-
+  <div class = remind><p>You should view and agree the property about stadium ,and then you can pay and add to cart</p></div>
+  <div class = 'property'>
+    <input type="checkBox" onclick="if (this.checked) {enable()} else {disable()}">Agree
+    <a onclick="displayWindow()">
+      Stadium Property
+    </a>
+  </div>
+  <!--悬浮窗口-->
+  <div id="window" class="window_css">
+    <a href = '#' onclick="hideWindow()">
+      Close the window
+    </a>
+  </div>
+  <!--出现悬浮窗口后,背景变暗-->
+  <div id="shadow" class="shadow_css"></div>
   <script>
+    function displayWindow() {
+      /*悬浮窗口的显示,需要将display变成block*/
+      document.getElementById("window").style.display = "block";
+      /*将背景变暗*/
+      document.getElementById("shadow").style.display = "block";
+    }
 
+    /*当点击调用此方法,将悬浮窗口和背景全部隐藏*/
+    function hideWindow() {
+      document.getElementById("window").style.display = "none";
+      document.getElementById("shadow").style.display = "none";
+    }
+
+    //disagree property will not pay or add
+    function disable()
+    {
+      document.getElementById("pay").disabled=true
+      document.getElementById("add_cart").disabled=true
+    }
+    //agree property can pay and add
+    function enable()
+    {
+      document.getElementById("pay").disabled=false
+      document.getElementById("add_cart").disabled=false
+    }
     //复制自主页
     var urlParams = new URLSearchParams(window.location.search);
     var userId = urlParams.get('id');
@@ -257,10 +295,10 @@
               <td id="activity-price-${activity.price}">${activity.price}</td>
               <td id="activity-number-${activity.ticketNumber}">${activity.ticketNumber}</td>
               <td id="activity-pay-${activity.id}">
-              <button onclick="payForActivity(${JSON.stringify(activity).replace(/"/g, "&quot;")})">Pay</button>
+              <input type = 'button' disabled="true" id = 'pay' onclick="payForActivity(${JSON.stringify(activity).replace(/"/g, "&quot;")})" value =  'Pay'>
               </td>
               <td id="activity-add-${activity.id}">
-              <button button onclick="addToCart(${JSON.stringify(activity).replace(/"/g, "&quot;")})">Add to Cart</button>
+              <input type="button" disabled="true" id = 'add_cart' onclick="addToCart(${JSON.stringify(activity).replace(/"/g, "&quot;")})" value = 'Add to Cart'>
               </td>
               
               `;
