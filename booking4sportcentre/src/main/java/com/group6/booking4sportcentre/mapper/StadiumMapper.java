@@ -1,6 +1,5 @@
 package com.group6.booking4sportcentre.mapper;
 
-import com.group6.booking4sportcentre.model.SportActivity;
 import com.group6.booking4sportcentre.model.Stadium;
 import org.apache.ibatis.annotations.*;
 
@@ -20,7 +19,7 @@ public interface StadiumMapper {
 
     @Insert("INSERT INTO stadium(id, activity_name, name, remaining_space) " +
             "VALUES(#{id}, #{activityName}, #{name}, #{remainingSpace})")
-    void add(Stadium stadium);
+    int add(Stadium stadium);
 
     @Delete("Delete from stadium where id =#{id}")
     int delete(int id);
