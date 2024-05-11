@@ -4,7 +4,9 @@ import com.group6.booking4sportcentre.mapper.BookingInfoMapper;
 import com.group6.booking4sportcentre.mapper.SportActivityMapper;
 import com.group6.booking4sportcentre.mapper.WalletInfoMapper;
 import com.group6.booking4sportcentre.model.BookingInfo;
+import com.group6.booking4sportcentre.model.BookingStatus;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
@@ -45,11 +47,42 @@ public class BookingController {
     @PostMapping("/addOneBooking")
     public void addOneBooking(@RequestBody BookingInfo bookingInfo) {
         bookingInfoMapper.insert(bookingInfo);
-
-        //新增结束后，应该接着删除活动中的一张票
-
     }
     //end
+
+    //返回所有的订单，这里偷懒了，其实应该根据用户的id返回订单的，现在是获取全部的订单，然后在前端进行筛选
+    @GetMapping("/getAllBookings")
+    public List<BookingInfo> getAllBookings() {
+        return bookingInfoMapper.getAllBookings();
+    }
+
+    //删除订单
+    @GetMapping("/deleteOneBooking/{id}")
+    public void deleteOneBooking(@PathVariable long id) {
+        bookingInfoMapper.deleteById(id);
+    }
+
+    //更新订单的状态，pending -> confirmed
+    @GetMapping("/updateOneBooking/{id}")
+    public void updateOneBooking(@PathVariable long id) {
+        BookingInfo bookingInfo = bookingInfoMapper.getBookingById(id);
+        bookingInfo.setStatus(BookingStatus.CONFIRMED);
+        bookingInfoMapper.updateById(bookingInfo);
+
+    }
+
+    //更新多个订单，用于处理payall的情况
+    @PostMapping("/processArray")
+    public ResponseEntity<String> processArray(@RequestBody List<Long> myArray) {
+
+        // 处理接收到的数组数据
+        for (Long element: myArray) {
+            BookingInfo bookingInfo = bookingInfoMapper.getBookingById(element);
+            bookingInfo.setStatus(BookingStatus.CONFIRMED);
+            bookingInfoMapper.updateById(bookingInfo);
+        }
+        return ResponseEntity.ok("Array processed successfully");
+    }
 
     // get all bookings
     // If there is no booking information, return empty list
