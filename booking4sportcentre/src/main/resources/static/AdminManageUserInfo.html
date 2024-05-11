@@ -21,101 +21,101 @@
 <div class="row">
     <div class="sidebar">
         <ul id="side" class="nav nav-pills nav-stacked">
-    <!--        <li id="bb"><a href="#"><span class="glyphicon glyphicon-globe"></span><b> Sport manage system</b> </a></li>-->
-    <!--        <li id="aa" ><a class="active" href="AdminHomePage.html"><span class="glyphicon glyphicon-home"></span> Home</a></li>-->
+            <!--        <li id="bb"><a href="#"><span class="glyphicon glyphicon-globe"></span><b> Sport manage system</b> </a></li>-->
+            <!--        <li id="aa" ><a class="active" href="adminHomePage.html"><span class="glyphicon glyphicon-home"></span> Home</a></li>-->
 
             <li id="a1">
-    <!--            <a id="a2" href="#mangage"><span class="glyphicon glyphicon-edit"></span> manage <span class="glyphicon glyphicon-chevron-right"></span></a>-->
+                <!--            <a id="a2" href="#mangage"><span class="glyphicon glyphicon-edit"></span> manage <span class="glyphicon glyphicon-chevron-right"></span></a>-->
                 <ul>
-                    <li><a id="a3" href="AdminSportActivitiesPage.html">manage sport activities</a></li>
-                    <li><a id="a4" href="AdminStadiumsPage.html">manage stadiums</a></li>
-                    <li><a id="a5" href="AdminCoachesPage.html">manage coaches</a></li>
-                    <li><a id="a6" href="AdminBookingPage.html">manage bookings</a></li>
-                    <li><a id="a7" href="AdminManageUserInfo.html">manage user information</a></li>
+                    <li><a id="a3" href="adminSportActivitiesPage.html">manage sport activities</a></li>
+                    <li><a id="a4" href="adminStadiumsPage.html">manage stadiums</a></li>
+                    <li><a id="a5" href="adminCoachesPage.html">manage coaches</a></li>
+                    <li><a id="a6" href="adminBookingPage.html">manage bookings</a></li>
+                    <li><a id="a7" href="adminManageUserInfo.html">manage user information</a></li>
                 </ul>
             </li>
         </ul>
     </div>
-<div class="container my-4">
-    <h2><i style="padding-right: 100px">User list</i>
-        <button onclick="showAddModal()" id="add" class="btn btn-primary layui-btn-fluid">Add</button>
-        <button><a id="return"  class="return" href="AdminHomePage.html">Return</a></button>
-        <input type="text" id="search-input" placeholder="Please enter ID" >
-        <button id="searchButton" class="btn btn-primary btn-large" >Search</button></h2>
+    <div class="container my-4">
+        <h2><i style="padding-right: 100px">User list</i>
+            <button onclick="showAddModal()" id="add" class="btn btn-primary layui-btn-fluid">Add</button>
+            <button><a id="return"  class="return" href="adminHomePage.html">Return</a></button>
+            <input type="text" id="search-input" placeholder="Please enter ID" >
+            <button id="searchButton" class="btn btn-primary btn-large" >Search</button></h2>
 
 
-    <table id="userTable" class="table table-striped">
-        <thead>
-        <tr>
-            <th>ID</th>
-            <th>Student ID</th>
-            <th>Username</th>
-            <th>Position</th>
-            <th>Password</th>
-            <th>Phone number</th>
-            <th>Introduction</th>
-            <th>Date of registration</th>
-            <th>Operate</th>
-        </tr>
-        </thead>
-        <tbody id="userTableBody">
-        <!-- 用户信息将由JavaScript动态添加到表格中 -->
-        </tbody>
-    </table>
+        <table id="userTable" class="table table-striped">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Student ID</th>
+                <th>Username</th>
+                <th>Position</th>
+                <th>Password</th>
+                <th>Phone number</th>
+                <th>Introduction</th>
+                <th>Date of registration</th>
+                <th>Operate</th>
+            </tr>
+            </thead>
+            <tbody id="userTableBody">
+            <!-- 用户信息将由JavaScript动态添加到表格中 -->
+            </tbody>
+        </table>
 
-    <!-- 弹出添加/更新用户信息的模态框 -->
-    <div id="userModal" class="modal">
-        <h2 id="modalTitle"></h2>
-        <form id="userForm">
-            <div class="input-box-wrpper">
-                <div class="box1">
-                    <form>
-                        <div class="mb-3">
-                            <label for="id" class="form-label">Id</label>
-                            <input  type="text" class="form-control" id="id" name="id" />
-                        </div>
-                        <div class="mb-3">
-                            <label for="stuId" class="form-label">Student ID</label>
-                            <input  type="text" class="form-control" id="stuId" name="stuId" />
-                        </div>
-                        <div class="mb-3">
-                            <label for="username" class="form-label">Username</label>
-                            <input  type="text" class="form-control" id="username" name="username" />
-                        </div>
-                        <div class="mb-3">
-                            <label for="position" class="form-label">Position</label>
-                            <select  class="form-control" aria-label="Default select example" id="position" name="position">
-                                <option value="Staff">Staff</option>
-                                <option value="User">Student</option>
-                            </select>
-                        </div>
-                        <div class="mb-3">
-                            <label for="password" class="form-label">Password</label>
-                            <input  type="text" class="form-control" id="password" name="password" />
-                        </div>
-                        <div class="mb-3">
-                            <label for="phoneNum" class="form-label">Phone number</label>
-                            <input  type="text" class="form-control" id="phoneNum" name="phoneNum" />
-                        </div>
-                        <div class="mb-3">
-                            <label for="intro" class="form-label">Introduction</label>
-                            <input  type="text" class="form-control" id="intro" name="intro" />
-                        </div>
-                        <div class="mb-3">
-                            <label for="reDate" class="form-label">Date of registration</label>
-                            <input type="date" class="form-control" id="reDate" name="reDate" />
-                        </div>
+        <!-- 弹出添加/更新用户信息的模态框 -->
+        <div id="userModal" class="modal">
+            <h2 id="modalTitle"></h2>
+            <form id="userForm">
+                <div class="input-box-wrpper">
+                    <div class="box1">
+                        <form>
+                            <div class="mb-3">
+                                <label for="id" class="form-label">Id</label>
+                                <input  type="text" class="form-control" id="id" name="id" />
+                            </div>
+                            <div class="mb-3">
+                                <label for="stuId" class="form-label">Student ID</label>
+                                <input  type="text" class="form-control" id="stuId" name="stuId" />
+                            </div>
+                            <div class="mb-3">
+                                <label for="username" class="form-label">Username</label>
+                                <input  type="text" class="form-control" id="username" name="username" />
+                            </div>
+                            <div class="mb-3">
+                                <label for="position" class="form-label">Position</label>
+                                <select  class="form-control" aria-label="Default select example" id="position" name="position">
+                                    <option value="Staff">Staff</option>
+                                    <option value="User">Student</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="password" class="form-label">Password</label>
+                                <input  type="text" class="form-control" id="password" name="password" />
+                            </div>
+                            <div class="mb-3">
+                                <label for="phoneNum" class="form-label">Phone number</label>
+                                <input  type="text" class="form-control" id="phoneNum" name="phoneNum" />
+                            </div>
+                            <div class="mb-3">
+                                <label for="intro" class="form-label">Introduction</label>
+                                <input  type="text" class="form-control" id="intro" name="intro" />
+                            </div>
+                            <div class="mb-3">
+                                <label for="reDate" class="form-label">Date of registration</label>
+                                <input type="date" class="form-control" id="reDate" name="reDate" />
+                            </div>
 
-                    </form>
+                        </form>
+                    </div>
+                    <div>
+                        <button type="submit"  id="saveButton" class="btn btn-primary btn-sm">Submit</button>
+                        <button type="button" onclick="closeModal()" class="btn btn-primary btn-sm">Close</button>
+                    </div>
                 </div>
-                <div>
-                    <button type="submit"  id="saveButton" class="btn btn-primary btn-sm">Submit</button>
-                    <button type="button" onclick="closeModal()" class="btn btn-primary btn-sm">Close</button>
-                </div>
-            </div>
-        </form>
+            </form>
+        </div>
     </div>
-</div>
 
     <script>
         // 获取用户信息并渲染到表格中
