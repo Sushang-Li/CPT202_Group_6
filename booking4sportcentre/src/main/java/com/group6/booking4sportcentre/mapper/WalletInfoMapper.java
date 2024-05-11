@@ -11,7 +11,7 @@ import org.apache.ibatis.annotations.*;
 
 @Mapper
 public interface WalletInfoMapper extends BaseMapper<WalletInfo> {
-    @Insert("INSERT INTO wallet_info(balance) VALUES(#{balance})")
+    @Insert("INSERT INTO wallet_info(user_id, balance) VALUES(#{userId}, #{balance})")
     @Options(useGeneratedKeys = true, keyProperty = "id")
      void createWalletInfo(WalletInfo walletInfo);
 
