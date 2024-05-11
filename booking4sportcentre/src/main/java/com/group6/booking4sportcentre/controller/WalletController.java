@@ -1,6 +1,7 @@
 package com.group6.booking4sportcentre.controller;
 import com.group6.booking4sportcentre.model.WalletInfo;
 import com.group6.booking4sportcentre.mapper.WalletInfoMapper;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -61,6 +62,35 @@ public class WalletController {
             }
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Payment processing failed");
+        }
+    }
+
+    @GetMapping("/info")
+    public WalletInfo getWallet(HttpSession session) {
+        // 从Session中获取钱包信息
+        WalletInfo wallet = (WalletInfo) session.getAttribute("wallet");
+        return wallet;
+    }
+
+    @PostMapping("/recharge")
+    public ResponseEntity<String> recharge(@RequestBody Map<String, Object> payload) {
+        try {
+            int userId = Integer.parseInt(payload.get("userId").toString());
+
+            // 根据用户ID从数据库中获取钱包信息
+            WalletInfo wallet = walletInfoMapper.selectByUserId(userId);
+
+            // 更新余额
+            double newBalance = wallet.getBalance() + 100;
+            wallet.setBalance(newBalance);
+
+            // 将更新后的钱包信息存储到数据库中
+            walletInfoMapper.updateById(wallet);
+
+            return ResponseEntity.ok().build(); // 返回成功响应
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to recharge");
         }
     }
 

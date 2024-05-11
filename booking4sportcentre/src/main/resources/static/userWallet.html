@@ -92,7 +92,7 @@
 
 <div class="wallet-content">
   <h2>My Wallet</h2>
-  <p>Balance: $100.00</p>
+  <p id="wallet-balance">Balance: $100.00</p>
   <table>
     <thead>
     <tr>
@@ -115,7 +115,7 @@
     <!-- More transaction rows here -->
     </tbody>
   </table>
-  <a href="#" class="button">Recharge</a>
+  <a href="#" id="recharge-btn" class="button">Recharge</a>
   <a href="#" class="button">Withdraw</a>
 </div>
 
@@ -146,6 +146,51 @@
 
   var userLink = document.getElementById('coupon');
   userLink.href = "userCoupons.html?id=" + userId;
+
+  // 页面加载完成后执行函数
+  window.onload = function () {
+    // 发送HTTP GET请求到后端接口获取钱包信息
+    fetch('/api/wallet/info', {
+      method: 'GET',
+      credentials: 'same-origin' // 发送同域请求，可以携带Cookie
+    })
+            .then(response => response.json())
+            .then(data => {
+              // 获取到钱包信息后更新页面中的余额显示
+              if (data && data.balance) {
+                var walletBalanceElement = document.getElementById('wallet-balance');
+                walletBalanceElement.textContent = 'Balance: $' + data.balance;
+              }
+            })
+            .catch(error => {
+              console.error('Error fetching wallet information:', error);
+            });
+  }
+  document.getElementById('recharge-btn').addEventListener('click', function(event) {
+    event.preventDefault(); // 阻止默认行为，即阻止链接跳转
+
+    // 发送Ajax请求
+    fetch('/api/wallet/recharge', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ userId: userId }) // 将用户ID作为请求体发送到后端
+    })
+            .then(response => {
+              if (response.ok) {
+                // 请求成功，刷新页面或者更新钱包余额的显示
+                window.location.reload(); // 刷新页面
+              } else {
+                // 请求失败，处理错误
+                console.error('Recharge failed');
+              }
+            })
+            .catch(error => {
+              console.error('Error:', error);
+            });
+  });
+
 </script>
 </body>
 
