@@ -1,11 +1,9 @@
 package com.group6.booking4sportcentre;
 
 import com.group6.booking4sportcentre.controller.UserLoginController;
-import com.group6.booking4sportcentre.model.UserInfo;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.mock.web.MockHttpSession;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -17,7 +15,7 @@ public class UserLoginControllerTest {
 
     @Test
     public void testLoginSuccess() {
-        // 假设数据库中已存在一个用户名为john.doe，密码为password123的用户
+        // stu_id=1234567，密码为password1的用户
         String username = "1234567";
         String password = "password1";
         MockHttpSession session = new MockHttpSession();
