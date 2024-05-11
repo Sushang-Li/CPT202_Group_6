@@ -16,8 +16,12 @@
 
 <div class="container my-4">
     <h2><i style="padding-right: 100px">Coupon list</i>
-        <button onclick="showAddModal()" id="add" class="btn btn-primary layui-btn-fluid">Add</button></h2>
+        <div class="buttons-container">
+        <button onclick="showAddModal()" class="btn btn-secondary">Add</button>
 
+        <button onclick="location.href='adminHomePage.html'" class="btn btn-secondary">Return to Homepage</button>
+        </div>
+    </h2>
     <table id="couponTable" class="table table-striped">
         <thead>
         <tr>
@@ -53,6 +57,14 @@
                 <label for="endTime" class="form-label">End Time</label>
                 <input type="datetime-local" class="form-control" id="endTime" name="endTime" />
             </div>
+            <div class="mb-3">
+                <label for="status" class="form-label">Status</label>
+                <select class="form-control" id="status" name="status">
+                    <option value="ACTIVE">Active</option>
+                    <option value="EXPIRED">Expired</option>
+                </select>
+            </div>
+
             <button type="submit" id="saveButton" class="btn btn-primary btn-sm">Submit</button>
             <button type="button" onclick="closeModal()" class="btn btn-primary btn-sm">Close</button>
         </form>
@@ -60,7 +72,7 @@
 
     <script>
         function fetchAndRenderCoupons() {
-            fetch('http://localhost:8080/api/coupons')
+            fetch('/api/coupons')
                 .then(response => response.json())
                 .then(data => {
                     renderCoupons(data);
@@ -73,16 +85,16 @@
             tableBody.innerHTML = '';
             coupons.forEach(function (coupon) {
                 var row = `<tr>
-            <td>${coupon.id}</td>
-            <td>${coupon.name}</td>
-            <td>${coupon.faceValue}</td>
-            <td>${coupon.startTime}</td>
-            <td>${coupon.endTime}</td>
-            <td>${coupon.status}</td>
-            <td>
-                <button onclick="openEditModal(${coupon.id})">Update</button>
-            </td>
-        </tr>`;
+                <td>${coupon.id}</td>
+                <td>${coupon.name}</td>
+                <td>${coupon.faceValue}</td>
+                <td>${coupon.startTime}</td>
+                <td>${coupon.endTime}</td>
+                <td>${coupon.status}</td>
+                <td>
+                    <button onclick="deleteCoupon(${coupon.id})" class="btn btn-danger">Delete</button>
+                </td>
+            </tr>`;
                 tableBody.innerHTML += row;
             });
         }
@@ -103,7 +115,7 @@
                 couponData[key] = value;
             });
 
-            fetch('http://localhost:8080/api/add_coupon', {
+            fetch('/api/add_coupon', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -130,7 +142,30 @@
         document.addEventListener('DOMContentLoaded', function() {
             fetchAndRenderCoupons();
         });
+        function deleteCoupon(couponId) {
+            if (confirm('Are you sure you want to delete this coupon?')) {
+                console.log(`/api/delete_coupon/${couponId}`);
+                fetch(`/api/delete_coupon/${couponId}`, {
+                    method: 'DELETE'
+                })
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('HTTP error ' + response.status);
+                        }
+                        return response.json();
+                    })
+                    .then(() => {
+                        fetchAndRenderCoupons();
+                    })
+                    .catch(error => console.error('Error deleting coupon', error));
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            fetchAndRenderCoupons();
+        });
     </script>
+
 </div>
 </body>
 </html>
