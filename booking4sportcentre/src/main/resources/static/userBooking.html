@@ -9,6 +9,7 @@
     <link href="https://fonts.googlefonts.cn/css?family=Roboto:400,500,700,900" rel="stylesheet">
     <script src="jquery-3.7.1.js"></script>
     <title>Welcome</title>
+
 </head>
 
 <body>
@@ -66,111 +67,35 @@
         <div id="page-content-wrapper">
             <!--页面内容-->
 
-            <!--upcoming all bookings unpaid-->
-            <div class="container-fluid">
-                <ul class="nav nav-tabs justify-content-between">
-                    <li class="nav-item">
-                        <a class="nav-link active" id="upcoming-tab" href="#upcoming-tab">Upcoming</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" id="all-tab" href="#all-tab" onclick="showAll()">All</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" id="unpaid-tab" href="#unpaid-tab" onclick="showUnpaid()">Unpaid</a>
-                    </li>
-                </ul>
-            </div>
 
-            <div class="tab-content">
-                <div class="tab active" id="upcoming">
-                    <table class="table" id="upcoming-table">
-                        <thead>
-                            <tr>
-                                <th>Booking ID</th>
-                                <th>Sport Name</th>
-                                <th>Start Time</th>
-                                <th>End Time</th>
-                                <th>Price</th>
-                                <th>Status</th>
-                                <th>Cancel</th>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td id="booking-id"></td>
-                                <td id="booking-name"></td>
-                                <td id="booking-startTime"></td>
-                                <td id="booking-endTime"></td>
-                                <td id="booking-price"></td>
-                                <td id="booking-status"></td>
-                                <td id="booking-cancel"><button class="btn btn-danger">Cancel</button></td>
-                                <td id="booking-cancel"><button class="btn btn-success">Pay</button></td>
-                                <td id="booking-cancel"><button class="btn btn-warning">Delete</button></td>
-                            </tr>
-                    </table>
+            <!-- 顶部按钮 -->
+            <button onclick="showAll()">All</button>
+            <button onclick="showConfirmed()">Confirmed</button>
+            <button onclick="showUnpaid()">Unpaid</button>
+            <button onclick="PayAllSelectedByBalance()">PayAllByBalance</button>
+            <!-- <button onclick="PayAllByCoupon()">PayAllByCoupon</button> -->
+            <button onclick="selectAll()">selectAll</button>
+            <button onclick="cancelAll()">cancelAll</button>
 
-                </div>
-                <div class="tab" id="all">
-                    <table class="table" id="all-table">
-                        <thead>
-                            <tr>
-                                <th>Booking ID</th>
-                                <th>Sport Name</th>
-                                <th>Start Time</th>
-                                <th>End Time</th>
-                                <th>Price</th>
-                                <th>Status</th>
-
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td id="booking-id2"></td>
-                                <td id="booking-name2"></td>
-                                <td id="booking-startTime2"></td>
-                                <td id="booking-endTime2"></td>
-                                <td id="booking-price2"></td>
-                                <td id="booking-status2"></td>
-                            </tr>
-                    </table>
-                </div>
-                <div class="tab" id="unpaid">
-                    <table class="table" id="unpaid-table">
-                        <thead>
-                            <tr>
-                                <th>Booking ID</th>
-                                <th>Sport Name</th>
-                                <th>Start Time</th>
-                                <th>End Time</th>
-                                <th>Price</th>
-                                <th>Status</th>
-
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td id="booking-id3"></td>
-                                <td id="booking-name3"></td>
-                                <td id="booking-startTime3"></td>
-                                <td id="booking-endTime3"></td>
-                                <td id="booking-price3"></td>
-                                <td id="booking-status3"></td>
-                            </tr>
-                    </table>
-                </div>
-            </div>
-
+            <!-- 这里是存放表单的位置 -->
+            <table id="booking-table">
+                <tr>
+                    <th>BookingID</th>
+                    <th>Name</th>
+                    <th>Date</th>
+                    <th>StartTime</th>
+                    <th>EndTime</th>
+                    <th>Stadium</th>
+                    <th>Price</th>
+                    <th>Status</th>
+                    <th>operation1</th>
+                    <th>operation2</th>
+                    <th>operation3</th>
+                    <th>selected</th>
+                </tr>
+            </table>
 
         </div>
-        <!--<div class="container-fluid">
-
-
-
-
-                <br>
-                <br>
-
-
-
-            </div>-->
-
     </div>
     <!-- /#page-content-wrapper -->
 
@@ -217,6 +142,9 @@
         var userLink = document.getElementById('statistics-nav2');
         userLink.href = "userStatistics.html?id=" + userId;
 
+        //暂存了返回的booking的数据,这里只是初始化
+        var allBookings;
+
     </script>
     <script>
         $("#menu-toggle, #sidebar-close").click(function (e) {
@@ -231,150 +159,476 @@
                 $("#overlay").hide();
             }
         });
-        function cancelBooking(bookingId) {
-            var isConfirmed = confirm('Are you sure you want to cancel?');
-            if (isConfirmed) {
-                var table = document.querySelector('#upcoming-table'); // 获取表格元素
-                var rows = table.querySelectorAll('tr'); // 获取所有行元素
+        // 自动调用后端的接口返回所有的booking数据
+        window.onload = function () {
+            fetch('/api/bookings/getAllBookings', {
+                method: 'GET'
+            })
+                .then((response) => response.json())
+                .then((data) => {
 
-                rows.forEach(row => {
-                    console.log(row);
-                    var userIdCell = row.querySelector('td:first-child'); // 获取每行中第一列的用户ID单元格
-                    console.log(userIdCell);
-                    if (userIdCell !== null) {// 检查当前行的用户ID是否匹配指定的用户ID
-                        fetch('http://localhost:8080/api/bookings/'+ bookingId, {
-                            method: "DELETE"
-                        })
-                            .then(response => {
-                                if (!response.ok) {
-                                    throw new Error('网络请求失败');
-                                }
-                                return response.json();
-                            })
-                            .then(data => {
-                                console.log(data);
-                            })
-                            .catch(error => {
-                                console.error('发生错误:', error);
-                            });
+                    console.log(data);
+                    allBookings = data;
+                    var table = document.getElementById('booking-table');
+                    data.forEach(booking => {
+                        //检查id，为当前用户id，才会显示出来
+                        //我在这里找了一个小时的bug，发现是参数传递的问题
+                        // console.log(booking.userId);
+                        // console.log(userId);
+                        // console.log(booking.userId === userId);
+                        // console.log(booking.userId == userId);
+                        if (booking.userId == userId) {
+                            var row = document.createElement("tr");
+
+                            if (booking.status == "CONFIRMED") {
+
+
+                                row.innerHTML = `
+              <td id="booking-id-${booking.id}">${booking.id}</td>
+              <td id="booking-name-${booking.actName}">${booking.actName}</td>
+              <td id="booking-date-${booking.date}">${booking.date}</td>
+              <td id="booking-startTime-${booking.startTime}">${booking.startTime}</td>
+              <td id="booking-endTime-${booking.endTime}">${booking.endTime}</td>
+              <td id="booking-stadium-${booking.venue}">${booking.venue}</td>
+              <td id="booking-price-${booking.price}">${booking.price}</td>
+              <td id="booking-status-${booking.status}">${booking.status}</td>
+
+              <td id="booking-pay-balance-${booking.id}">
+              <input type = 'button' disabled="disabled" "" id = 'pay-by-balance' onclick = "PayByBalance(${userId}, ${booking.price}, ${booking.id})" value =  'PayByBalance'>
+              </td>
+              <td id="booking-pay-coupon-${booking.id}">
+              <input type="button" disabled="disabled" id = 'pay-by-coupon' onclick = "PayByCoupon()" value = 'PayByCoupon'>
+              </td>
+              <td id="booking-cancel-${booking.id}">
+              <input type="button" id = 'cancel' onclick = "CancelBooking(${booking.id}, '${booking.date}', '${booking.startTime}', '${booking.endTime}', '${booking.venue}', '${booking.actName}')" value = 'Cancel'>
+              </td>
+
+              <td><input type="checkbox" class="orderCheckbox" value="0"></td>
+              `;
+
+                                table.appendChild(row);
+
+                            }
+
+                            if (booking.status == "PENDING") {
+
+                                row.innerHTML = `
+              <td id="booking-id-${booking.id}">${booking.id}</td>
+              <td id="booking-name-${booking.actName}">${booking.actName}</td>
+              <td id="booking-date-${booking.date}">${booking.date}</td>
+              <td id="booking-startTime-${booking.startTime}">${booking.startTime}</td>
+              <td id="booking-endTime-${booking.endTime}">${booking.endTime}</td>
+              <td id="booking-stadium-${booking.venue}">${booking.venue}</td>
+              <td id="booking-price-${booking.price}">${booking.price}</td>
+              <td id="booking-status-${booking.status}">${booking.status}</td>
+
+              <td id="booking-pay-balance-${booking.id}">
+              <input type = 'button' id = 'pay-by-balance' onclick = "PayByBalance(${userId}, ${booking.price}, ${booking.id})" value =  'PayByBalance'>
+              </td>
+              <td id="booking-pay-coupon-${booking.id}">
+              <input type="button" id = 'pay-by-coupon' onclick = "PayByCoupon()" value = 'PayByCoupon'>
+              </td>
+              <td id="booking-cancel-${booking.id}">
+              <input type="button" id = 'cancel' onclick = "CancelBooking(${booking.id}, '${booking.date}', '${booking.startTime}', '${booking.endTime}', '${booking.venue}', '${booking.actName}')" value = 'Cancel'>
+              </td>
+
+              <td><input type="checkbox" class="orderCheckbox" value="0"></td>
+              `;
+
+                                table.appendChild(row);
+
+                            }
+
+
+
+
+
+                        }
+                    });
+                })
+        }
+
+
+        //三个按钮对应的方法
+        //数据全部来源于data，我需要把data暂存起来
+        function showAll() {
+            console.log("All");
+            //首先要清空当前的表格，然后更新筛选后的表格，以实现刷新的效果
+            var table1 = document.getElementById('booking-table');
+            table1.innerHTML = `<tr>
+                    <th>BookingID</th>
+                    <th>Name</th>
+                    <th>Date</th>
+                    <th>StartTime</th>
+                    <th>EndTime</th>
+                    <th>Stadium</th>
+                    <th>Price</th>
+                    <th>Status</th>
+                    <th>operation1</th>
+                    <th>operation2</th>
+                    <th>operation3</th>
+                    <th>selected</th>
+                </tr>`;
+            //清空完毕
+
+            //遍历之前暂存了所有booking的数组，找到符合条件的booking
+            allBookings.forEach(booking => {
+                //检查id，为当前用户id，才会显示出来
+                //我在这里找了一个小时的bug，发现是参数传递的问题
+                // console.log(booking.userId);
+                // console.log(userId);
+                // console.log(booking.userId === userId);
+                // console.log(booking.userId == userId);
+                if (booking.userId == userId) {
+                    var row = document.createElement("tr");
+                    console.log(booking.status == "CONFIRMED");
+                    if (booking.status == "CONFIRMED") {
+
+
+                        row.innerHTML = `
+              <td id="booking-id-${booking.id}">${booking.id}</td>
+              <td id="booking-name-${booking.actName}">${booking.actName}</td>
+              <td id="booking-date-${booking.date}">${booking.date}</td>
+              <td id="booking-startTime-${booking.startTime}">${booking.startTime}</td>
+              <td id="booking-endTime-${booking.endTime}">${booking.endTime}</td>
+              <td id="booking-stadium-${booking.venue}">${booking.venue}</td>
+              <td id="booking-price-${booking.price}">${booking.price}</td>
+              <td id="booking-status-${booking.status}">${booking.status}</td>
+
+              <td id="booking-pay-balance-${booking.id}">
+              <input type = 'button' disabled="disabled" "" id = 'pay-by-balance' onclick = "PayByBalance(${userId}, ${booking.price}, ${booking.id})" value =  'PayByBalance'>
+              </td>
+              <td id="booking-pay-coupon-${booking.id}">
+              <input type="button" disabled="disabled" id = 'pay-by-coupon' onclick = "PayByCoupon()" value = 'PayByCoupon'>
+              </td>
+              <td id="booking-cancel-${booking.id}">
+              <input type="button" id = 'cancel' onclick = "CancelBooking(${booking.id}, '${booking.date}', '${booking.startTime}', '${booking.endTime}', '${booking.venue}', '${booking.actName}')" value = 'Cancel'>
+              </td>
+
+              <td><input type="checkbox" class="orderCheckbox" value="0"></td>
+              `;
+
+                        table1.appendChild(row);
 
                     }
-                });
-            }
+                    console.log(booking.status == "PENDING");
+                    if (booking.status == "PENDING") {
+
+                        row.innerHTML = `
+              <td id="booking-id-${booking.id}">${booking.id}</td>
+              <td id="booking-name-${booking.actName}">${booking.actName}</td>
+              <td id="booking-date-${booking.date}">${booking.date}</td>
+              <td id="booking-startTime-${booking.startTime}">${booking.startTime}</td>
+              <td id="booking-endTime-${booking.endTime}">${booking.endTime}</td>
+              <td id="booking-stadium-${booking.venue}">${booking.venue}</td>
+              <td id="booking-price-${booking.price}">${booking.price}</td>
+              <td id="booking-status-${booking.status}">${booking.status}</td>
+
+              <td id="booking-pay-balance-${booking.id}">
+              <input type = 'button' id = 'pay-by-balance' onclick = "PayByBalance(${userId}, ${booking.price}, ${booking.id})" value =  'PayByBalance'>
+              </td>
+              <td id="booking-pay-coupon-${booking.id}">
+              <input type="button" id = 'pay-by-coupon' onclick = "PayByCoupon()" value = 'PayByCoupon'>
+              </td>
+              <td id="booking-cancel-${booking.id}">
+              <input type="button" id = 'cancel' onclick = "CancelBooking(${booking.id}, '${booking.date}', '${booking.startTime}', '${booking.endTime}', '${booking.venue}', '${booking.actName}')" value = 'Cancel'>
+              </td>
+
+              <td><input type="checkbox" class="orderCheckbox" value="0"></td>
+              `;
+
+                        table1.appendChild(row);
+
+                    }
+
+
+
+
+
+                }
+            });
+        }
+
+        function showConfirmed() {
+            console.log("C");
+            //首先要清空当前的表格，然后更新筛选后的表格，以实现刷新的效果
+            var table2 = document.getElementById('booking-table');
+            table2.innerHTML = `<tr>
+                    <th>BookingID</th>
+                    <th>Name</th>
+                    <th>Date</th>
+                    <th>StartTime</th>
+                    <th>EndTime</th>
+                    <th>Stadium</th>
+                    <th>Price</th>
+                    <th>Status</th>
+                    <th>operation1</th>
+                    <th>operation2</th>
+                    <th>operation3</th>
+                    <th>selected</th>
+                </tr>`;
+            //清空完毕
+
+            //遍历之前暂存了所有booking的数组，找到符合条件的booking
+            allBookings.forEach(booking => {
+                //检查id，为当前用户id，才会显示出来
+                //我在这里找了一个小时的bug，发现是参数传递的问题
+                // console.log(booking.userId);
+                // console.log(userId);
+                // console.log(booking.userId === userId);
+                // console.log(booking.userId == userId);
+                console.log(booking.status == "CONFIRMED");
+                if (booking.status == "CONFIRMED") {
+                    if (booking.userId == userId) {
+                        var row = document.createElement("tr");
+                        row.innerHTML = `
+              <td id="booking-id-${booking.id}">${booking.id}</td>
+              <td id="booking-name-${booking.actName}">${booking.actName}</td>
+              <td id="booking-date-${booking.date}">${booking.date}</td>
+              <td id="booking-startTime-${booking.startTime}">${booking.startTime}</td>
+              <td id="booking-endTime-${booking.endTime}">${booking.endTime}</td>
+              <td id="booking-stadium-${booking.venue}">${booking.venue}</td>
+              <td id="booking-price-${booking.price}">${booking.price}</td>
+              <td id="booking-status-${booking.status}">${booking.status}</td>
+
+              
+              <td id="booking-pay-balance-${booking.id}">
+              <input type = 'button' disabled="disabled" "" id = 'pay-by-balance' onclick = "PayByBalance(${userId}, ${booking.price}, ${booking.id})" value =  'PayByBalance'>
+              </td>
+              <td id="booking-pay-coupon-${booking.id}">
+              <input type="button" disabled="disabled" id = 'pay-by-coupon' onclick = "PayByCoupon()" value = 'PayByCoupon'>
+              </td>
+              <td id="booking-cancel-${booking.id}">
+              <input type="button" id = 'cancel' onclick = "CancelBooking(${booking.id}, '${booking.date}', '${booking.startTime}', '${booking.endTime}', '${booking.venue}', '${booking.actName}')" value = 'Cancel'>
+              </td>
+
+              <td><input type="checkbox" class="orderCheckbox" value="0"></td>
+              `;
+
+                        table2.appendChild(row);
+                    }
+                }
+            });
+        }
+
+        var table3;
+
+        function showUnpaid() {
+            console.log("U");
+            //首先要清空当前的表格，然后更新筛选后的表格，以实现刷新的效果
+            var table3 = document.getElementById('booking-table');
+            table3.innerHTML = `<tr>
+                    <th>BookingID</th>
+                    <th>Name</th>
+                    <th>Date</th>
+                    <th>StartTime</th>
+                    <th>EndTime</th>
+                    <th>Stadium</th>
+                    <th>Price</th>
+                    <th>Status</th>
+                    <th>operation1</th>
+                    <th>operation2</th>
+                    <th>operation3</th>
+                    <th>selected</th>
+                </tr>`;
+            //清空完毕
+
+            //遍历之前暂存了所有booking的数组，找到符合条件的booking
+            allBookings.forEach(booking => {
+                //检查id，为当前用户id，才会显示出来
+                //我在这里找了一个小时的bug，发现是参数传递的问题
+                // console.log(booking.userId);
+                // console.log(userId);
+                // console.log(booking.userId === userId);
+                // console.log(booking.userId == userId);
+                if (booking.status == "PENDING") {
+                    if (booking.userId == userId) {
+                        var row = document.createElement("tr");
+                        row.innerHTML = `
+              <td id="booking-id-${booking.id}">${booking.id}</td>
+              <td id="booking-name-${booking.actName}">${booking.actName}</td>
+              <td id="booking-date-${booking.date}">${booking.date}</td>
+              <td id="booking-startTime-${booking.startTime}">${booking.startTime}</td>
+              <td id="booking-endTime-${booking.endTime}">${booking.endTime}</td>
+              <td id="booking-stadium-${booking.venue}">${booking.venue}</td>
+              <td id="booking-price-${booking.price}">${booking.price}</td>
+              <td id="booking-status-${booking.status}">${booking.status}</td>
+
+              
+              <td id="booking-pay-balance-${booking.id}">
+              <input type = 'button' id = 'pay-by-balance' onclick = "PayByBalance(${userId}, ${booking.price}, ${booking.id})" value =  'PayByBalance'>
+              </td>
+              <td id="booking-pay-coupon-${booking.id}">
+              <input type="button" id = 'pay-by-coupon' onclick = "PayByCoupon()" value = 'PayByCoupon'>
+              </td>
+              <td id="booking-cancel-${booking.id}">
+              <input type="button" id = 'cancel' onclick = "CancelBooking(${booking.id}, '${booking.date}', '${booking.startTime}', '${booking.endTime}', '${booking.venue}', '${booking.actName}')" value = 'Cancel'>
+              </td>
+
+              <td><input type="checkbox" class="orderCheckbox" value="0"></td>
+              `;
+
+                        table3.appendChild(row);
+                    }
+                }
+            });
         }
 
 
 
-        window.onload = function () {
-
-            fetch('http://localhost:8080/api/bookings', {
-                method: "GET"
-            })
-                .then(response => response.json())
-                .then(bookings => {
-                    var upcomingTable = document.querySelector('#upcoming-table tbody');
-                    upcomingTable.innerHTML = ''; // 清空表格
-
-                    bookings.forEach((booking) => {
-                        if (booking.status === 'CONFIRMED') {
-                            var row = document.createElement('tr');
-                            row.innerHTML = `
-                     <td id="booking-id-${booking.id}">${booking.id}</td>
-                     <td id="booking-name-${booking.id}">${booking.actName}</td>
-                     <td id="booking-startTime-${booking.id}">${booking.startTime}</td>
-                     <td id="booking-endTime-${booking.id}">${booking.endTime}</td>
-                     <td id="booking-price-${booking.id}">${booking.price}</td>
-                     <td id="booking-status-${booking.id}">${booking.status}</td>
-                     <td id="booking-cancel-${booking.id}"><button class="btn btn-danger" onclick="cancelBooking(${booking.id})">Cancel</button></td>
-            `;
-                            upcomingTable.appendChild(row);
+        function PayByBalance(userId, bookingCost, bookingId) {
+            console.log("1");
+            if (confirm("确定吗")) {
+                //先判断钱够不够，调用belle的接口
+                fetch(`/api/wallet/pay?walletInfoId=${encodeURIComponent(userId)}&bookingCost=${encodeURIComponent(bookingCost)}`, {
+                    method: "POST"
+                })
+                    .then((response) => {
+                        if (response.status == 200) {
+                            console.log("减钱成功");
+                            //如果钱成功减去了，就把booking的状态由pending更新为confirmed
+                            fetch("/api/bookings/updateOneBooking/" + bookingId, {
+                                method: "GET"
+                            })
+                                .then((response) => {
+                                    if (response.status == 200) {
+                                        console.log("更新成功");
+                                    }
+                                })
                         }
-                    });
-                });
+                    })
+            }
 
-        };
+        }
+
+        function PayByCoupon() {
+            console.log("2");
+
+        }
+
+        function CancelBooking(bookingid, bookingdate, bookingstartTime, bookingendTime, bookingvenue, bookingactName) {
+            console.log("3");
+            //去查相应的activity还剩多少票
+
+            if (confirm("确定要进行操作吗？")) {
+                // 用户点击了确定按钮
+                //删除订单
+                fetch('/api/bookings/deleteOneBooking/' + bookingid, {
+                    method: "GET"
+                })
+                    .then((response) => {
+                        if (response.status === 200) {
+                            console.log("删除成功");
+                        }
+                    })
+
+                //活动票数加1
+                fetch('/api/sportActivity/updateOneActivity?actName=' + bookingactName + '&date=' + bookingdate + '&startTime=' + bookingstartTime + '&endTime=' + bookingendTime + '&stadium=' + bookingvenue, {
+                    method: "GET"
+                })
+                    .then((response) => {
+                        console.log(response.json);
+                    })
+            } else {
+                // 用户点击了取消按钮
+            }
+
+        }
+
+        function PayAllSelectedByBalance() {
+            console.log("4");
+            // 创建一个空的列表来存储BookingID和Price
+            var bookingData = [];
+
+            var table = document.getElementById("booking-table")
+            console.log(table);
+
+            var bookingIdList = [];
+            var totalPrice = 0;
+
+            // 遍历表格的每一行
+            for (var i = 1, row; row = table.rows[i]; i++) {
+                // 遍历当前行的每个单元格
+                for (var j = 0, cell; cell = row.cells[j]; j++) {
+                    // 获取单元格的内容
+                    //只要id 和 price
+                    var cellContent = cell.innerHTML;
+                    if (j == 0 || j == 6) {
+                        if (j == 0)
+                            bookingIdList.push(parseInt(cellContent));
+                        if (j == 6)
+                            totalPrice += parseFloat(cellContent);
+                    }
+
+                }
+            }
+
+            console.log(bookingIdList);
+            console.log(totalPrice);
 
 
+            //向后端发送请求
+            if (confirm("你确定支付吗，一共是" + totalPrice + "CNY")) {
 
-        function showAll() {
+                //先判断钱够不够，调用belle的接口
+                fetch(`/api/wallet/pay?walletInfoId=${encodeURIComponent(userId)}&bookingCost=${encodeURIComponent(totalPrice)}`, {
+                    method: "POST"
+                })
+                    .then((response) => {
+                        if (response.status == 200) {
+                            console.log("减钱成功");
+                            //如果钱成功减去了，就把booking的状态由pending更新为confirmed
 
-            fetch('http://localhost:8080/api/bookings', {
-                //method: "GET"
-            })
-                .then(response => response.json())
-                .then(bookings => {
-                    var allTable = document.querySelector('#all-table tbody');
-                    allTable.innerHTML = ''; // 清空表格
-
-                    bookings.forEach((booking) => {
-                        if (booking.status === 'CANCELLED') {
-                            var row = document.createElement('tr');
-                            row.innerHTML = `
-            <td id="booking-id-${booking.id}">${booking.id}</td>
-             <td id="booking-name-${booking.id}">${booking.actName}</td>
-             <td id="booking-startTime-${booking.id}">${booking.startTime}</td>
-             <td id="booking-endTime-${booking.id}">${booking.endTime}</td>
-             <td id="booking-price-${booking.id}">${booking.price}</td>
-            <td id="booking-status-${booking.id}">${booking.status}</td>
-            <td id="booking-cancel-${booking.id}"><button class="btn btn-warning" onclick="cancelBooking(${booking.id})">Delete</button></td>`
-                        } else if (booking.status === 'PENDING') {
-                            var row = document.createElement('tr');
-                            row.innerHTML = `
-            <td id="booking-id-${booking.id}">${booking.id}</td>
-             <td id="booking-name-${booking.id}">${booking.actName}</td>
-             <td id="booking-startTime-${booking.id}">${booking.startTime}</td>
-             <td id="booking-endTime-${booking.id}">${booking.endTime}</td>
-             <td id="booking-price-${booking.id}">${booking.price}</td>
-            <td id="booking-status-${booking.id}">${booking.status}</td>
-            <td id="booking-cancel-${booking.id}"><button class="btn btn-success">Pay</button></td>
-            `;
-                        } else {
-                            var row = document.createElement('tr');
-                            row.innerHTML = `
-                     <td id="booking-id-${booking.id}">${booking.id}</td>
-                     <td id="booking-name-${booking.id}">${booking.actName}</td>
-                     <td id="booking-startTime-${booking.id}">${booking.startTime}</td>
-                     <td id="booking-endTime-${booking.id}">${booking.endTime}</td>
-                     <td id="booking-price-${booking.id}">${booking.price}</td>
-                     <td id="booking-status-${booking.id}">${booking.status}</td>
-                     <td id="booking-cancel-${booking.id}"><button class="btn btn-danger" onclick="cancelBooking(${booking.id})">Cancel</button></td>
-            `;
+                            fetch('/api/bookings/processArray', {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json'
+                                },
+                                body: JSON.stringify(bookingIdList)
+                            })
+                                .then(response => {
+                                    if (response.ok) {
+                                        return response.text();
+                                    }
+                                    throw new Error('Network response was not ok.');
+                                })
+                                .then(data => {
+                                    console.log(data); // 输出后端处理结果
+                                })
+                                .catch(error => {
+                                    console.error('There was a problem with your fetch operation:', error);
+                                });
 
                         }
-
-                        allTable.appendChild(row);
-                    });
-                });
-        };
+                    })
 
 
-        function showUnpaid() {
+            }
 
-            fetch('http://localhost:8080/api/bookings', {
-                //method: "GET"
-            })
-                .then(response => response.json())
-                .then(bookings => {
-                    var unpaidTable = document.querySelector('#unpaid-table tbody');
-                    unpaidTable.innerHTML = ''; // 清空表格
 
-                    bookings.forEach((booking) => {
-                        if (booking.status === 'PENDING') {
-                            var row = document.createElement('tr');
-                            row.innerHTML = `
-            <td id="booking-id-${booking.id}">${booking.id}</td>
-            <td id="booking-name-${booking.id}">${booking.actName}</td>
-            <td id="booking-startTime-${booking.id}">${booking.startTime}</td>
-            <td id="booking-endTime-${booking.id}">${booking.endTime}</td>
-            <td id="booking-price-${booking.id}">${booking.price}</td>
-            <td id="booking-status-${booking.id}">${booking.status}</td>
-            <td id="booking-cancel-${booking.id}"><button class="btn btn-success">Pay</button></td>
-`;
-                            unpaidTable.appendChild(row);
-                        }
-                    });
-                });
-        };
+
+        }
+
+        function PayAllByCoupon() {
+            console.log("5");
+        }
+
+
+        function selectAll() {
+            var orderCheckboxes = document.querySelectorAll('.orderCheckbox');
+            orderCheckboxes.forEach(checkbox => {
+                checkbox.checked = true;
+            });
+        }
+
+        function cancelAll() {
+            var orderCheckboxes = document.querySelectorAll('.orderCheckbox');
+            orderCheckboxes.forEach(checkbox => {
+                checkbox.checked = false;
+            });
+        }
+
+
 
 
 
