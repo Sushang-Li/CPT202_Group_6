@@ -32,7 +32,7 @@ public class CoachControllerTest {
     // Test the getCoachByName method
     @Test
     public void testGetCoachByName() {
-        List<CoachInfo> coachInfoList = coachController.getCoachByName("Fuyu.Xing");
+        List<CoachInfo> coachInfoList = coachController.getCoachByName("Sa.Zhang");
         // Assert that the result is not empty
         assertNotNull(coachInfoList);
         assertFalse(coachInfoList.isEmpty(), "The list is empty");
@@ -75,7 +75,7 @@ public class CoachControllerTest {
     // Test the deleteCoachInfo method
     @Test
     public void testDeleteCoachInfo() {
-        String result = coachController.deleteCoachInfo(1);
+        String result = coachController.deleteCoachInfo(10);
         // Assert that the result is not empty
         assertNotNull(result);
         assertEquals("Delete coach information successfully", result);
