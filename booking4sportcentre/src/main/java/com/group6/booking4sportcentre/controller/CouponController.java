@@ -62,8 +62,8 @@ public class CouponController {
     }
 
     //delete coupon
-    @PostMapping("/api/delete_coupon")
-    public String deleteCoupon(@RequestParam Long id) {
+    @DeleteMapping("/api/delete_coupon/{id}")
+    public String deleteCoupon(@PathVariable Long id) {
         int i = couponInfoMapper.deleteById(id);
         if (i == 0) {
             return "Delete coupon information failed";
