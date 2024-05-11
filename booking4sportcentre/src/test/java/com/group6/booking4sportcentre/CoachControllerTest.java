@@ -10,7 +10,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import java.time.LocalTime;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * @author Mingyuan.Li
@@ -29,51 +29,55 @@ public class CoachControllerTest {
         // Assert that the result is not empty
         assertNotNull(coachInfoList);
     }
-
     // Test the getCoachByName method
     @Test
     public void testGetCoachByName() {
-        List<CoachInfo> coachInfoList = coachController.getCoachByName("Mingyuan.Li");
+        List<CoachInfo> coachInfoList = coachController.getCoachByName("Sa.Zhang");
         // Assert that the result is not empty
         assertNotNull(coachInfoList);
+        assertFalse(coachInfoList.isEmpty(), "The list is empty");
     }
 
     // Test the addCoachInfo method
     @Test
+
     public void testAddCoachInfo() {
         CoachInfo coachInfo = new CoachInfo();
-        coachInfo.setName("Lin Xi");
-        coachInfo.setActivity("Basketball");
-        coachInfo.setContact("123456789");
+        coachInfo.setName("Si.Li");
+        coachInfo.setActivity("shuttlecock");
+        coachInfo.setContact("181298390");
         coachInfo.setStatus(CoachStatus.IDLE);
         coachInfo.setStartTime(LocalTime.of(9, 0, 0));
         coachInfo.setEndTime(LocalTime.of(17, 12, 0));
         String result = coachController.addCoachInfo(coachInfo);
         // Assert that the result is not empty
         assertNotNull(result);
+        assertEquals("Add coach information successfully", result);
     }
 
     // Test the updateCoachInfo method
     @Test
     public void testUpdateCoachInfo() {
         CoachInfo coachInfo = new CoachInfo();
-        coachInfo.setId(1);
-        coachInfo.setName("Lin Xi");
-        coachInfo.setActivity("Basketball");
-        coachInfo.setContact("123456789");
+        coachInfo.setId(11);
+        coachInfo.setName("Sa.Zhang");
+        coachInfo.setActivity("shuttlecock");
+        coachInfo.setContact("190298293");
         coachInfo.setStatus(CoachStatus.IDLE);
         coachInfo.setStartTime(LocalTime.of(9, 0, 0));
         coachInfo.setEndTime(LocalTime.of(17, 12, 0));
         String result = coachController.updateCoachInfo(coachInfo);
         // Assert that the result is not empty
         assertNotNull(result);
+        assertEquals("Update coach information successfully", result);
     }
 
     // Test the deleteCoachInfo method
     @Test
     public void testDeleteCoachInfo() {
-        String result = coachController.deleteCoachInfo(1);
+        String result = coachController.deleteCoachInfo(10);
         // Assert that the result is not empty
         assertNotNull(result);
+        assertEquals("Delete coach information successfully", result);
     }
 }

@@ -81,3 +81,49 @@
         border: 1px solid #ddd;
         margin-bottom: 12px;
     }
+    .shadow_css {
+        display: none;
+        position: absolute;
+        top: 0%;
+        left: 0%;
+        width: 100%;
+        height: 100%;
+        background-color: black;
+        z-index: 10;
+        /* 为mozilla firefox 设置透明度  */
+        -moz-opacity: 0.6;
+        /* 设置透明度 */
+        opacity: .60;
+        /* 为IE 设置透明度  */
+        filter: alpha(opacity=66);
+    }
+
+    .window_css {
+        display: none;
+        position: absolute;
+        top: 20%;
+        left: 25%;
+        width: 50%;
+        height: 60%;
+        border: 3px solid honeydew;
+        background-color: aliceblue;
+        z-index: 11;
+
+    }
+    .property a{
+
+        text-decoration: none;
+
+
+        color:#339af0;
+    }
+
+    .remind{
+       color: cornflowerblue;
+    }
+
+.window_css a{
+    text-decoration: none;
+    color:#339af0;
+}
+

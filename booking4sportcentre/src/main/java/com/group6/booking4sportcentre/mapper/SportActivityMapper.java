@@ -24,7 +24,7 @@ public interface SportActivityMapper extends BaseMapper<SportActivity> {
 
     @Insert("INSERT INTO sport_activity(id, coach, end_time, name, price, stadium, start_time, ticket_number) " +
             "VALUES(#{id}, #{coach}, #{endTime}, #{name}, #{price}, #{stadium}, #{startTime},#{ticketNumber})")
-    void add(SportActivity sportActivity);
+    int add(SportActivity sportActivity);
 
     @Delete("Delete from sport_activity where id =#{id}")
     int delete(int id);

@@ -23,6 +23,9 @@ public class WalletInfo {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "user_id")
+    private Integer userId;
+
     @Column(name = "balance")
     private double balance;
 
