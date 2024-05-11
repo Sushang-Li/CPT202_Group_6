@@ -5,11 +5,13 @@ import com.group6.booking4sportcentre.model.UserInfo;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.mvc.support.RedirectAttributesModelMap;
 
 import java.time.LocalDate;
+import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -19,6 +21,8 @@ public class UserControllerTest {
     @Autowired
     private UserController userController;
 
+    @Autowired
+    private JdbcTemplate jdbcTemplate;
     @Test
     public void testRegisterUser() {
         // Setting up a mock HttpServletRequest and RedirectAttributes
@@ -57,6 +61,15 @@ public class UserControllerTest {
         // Checking that a message attribute was added to show registration was successful
         assertNotNull(redirectAttributes.getFlashAttributes().get("message"));
         assertEquals("注册成功！", redirectAttributes.getFlashAttributes().get("message"));
+
+        // Fetch the newest userId
+        Integer newUserId = jdbcTemplate.queryForObject("SELECT id FROM user_info ORDER BY id DESC LIMIT 1", Integer.class);
+
+
+        // Verify the wallet was created with an initial balance of 0
+        Map<String, Object> wallet = jdbcTemplate.queryForMap("SELECT * FROM wallet_info WHERE user_id = ?", newUserId);
+        assertNotNull(wallet);
+        assertEquals(0.0, wallet.get("balance"));
     }
 }
 
