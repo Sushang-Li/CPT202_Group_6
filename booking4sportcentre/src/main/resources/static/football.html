@@ -38,11 +38,13 @@
   </nav>
 
   <h1>Football</h1>
-  <input type="text" id="myInput1" onKeyUp="search1()" placeholder="Search..." />
-  <input type="text" id="myInput2" onKeyUp="search2()" placeholder="Search..." />
 
-  <select name="" id="" onchange='change(parseInt(this.value), "myInput");'>
-    <option selected="selected" value="1">coach</option>
+  <input type="text" id="myInput1" onKeyUp="search1()" placeholder="Search..."/>
+  <input type="text" id="myInput2" onKeyUp="search2()" placeholder="Search..."/>
+
+  <select name="" id="" onchange = 'change(parseInt(this.value), "myInput");'>
+    <option selected ="selected" value="1" >coach</option>
+
     <option value="2">stadium</option>
   </select>
   <!-- 这里是一个表格，从sportActivity表得到现在还有票的活动 -->
@@ -62,9 +64,50 @@
     </tr>
 
   </table>
+<div class = remind><p>You should view and agree the property about stadium ,and then you can pay and add to cart</p></div>
+  <div class = 'property'>
+    <input type="checkBox" onclick="if (this.checked) {enable()} else {disable()}">Agree
+
+    <a href = "#" onclick="displayWindow()">
+
+      Stadium Property
+    </a>
+  </div>
+  <!--悬浮窗口-->
+  <div id="window" class="window_css">
+    <a href = '#' onclick="hideWindow()">
+      Close the window
+    </a>
+  </div>
+  <!--出现悬浮窗口后,背景变暗-->
+  <div id="shadow" class="shadow_css"></div>
 
   <script>
+    function displayWindow() {
+      /*悬浮窗口的显示,需要将display变成block*/
+      document.getElementById("window").style.display = "block";
+      /*将背景变暗*/
+      document.getElementById("shadow").style.display = "block";
+    }
 
+    /*当点击调用此方法,将悬浮窗口和背景全部隐藏*/
+    function hideWindow() {
+      document.getElementById("window").style.display = "none";
+      document.getElementById("shadow").style.display = "none";
+    }
+
+    //disagree property will not pay or add
+    function disable()
+    {
+      document.getElementById("pay").disabled=true
+      document.getElementById("add_cart").disabled=true
+    }
+    //agree property can pay and add
+    function enable()
+    {
+      document.getElementById("pay").disabled=false
+      document.getElementById("add_cart").disabled=false
+    }
     //复制自主页
     var urlParams = new URLSearchParams(window.location.search);
     var userId = urlParams.get('id');
@@ -102,63 +145,68 @@
       var position = activity.stadium;
       var uid = userId;
 
-      // //先新增一条未支付的预定
-      // fetch('http://localhost:8080/api/bookings/addOneBooking', {
-      //   method: "POST",
-      //   headers: {
-      //     'Content-Type': 'application/json'
-      //   },
-      //   body: JSON.stringify({
-      //     userId: uid,
-      //     date: date,
-      //     startTime: starttime,
-      //     endTime: endtime,
-      //     venue: position,
-      //     status: "PENDING",
-      //     actName: actname,
-      //     price: price
-      //   })
-      // })
-      //   .then(response => {
-      //     if (response.status === 200) {
-      //       // alert("Successful!");
-      //     } else {
-      //       throw new Error('HTTP 错误 ' + response.status);
-      //     }
-      //   })
-      //   .catch(error => {
-      //     console.log("错误：", error);
-      //     // alert("Fail!");
-      //   });
+      //先新增一条未支付的预定
+      fetch('http://localhost:8080/api/bookings/addOneBooking', {
+        method: "POST",
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          userId: uid,
+          date: date,
+          startTime: starttime,
+          endTime: endtime,
+          venue: position,
+          status: "PENDING",
+          actName: actname,
+          price: price
+        })
+      })
 
-      // //记录当前的票数
-      // var currentNum = activity.ticketNumber;
-      // currentNum -= 1;
-      // const data = new URLSearchParams();
-      // data.append('id', activity.id);
-      // data.append('current', currentNum);
-      // data.append('price', activity.price);
+        .then(response => {
+          if (response.status === 200) {
+            // alert("Successful!");
+          } else {
+            throw new Error('HTTP 错误 ' + response.status);
+          }
+        })
+        .catch(error => {
+          console.log("错误：", error);
+          // alert("Fail!");
+        });
 
-      // //向后端发起更新活动票数的请求
-      // fetch('http://localhost:8080/api/sportActivity/updateTicketNumber', {
-      //   method: "POST",
-      //   headers: {
-      //     'Content-Type': 'application/x-www-form-urlencoded'
-      //   },
-      //   body: data
-      // })
-      //   .then(response => {
-      //     if (response.ok) {
-      //       console.log('Request successful');
-      //       // alert("successful");
-      //       // location.reload();
-      //     } else {
-      //       console.error('Request failed');
-      //     }
-      //   })
-      //   .catch(error => {
-      //     console.error('Error:', error);
-      //   });
+
+      //记录当前的票数
+      var currentNum = activity.ticketNumber;
+      currentNum -= 1;
+      const data = new URLSearchParams();
+      data.append('id', activity.id);
+      data.append('current', currentNum);
+      data.append('price', activity.price);
+
+      //向后端发起更新活动票数的请求
+      fetch('http://localhost:8080/api/sportActivity/updateTicketNumber', {
+        method: "POST",
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        body: data
+      })
+
+        .then(response => {
+          if (response.ok) {
+            console.log('Request successful');
+            // alert("successful");
+            // location.reload();
+          } else {
+            console.error('Request failed');
+          }
+        })
+        .catch(error => {
+          console.error('Error:', error);
+        });
+
+
     }
 
     function addToCart(activity) {
@@ -190,17 +238,17 @@
           price: price
         })
       })
-        .then(response => {
-          if (response.status === 200) {
-            // alert("Successful!");
-          } else {
-            throw new Error('HTTP 错误 ' + response.status);
-          }
-        })
-        .catch(error => {
-          console.log("错误：", error);
-          alert("Fail!");
-        });
+              .then(response => {
+                if (response.status === 200) {
+                  // alert("Successful!");
+                } else {
+                  throw new Error('HTTP 错误 ' + response.status);
+                }
+              })
+              .catch(error => {
+                console.log("错误：", error);
+                alert("Fail!");
+              });
 
       //记录当前的票数
       var currentNum = activity.ticketNumber;
@@ -218,18 +266,18 @@
         },
         body: data
       })
-        .then(response => {
-          if (response.ok) {
-            console.log('Request successful');
-            alert("successful");
-            location.reload();
-          } else {
-            console.error('Request failed');
-          }
-        })
-        .catch(error => {
-          console.error('Error:', error);
-        });
+              .then(response => {
+                if (response.ok) {
+                  console.log('Request successful');
+                  alert("successful");
+                  location.reload();
+                } else {
+                  console.error('Request failed');
+                }
+              })
+              .catch(error => {
+                console.error('Error:', error);
+              });
     }
 
     // 存储后端返回的活动表
@@ -237,15 +285,15 @@
       fetch('http://localhost:8080/api/sportActivity/allActivities', {
         method: 'GET'
       })
-        .then((response) => response.json())
-        .then((data) => {
+              .then((response) => response.json())
+              .then((data) => {
 
-          var table = document.getElementById('activity-table');
-          data.forEach(activity => {
-            //我在这里找了一个小时的bug，发现是参数传递的问题
-            if (activity.ticketNumber != 0 && activity.name === "football") {
-              var row = document.createElement("tr");
-              row.innerHTML = `
+                var table = document.getElementById('activity-table');
+                data.forEach(activity => {
+                  //我在这里找了一个小时的bug，发现是参数传递的问题
+                  if (activity.ticketNumber != 0 && activity.name === "football") {
+                    var row = document.createElement("tr");
+                    row.innerHTML = `
               <td id="activity-id-${activity.id}">${activity.id}</td>
               <td id="activity-name-${activity.name}">${activity.name}</td>
               <td id="activity-date-${activity.date}">${activity.date}</td>
@@ -256,23 +304,23 @@
               <td id="activity-price-${activity.price}">${activity.price}</td>
               <td id="activity-number-${activity.ticketNumber}">${activity.ticketNumber}</td>
               <td id="activity-pay-${activity.id}">
-              <button onclick="payForActivity(${JSON.stringify(activity).replace(/"/g, "&quot;")})">Pay</button>
+              <input type = 'button' disabled="true" id = 'pay' onclick="payForActivity(${JSON.stringify(activity).replace(/"/g, "&quot;")})" value =  'Pay'>
               </td>
               <td id="activity-add-${activity.id}">
-              <button button onclick="addToCart(${JSON.stringify(activity).replace(/"/g, "&quot;")})">Add to Cart</button>
+              <input type="button" disabled="true" id = 'add_cart' onclick="addToCart(${JSON.stringify(activity).replace(/"/g, "&quot;")})" value = 'Add to Cart'>
               </td>
               
               `;
 
-              table.appendChild(row);
+                    table.appendChild(row);
 
-            }
-          });
-        })
+                  }
+                });
+              })
     }
-    document.getElementById("myInput1").style.display = 'block';
-    document.getElementById("myInput2").style.display = 'none';
-    function change(page, tag) {
+    document.getElementById("myInput1").style.display= 'block';
+    document.getElementById("myInput2").style.display= 'none';
+    function change(page, tag){
       var i = 1;
       var el;
       while (el = document.getElementById(tag + i)) {
@@ -285,7 +333,7 @@
     }
     function search1() {
       // 声明变量
-      var input, filter, table, tr, td1, i;
+      var input, filter, table, tr, td1,i;
       input = document.getElementById("myInput1");
       filter = input.value.toUpperCase();
       table = document.getElementById("activity-table");
@@ -307,7 +355,7 @@
     }
     function search2() {
       // 声明变量
-      var input, filter, table, tr, td1, i;
+      var input, filter, table, tr, td1,i;
       input = document.getElementById("myInput2");
       filter = input.value.toUpperCase();
       table = document.getElementById("activity-table");
@@ -327,6 +375,7 @@
         }
       }
     }
+
 
 
 
