@@ -114,7 +114,9 @@ public class BookingController {
         Map<String, Object> bookingInfo = bookingInfoMapper.getBookingCostAndWalletInfoIdById(bookingInfoId);
         Double bookingCost = (Double) bookingInfo.get("price");
         Long walletInfoId = (Long) bookingInfo.get("wallet_info_id");
-        walletInfoMapper.updateWalletBalance(walletInfoId, bookingCost);
+        Double currentBalance = walletInfoMapper.getWalletBalance(walletInfoId);
+        Double newBalance = currentBalance - bookingCost;
+        walletInfoMapper.updateWalletBalance(walletInfoId, newBalance);
     }
 
     @PostMapping("/updateWalletInfoId")
