@@ -93,16 +93,6 @@
                   </tbody>
                 </table>
               
-              <!-- 分页栏 -->
-                <!-- <ul class="pagination" style="margin-left: 300px;" >
-                  <li><a href="#">&laquo;</a></li>
-                  <li><a href="#">1</a></li>
-                  <li><a href="#">2</a></li>
-                  <li><a href="#">3</a></li>
-                  <li><a href="#">4</a></li>
-                  <li><a href="#">5</a></li>
-                  <li><a href="#">&raquo;</a></li>
-                </ul> -->
                 <p></p>
               </div>
               </div>
@@ -131,7 +121,6 @@
                         <label for="editName">Name:</label>
                         
                         <select class="form-control" id="editName" required>
-                            <!-- 动态填充选项 -->
                             <option value="Football">Football</option>
                             <option value="Basketball">Basketball</option>
                             <option value="Tennis">Tennis</option>
@@ -151,13 +140,11 @@
                     </div>
                     <div class="form-group">
                         <label for="editCoach">Coach:</label>
-
-                        <input class="form-control" id="editCoach" type="text" required placeholder="Please input coach name">
+                        <input type="text" class="form-control" id="editCoach"  required>
                     </div>
                     <div class="form-group">
                         <label for="editStadium">Stadium:</label>
                         <select class="form-control" id="editStadium">
-                            <!-- 动态填充选项 -->
                             <option value="stadium1">Stadium 1</option>
                             <option value="stadium2">Stadium 2</option>
                             <option value="stadium3">Stadium 3</option>
@@ -166,11 +153,11 @@
                  
                     <div class="form-group">
                         <label for="editPrice">Price:</label>
-                        <input type="number" class="form-control" id="editPrice" required>
+                        <input type="number" class="form-control" id="editPrice" min="1" required>
                     </div>
                     <div class="form-group">
                         <label for="editTicketNumber">Ticket Number:</label>
-                        <input type="number" class="form-control" id="editTicketNumber" required>
+                        <input type="number" class="form-control" id="editTicketNumber" min="0" required>
                     </div>
                     <button type="button" class="btn btn-primary" onclick="saveChanges()">Save</button>
 
@@ -194,7 +181,6 @@
                     <div class="form-group">
                         <label for="name">Name:</label>
                         <select class="form-control" id="name" required>
-                            <!-- 动态填充选项 -->
                             <option value="Football">Football</option>
                             <option value="Basketball">Basketball</option>
                             <option value="Tennis">Tennis</option>
@@ -214,14 +200,12 @@
                     </div>
                     <div class="form-group">
                         <label for="coach">Coach:</label>
-
-                        <input class="form-control" id="coach" type="text" required placeholder="Please input coach name">
-
+                        <input type="text" class="form-control" id="coach" placeholder="Please input coach name" required>
                     </div>
                     <div class="form-group">
                         <label for="stadium">Stadium:</label>
                         <select class="form-control" id="stadium" required>
-                            <!-- 动态填充选项 -->
+
                             <option value="stadium1">Stadium 1</option>
                             <option value="stadium2">Stadium 2</option>
                             <option value="stadium3">Stadium 3</option>
@@ -230,11 +214,11 @@
                   
                     <div class="form-group">
                         <label for="price">Price:</label>
-                        <input type="number" class="form-control" id="price" required>
+                        <input type="number" class="form-control" id="price" min="1" required>
                     </div>
                     <div class="form-group">
                         <label for="ticketNumber">Ticket Number:</label>
-                        <input type="number" class="form-control" id="ticketNumber" required>
+                        <input type="number" class="form-control" id="ticketNumber" min="1" required>
                     </div>
                     <button type="button" class="btn btn-primary" onclick="addSportActivity()">Add</button>
                 </form>
@@ -242,14 +226,6 @@
         </div>
     </div>
 </div>
-
-
-
-
-
-
-
-
 
 
 
@@ -271,7 +247,7 @@ document.getElementById('a1').addEventListener('click', function() {
 $(document).ready(function() {
     $('.table').DataTable({
         "ajax": {
-            "url": "http://localhost:8080/api/sportActivity",
+            "url": "api/sportActivity",
             "dataSrc": ""
         },
         "columns": [
@@ -303,12 +279,10 @@ $(document).ready(function() {
 // 填充edit表单
 function populateEditForm(id) {
     // 将数据填入编辑表单中的各个字段
-
-            axios.get(`api/sportActivity/getActivity/${id}`)
+    axios.get(`api/sportActivity/getActivity/${id}`)
 
 
         .then((response) => {
-            // 假设返回的数据是一个数组，且我们需要的数据是数组的第一个元素
             const activity = response.data[0]; // 取数组的第一个元素
             console.log(activity);
             // 更新表单中的字段值
@@ -340,7 +314,7 @@ function saveChanges() {
         ticketNumber: document.getElementById('editTicketNumber').value
     };
 
-    axios.put(`http://localhost:8080/api/sportActivity/${updatedActivity.id}`, updatedActivity)
+    axios.put(`api/sportActivity/${updatedActivity.id}`, updatedActivity)
         .then(response => {
             console.log('Activity updated successfully:', response.data);
             alert('Edit successfully.');
@@ -366,8 +340,7 @@ function confirmDelete(activityId) {
             axios.delete(`api/sportActivity/delete/${activityId}`)
                 .then(response => {
                     alert(response.data); // 显示删除成功信息
-                    // 刷新页面或重新获取数据
-                    location.reload(); // 可以根据需求刷新页面或重新加载数据
+                    location.reload(); // 根据需求刷新页面或重新加载数据
                 })
                 .catch(error => {
                     console.error('Error deleting sport activity:', error);
@@ -402,7 +375,7 @@ function openAddModal() {
             axios.post('api/sportActivity/add', newActivity)
                 .then(response => {
                     alert('Sport activity added successfully.');
-                    location.reload(); // 可以根据需求刷新页面或重新加载数据
+                    location.reload(); // 根据需求刷新页面或重新加载数据
                 })
                 .catch(error => {
                     console.error('Error adding sport activity:', error);
@@ -410,18 +383,9 @@ function openAddModal() {
                 });
         }
 
-
-
-
-function sortById(){
-    
-
-
-}
 </script>
 
 
 </body>
-
 <script type="text/javascript" src="logout.js"></script>
 </html>

@@ -48,7 +48,7 @@ public class AdminLoginController {
         if (user != null) {
             // 登录成功，将用户信息存储到Session中
             session.setAttribute("user", user);
-            return "redirect:/adminHomepage.html"; // 登录成功后跳转到用户首页
+            return "redirect:/adminHomePage.html"; // 登录成功后跳转到用户首页
         } else {
             return "redirect:/adminLogin.html?error"; // 登录失败，重定向到登录页面并显示错误消息
         }
