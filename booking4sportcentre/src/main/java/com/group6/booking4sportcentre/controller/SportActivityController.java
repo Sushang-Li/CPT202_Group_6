@@ -1,7 +1,9 @@
 package com.group6.booking4sportcentre.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.group6.booking4sportcentre.mapper.CoachInfoMapper;
 import com.group6.booking4sportcentre.mapper.SportActivityMapper;
+import com.group6.booking4sportcentre.model.CoachInfo;
 import com.group6.booking4sportcentre.model.SportActivity;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +11,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.Date;
 import java.util.List;
 
 @Slf4j
@@ -22,7 +23,8 @@ import java.util.List;
 public class SportActivityController {
     @Autowired
     private SportActivityMapper sportActivityMapper;
-
+    @Autowired
+    private CoachInfoMapper coachMapper;
     //得到目前所有的体育活动
     //注意：得到的应该是空闲的所有的体育活动,目前还是所有的体育活动
     //每个项目预定也是先调用这个接口
@@ -80,25 +82,38 @@ public class SportActivityController {
 
    @PutMapping("/{id}")
     public String update(@PathVariable int id, @RequestBody SportActivity sportActivity) {
-        // 设置要更新的体育活动的 ID
-       sportActivity.setId(id);
-        // 调用 Mapper 接口中的更新方法
-        int rowsAffected = sportActivityMapper.update(sportActivity);
+       CoachInfo coach = coachMapper.selectOne(new QueryWrapper<CoachInfo>().eq("name", sportActivity.getCoach()));
+       System.out.println("名字是1："+coach.getName());
+       if (coach != null ) {
+           // 设置要更新的体育活动的 ID
+           sportActivity.setId(id);
+           // 调用 Mapper 接口中的更新方法
+           int rowsAffected = sportActivityMapper.update(sportActivity);
 
-        if (rowsAffected > 0) {
-            return "Sport activity updated successfully";
-        } else {
-            return "Failed to update sport activity";
-        }
+           if (rowsAffected > 0) {
+               return "Sport activity updated successfully";
+           } else {
+               return "Failed to update sport activity";
+           }
+       } else {
+           return "Failed to add sport activity due to the coach is not exist. Please check again.";
+       }
     }
+
+
     @PostMapping("/add")
     public String add(@RequestBody SportActivity sportActivity){
-
-        int i = sportActivityMapper.add(sportActivity);
-        if (i == 0) {
-            return "Failed to add sport activity";
+        CoachInfo coach = coachMapper.selectOne(new QueryWrapper<CoachInfo>().eq("name", sportActivity.getCoach()));
+        System.out.println("名字是1："+coach.getName());
+        if (coach != null ) {
+            int i = sportActivityMapper.add(sportActivity);
+            if (i == 0) {
+                return "Failed to add sport activity";
+            }
+            return "Sport activity added successfully";
+        } else {
+            return "Failed to add sport activity due to the coach is not exist. Please check again.";
         }
-        return "Sport activity added successfully";
     }
 
 
