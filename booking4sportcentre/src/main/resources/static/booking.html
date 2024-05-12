@@ -71,7 +71,7 @@
         var userLink = document.getElementById('statistics-nav');
         userLink.href = "userStatistics.html?id=" + userId;
         window.onload = function () {
-            fetch('http://localhost:8080/api/sportActivity/allActivities', {
+            fetch('/api/sportActivity/allActivities', {
                 method: 'GET'
             })
                 .then((response) => response.json())
