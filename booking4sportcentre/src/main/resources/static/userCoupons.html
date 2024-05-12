@@ -164,7 +164,7 @@
       /*可用和过期优惠券*/
 
       window.onload = function () {
-        fetch('/api/coupons', {
+        fetch('api/coupons', {
           method: "GET"
         })
                 .then(response => response.json())

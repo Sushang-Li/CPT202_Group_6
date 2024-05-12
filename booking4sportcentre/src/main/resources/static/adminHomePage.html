@@ -5,7 +5,7 @@
     <title>体育管理系统</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
  <!-- 相对路径的Bootstrap的css -->
- <link rel="stylesheet" href="bootstrap-3.4.1\css\bootstrap.min.css">  
+ <link rel="stylesheet" href="bootstrap-3.4.1\css\bootstrap.min.css">
     <link rel="shortcut icon" href="images/smallcut.png">
     <script src="https://cdn.staticfile.org/jquery/2.2.4/jquery.min.js"></script>
     <script src="https://cdn.staticfile.org/echarts/4.3.0/echarts.min.js"></script>
@@ -58,50 +58,50 @@
     </div>
 </div>
 
-<script type="text/javascript">
-    //chart:tickets quantity,total sales
-    $(document).ready(function(){
-        var months=[];
-        var totals=[];
-        var quantities=[];
-        $.ajax({
-            type : "get",
-            async : true,
-            url : "http://localhost:8080/api/report",
-            data : {},
-            dataType : "json",
-            success : function(result) {
-                if (result) {
-                    for(var month in result){
-                        months.push(month);
-                        totals.push(result[month].total);
-                        quantities.push(result[month].quantity);
-                    }
-                    var myChartTotal = echarts.init(document.getElementById('totalSales'));
-                    myChartTotal.setOption({
-                        title:{
-                            text: 'Total Sales'
-                        },
-                        legend: {
-                            data:['Total Sales']
-                        },
-                        xAxis: {
-                            data: months,
-                            name: 'Month',
-                            axisLabel:{
-                                interval: 0
-                            }
-                        },
-                        yAxis: {
-                            type: 'value',
-                            name: 'Sales'
-                        },
-                        series: [{
-                            name: 'Total Sales',
-                            type: 'line',
-                            data: totals
-                        }]
-                    });
+    <script type="text/javascript">
+        //chart:tickets quantity,total sales
+        $(document).ready(function () {
+            var months = [];
+            var totals = [];
+            var quantities = [];
+            $.ajax({
+                type: "get",
+                async: true,
+                url: "api/report",
+                data: {},
+                dataType: "json",
+                success: function (result) {
+                    if (result) {
+                        for (var month in result) {
+                            months.push(month);
+                            totals.push(result[month].total);
+                            quantities.push(result[month].quantity);
+                        }
+                        var myChartTotal = echarts.init(document.getElementById('totalSales'));
+                        myChartTotal.setOption({
+                            title: {
+                                text: 'Total Sales'
+                            },
+                            legend: {
+                                data: ['Total Sales']
+                            },
+                            xAxis: {
+                                data: months,
+                                name: 'Month',
+                                axisLabel: {
+                                    interval: 0
+                                }
+                            },
+                            yAxis: {
+                                type: 'value',
+                                name: 'Sales'
+                            },
+                            series: [{
+                                name: 'Total Sales',
+                                type: 'line',
+                                data: totals
+                            }]
+                        });
 
                     var myChartQuantity = echarts.init(document.getElementById('quantity'));
                     myChartQuantity.setOption({

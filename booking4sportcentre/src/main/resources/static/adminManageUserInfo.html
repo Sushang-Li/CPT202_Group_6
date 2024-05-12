@@ -120,32 +120,32 @@
     </div>
 </div>
 
-    <script>
-        // 获取用户信息并渲染到表格中
-        function fetchAndRenderUsers() {
-            fetch('http://localhost:8080/api/UserInfo')
-                .then(response => response.json())
-                .then(data => {
-                    renderUsers(data);
-                    //bindDeleteButtonListeners();
-                })
-                .catch(error => console.error('Error fetching users', error));
-        }
+        <script>
+            // 获取用户信息并渲染到表格中
+            function fetchAndRenderUsers() {
+                fetch('api/UserInfo')
+                    .then(response => response.json())
+                    .then(data => {
+                        renderUsers(data);
+                        //bindDeleteButtonListeners();
+                    })
+                    .catch(error => console.error('Error fetching users', error));
+            }
 
-        // 根据Id搜索用户信息并渲染到表格中
-        function searchAndRenderUserById(id) {
-            fetch(`http://localhost:8080/api/findUserById/${id}`)
-                .then(response => response.json())
-                .then(user => {
-                    renderUsers([user]); // 渲染单个用户信息
-                })
-                .catch(error => console.error('Error fetching user by id', error));
-        }
-        // 监听搜索按钮点击事件
-        document.querySelector('#searchButton').addEventListener('click', function() {
-            const inputId = document.querySelector('#search-input').value;
-            searchAndRenderUserById(inputId);
-        });
+            // 根据Id搜索用户信息并渲染到表格中
+            function searchAndRenderUserById(id) {
+                fetch(`api/findUserById/${id}`)
+                    .then(response => response.json())
+                    .then(user => {
+                        renderUsers([user]); // 渲染单个用户信息
+                    })
+                    .catch(error => console.error('Error fetching user by id', error));
+            }
+            // 监听搜索按钮点击事件
+            document.querySelector('#searchButton').addEventListener('click', function () {
+                const inputId = document.querySelector('#search-input').value;
+                searchAndRenderUserById(inputId);
+            });
 
         function renderUsers(users) {
             var tableBody = document.querySelector('#userTable tbody');
@@ -196,27 +196,27 @@
                 userData[key] = value;
             });
 
-            // 发起添加用户信息的请求
-            fetch('http://localhost:8080/api/addUser', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(userData)
-            })
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('HTTP error ' + response.status);
-                    }
-                    return response.json()
+                // 发起添加用户信息的请求
+                fetch('api/addUser', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(userData)
                 })
-                .then(data => {
-                    // 添加成功后的操作，关闭模态框并刷新用户数据
-                    closeModal();
-                    fetchAndRenderUsers();
-                })
-                .catch(error => console.error('Error adding user', error));
-        });
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('HTTP error ' + response.status);
+                        }
+                        return response.json()
+                    })
+                    .then(data => {
+                        // 添加成功后的操作，关闭模态框并刷新用户数据
+                        closeModal();
+                        fetchAndRenderUsers();
+                    })
+                    .catch(error => console.error('Error adding user', error));
+            });
 
 
         //获取表单元素，添加事件监听器
@@ -231,111 +231,111 @@
                 userData[key] = value;
             });
 
-            // 确保ID字段被正确地包含在表单数据中
-            fetch('http://localhost:8080/api/updateUser', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(userData)
-            })
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('HTTP error ' + response.status);
-                    }
-                    return response.json()
+                // 确保ID字段被正确地包含在表单数据中
+                fetch('api/updateUser', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(userData)
                 })
-                .then(data => {
-                    // 添加成功后的操作，关闭模态框并刷新用户数据
-                    closeModal();
-                    fetchAndRenderUsers();
-                })
-                .catch(error => console.error('Error adding user', error));
-        });
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('HTTP error ' + response.status);
+                        }
+                        return response.json()
+                    })
+                    .then(data => {
+                        // 添加成功后的操作，关闭模态框并刷新用户数据
+                        closeModal();
+                        fetchAndRenderUsers();
+                    })
+                    .catch(error => console.error('Error adding user', error));
+            });
 
 
-        //获取表单元素，添加事件监听器
-        document.getElementById('userForm').addEventListener('submit', function(event) {
-            event.preventDefault();
-            var formData = new FormData(document.getElementById('userForm'));
-            // 确保ID字段被正确地包含在表单数据中
-            fetch('http://localhost:8080/api/updateUser', {
-                method: 'POST',
-                // headers: {
-                //     'Content-Type': 'application/json'
-                // },
-                // body: JSON.stringify(userData)
-                body: formData
-            })
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('HTTP error ' + response.status);
-                    }
-                    return response.json()
+            //获取表单元素，添加事件监听器
+            document.getElementById('userForm').addEventListener('submit', function (event) {
+                event.preventDefault();
+                var formData = new FormData(document.getElementById('userForm'));
+                // 确保ID字段被正确地包含在表单数据中
+                fetch('api/updateUser', {
+                    method: 'POST',
+                    // headers: {
+                    //     'Content-Type': 'application/json'
+                    // },
+                    // body: JSON.stringify(userData)
+                    body: formData
                 })
-                // .then(response => response.json())
-                .then(data => {
-                    closeModal();
-                    fetch('http://localhost:8080/api/UserInfo')
-                        .then(response => response.json())
-                        .then(data => {
-                            renderUsers(data);
-                        })
-                        .catch(error => console.error('Error fetching users', error));
-                })
-                .catch(error => console.error('Error saving student', error));
-        });
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('HTTP error ' + response.status);
+                        }
+                        return response.json()
+                    })
+                    // .then(response => response.json())
+                    .then(data => {
+                        closeModal();
+                        fetch('api/UserInfo')
+                            .then(response => response.json())
+                            .then(data => {
+                                renderUsers(data);
+                            })
+                            .catch(error => console.error('Error fetching users', error));
+                    })
+                    .catch(error => console.error('Error saving student', error));
+            });
 
         //关闭模态框
         function closeModal() {
             document.getElementById('userModal').style.display = 'none';
         }
 
-        function openEditModal(id) {
-            document.getElementById('modalTitle').textContent = 'Update user information';
-            document.getElementById('saveButton').textContent = 'Submit';
-            // 根据id从后端获取用户信息并填充到模态框中
-            fetch(`http://localhost:8080/api/getUserById/${id}`)
-                .then(response => response.json())
-                .then(user => {
-                    document.getElementById('id').value = user.id;
-                    document.getElementById('stuId').value = user.stuId;
-                    document.getElementById('username').value = user.username;
-                    document.getElementById('position').value = user.position;
-                    document.getElementById('password').value = user.password;
-                    document.getElementById('phoneNum').value = user.phoneNum;
-                    document.getElementById('intro').value = user.intro;
-                    document.getElementById('reDate').value = user.reDate;
-                    document.getElementById('userModal').style.display = 'block';
-                })
-                .catch(error => console.error('Error fetching user', error));
-        }
-        /**
-         // 监听所有class为delete-button的按钮点击事件
-         document.querySelectorAll('.delete-button').forEach(button => {
-         button.addEventListener('click', function() {
-         const userId = this.getAttribute('data-user-id');
-         deleteUser(userId);
-         });
-         });
+            function openEditModal(id) {
+                document.getElementById('modalTitle').textContent = 'Update user information';
+                document.getElementById('saveButton').textContent = 'Submit';
+                // 根据id从后端获取用户信息并填充到模态框中
+                fetch(`api/getUserById/${id}`)
+                    .then(response => response.json())
+                    .then(user => {
+                        document.getElementById('id').value = user.id;
+                        document.getElementById('stuId').value = user.stuId;
+                        document.getElementById('username').value = user.username;
+                        document.getElementById('position').value = user.position;
+                        document.getElementById('password').value = user.password;
+                        document.getElementById('phoneNum').value = user.phoneNum;
+                        document.getElementById('intro').value = user.intro;
+                        document.getElementById('reDate').value = user.reDate;
+                        document.getElementById('userModal').style.display = 'block';
+                    })
+                    .catch(error => console.error('Error fetching user', error));
+            }
+            /**
+             // 监听所有class为delete-button的按钮点击事件
+             document.querySelectorAll('.delete-button').forEach(button => {
+             button.addEventListener('click', function() {
+             const userId = this.getAttribute('data-user-id');
+             deleteUser(userId);
+             });
+             });
 
-         // 删除用户信息
-         function deleteUser(id) {
-         fetch(`http://localhost:8080/api/deleteUser/${id}`, {
-         method: 'DELETE'
-         })
-         .then(response => {
-         if (!response.ok) {
-         throw new Error('Error deleting user');
-         }
-         return response.json();
-         })
-         .then(() => {
-         fetchAndRenderUsers();
-         })
-         .catch(error => console.error('Error deleting user', error));
-         }
-         */
+             // 删除用户信息
+             function deleteUser(id) {
+             fetch(`http://localhost:8080/api/deleteUser/${id}`, {
+             method: 'DELETE'
+             })
+             .then(response => {
+             if (!response.ok) {
+             throw new Error('Error deleting user');
+             }
+             return response.json();
+             })
+             .then(() => {
+             fetchAndRenderUsers();
+             })
+             .catch(error => console.error('Error deleting user', error));
+             }
+             */
 
         // 初始化页面时获取用户数据
         document.addEventListener('DOMContentLoaded', function() {
