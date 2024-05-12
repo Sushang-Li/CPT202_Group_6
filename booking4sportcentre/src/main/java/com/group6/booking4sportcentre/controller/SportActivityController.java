@@ -1,11 +1,15 @@
 package com.group6.booking4sportcentre.controller;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.group6.booking4sportcentre.mapper.SportActivityMapper;
 import com.group6.booking4sportcentre.model.SportActivity;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.Date;
 import java.util.List;
 
 @Slf4j
@@ -29,7 +33,7 @@ public class SportActivityController {
         return list;
     }
 
-    //更新票数
+    //更新票数,只是更新，数据在前端完成了更改传递到了后端
     @PostMapping("/updateTicketNumber")
     public void updateTicketNumber(@RequestParam int id, @RequestParam int current, @RequestParam int price) {
         SportActivity sportActivity = new SportActivity();
@@ -38,6 +42,29 @@ public class SportActivityController {
         sportActivity.setPrice(price);
 
         sportActivityMapper.updateById(sportActivity);
+    }
+    //从booking的信息直接更新activity
+    @GetMapping("/updateOneActivity")
+    public void updateOneActivity(@RequestParam String actName, @RequestParam LocalDate date,
+                                  @RequestParam LocalTime startTime, @RequestParam LocalTime endTime,
+                                  @RequestParam String stadium) {
+        QueryWrapper<SportActivity> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("name", actName);
+        queryWrapper.eq("date", date);
+        queryWrapper.eq("start_time", startTime);
+        queryWrapper.eq("end_time", endTime);
+        queryWrapper.eq("stadium", stadium);
+
+        SportActivity sportActivity = sportActivityMapper.selectOne(queryWrapper);
+
+
+        int temp = sportActivity.getTicketNumber();
+        sportActivity.setTicketNumber(temp + 1);
+
+        sportActivityMapper.update(sportActivity);
+
+
+
     }
 
     //查看全部体育活动

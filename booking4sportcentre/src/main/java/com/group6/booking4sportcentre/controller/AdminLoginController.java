@@ -1,14 +1,13 @@
 package com.group6.booking4sportcentre.controller;
 
 import com.group6.booking4sportcentre.mapper.AdminInfoMapper;
+import com.group6.booking4sportcentre.mapper.WalletInfoMapper;
 import com.group6.booking4sportcentre.model.AdminInfo;
-import com.group6.booking4sportcentre.model.UserInfo;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
@@ -20,6 +19,8 @@ import java.util.List;
 public class AdminLoginController {
     @Autowired
     private AdminInfoMapper adminInfoMapper;
+    @Autowired
+    private WalletInfoMapper walletInfoMapper;
 
     //    管理员登录：数据库中已存有管理员信息，通过用户名和密码进行登录验证
 //    Administrator login: The database has stored the administrator information,
@@ -47,7 +48,7 @@ public class AdminLoginController {
         if (user != null) {
             // 登录成功，将用户信息存储到Session中
             session.setAttribute("user", user);
-            return "redirect:/AdminHomepage.html"; // 登录成功后跳转到用户首页
+            return "redirect:/adminHomepage.html"; // 登录成功后跳转到用户首页
         } else {
             return "redirect:/adminLogin.html?error"; // 登录失败，重定向到登录页面并显示错误消息
         }

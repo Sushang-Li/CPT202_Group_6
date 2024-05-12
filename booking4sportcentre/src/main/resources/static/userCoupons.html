@@ -85,80 +85,6 @@
 
             <div class="coupon-item round-border2">
 
-              <div class="style-one">
-
-                <div class="info-box">
-
-
-
-                  <div class="coupon-money">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                      stroke="currentColor" class="w-6 h-6"
-                      style="width: 6rem; height: 10rem; margin-right: 2rem; z-index: 108; margin-left: 1rem">
-                      <path stroke-linecap="round" stroke-linejoin="round"
-                        d="M16.5 6v.75m0 3v.75m0 3v.75m0 3V18m-9-5.25h5.25M7.5 15h3M3.375 5.25c-.621 0-1.125.504-1.125 1.125v3.026a2.999 2.999 0 0 1 0 5.198v3.026c0 .621.504 1.125 1.125 1.125h17.25c.621 0 1.125-.504 1.125-1.125v-3.026a2.999 2.999 0 0 1 0-5.198V6.375c0-.621-.504-1.125-1.125-1.125H3.375Z" />
-                    </svg>
-                    <div class="lay of">￥<em>100</em></div>
-
-                    <div class="lay" style="display: flex; justify-content: space-between; align-items: center;">
-                      <div>
-                        <p class="nick">J Coupon</p>
-                        <p class="tit"> Valid Until: </p>
-                        <p class="demand">2025/01/31</p>
-                      </div>
-
-                    </div>
-
-                  </div>
-
-                </div>
-
-                <a href="booking.html" class="get-btn" id="booking1">
-                  <!--链接需要改-->
-                  <span>Use</span>
-
-                </a>
-
-              </div>
-
-              <!--2-->
-              <div class="style-one">
-
-                <div class="info-box">
-
-
-
-                  <div class="coupon-money">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                      stroke="currentColor" class="w-6 h-6"
-                      style="width: 6rem; height: 10rem; margin-right: 2rem; z-index: 108; margin-left: 1rem">
-                      <path stroke-linecap="round" stroke-linejoin="round"
-                        d="M16.5 6v.75m0 3v.75m0 3v.75m0 3V18m-9-5.25h5.25M7.5 15h3M3.375 5.25c-.621 0-1.125.504-1.125 1.125v3.026a2.999 2.999 0 0 1 0 5.198v3.026c0 .621.504 1.125 1.125 1.125h17.25c.621 0 1.125-.504 1.125-1.125v-3.026a2.999 2.999 0 0 1 0-5.198V6.375c0-.621-.504-1.125-1.125-1.125H3.375Z" />
-                    </svg>
-                    <div class="lay of">￥<em>100</em></div>
-
-                    <div class="lay" style="display: flex; justify-content: space-between; align-items: center;">
-                      <div>
-                        <p class="nick">J Coupon</p>
-                        <p class="tit"> Valid Until: </p>
-                        <p class="demand">2025/01/31</p>
-                      </div>
-
-                    </div>
-
-                  </div>
-
-                </div>
-
-                <a href="booking.html" class="get-btn" id="booking2">
-                  <!--链接需要改-->
-                  <span>Use</span>
-
-                </a>
-
-              </div>
-
-
             </div>
 
 
@@ -166,43 +92,7 @@
 
             <!--已过期-->
 
-            <div class="coupon-item expired round-border3">
-
-              <div class="style-one have">
-
-                <div class="info-box">
-
-
-
-                  <div class="coupon-money">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                      stroke="currentColor" class="w-6 h-6"
-                      style="width: 6rem; height: 10rem; margin-right: 2rem; z-index: 108; margin-left: 1rem">
-                      <path stroke-linecap="round" stroke-linejoin="round"
-                        d="M16.5 6v.75m0 3v.75m0 3v.75m0 3V18m-9-5.25h5.25M7.5 15h3M3.375 5.25c-.621 0-1.125.504-1.125 1.125v3.026a2.999 2.999 0 0 1 0 5.198v3.026c0 .621.504 1.125 1.125 1.125h17.25c.621 0 1.125-.504 1.125-1.125v-3.026a2.999 2.999 0 0 1 0-5.198V6.375c0-.621-.504-1.125-1.125-1.125H3.375Z" />
-                    </svg>
-
-                    <div class="lay of">￥<em> 0 </em></div>
-
-                    <div class="lay">
-                      <p class="nick2">S Coupon</p>
-
-                      <p class="tit">Valid until:</p>
-
-                      <p class="demand">2023/09/30</p>
-
-                    </div>
-
-                  </div>
-
-                </div>
-
-                <a href="userCoupons.html" class="get-btn">
-                  <!--后面需要改-->
-                  <span>Expired</span>
-
-                </a>
-
+            <div class="coupon-item expired round-border3" >
               </div>
 
             </div>
@@ -271,21 +161,48 @@
         }
       });
 
-      /*添加可用优惠券*/
+      /*可用和过期优惠券*/
+
       window.onload = function () {
-        fetch('http://localhost:8080/api/coupons', {
+        fetch('api/coupons', {
           method: "GET"
         })
-          .then(response => response.json())
-          .then(coupons => {
-            var couponWrapper = document.querySelector('.round-border2');
+                .then(response => response.json())
+                .then(coupons => {
+                  var validCouponWrapper = document.querySelector('.round-border2');
+                  var expiredCouponWrapper = document.querySelector('.expired.round-border3'); // 获取用于存放过期优惠券的容器
+                  coupons.forEach((coupon) => {
+                    var couponItem = document.createElement('div');
+                    var endTime = new Date(coupon.endTime);
+                    var endTimeStr = endTime.toLocaleDateString();
+                    var status = coupon.status.toUpperCase();
 
-            coupons.forEach((coupon) => {
-              var couponItem = document.createElement('div');
-              couponItem.className = 'style-one';
-              var endTime = new Date(coupon.endTime);
-              var endTimeStr = endTime.toLocaleDateString();
-              couponItem.innerHTML = `
+                    if (status === 'EXPIRED') {
+                      couponItem.className = 'style-one have'; // 应用已过期优惠券的样式
+
+                      // 创建与硬编码优惠券相同的HTML结构
+                      couponItem.innerHTML = `
+                    <div class="info-box">
+                        <div class="coupon-money">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6" style="width: 6rem; height: 10rem; margin-right: 2rem; z-index: 108; margin-left: 1rem">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 6v.75m0 3v.75m0 3v.75m0 3V18m-9-5.25h5.25M7.5 15h3M3.375 5.25c-.621 0-1.125.504-1.125 1.125v3.026a2.999 2.999 0 0 1 0 5.198v3.026c0 .621.504 1.125 1.125 1.125h17.25c.621 0 1.125-.504 1.125-1.125v-3.026a2.999 2.999 0 0 1 0-5.198V6.375c0-.621-.504-1.125-1.125-1.125H3.375Z" />
+                            </svg>
+                            <div class="lay of">￥<em>${coupon.faceValue}</em></div>
+                            <div class="lay">
+                                <p class="nick2">${coupon.name}</p>
+                                <p class="tit">Valid until:</p>
+                                <p class="demand">${new Date(coupon.endTime).toLocaleDateString()}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="userCoupons.html" class="get-btn">
+                        <span>Expired</span>
+                    </a>
+                `;
+                      expiredCouponWrapper.appendChild(couponItem); // 将优惠券元素添加到容器中
+                    }else if (status==='ACTIVE'){
+                      couponItem.className='style-one';
+                      couponItem.innerHTML = `
                     <div class="info-box">
                         <div class="coupon-money">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6" style="width: 6rem; height: 10rem; margin-right: 2rem; z-index: 108; margin-left: 1rem">
@@ -304,16 +221,14 @@
                     <a href="booking.html" class="get-btn">
                         <span>Use</span>
                     </a>
-                `;
-              couponWrapper.appendChild(couponItem);
-            });
-          })
-          .catch(error => {
-            console.error('Error:', error);
-          });
+                `; validCouponWrapper.appendChild(couponItem)
+                    }
+                  });
+                })
+                .catch(error => {
+                  console.error('Error:', error);
+                });
       };
-
-
 
 
     </script>

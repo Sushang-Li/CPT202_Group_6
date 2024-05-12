@@ -37,11 +37,11 @@
     </div>
   </nav>
 
-  <input type="text" id="myInput1" onKeyUp="search1()" placeholder="Search..."/>
-  <input type="text" id="myInput2" onKeyUp="search2()" placeholder="Search..."/>
+  <input type="text" id="myInput1" onKeyUp="search1()" placeholder="Search..." />
+  <input type="text" id="myInput2" onKeyUp="search2()" placeholder="Search..." />
 
-  <select name="" id="" onchange = 'change(parseInt(this.value), "myInput");'>
-    <option selected ="selected" value="1" >coach</option>
+  <select name="" id="" onchange='change(parseInt(this.value), "myInput");'>
+    <option selected="selected" value="1">coach</option>
 
     <option value="2">stadium</option>
   </select>
@@ -65,18 +65,22 @@
     </tr>
 
   </table>
-  <div class = remind><p>You should view and agree the property about stadium ,and then you can pay and add to cart</p></div>
-  <div class = 'property'>
+  <div class=remind>
+    <p>You should view and agree the property about stadium ,and then you can pay and add to cart</p>
+  </div>
+  <div class='property'>
     <input type="checkBox" onclick="if (this.checked) {enable()} else {disable()}">Agree
 
+
     <a href = "#" onclick="displayWindow()">
+
 
       Stadium Property
     </a>
   </div>
   <!--悬浮窗口-->
   <div id="window" class="window_css">
-    <a href = '#' onclick="hideWindow()">
+    <a href='#' onclick="hideWindow()">
       Close the window
     </a>
   </div>
@@ -97,16 +101,14 @@
     }
 
     //disagree property will not pay or add
-    function disable()
-    {
-      document.getElementById("pay").disabled=true
-      document.getElementById("add_cart").disabled=true
+    function disable() {
+      document.getElementById("pay").disabled = true
+      document.getElementById("add_cart").disabled = true
     }
     //agree property can pay and add
-    function enable()
-    {
-      document.getElementById("pay").disabled=false
-      document.getElementById("add_cart").disabled=false
+    function enable() {
+      document.getElementById("pay").disabled = false
+      document.getElementById("add_cart").disabled = false
     }
     //复制自主页
     var urlParams = new URLSearchParams(window.location.search);
@@ -223,7 +225,7 @@
 
 
       //先新增一条未支付的预定
-      fetch('http://localhost:8080/api/bookings/addOneBooking', {
+      fetch('api/bookings/addOneBooking', {
         method: "POST",
         headers: {
           'Content-Type': 'application/json'
@@ -260,7 +262,7 @@
       data.append('price', activity.price);
 
       //向后端发起更新活动票数的请求
-      fetch('http://localhost:8080/api/sportActivity/updateTicketNumber', {
+      fetch('api/sportActivity/updateTicketNumber', {
         method: "POST",
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
@@ -283,7 +285,7 @@
 
     // 存储后端返回的活动表
     window.onload = function () {
-      fetch('http://localhost:8080/api/sportActivity/allActivities', {
+      fetch('api/sportActivity/allActivities', {
         method: 'GET'
       })
         .then((response) => response.json())
@@ -324,9 +326,9 @@
         })
     }
 
-    document.getElementById("myInput1").style.display= 'block';
-    document.getElementById("myInput2").style.display= 'none';
-    function change(page, tag){
+    document.getElementById("myInput1").style.display = 'block';
+    document.getElementById("myInput2").style.display = 'none';
+    function change(page, tag) {
 
       var i = 1;
       var el;
