@@ -122,7 +122,7 @@ public class BookingController {
             return 0;
         }
         if (booking.getWalletInfo() != null) {
-            bookingInfoMapper.updateWalletInfoId(booking.getId(), booking.getWalletInfo().getId());
+            bookingInfoMapper.updateWalletInfoId(booking.getId(), Long.valueOf(booking.getWalletInfo().getUserId()));
         }
         return bookingInfoMapper.updateBooking(id, booking);
     }
@@ -146,10 +146,10 @@ public class BookingController {
     public void confirmBooking(@RequestParam Long bookingInfoId) {
         Map<String, Object> bookingInfo = bookingInfoMapper.getBookingCostAndWalletInfoIdById(bookingInfoId);
         Double bookingCost = (Double) bookingInfo.get("price");
-        Long walletInfoId = (Long) bookingInfo.get("wallet_info_id");
-        Double currentBalance = walletInfoMapper.getWalletBalance(walletInfoId);
+        Long userId = (Long) bookingInfo.get("user_id");
+        Double currentBalance = walletInfoMapper.getWalletBalance(Math.toIntExact(userId));
         Double newBalance = currentBalance - bookingCost;
-        walletInfoMapper.updateWalletBalance(walletInfoId, newBalance);
+        walletInfoMapper.updateWalletBalance(Math.toIntExact(userId), newBalance);
     }
 
     @PostMapping("/updateWalletInfoId")
