@@ -222,7 +222,7 @@
       var uid = userId;
 
       //先新增一条未支付的预定
-      fetch('http://localhost:8080/api/bookings/addOneBooking', {
+      fetch('api/bookings/addOneBooking', {
         method: "POST",
         headers: {
           'Content-Type': 'application/json'
@@ -259,7 +259,7 @@
       data.append('price', activity.price);
 
       //向后端发起更新活动票数的请求
-      fetch('http://localhost:8080/api/sportActivity/updateTicketNumber', {
+      fetch('api/sportActivity/updateTicketNumber', {
         method: "POST",
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
@@ -282,7 +282,7 @@
 
     // 存储后端返回的活动表
     window.onload = function () {
-      fetch('http://localhost:8080/api/sportActivity/allActivities', {
+      fetch('api/sportActivity/allActivities', {
         method: 'GET'
       })
         .then((response) => response.json())

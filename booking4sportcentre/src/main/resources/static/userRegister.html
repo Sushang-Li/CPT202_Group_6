@@ -49,11 +49,12 @@
                 </svg>
 
                 <input id="password" class="input-items" name="password" type="password" placeholder="Your Password"
-                    aria-required="true" pattern="^.{6,}$"
-                    title="Passwords are at least 6 characters long and can consist of letters, numbers, and the following symbols: !@#$%^&*().,"
-                    tabindex="3" autocorrect="off" autocapitalize="none" required>
+                       aria-required="true" pattern="^(?!.*(.)\1{4})[\s\S]{6,}$"
+                       title="Passwords are at least 6 characters long and cannot contain 5 consecutive repeating digits."
+                       tabindex="3" autocorrect="off" autocapitalize="none" required>
+
                 <br>
-                <span id="password-error" class="form-error">Passwords are at least 6 characters long.</span>
+                <span id="password-error" class="form-error">Passwords are at least 6 characters long and cannot contain 5 consecutive repeating digits.</span>
                 <br>
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                     stroke="currentColor" class="check-svg">
