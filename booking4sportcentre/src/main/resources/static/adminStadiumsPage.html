@@ -119,7 +119,6 @@
                     <div class="form-group">
                       <label for="editName">Name:</label>
                       <select class="form-control" id="editName">
-                          <!-- 动态填充选项 -->
                           <option value="stadium1">Stadium 1</option>
                           <option value="stadium2">Stadium 2</option>
                           <option value="stadium3">Stadium 3</option>
@@ -130,7 +129,6 @@
                         <label for="editActivityName">Activity:</label>
                         
                         <select class="form-control" id="editActivityName">
-                            <!-- 动态填充选项 -->
                             <option value="Football">Football</option>
                             <option value="Basketball">Basketball</option>
                             <option value="Tennis">Tennis</option>
@@ -167,7 +165,6 @@
                     <div class="form-group">
                         <label for="name">Name:</label>
                         <select class="form-control" id="name" required>
-                            <!-- 动态填充选项 -->
                             <option value="stadium1">Stadium 1</option>
                             <option value="stadium2">Stadium 2</option>
                             <option value="stadium3">Stadium 3</option>
@@ -178,7 +175,6 @@
                       <label for="activityName">Activity:</label>
                       
                       <select class="form-control" id="activityName">
-                          <!-- 动态填充选项 -->
                           <option value="Football">Football</option>
                           <option value="Basketball">Basketball</option>
                           <option value="Tennis">Tennis</option>
@@ -210,26 +206,26 @@ document.getElementById('a1').addEventListener('click', function() {
                 submenu.style.display = 'none';
             }
         });
-        //获取体育活动数据
-        $(document).ready(function () {
-            $('.table').DataTable({
-                "ajax": {
-                    "url": "api/stadium",
-                    "dataSrc": ""
-                },
-                "columns": [
-                    { "data": "id" },
-                    { "data": "name" },
-                    { "data": "activityName" },
-                    { "data": "remainingSpace" },
-                    { "data": null }
-                ],
-                "columnDefs": [
-                    {
-                        "orderable": false,
-                        "targets": 4,
-                        "render": function (data, type, row) {
-                            return `<button type='button' class='glyphicon glyphicon-pencil' style='font-size: 10px' title='Edit' data-toggle='modal' data-target='#myModal' onclick='populateEditForm(${row.id})'></button>
+//获取体育活动数据
+$(document).ready(function() {
+    $('.table').DataTable({
+        "ajax": {
+            "url": "http://localhost:8080/api/stadium",
+            "dataSrc": ""
+        },
+        "columns": [
+            { "data": "id" },
+            { "data": "name" },
+            { "data": "activityName" },
+            { "data": "remainingSpace" },
+            { "data": null }
+        ],
+        "columnDefs": [
+            { 
+                "orderable": false, 
+                "targets": 4,
+                "render": function(data, type, row) {
+                    return `<button type='button' class='glyphicon glyphicon-pencil' style='font-size: 10px' title='Edit' data-toggle='modal' data-target='#myModal' onclick='populateEditForm(${row.id})'></button>
                             <button type='button' class='glyphicon glyphicon-minus' style='font-size: 10px;' title='Delete' onclick='confirmDelete(${row.id})'></button>`;
                 }
             }
@@ -237,26 +233,25 @@ document.getElementById('a1').addEventListener('click', function() {
     });
 });
 
-        // 填充edit表单
-        function populateEditForm(id) {
-            // 将数据填入编辑表单中的各个字段
-            axios.get(`api/stadium/${id}`)
-                .then((response) => {
-                    // 假设返回的数据是一个数组，且我们需要的数据是数组的第一个元素
-                    const stadium = response.data[0]; // 取数组的第一个元素
-                    console.log(stadium);
-                    console.log(stadium.name);
-                    // 更新表单中的字段值
-                    document.getElementById('editId').value = stadium.id;
-                    document.getElementById('editName').value = stadium.name;
-                    document.getElementById('editActivityName').value = stadium.activityName;
-                    document.getElementById('editRemainingSpace').value = stadium.remainingSpace;
-                })
-                .catch(error => {
-                    console.error('Error fetching sport activity details:', error);
-                    console.log('Error fetching sport activity');
-                });
-        }
+// 填充edit表单
+function populateEditForm(id) {
+    // 将数据填入编辑表单中的各个字段
+    axios.get(`http://localhost:8080/api/stadium/${id}`)
+        .then((response) => {
+            const stadium = response.data[0]; // 取数组的第一个元素
+            console.log(stadium);
+            console.log(stadium.name);
+            // 更新表单中的字段值
+            document.getElementById('editId').value = stadium.id;
+            document.getElementById('editName').value = stadium.name;
+            document.getElementById('editActivityName').value = stadium.activityName;
+            document.getElementById('editRemainingSpace').value = stadium.remainingSpace;
+        })
+        .catch(error => {
+            console.error('Error fetching sport activity details:', error);
+            console.log('Error fetching sport activity');
+        });
+}
 
 
 // 保存修改
@@ -268,18 +263,18 @@ function saveChanges() {
         remainingSpace: document.getElementById('editRemainingSpace').value
     };
 
-            axios.put(`api/stadium/${updatedStadium.id}`, updatedStadium)
-                .then(response => {
-                    console.log('stadium updated successfully:', response.data);
-                    alert('Edit successfully.');
-                    $('#myModal').modal('hide');
-                    location.reload();
-                })
-                .catch(error => {
-                    console.error('Error updating stadium:', error);
-                    alert('Failed to edit sport stadium.');
-                });
-        }
+    axios.put(`http://localhost:8080/api/stadium/${updatedStadium.id}`, updatedStadium)
+        .then(response => {
+            console.log('stadium updated successfully:', response.data);
+            alert('Edit successfully.');
+            $('#myModal').modal('hide');
+            location.reload();
+        })
+        .catch(error => {
+            console.error('Error updating stadium:', error);
+            alert('Failed to edit sport stadium.'); 
+        });
+}
 
 
 // 确认删除对话框
@@ -291,11 +286,10 @@ function confirmDelete(stadiumId) {
 
         // 删除体育活动
         function deleteSportStadium(stadiumId) {
-            axios.delete(`api/stadium/delete/${stadiumId}`)
+            axios.delete(`http://localhost:8080/api/stadium/delete/${stadiumId}`)
                 .then(response => {
                     alert(response.data); // 显示删除成功信息
-                    // 刷新页面或重新获取数据
-                    location.reload(); // 可以根据需求刷新页面或重新加载数据
+                    location.reload(); // 根据需求刷新页面或重新加载数据
                 })
                 .catch(error => {
                     console.error('Error deleting sport stadium:', error);
@@ -321,10 +315,10 @@ function openAddModal() {
                 remainingSpace: remainingSpace
             };
 
-            axios.post('api/stadium/add', newStadium)
+            axios.post('http://localhost:8080/api/stadium/add', newStadium)
                 .then(response => {
                     alert('Sport stadium added successfully.');
-                    location.reload(); // 可以根据需求刷新页面或重新加载数据
+                    location.reload(); // 根据需求刷新页面或重新加载数据
                 })
                 .catch(error => {
                     console.error('Error adding sport stadium:', error);
