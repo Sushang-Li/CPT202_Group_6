@@ -45,4 +45,14 @@ public class UserLoginController {
             return "redirect:/userLogin.html?error"; // 登录失败，重定向到登录页面并显示错误消息
         }
     }
+
+    // 添加登出方法
+
+    @PostMapping("/logout")
+    public String logout(HttpSession session) {
+        // 使当前会话失效
+        session.invalidate();
+        // 重定向到登陆页面
+        return "redirect:/index.html";
+    }
 }
