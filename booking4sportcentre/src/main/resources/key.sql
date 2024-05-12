@@ -33,7 +33,8 @@ ALTER TABLE coupon_info
 ALTER TABLE coupon_info
     ADD FOREIGN KEY (user_id) REFERENCES user_info(id);
 
-ALTER TABLE wallet_info
+/*ALTER TABLE wallet_info
     ADD COLUMN user_id int;
 ALTER TABLE wallet_info
     ADD FOREIGN KEY (user_id) REFERENCES user_info(id);
+*/

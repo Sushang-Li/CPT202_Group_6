@@ -21,7 +21,7 @@ public class WalletControllerTest {
     public void testCreateWallet() {
     WalletInfo walletInfo = new WalletInfo();
     walletInfo.setBalance(1000.0);
-    Long id = walletController.createWallet(walletInfo);
+    Long id = Long.valueOf(walletController.createWallet(walletInfo));
     assertNotNull(id);
 }
 

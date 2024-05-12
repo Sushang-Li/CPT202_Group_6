@@ -49,8 +49,9 @@ public class UserController {
 
         // 创建钱包
         WalletInfo walletInfo = new WalletInfo();
+        walletInfo.setUserId(Math.toIntExact(Long.valueOf(userInfo.getId())));
         walletInfo.setUserId(userInfo.getId());
-        walletInfo.setBalance(0.0);
+        walletInfo.setBalance(2000.0);
         walletInfoMapper.createWalletInfo(walletInfo);
 
         redirectAttributes.addFlashAttribute("message", "注册成功！");
