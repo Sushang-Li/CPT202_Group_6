@@ -4,8 +4,8 @@
     <meta charset="utf-8">
     <title>体育管理系统</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Bootstrap -->
-    <link rel="stylesheet" href="https://cdn.staticfile.net/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+ <!-- 相对路径的Bootstrap的css -->
+ <link rel="stylesheet" href="bootstrap-3.4.1\css\bootstrap.min.css">  
     <link rel="shortcut icon" href="img/smallcut.png">
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <link rel="stylesheet" href="./css/Admin.css">
@@ -59,7 +59,10 @@
 <!-- 包含了所有编译插件 -->
 <script src="https://cdn.staticfile.net/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
-
+<!-- 登出按钮 -->
+<div class="logout" style="margin-left: 90%; position: absolute; top: 30px;text-shadow: rgba(34,93,241,0.25) 5px 4px 4px;" >
+    <a href="#" id="logout-nav" style="color: rgba(38, 93, 241,0.8);" >LOGOUT</a>
+  </div>
 <div >
     <div class="row">
         <!--  <div class="col-lg-2"> -->
@@ -308,5 +311,6 @@
 
 </script>
 </body>
+<script type="text/javascript" src="logout.js"></script>
 </html>
 
