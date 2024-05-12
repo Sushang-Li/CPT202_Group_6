@@ -23,7 +23,10 @@
     <script src="bootstrap-3.4.1\js\bootstrap.min.js"></script>
     <!-- jquery.dataTables的js -->
     <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
-
+<!-- 登出按钮 -->
+<div class="logout" style="margin-left: 90%; position: absolute; top: 30px;text-shadow: rgba(34,93,241,0.25) 5px 4px 4px;" >
+    <a href="#" id="logout-nav" style="color: rgba(38, 93, 241,0.8);" >LOGOUT</a>
+  </div>
 
 <div >
     <div class="row">
@@ -34,19 +37,21 @@
                
          
 
-                   <li id="aa" ><a  href="AdminHomePage.html"><span class="glyphicon glyphicon-home"></span> Home</a></li>
+                   <li id="aa" ><a  href="adminHomePage.html"><span class="glyphicon glyphicon-home"></span> Home</a></li>
                    
                     <li id="a1">
                       <a id="a2" class="active" href="#mangage"><span class="glyphicon glyphicon-edit"></span> manage <span class="glyphicon glyphicon-chevron-right"></span></a>
                       <ul>
-                        <li><a id="a3" href="AdminSportActivitiesPage.html">manage sport activities</a></li>
-                        <li><a id="a4"  class="active" href="AdminStadiumsPage.html">manage stadiums</a></li>
-                        <li><a id="a5" href="AdminCoachesPage.html">manage coaches</a></li>
-                        <li><a id="a6" href="AdminBookingPage.html">manage bookings</a></li>
-                        <li><a id="a7" href="AdminManageUserInfo.html">manage user information</a></li>
+                        <li><a id="a3" href="adminSportActivitiesPage.html">manage sport activities</a></li>
+                        <li><a id="a4"  class="active" href="adminStadiumsPage.html">manage stadiums</a></li>
+                        <li><a id="a5" href="adminCoachesPage.html">manage coaches</a></li>
+                        <li><a id="a6" href="adminBookingPage.html">manage bookings</a></li>
+                        <li><a id="a7" href="adminManageUserInfo.html">manage user information</a></li>
+                        <li><a id="a9" href="adminCouponPage.html">manage coupon</a> </li>
                   </ul>
               </li>
-              <li id="ab"><a href="AdminSettingsPage.html"><span class="glyphicon glyphicon-cog"></span> System settings</a></li>
+                    <!-- <li id="a8"><a href="adminUserPage.html"><span class="glyphicon glyphicon-user"></span> User</a></li> -->
+<!--              <li id="ab"><a href="adminSettingsPage.html"><span class="glyphicon glyphicon-cog"></span> System settings</a></li>-->
                 </ul>
             </div>
 
@@ -205,26 +210,26 @@ document.getElementById('a1').addEventListener('click', function() {
                 submenu.style.display = 'none';
             }
         });
-//获取体育活动数据
-$(document).ready(function() {
-    $('.table').DataTable({
-        "ajax": {
-            "url": "http://localhost:8080/api/stadium",
-            "dataSrc": ""
-        },
-        "columns": [
-            { "data": "id" },
-            { "data": "name" },
-            { "data": "activityName" },
-            { "data": "remainingSpace" },
-            { "data": null }
-        ],
-        "columnDefs": [
-            { 
-                "orderable": false, 
-                "targets": 4,
-                "render": function(data, type, row) {
-                    return `<button type='button' class='glyphicon glyphicon-pencil' style='font-size: 10px' title='Edit' data-toggle='modal' data-target='#myModal' onclick='populateEditForm(${row.id})'></button>
+        //获取体育活动数据
+        $(document).ready(function () {
+            $('.table').DataTable({
+                "ajax": {
+                    "url": "api/stadium",
+                    "dataSrc": ""
+                },
+                "columns": [
+                    { "data": "id" },
+                    { "data": "name" },
+                    { "data": "activityName" },
+                    { "data": "remainingSpace" },
+                    { "data": null }
+                ],
+                "columnDefs": [
+                    {
+                        "orderable": false,
+                        "targets": 4,
+                        "render": function (data, type, row) {
+                            return `<button type='button' class='glyphicon glyphicon-pencil' style='font-size: 10px' title='Edit' data-toggle='modal' data-target='#myModal' onclick='populateEditForm(${row.id})'></button>
                             <button type='button' class='glyphicon glyphicon-minus' style='font-size: 10px;' title='Delete' onclick='confirmDelete(${row.id})'></button>`;
                 }
             }
@@ -232,26 +237,26 @@ $(document).ready(function() {
     });
 });
 
-// 填充edit表单
-function populateEditForm(id) {
-    // 将数据填入编辑表单中的各个字段
-    axios.get(`http://localhost:8080/api/stadium/${id}`)
-        .then((response) => {
-            // 假设返回的数据是一个数组，且我们需要的数据是数组的第一个元素
-            const stadium = response.data[0]; // 取数组的第一个元素
-            console.log(stadium);
-            console.log(stadium.name);
-            // 更新表单中的字段值
-            document.getElementById('editId').value = stadium.id;
-            document.getElementById('editName').value = stadium.name;
-            document.getElementById('editActivityName').value = stadium.activityName;
-            document.getElementById('editRemainingSpace').value = stadium.remainingSpace;
-        })
-        .catch(error => {
-            console.error('Error fetching sport activity details:', error);
-            console.log('Error fetching sport activity');
-        });
-}
+        // 填充edit表单
+        function populateEditForm(id) {
+            // 将数据填入编辑表单中的各个字段
+            axios.get(`api/stadium/${id}`)
+                .then((response) => {
+                    // 假设返回的数据是一个数组，且我们需要的数据是数组的第一个元素
+                    const stadium = response.data[0]; // 取数组的第一个元素
+                    console.log(stadium);
+                    console.log(stadium.name);
+                    // 更新表单中的字段值
+                    document.getElementById('editId').value = stadium.id;
+                    document.getElementById('editName').value = stadium.name;
+                    document.getElementById('editActivityName').value = stadium.activityName;
+                    document.getElementById('editRemainingSpace').value = stadium.remainingSpace;
+                })
+                .catch(error => {
+                    console.error('Error fetching sport activity details:', error);
+                    console.log('Error fetching sport activity');
+                });
+        }
 
 
 // 保存修改
@@ -263,18 +268,18 @@ function saveChanges() {
         remainingSpace: document.getElementById('editRemainingSpace').value
     };
 
-    axios.put(`http://localhost:8080/api/stadium/${updatedStadium.id}`, updatedStadium)
-        .then(response => {
-            console.log('stadium updated successfully:', response.data);
-            alert('Edit successfully.');
-            $('#myModal').modal('hide');
-            location.reload();
-        })
-        .catch(error => {
-            console.error('Error updating stadium:', error);
-            alert('Failed to edit sport stadium.'); 
-        });
-}
+            axios.put(`api/stadium/${updatedStadium.id}`, updatedStadium)
+                .then(response => {
+                    console.log('stadium updated successfully:', response.data);
+                    alert('Edit successfully.');
+                    $('#myModal').modal('hide');
+                    location.reload();
+                })
+                .catch(error => {
+                    console.error('Error updating stadium:', error);
+                    alert('Failed to edit sport stadium.');
+                });
+        }
 
 
 // 确认删除对话框
@@ -286,7 +291,7 @@ function confirmDelete(stadiumId) {
 
         // 删除体育活动
         function deleteSportStadium(stadiumId) {
-            axios.delete(`http://localhost:8080/api/stadium/delete/${stadiumId}`)
+            axios.delete(`api/stadium/delete/${stadiumId}`)
                 .then(response => {
                     alert(response.data); // 显示删除成功信息
                     // 刷新页面或重新获取数据
@@ -316,7 +321,7 @@ function openAddModal() {
                 remainingSpace: remainingSpace
             };
 
-            axios.post('http://localhost:8080/api/stadium/add', newStadium)
+            axios.post('api/stadium/add', newStadium)
                 .then(response => {
                     alert('Sport stadium added successfully.');
                     location.reload(); // 可以根据需求刷新页面或重新加载数据
@@ -330,4 +335,5 @@ function openAddModal() {
 
 
 </body>
+<script type="text/javascript" src="logout.js"></script>
 </html>

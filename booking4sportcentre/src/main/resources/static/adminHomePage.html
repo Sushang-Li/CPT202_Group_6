@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>体育管理系统</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <!-- 相对路径的Bootstrap的css -->
+ <link rel="stylesheet" href="bootstrap-3.4.1\css\bootstrap.min.css">
+    <link rel="shortcut icon" href="images/smallcut.png">
+    <script src="https://cdn.staticfile.org/jquery/2.2.4/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/echarts/4.3.0/echarts.min.js"></script>
+        <!-- 管理员页面css引入 -->
+        <link rel="stylesheet" href="./css/Admin.css">
+</head>
+<body>
+<!-- jQuery -->
+<script src="https://cdn.staticfile.net/jquery/2.1.1/jquery.min.js"></script>
+<script src="https://cdn.staticfile.net/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<!-- 登出按钮 -->
+<div class="logout" style="margin-left: 90%; position: absolute; top: 30px;text-shadow: rgba(34,93,241,0.25) 5px 4px 4px;" >
+    <a href="#" id="logout-nav" style="color: rgba(38, 93, 241,0.8);" >LOGOUT</a>
+  </div>
+<div >
+    <div class="row">
+        <!--  <div class="col-lg-2"> -->
+        <div class="sidebar">
+            <ul id="side" class="nav nav-pills nav-stacked">
+                <li id="bb"><a href="#"><span class="glyphicon glyphicon-globe"></span><b> Sport manage system</b> </a></li>
+
+
+
+                <li id="aa" ><a class="active" href="adminHomePage.html"><span class="glyphicon glyphicon-home"></span> Home</a></li>
+
+                <li id="a1">
+                    <a id="a2" href="#mangage"><span class="glyphicon glyphicon-edit"></span> manage <span class="glyphicon glyphicon-chevron-right"></span></a>
+                    <ul>
+                        <li><a id="a3" href="adminSportActivitiesPage.html">manage sport activities</a></li>
+                        <li><a id="a4" href="adminStadiumsPage.html">manage stadiums</a></li>
+                        <li><a id="a5" href="adminCoachesPage.html">manage coaches</a></li>
+                        <li><a id="a6" href="adminBookingPage.html">manage bookings</a></li>
+                        <li><a id="a7" href="adminManageUserInfo.html">manage user information</a></li>
+                        <li><a id="a9" href="adminCouponPage.html">manage coupon</a> </li>
+                    </ul>
+                </li>
+               <!--  <li id="a8"><a href="adminUserPage.html"><span class="glyphicon glyphicon-user"></span> User</a></li> -->
+<!--                <li id="a9"><a href="adminSettingsPage.html"><span class="glyphicon glyphicon-cog"></span> System settings</a></li>-->
+            </ul>
+        </div>
+
+        <!-- </div> -->
+        <div id="main" >
+            <!--   <img src="img/manage3.png "   width="100%" height="700px">  -->
+            <p style="font-size: 55px;margin-left: 32%; ">Monthly Report</p>
+            <div id="totalSales" style="width: 800px;height:450px;"></div>
+            <div id="quantity" style="width: 800px;height:450px;"></div>
+
+        </div>
+    </div>
+</div>
+
+    <script type="text/javascript">
+        //chart:tickets quantity,total sales
+        $(document).ready(function () {
+            var months = [];
+            var totals = [];
+            var quantities = [];
+            $.ajax({
+                type: "get",
+                async: true,
+                url: "api/report",
+                data: {},
+                dataType: "json",
+                success: function (result) {
+                    if (result) {
+                        for (var month in result) {
+                            months.push(month);
+                            totals.push(result[month].total);
+                            quantities.push(result[month].quantity);
+                        }
+                        var myChartTotal = echarts.init(document.getElementById('totalSales'));
+                        myChartTotal.setOption({
+                            title: {
+                                text: 'Total Sales'
+                            },
+                            legend: {
+                                data: ['Total Sales']
+                            },
+                            xAxis: {
+                                data: months,
+                                name: 'Month',
+                                axisLabel: {
+                                    interval: 0
+                                }
+                            },
+                            yAxis: {
+                                type: 'value',
+                                name: 'Sales'
+                            },
+                            series: [{
+                                name: 'Total Sales',
+                                type: 'line',
+                                data: totals
+                            }]
+                        });
+
+                    var myChartQuantity = echarts.init(document.getElementById('quantity'));
+                    myChartQuantity.setOption({
+                        title:{
+                            text: 'Tickets Quantity'
+                        },
+                        legend: {
+                            data:['Quantity']
+                        },
+                        xAxis: {
+                            data: months,
+                            name: 'Month',
+                            axisLabel:{
+                                interval: 0
+                            }
+                        },
+                        yAxis: {
+                            type: 'value',
+                            name: 'Number of tickets'
+                        },
+                        series: [{
+                            name: 'Quantity',
+                            type: 'line',
+                            data: quantities
+                        }]
+                    });
+                }
+            },
+            error : function(errorMsg) {
+                alert("Failed to request data!");
+            }
+        });
+    });
+</script>
+
+<script>
+    // JavaScript代码
+    document.getElementById('a1').addEventListener('click', function() {
+        var submenu = this.querySelector('ul');
+        if (submenu.style.display === 'none') {
+            submenu.style.display = 'block';
+        } else {
+            submenu.style.display = 'none';
+        }
+    });
+
+</script>
+</body>
+<script type="text/javascript" src="logout.js"></script>
+</html>
