@@ -146,14 +146,14 @@
     var userLink = document.getElementById('booking-nav');
     userLink.href = "userBooking.html?id=" + userId;
 
-    var userLink = document.getElementById('statistics-nav');
-    userLink.href = "userStatistics.html?id=" + userId;
+    // var userLink = document.getElementById('statistics-nav');
+    // userLink.href = "userStatistics.html?id=" + userId;
 
     function getUserData(userId) {
 
       // window.location.href = "http://localhost:8080/user/information";
 
-      var url = 'http://localhost:8080/user/information';
+      var url = 'user/information';
       if (userId) {
         url += "?id=" + userId;
       }
@@ -190,7 +190,7 @@
 
     //自动调用得到用户的数据
     getUserData(userId);
-    console.log('http://localhost:8080/user/information?id=' + userId);
+    console.log('user/information?id=' + userId);
 
     function popupToggle() {
       const popup = document.getElementById('popup');
@@ -223,4 +223,5 @@
   </script>
 </body>
 <script type="text/javascript" src="logout.js"></script>
+
 </html>
