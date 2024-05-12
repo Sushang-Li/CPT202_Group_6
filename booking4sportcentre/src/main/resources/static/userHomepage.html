@@ -13,6 +13,7 @@
 </head>
 
 <body>
+
   <!-- <h1>这里是用户主页</h1> -->
   <nav>
     <div class="nav-container">
@@ -31,8 +32,8 @@
       <div class="booking">
         <a href="userBooking.html" id="booking-nav">BOOKING</a>
       </div>
-      <div class="statistics">
-        <a href="userStatistics.html" id="statistics-nav">STATISTICS</a>
+      <div class="logout">
+        <a href="#" id="logout-nav">LOGOUT</a>
       </div>
     </div>
   </nav>
@@ -228,8 +229,8 @@
     var userLink = document.getElementById('wallet2');
     userLink.href = "userWallet.html?id=" + userId;
 
-    var userLink = document.getElementById('statistics2');
-    userLink.href = "userStatistics.html?id=" + userId;
+    /* var userLink = document.getElementById('statistics2');
+    userLink.href = "userStatistics.html?id=" + userId; */
 
 
 
@@ -277,8 +278,8 @@
     var userLink = document.getElementById('booking-nav');
     userLink.href = "userBooking.html?id=" + userId;
 
-    var userLink = document.getElementById('statistics-nav');
-    userLink.href = "userStatistics.html?id=" + userId;
+    /*var userLink = document.getElementById('statistics-nav');
+    userLink.href = "userStatistics.html?id=" + userId; */
 
 
 
@@ -324,7 +325,10 @@
     // Start the automatic slideshow
     setInterval(showNextSlide, 5000);
 
-  </script>
-</body>
 
+
+  </script>
+  
+</body>
+<script type="text/javascript" src="logout.js"></script>
 </html>
