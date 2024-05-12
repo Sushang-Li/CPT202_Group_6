@@ -27,4 +27,5 @@ public class AdminInfo {
     @TableId(type = IdType.AUTO)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
 }
