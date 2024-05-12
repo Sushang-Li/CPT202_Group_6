@@ -19,7 +19,7 @@
   font-size: 40px;
   letter-spacing: 2px;
   margin-bottom: 10px;
-  color: #14b107;
+  color: rgba(38, 93, 241,0.8);
 }
 
 
@@ -27,7 +27,7 @@
 .primary-button {
   width: 300px;
   height: 40px;
-  background-color: #14b107;
+  background-color: rgba(38, 93, 241,0.8);
   padding: 10px 20px;
   text-decoration: none;
   font-size: 24px;
@@ -46,7 +46,7 @@
 .primary-button:hover {
   width: 300px;
   height: 40px;
-  background-color: #14b107;
+  background-color:rgba(38, 93, 241,0.8);
   padding: 10px 20px;
   text-decoration: none;
   font-size: 24px;
@@ -66,7 +66,7 @@
 .primary-button:active {
   width: 300px;
   height: 40px;
-  background-color: #14b107;
+  background-color: rgba(38, 93, 241,0.8);
   padding: 10px 20px;
   text-decoration: none;
   font-size: 24px;
@@ -95,7 +95,7 @@ legend{
   width: 300px;  /* 调整宽度 */
   height: 40px;  /* 调整高度 */
   border-radius: 5px;
-  border: 1px solid #14b107;
+  border: 1px solid rgba(38, 93, 241,0.8);
   background-color: rgba(248, 249, 250, 0.20) ;
 
 }
@@ -104,14 +104,14 @@ legend{
   width: 300px;  /* 调整宽度 */
   height: 40px;  /* 调整高度 */
   border-radius: 5px;
-  border: 1px solid #14b107;
+  border: 1px solid rgba(38, 93, 241,0.8);
   background-color: rgba(248, 249, 250, 0.20) ;
   margin-top: 20px;
 }
 /* 调整错误消息的字体大小 */
 .form-error {
   font-size: 14px;
-  color: #14b107;
+  color: rgba(38, 93, 241,0.8);
 }
 #logon-error {
   /* 调整左边距 */
@@ -132,7 +132,7 @@ legend{
 /* 调整链接的字体大小 */
 a {
   font-size: 18px;
-  color: #14b107;
+  color: rgba(38, 93, 241,0.8);
   text-decoration: none;
 }
 .form-label{
