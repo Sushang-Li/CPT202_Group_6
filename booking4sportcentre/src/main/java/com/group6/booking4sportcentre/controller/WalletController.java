@@ -1,7 +1,6 @@
 package com.group6.booking4sportcentre.controller;
 import com.group6.booking4sportcentre.model.WalletInfo;
 import com.group6.booking4sportcentre.mapper.WalletInfoMapper;
-import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,16 +25,16 @@ public class WalletController {
 
     //create wallet
    @PostMapping
-    public Long createWallet(@RequestBody WalletInfo walletInfo) {
+    public Integer createWallet(@RequestBody WalletInfo walletInfo) {
         walletInfoMapper.createWalletInfo(walletInfo);
-        return walletInfo.getId();
+        return walletInfo.getUserId();
     }
 
     //get wallet balance
-    @GetMapping("/{walletInfoId}")
-    public ResponseEntity<Double> getWalletBalance(@PathVariable Long walletInfoId) {
+    @GetMapping("/{userId}")
+    public ResponseEntity<Double> getWalletBalance(@PathVariable Integer userId) {
         try {
-            double balance = walletInfoMapper.getWalletBalance(walletInfoId);
+            double balance = walletInfoMapper.getWalletBalance(userId);
             return ResponseEntity.ok(balance);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
@@ -45,13 +44,13 @@ public class WalletController {
 
     // Pay with wallet
     @PostMapping("/pay")
-    public ResponseEntity<?> payWithWallet(@RequestParam Long walletInfoId, @RequestParam Double bookingCost) {
+    public ResponseEntity<?> payWithWallet(@RequestParam Integer userId, @RequestParam Double bookingCost) {
         try {
-            double currentBalance = walletInfoMapper.getWalletBalance(walletInfoId);
+            double currentBalance = walletInfoMapper.getWalletBalance(userId);
             if (currentBalance >= bookingCost) {
                 double newBalance = currentBalance - bookingCost;
-                walletInfoMapper.updateWalletBalance(walletInfoId, newBalance);
-                double updatedBalance = walletInfoMapper.getWalletBalance(walletInfoId);
+                walletInfoMapper.updateWalletBalance(userId, newBalance);
+                double updatedBalance = walletInfoMapper.getWalletBalance(userId);
                 System.out.println(updatedBalance);
                 // 使用 Map 创建 JSON 响应
                 Map<String, Object> response = new HashMap<>();

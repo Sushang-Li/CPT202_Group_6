@@ -19,12 +19,10 @@ import java.util.List;
 @Entity
 public class WalletInfo {
     @Id
-    @TableId(type = IdType.AUTO)
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
+    @TableId(type = IdType.NONE)
     @Column(name = "user_id")
     private Integer userId;
+    
 
     @Column(name = "balance")
     private double balance;
@@ -32,6 +30,9 @@ public class WalletInfo {
     @OneToMany(mappedBy = "walletInfo")
     private List<BookingInfo> bookingInfos;
 
+  /*  @OneToOne
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    private UserInfo userInfo;*/
 
 
 
