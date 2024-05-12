@@ -65,7 +65,7 @@
             <div class="bar">      
               <div class="card">
                 <table class="table table-hover" style="font-size: 20px;">
-                  <caption style="font-size: 30px;">4.22</caption>
+                  <caption style="font-size: 30px;"></caption>
                   <p>
                  
                     <button type="button" class="glyphicon glyphicon-plus" style="font-size: 20px;margin-left: 90%;margin-top: 10px;font-size: 20px;" title="Add" onclick="openAddModal()"></button>
@@ -210,7 +210,7 @@ document.getElementById('a1').addEventListener('click', function() {
 $(document).ready(function() {
     $('.table').DataTable({
         "ajax": {
-            "url": "http://localhost:8080/api/stadium",
+            "url": "api/stadium",
             "dataSrc": ""
         },
         "columns": [
@@ -236,7 +236,7 @@ $(document).ready(function() {
 // 填充edit表单
 function populateEditForm(id) {
     // 将数据填入编辑表单中的各个字段
-    axios.get(`http://localhost:8080/api/stadium/${id}`)
+    axios.get(`api/stadium/${id}`)
         .then((response) => {
             const stadium = response.data[0]; // 取数组的第一个元素
             console.log(stadium);
@@ -263,7 +263,7 @@ function saveChanges() {
         remainingSpace: document.getElementById('editRemainingSpace').value
     };
 
-    axios.put(`http://localhost:8080/api/stadium/${updatedStadium.id}`, updatedStadium)
+    axios.put(`api/stadium/${updatedStadium.id}`, updatedStadium)
         .then(response => {
             console.log('stadium updated successfully:', response.data);
             alert('Edit successfully.');
@@ -286,7 +286,7 @@ function confirmDelete(stadiumId) {
 
         // 删除体育活动
         function deleteSportStadium(stadiumId) {
-            axios.delete(`http://localhost:8080/api/stadium/delete/${stadiumId}`)
+            axios.delete(`api/stadium/delete/${stadiumId}`)
                 .then(response => {
                     alert(response.data); // 显示删除成功信息
                     location.reload(); // 根据需求刷新页面或重新加载数据
@@ -315,7 +315,7 @@ function openAddModal() {
                 remainingSpace: remainingSpace
             };
 
-            axios.post('http://localhost:8080/api/stadium/add', newStadium)
+            axios.post('api/stadium/add', newStadium)
                 .then(response => {
                     alert('Sport stadium added successfully.');
                     location.reload(); // 根据需求刷新页面或重新加载数据
