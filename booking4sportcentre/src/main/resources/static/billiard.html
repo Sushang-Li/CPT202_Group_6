@@ -34,7 +34,10 @@
       </div>
     </div>
   </nav>
-
+  <button class = "go-back">
+    <a href="javascript:;" onclick="self.location=document.referrer;"> < Go back </a>
+  </button>
+  <h1>Billiard</h1>
   <input type="text" id="myInput1" onKeyUp="search1()" placeholder="Search..." />
   <input type="text" id="myInput2" onKeyUp="search2()" placeholder="Search..." />
 
@@ -44,7 +47,7 @@
     <option value="2">stadium</option>
   </select>
   <!-- 这里是一个表格，从sportActivity表得到现在还有票的活动 -->
-  <h1>Billiard</h1>
+
 
   <!-- 这里是一个表格，从sportActivity表得到现在还有票的活动 -->
   <table id="activity-table">
@@ -66,10 +69,11 @@
   <div class=remind>
     <p>You should view and agree the property about stadium ,and then you can pay and add to cart</p>
   </div>
-  <div class='property'>
-    <input type="checkBox" onclick="if (this.checked) {enable()} else {disable()}">Agree
+  <div class = 'property'>
+    <input type="checkBox" id = "checkbox" onclick="if (this.checked) {enable()} else {disable()}" >
+    <label for="checkbox" class="agreement-label">Agree</label>
+    <a href = "#" onclick="displayWindow()">
 
-    <a href="#" onclick="displayWindow()">
 
       Stadium Property
     </a>

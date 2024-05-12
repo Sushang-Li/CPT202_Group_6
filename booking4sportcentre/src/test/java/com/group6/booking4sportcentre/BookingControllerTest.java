@@ -130,17 +130,17 @@ public class BookingControllerTest {
     newBooking.setWalletInfo(walletInfo);
 
     Long id = bookingController.createBooking(newBooking);
-    bookingController.updateWalletInfoId(id, walletInfo.getId());
+    bookingController.updateWalletInfoId(id, Long.valueOf(walletInfo.getUserId()));
 
 
        // Get the initial wallet balance
-    double initialBalance = walletInfoMapper.getWalletBalance(newBooking.getWalletInfo().getId());
+    double initialBalance = walletInfoMapper.getWalletBalance(newBooking.getWalletInfo().getUserId());
 
     // Confirm the booking
     bookingController.confirmBooking(id);
 
     // Get the final wallet balance
-    double finalBalance = walletInfoMapper.getWalletBalance(newBooking.getWalletInfo().getId());
+    double finalBalance = walletInfoMapper.getWalletBalance(newBooking.getWalletInfo().getUserId());
 
     // Assert that the wallet balance has been reduced by the booking price
     assertEquals(initialBalance - newBooking.getPrice(), finalBalance, 0.01);

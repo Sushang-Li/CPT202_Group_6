@@ -92,96 +92,98 @@
 
             <!--已过期-->
 
-            <div class="coupon-item expired round-border3" >
-              </div>
-
+            <div class="coupon-item expired round-border3">
             </div>
+
           </div>
         </div>
       </div>
-
-
     </div>
 
-    <script>
-      //复制自主页
-      var urlParams = new URLSearchParams(window.location.search);
-      var userId = urlParams.get('id');
-      console.log(userId);
 
-      // var userLink = document.getElementById('logo-nav');
-      // userLink.href = "userHomepage.html?id=" + userId;
-      var userLink = document.getElementById('booking1');
-      userLink.href = "booking.html?id=" + userId;
-      var userLink = document.getElementById('booking2');
-      userLink.href = "booking.html?id=" + userId;
+  </div>
 
-      var userLink = document.getElementById('homepage-nav');
-      userLink.href = "userHomepage.html?id=" + userId;
+  <script>
+    //复制自主页
+    var urlParams = new URLSearchParams(window.location.search);
+    var userId = urlParams.get('id');
+    console.log(userId);
 
-      var userLink = document.getElementById('information-nav');
-      userLink.href = "userInformation.html?id=" + userId;
+    // var userLink = document.getElementById('logo-nav');
+    // userLink.href = "userHomepage.html?id=" + userId;
+    // var userLink = document.getElementById('booking1');
+    // userLink.href = "booking.html?id=" + userId;
+    // var userLink = document.getElementById('booking2');
+    // userLink.href = "booking.html?id=" + userId;
 
-      var userLink = document.getElementById('wallet-nav');
-      userLink.href = "userWallet.html?id=" + userId;
+    var userLink = document.getElementById('homepage-nav');
+    userLink.href = "userHomepage.html?id=" + userId;
 
-      var userLink = document.getElementById('booking-nav');
-      userLink.href = "userBooking.html?id=" + userId;
+    var userLink = document.getElementById('information-nav');
+    userLink.href = "userInformation.html?id=" + userId;
 
-      var userLink = document.getElementById('statistics-nav');
-      userLink.href = "userStatistics.html?id=" + userId;
+    var userLink = document.getElementById('wallet-nav');
+    userLink.href = "userWallet.html?id=" + userId;
 
-      var userLink = document.getElementById('homepage-nav2');
-      userLink.href = "userHomepage.html?id=" + userId;
+    var userLink = document.getElementById('booking-nav');
+    userLink.href = "userBooking.html?id=" + userId;
 
-      var userLink = document.getElementById('information-nav2');
-      userLink.href = "userInformation.html?id=" + userId;
+    var userLink = document.getElementById('statistics-nav');
+    userLink.href = "userStatistics.html?id=" + userId;
 
-      var userLink = document.getElementById('wallet-nav2');
-      userLink.href = "userWallet.html?id=" + userId;
+    var userLink = document.getElementById('homepage-nav2');
+    userLink.href = "userHomepage.html?id=" + userId;
 
-      var userLink = document.getElementById('booking-nav2');
-      userLink.href = "userBooking.html?id=" + userId;
+    var userLink = document.getElementById('information-nav2');
+    userLink.href = "userInformation.html?id=" + userId;
 
-      var userLink = document.getElementById('statistics-nav2');
-      userLink.href = "userStatistics.html?id=" + userId;
-    </script>
+    var userLink = document.getElementById('wallet-nav2');
+    userLink.href = "userWallet.html?id=" + userId;
 
-    <script>
-      $("#menu-toggle, #sidebar-close").click(function (e) {
-        e.preventDefault();//阻止默认点击行为
-        $("#wrapper").toggleClass("toggled");//控制侧边栏的显示与隐藏
-        $("#sidebar-wrapper .list-group-item").toggleClass("hidden");//控制侧边栏的显示与隐藏
-        $("#menu-toggle").toggleClass("hidden");//控制菜单按钮的显示与隐藏
+    var userLink = document.getElementById('booking-nav2');
+    userLink.href = "userBooking.html?id=" + userId;
 
-        if ($("#wrapper").hasClass("toggled")) {
-          $("#overlay").show();
-        } else {
-          $("#overlay").hide();
-        }
-      });
+    var userLink = document.getElementById('statistics-nav2');
+    userLink.href = "userStatistics.html?id=" + userId;
+  </script>
 
-      /*可用和过期优惠券*/
+  <script>
+    $("#menu-toggle, #sidebar-close").click(function (e) {
+      e.preventDefault();//阻止默认点击行为
+      $("#wrapper").toggleClass("toggled");//控制侧边栏的显示与隐藏
+      $("#sidebar-wrapper .list-group-item").toggleClass("hidden");//控制侧边栏的显示与隐藏
+      $("#menu-toggle").toggleClass("hidden");//控制菜单按钮的显示与隐藏
 
-      window.onload = function () {
-        fetch('api/coupons', {
-          method: "GET"
-        })
-                .then(response => response.json())
-                .then(coupons => {
-                  var validCouponWrapper = document.querySelector('.round-border2');
-                  var expiredCouponWrapper = document.querySelector('.expired.round-border3'); // 获取用于存放过期优惠券的容器
-                  coupons.forEach((coupon) => {
-                    var couponItem = document.createElement('div');
-                    var endTime = new Date(coupon.endTime);
-                    var endTimeStr = endTime.toLocaleDateString();
-                    var status = coupon.status.toUpperCase();
+      if ($("#wrapper").hasClass("toggled")) {
+        $("#overlay").show();
+      } else {
+        $("#overlay").hide();
+      }
+    });
 
-                    if (status === 'EXPIRED') {
-                      couponItem.className = 'style-one have'; // 应用已过期优惠券的样式
+    /*可用和过期优惠券*/
 
-                      // 创建与硬编码优惠券相同的HTML结构
-                      couponItem.innerHTML = `
+    window.onload = function () {
+      fetch('api/coupons', {
+        method: "GET"
+      })
+        .then(response => response.json())
+        .then(coupons => {
+          var validCouponWrapper = document.querySelector('.round-border2');
+          var expiredCouponWrapper = document.querySelector('.expired.round-border3'); // 获取用于存放过期优惠券的容器
+          coupons.forEach((coupon) => {
+            var couponItem = document.createElement('div');
+            var endTime = new Date(coupon.endTime);
+            var endTimeStr = endTime.toLocaleDateString();
+            var status = coupon.status.toUpperCase();
+
+            if (coupon.userId == userId) {
+
+              if (status === 'EXPIRED') {
+                couponItem.className = 'style-one have'; // 应用已过期优惠券的样式
+
+                // 创建与硬编码优惠券相同的HTML结构
+                couponItem.innerHTML = `
                     <div class="info-box">
                         <div class="coupon-money">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6" style="width: 6rem; height: 10rem; margin-right: 2rem; z-index: 108; margin-left: 1rem">
@@ -199,10 +201,10 @@
                         <span>Expired</span>
                     </a>
                 `;
-                      expiredCouponWrapper.appendChild(couponItem); // 将优惠券元素添加到容器中
-                    }else if (status==='ACTIVE'){
-                      couponItem.className='style-one';
-                      couponItem.innerHTML = `
+                expiredCouponWrapper.appendChild(couponItem); // 将优惠券元素添加到容器中
+              } else if (status === 'ACTIVE') {
+                couponItem.className = 'style-one';
+                couponItem.innerHTML = `
                     <div class="info-box">
                         <div class="coupon-money">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6" style="width: 6rem; height: 10rem; margin-right: 2rem; z-index: 108; margin-left: 1rem">
@@ -222,16 +224,20 @@
                         <span>Use</span>
                     </a>
                 `; validCouponWrapper.appendChild(couponItem)
-                    }
-                  });
-                })
-                .catch(error => {
-                  console.error('Error:', error);
-                });
-      };
+              }
+
+            }
+          });
+        })
+        .catch(error => {
+          console.error('Error:', error);
+        });
 
 
-    </script>
+    };
+
+
+  </script>
 
 
   </div>
