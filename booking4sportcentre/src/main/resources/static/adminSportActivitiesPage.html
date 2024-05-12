@@ -247,7 +247,7 @@ document.getElementById('a1').addEventListener('click', function() {
 $(document).ready(function() {
     $('.table').DataTable({
         "ajax": {
-            "url": "http://localhost:8080/api/sportActivity",
+            "url": "api/sportActivity",
             "dataSrc": ""
         },
         "columns": [
@@ -279,7 +279,7 @@ $(document).ready(function() {
 // 填充edit表单
 function populateEditForm(id) {
     // 将数据填入编辑表单中的各个字段
-    axios.get(`http://localhost:8080/api/sportActivity/getActivity/${id}`)
+    axios.get(`api/sportActivity/getActivity/${id}`)
 
 
         .then((response) => {
@@ -314,7 +314,7 @@ function saveChanges() {
         ticketNumber: document.getElementById('editTicketNumber').value
     };
 
-    axios.put(`http://localhost:8080/api/sportActivity/${updatedActivity.id}`, updatedActivity)
+    axios.put(`api/sportActivity/${updatedActivity.id}`, updatedActivity)
         .then(response => {
             console.log('Activity updated successfully:', response.data);
             alert('Edit successfully.');
@@ -337,7 +337,7 @@ function confirmDelete(activityId) {
 
         // 删除体育活动
         function deleteSportActivity(activityId) {
-            axios.delete(`http://localhost:8080/api/sportActivity/delete/${activityId}`)
+            axios.delete(`api/sportActivity/delete/${activityId}`)
                 .then(response => {
                     alert(response.data); // 显示删除成功信息
                     location.reload(); // 根据需求刷新页面或重新加载数据
@@ -372,7 +372,7 @@ function openAddModal() {
                 ticketNumber: ticketNumber
             };
 
-            axios.post('http://localhost:8080/api/sportActivity/add', newActivity)
+            axios.post('api/sportActivity/add', newActivity)
                 .then(response => {
                     alert('Sport activity added successfully.');
                     location.reload(); // 根据需求刷新页面或重新加载数据
