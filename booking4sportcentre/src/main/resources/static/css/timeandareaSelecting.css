@@ -126,4 +126,21 @@
     text-decoration: none;
     color:#339af0;
 }
+    .go-back{
+        border: none;
+        border-radius: 4px;
+        display: block;
+        font-size: 16px;
+        color: #ffffff;
+        background-color: #007bff;
 
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+    .go-back a{
+        color:white;
+        text-decoration: none;
+    }
+    .go-back:hover{
+        background-color: #0056b3;
+    }

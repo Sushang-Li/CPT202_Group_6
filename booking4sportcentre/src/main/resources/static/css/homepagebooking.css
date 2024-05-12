@@ -24,10 +24,11 @@
 #check-more{
     display:inline-block;
     padding:2px 30px;
-    border:1px solid #334;
-    color:#334;
+    border:1px solid white;
+    color:white;
     font-size: 16px;
     cursor: pointer;
+    border-radius: 4px;
 }
 #check-more:hover{
     background-color:cornflowerblue;

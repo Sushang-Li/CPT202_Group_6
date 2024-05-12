@@ -34,7 +34,9 @@
       </div>
     </div>
   </nav>
-
+  <button class = "go-back">
+    <a href="javascript:;" onclick="self.location=document.referrer;"> < Go back </a>
+  </button>
   <h1>Football</h1>
 
   <input type="text" id="myInput1" onKeyUp="search1()" placeholder="Search..."/>
@@ -64,7 +66,8 @@
   </table>
 <div class = remind><p>You should view and agree the property about stadium ,and then you can pay and add to cart</p></div>
   <div class = 'property'>
-    <input type="checkBox" id = "checkbox" onclick="if (this.checked) {enable()} else {disable()}">Agree
+    <input type="checkBox" id = "checkbox" onclick="if (this.checked) {enable()} else {disable()}" >
+    <label for="checkbox" class="agreement-label">Agree</label>
     <a href = "#" onclick="displayWindow()">
       Stadium Property
     </a>
