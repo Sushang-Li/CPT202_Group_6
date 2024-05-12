@@ -484,7 +484,7 @@
             console.log("1");
             if (confirm("确定吗")) {
                 //先判断钱够不够，调用belle的接口
-                fetch(`/api/wallet/pay?walletInfoId=${encodeURIComponent(userId)}&bookingCost=${encodeURIComponent(bookingCost)}`, {
+                fetch(`/api/wallet/pay?userId=${encodeURIComponent(userId)}&bookingCost=${encodeURIComponent(bookingCost)}`, {
                     method: "POST"
                 })
                     .then((response) => {
@@ -575,7 +575,7 @@
             if (confirm("你确定支付吗，一共是" + totalPrice + "CNY")) {
 
                 //先判断钱够不够，调用belle的接口
-                fetch(`/api/wallet/pay?walletInfoId=${encodeURIComponent(userId)}&bookingCost=${encodeURIComponent(totalPrice)}`, {
+                fetch(`/api/wallet/pay?userId=${encodeURIComponent(userId)}&bookingCost=${encodeURIComponent(totalPrice)}`, {
                     method: "POST"
                 })
                     .then((response) => {
