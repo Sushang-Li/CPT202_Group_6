@@ -44,129 +44,7 @@
         </div>
     </nav>
 
-    <div class=box-container>
-        <button onclick="window.location.href='football.html' + '?id=' + userId;">
-            <div class=sports>
-                <div class="image">
-                    <img src="images/football.png" alt="">
-                </div>
-                <div class=content>
-                    <p>Football</p>
-                    <p>20rmb</p>
-                    <div class="icons">
-                        <span><i class="fas fa-user"></i>by coach</span>
-                    </div>
-                </div>
-            </div>
-        </button>
-        <button onclick="window.location.href='basketball.html' + '?id=' + userId;">
-            <div class=sports>
-                <div class="image">
-                    <img src="images/basketballbooking.jpg" alt="">
-                </div>
-                <div class=content>
-                    <p>Basketball</p>
-                    <p>20rmb</p>
-                    <div class="icons">
-                        <span><i class="fas fa-user"></i>by coach</span>
-                    </div>
-                </div>
-            </div>
-        </button>
-        <button onclick="window.location.href='tennis.html' + '?id=' + userId;">
-            <div class=sports>
-                <div class="image">
-                    <img src="images/tennis.jpg" alt="">
-                </div>
-                <div class=content>
-                    <p>Tennis</p>
-                    <p>20rmb</p>
-                    <div class="icons">
-                        <span><i class="fas fa-user"></i>by coach</span>
-                    </div>
-                </div>
-            </div>
-        </button>
-        <button onclick="window.location.href='archery.html' + '?id=' + userId;">
-            <div class=sports>
-                <div class="image">
-                    <img src="images/archery.png" alt="">
-                </div>
-                <div class=content>
-                    <p>Archery</p>
-                    <p>20rmb</p>
-                    <div class="icons">
-                        <span><i class="fas fa-user"></i>by coach</span>
-                    </div>
-                </div>
-            </div>
-        </button>
-        <button onclick="window.location.href='pingpong.html' + '?id=' + userId;">
-            <div class=sports>
-                <div class="image">
-                    <img src="images/pingpong.jpg" alt="">
-                </div>
-                <div class=content>
-                    <p>Pingpong</p>
-                    <p>20rmb</p>
-                    <div class="icons">
-                        <span><i class="fas fa-user"></i>by coach</span>
-
-                    </div>
-                </div>
-
-                </div>
-        </button>
-
-
-
-        <button onclick="window.location.href='billiard.html' + '?id=' + userId;">
-            <div class="sports">
-                <div class="image">
-                    <img src="images/billiard.png" alt="">
-                </div>
-                <div class=content>
-                    <a href=billiard.html>Billiard</a>
-                    <p>20rmb</p>
-                    <div class="icons">
-                        <span><i class="fas fa-user"></i>by admin</span>
-                    </div>
-
-                </div>
-            </div>
-       
-    </button>
-    <button onclick="window.location.href='shuttlecock.html';">
-        <div class=sports>
-            <div class="image">
-                <img src="images/shuttlecock.jpg" alt="">
-            </div>
-            <div class=content>
-                <p>Shuttlecock</p>
-                <p>20rmb</p>
-                <div class="icons">
-                    <span><i class="fas fa-user"></i>by coach</span>
-
-                </div>
-            </div>
-
-        </div>
-    </button>
-    <button onclick="window.location.href='workout.html';">
-        <div class=sports>
-            <div class="image">
-                <img src="images/workout.png" alt="">
-            </div>
-            <div class=content>
-                <p>Workout</p>
-                <p>20rmb</p>
-                <div class="icons">
-                    <span><i class="fas fa-user"></i>by coach</span>
-
-                </div>
-            </div>
-    </div>
-</button>
+    <div class=box-container id = "box-container">
     </div>
 
     <script>
@@ -192,6 +70,34 @@
 
         var userLink = document.getElementById('statistics-nav');
         userLink.href = "userStatistics.html?id=" + userId;
+        window.onload = function () {
+            fetch('http://localhost:8080/api/sportActivity/allActivities', {
+                method: 'GET'
+            })
+                .then((response) => response.json())
+                .then((data) => {
+                    var container = document.getElementById('box-container');
+                    data.forEach(activity => {
+                        var box = document.createElement("div");
+                        box.innerHTML = `<button onclick="window.location.href='${activity.name}.html';">
+                                            <div class=sports>
+                                                <div class="image">
+                                                    <img src="images/${activity.name}.jpg" alt="">
+                                                </div>
+                                                <div class=content>
+                                                    <p>${activity.name}</p>
+                                                    <p>${activity.price} rmb</p>
+                                                    <div class="icons">
+                                                        <span><i class="fas fa-user"></i> ${activity.coach}</span>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </button>`;
+                        container.appendChild(box);
+                    })
+                })
+        }
     </script>
 
    </body>
