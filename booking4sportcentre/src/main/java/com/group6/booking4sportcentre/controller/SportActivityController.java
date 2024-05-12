@@ -73,7 +73,7 @@ public class SportActivityController {
         return sportActivityMapper.list();
     }
     //查看特定id的体育活动
-    @GetMapping("/{id}")
+    @GetMapping("/getActivity/{id}")
     public List<SportActivity> getById(@PathVariable int id){
         return  sportActivityMapper.getById(id);
     }
