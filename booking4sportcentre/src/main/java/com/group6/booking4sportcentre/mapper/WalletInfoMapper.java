@@ -21,4 +21,12 @@ public interface WalletInfoMapper extends BaseMapper<WalletInfo> {
    @Update("UPDATE wallet_info SET balance = #{newBalance} WHERE id = #{walletInfoId}")
    void updateWalletBalance(@Param("walletInfoId") Long walletInfoId, @Param("newBalance") Double newBalance);
 
+    @Select("SELECT balance FROM wallet_info WHERE user_id = #{userId}")
+    double selectBalanceByUserId(@Param("userId") int userId);
+
+    @Select("SELECT balance FROM wallet_info WHERE user_id = #{userId}")
+    WalletInfo selectByUserId(@Param("userId") int userId);
+
+    @Update("UPDATE wallet_info SET balance = #{newBalance} WHERE user_id = #{userId}")
+    void updateWalletBalanceByUserId(@Param("userId") int userId, @Param("newBalance") double newBalance);
 }

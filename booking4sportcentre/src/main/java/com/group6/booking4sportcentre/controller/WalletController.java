@@ -1,6 +1,7 @@
 package com.group6.booking4sportcentre.controller;
 import com.group6.booking4sportcentre.model.WalletInfo;
 import com.group6.booking4sportcentre.mapper.WalletInfoMapper;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -64,7 +65,48 @@ public class WalletController {
         }
     }
 
+  /*  @GetMapping("/info")
+    public WalletInfo getWallet(HttpSession session) {
+        // 从Session中获取钱包信息
+        WalletInfo wallet = (WalletInfo) session.getAttribute("wallet");
+        return wallet;
+    }*/
+
+    @GetMapping("/balance/{userId}")
+    public ResponseEntity<?> getWallet(@PathVariable int userId) {
+        try {
+            double balance = walletInfoMapper.selectBalanceByUserId(userId);
+
+                return ResponseEntity.ok(balance);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to get wallet");
+        }
+    }
 
 
 
+    @PostMapping("/recharge")
+    public ResponseEntity<?> rechargeWallet(@RequestBody Map<String, Integer> payload) {
+        int userId = payload.get("userId");
+        final double RECHARGE_AMOUNT = 100.0; // Fixed recharge amount
+
+        try {
+            // Fetch current balance, update it, and save the new balance
+            double currentBalance = walletInfoMapper.selectBalanceByUserId(userId);
+            double newBalance = currentBalance + RECHARGE_AMOUNT;
+            walletInfoMapper.updateWalletBalanceByUserId(userId, newBalance);
+
+            Map<String, Object> response = new HashMap<>();
+            response.put("message", "Recharge successful");
+            response.put("newBalance", newBalance);
+            return ResponseEntity.ok(response);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to recharge wallet");
+        }
+    }
 }
+
+
+
+
+
