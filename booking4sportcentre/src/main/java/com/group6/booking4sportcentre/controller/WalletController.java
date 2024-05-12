@@ -65,36 +65,48 @@ public class WalletController {
         }
     }
 
-    @GetMapping("/info")
+  /*  @GetMapping("/info")
     public WalletInfo getWallet(HttpSession session) {
         // 从Session中获取钱包信息
         WalletInfo wallet = (WalletInfo) session.getAttribute("wallet");
         return wallet;
-    }
+    }*/
 
-    @PostMapping("/recharge")
-    public ResponseEntity<String> recharge(@RequestBody Map<String, Object> payload) {
+    @GetMapping("/balance/{userId}")
+    public ResponseEntity<?> getWallet(@PathVariable int userId) {
         try {
-            int userId = Integer.parseInt(payload.get("userId").toString());
+            double balance = walletInfoMapper.selectBalanceByUserId(userId);
 
-            // 根据用户ID从数据库中获取钱包信息
-            WalletInfo wallet = walletInfoMapper.selectByUserId(userId);
-
-            // 更新余额
-            double newBalance = wallet.getBalance() + 100;
-            wallet.setBalance(newBalance);
-
-            // 将更新后的钱包信息存储到数据库中
-            walletInfoMapper.updateById(wallet);
-
-            return ResponseEntity.ok().build(); // 返回成功响应
+                return ResponseEntity.ok(balance);
         } catch (Exception e) {
-            e.printStackTrace();
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to recharge");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to get wallet");
         }
     }
 
 
 
+    @PostMapping("/recharge")
+    public ResponseEntity<?> rechargeWallet(@RequestBody Map<String, Integer> payload) {
+        int userId = payload.get("userId");
+        final double RECHARGE_AMOUNT = 100.0; // Fixed recharge amount
 
+        try {
+            // Fetch current balance, update it, and save the new balance
+            double currentBalance = walletInfoMapper.selectBalanceByUserId(userId);
+            double newBalance = currentBalance + RECHARGE_AMOUNT;
+            walletInfoMapper.updateWalletBalanceByUserId(userId, newBalance);
+
+            Map<String, Object> response = new HashMap<>();
+            response.put("message", "Recharge successful");
+            response.put("newBalance", newBalance);
+            return ResponseEntity.ok(response);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to recharge wallet");
+        }
+    }
 }
+
+
+
+
+
