@@ -170,8 +170,8 @@
                 </div>
                 <form id="deleteCoachForm">
                     <p>Are you sure you want to delete coach <span id="coachName" style="color: red; font-weight: bold;"></span>?</p>
-                    <button id="confirmDeleteBottom" class="confirmBottom btn btn-primary" type="button">Confirm</button>
-                    <button id="cancelDeleteBottom" class="cancelBottom btn btn-danger" type="button">Cancel</button>
+                    <button id="confirmDeleteBottom" class="confirmBottom btn btn-danger" type="button">Confirm</button>
+                    <button id="cancelDeleteBottom" class="cancelBottom btn btn-primary" type="button">Cancel</button>
                 </form>
             </div>
         </div>
@@ -179,7 +179,7 @@
 
         <div id="main">
             <!-- <img src="img/manage3.png" width="100%" height="700px"> -->
-            <p style="font-size: 50px; margin-left: 30%;">Sport Activities</p>
+            <p style="font-size: 50px; margin-left: 30%;">Coaches</p>
 
             <div class="row">
                 <div class="columnLeft">
@@ -245,7 +245,12 @@
                 table.clear(); // 清除现有的数据
 
                 if (data.length === 0) {
-                    table.row.add(['', 'There is no coach information yet. Please add coach first.', '', '', '', '', '']).draw();
+                    // table.row.add(['', 'There is no coach information yet. Please add coach first.', '', '', '', '', '']).draw();
+                    $('#example').DataTable({
+                        "language": {
+                            "emptyTable": "No bookings available. Please add some."
+                        }
+                    });
                 } else {
                     data.forEach(coach => {
                         table.row.add([
@@ -396,8 +401,9 @@
                     .then(response => response.text())
                     .then(message => {
                         // alert(message);
-                        getCoachInfoList();
+
                         confirmationModal.style.display = 'none';
+                        getCoachInfoList();
                     })
                     .catch(error => {
                         console.error('Error deleting coach:', error);
