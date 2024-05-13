@@ -209,7 +209,12 @@
                 table.clear(); // 清除现有的数据
 
                 if (data.length === 0) {
-                    table.row.add(['', 'No bookings available. Please add some.', '', '', '', '', '', '', '', '']).draw();
+                    // table.row.add(['', 'No bookings available. Please add some.', '', '', '', '', '', '', '', '']).draw();
+                    $('#example').DataTable({
+                        "language": {
+                            "emptyTable": "No bookings available. Please add some."
+                        }
+                    });
                 } else {
                     data.forEach(booking => {
                         table.row.add([

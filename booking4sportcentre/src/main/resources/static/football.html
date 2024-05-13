@@ -34,16 +34,17 @@
       </div>
     </div>
   </nav>
-  <button class = "go-back">
-    <a href="javascript:;" onclick="self.location=document.referrer;"> < Go back </a>
+  <button class="go-back">
+    <a href="javascript:;" onclick="self.location=document.referrer;">
+      < Go back </a>
   </button>
   <h1>Football</h1>
 
-  <input type="text" id="myInput1" onKeyUp="search1()" placeholder="Search..."/>
-  <input type="text" id="myInput2" onKeyUp="search2()" placeholder="Search..."/>
+  <input type="text" id="myInput1" onKeyUp="search1()" placeholder="Search..." />
+  <input type="text" id="myInput2" onKeyUp="search2()" placeholder="Search..." />
 
-  <select name="" id="" onchange = 'change(parseInt(this.value), "myInput");'>
-    <option selected ="selected" value="1" >coach</option>
+  <select name="" id="" onchange='change(parseInt(this.value), "myInput");'>
+    <option selected="selected" value="1">coach</option>
 
     <option value="2">stadium</option>
   </select>
@@ -64,17 +65,19 @@
     </tr>
 
   </table>
-<div class = remind><p>You should view and agree the property about stadium ,and then you can pay and add to cart</p></div>
-  <div class = 'property'>
-    <input type="checkBox" id = "checkbox" onclick="if (this.checked) {enable()} else {disable()}" >
+  <div class=remind>
+    <p>You should view and agree the property about stadium ,and then you can pay and add to cart</p>
+  </div>
+  <div class='property'>
+    <input type="checkBox" id="checkbox" onclick="if (this.checked) {enable()} else {disable()}">
     <label for="checkbox" class="agreement-label">Agree</label>
-    <a href = "#" onclick="displayWindow()">
+    <a href="#" onclick="displayWindow()">
       Stadium Property
     </a>
   </div>
   <!--悬浮窗口-->
   <div id="window" class="window_css">
-    <a href = '#' onclick="hideWindow()">
+    <a href='#' onclick="hideWindow()">
       Close the window
     </a>
   </div>
@@ -97,16 +100,14 @@
     }
 
     //disagree property will not pay or add
-    function disable()
-    {
-      document.getElementById("pay").disabled=true
-      document.getElementById("add_cart").disabled=true
+    function disable() {
+      document.getElementById("pay").disabled = true
+      document.getElementById("add_cart").disabled = true
     }
     //agree property can pay and add
-    function enable()
-    {
-      document.getElementById("pay").disabled=false
-      document.getElementById("add_cart").disabled=false
+    function enable() {
+      document.getElementById("pay").disabled = false
+      document.getElementById("add_cart").disabled = false
     }
     //复制自主页
     var urlParams = new URLSearchParams(window.location.search);
@@ -146,68 +147,68 @@
       var uid = userId;
 
       //先新增一条未支付的预定
-    //   fetch('http://localhost:8080/api/bookings/addOneBooking', {
-    //     method: "POST",
-    //     headers: {
-    //       'Content-Type': 'application/json'
-    //     },
-    //     body: JSON.stringify({
-    //       userId: uid,
-    //       date: date,
-    //       startTime: starttime,
-    //       endTime: endtime,
-    //       venue: position,
-    //       status: "PENDING",
-    //       actName: actname,
-    //       price: price
-    //     })
-    //   })
-    //
-    //     .then(response => {
-    //       if (response.status === 200) {
-    //         // alert("Successful!");
-    //       } else {
-    //         throw new Error('HTTP 错误 ' + response.status);
-    //       }
-    //     })
-    //     .catch(error => {
-    //       console.log("错误：", error);
-    //       // alert("Fail!");
-    //     });
-    //
-    //
-    //   //记录当前的票数
-    //   var currentNum = activity.ticketNumber;
-    //   currentNum -= 1;
-    //   const data = new URLSearchParams();
-    //   data.append('id', activity.id);
-    //   data.append('current', currentNum);
-    //   data.append('price', activity.price);
-    //
-    //   //向后端发起更新活动票数的请求
-    //   fetch('http://localhost:8080/api/sportActivity/updateTicketNumber', {
-    //     method: "POST",
-    //     headers: {
-    //       'Content-Type': 'application/x-www-form-urlencoded'
-    //     },
-    //     body: data
-    //   })
-    //
-    //     .then(response => {
-    //       if (response.ok) {
-    //         console.log('Request successful');
-    //         // alert("successful");
-    //         // location.reload();
-    //       } else {
-    //         console.error('Request failed');
-    //       }
-    //     })
-    //     .catch(error => {
-    //       console.error('Error:', error);
-    //     });
-    //
-    //
-   }
+      //   fetch('http://localhost:8080/api/bookings/addOneBooking', {
+      //     method: "POST",
+      //     headers: {
+      //       'Content-Type': 'application/json'
+      //     },
+      //     body: JSON.stringify({
+      //       userId: uid,
+      //       date: date,
+      //       startTime: starttime,
+      //       endTime: endtime,
+      //       venue: position,
+      //       status: "PENDING",
+      //       actName: actname,
+      //       price: price
+      //     })
+      //   })
+      //
+      //     .then(response => {
+      //       if (response.status === 200) {
+      //         // alert("Successful!");
+      //       } else {
+      //         throw new Error('HTTP 错误 ' + response.status);
+      //       }
+      //     })
+      //     .catch(error => {
+      //       console.log("错误：", error);
+      //       // alert("Fail!");
+      //     });
+      //
+      //
+      //   //记录当前的票数
+      //   var currentNum = activity.ticketNumber;
+      //   currentNum -= 1;
+      //   const data = new URLSearchParams();
+      //   data.append('id', activity.id);
+      //   data.append('current', currentNum);
+      //   data.append('price', activity.price);
+      //
+      //   //向后端发起更新活动票数的请求
+      //   fetch('http://localhost:8080/api/sportActivity/updateTicketNumber', {
+      //     method: "POST",
+      //     headers: {
+      //       'Content-Type': 'application/x-www-form-urlencoded'
+      //     },
+      //     body: data
+      //   })
+      //
+      //     .then(response => {
+      //       if (response.ok) {
+      //         console.log('Request successful');
+      //         // alert("successful");
+      //         // location.reload();
+      //       } else {
+      //         console.error('Request failed');
+      //       }
+      //     })
+      //     .catch(error => {
+      //       console.error('Error:', error);
+      //     });
+      //
+      //
+    }
 
     function addToCart(activity) {
       console.log(activity);  // 用于测试，将活动记录到控制台
@@ -222,7 +223,7 @@
       var uid = userId;
 
       //先新增一条未支付的预定
-      fetch('http://localhost:8080/api/bookings/addOneBooking', {
+      fetch('api/bookings/addOneBooking', {
         method: "POST",
         headers: {
           'Content-Type': 'application/json'
@@ -238,17 +239,17 @@
           price: price
         })
       })
-              .then(response => {
-                if (response.status === 200) {
-                  // alert("Successful!");
-                } else {
-                  throw new Error('HTTP 错误 ' + response.status);
-                }
-              })
-              .catch(error => {
-                console.log("错误：", error);
-                alert("Fail!");
-              });
+        .then(response => {
+          if (response.status === 200) {
+            // alert("Successful!");
+          } else {
+            throw new Error('HTTP 错误 ' + response.status);
+          }
+        })
+        .catch(error => {
+          console.log("错误：", error);
+          alert("Fail!");
+        });
 
       //记录当前的票数
       var currentNum = activity.ticketNumber;
@@ -259,41 +260,41 @@
       data.append('price', activity.price);
 
       //向后端发起更新活动票数的请求
-      fetch('http://localhost:8080/api/sportActivity/updateTicketNumber', {
+      fetch('api/sportActivity/updateTicketNumber', {
         method: "POST",
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         },
         body: data
       })
-              .then(response => {
-                if (response.ok) {
-                  console.log('Request successful');
-                  alert("successful");
-                  location.reload();
-                } else {
-                  console.error('Request failed');
-                }
-              })
-              .catch(error => {
-                console.error('Error:', error);
-              });
+        .then(response => {
+          if (response.ok) {
+            console.log('Request successful');
+            alert("successful");
+            location.reload();
+          } else {
+            console.error('Request failed');
+          }
+        })
+        .catch(error => {
+          console.error('Error:', error);
+        });
     }
 
     // 存储后端返回的活动表
     window.onload = function () {
-      fetch('http://localhost:8080/api/sportActivity/allActivities', {
+      fetch('api/sportActivity/allActivities', {
         method: 'GET'
       })
-              .then((response) => response.json())
-              .then((data) => {
+        .then((response) => response.json())
+        .then((data) => {
 
-                var table = document.getElementById('activity-table');
-                data.forEach(activity => {
-                  //我在这里找了一个小时的bug，发现是参数传递的问题
-                  if (activity.ticketNumber != 0 && activity.name === "football") {
-                    var row = document.createElement("tr");
-                    row.innerHTML = `
+          var table = document.getElementById('activity-table');
+          data.forEach(activity => {
+            //我在这里找了一个小时的bug，发现是参数传递的问题
+            if (activity.ticketNumber != 0 && activity.name === "football") {
+              var row = document.createElement("tr");
+              row.innerHTML = `
               <td id="activity-id-${activity.id}">${activity.id}</td>
               <td id="activity-name-${activity.name}">${activity.name}</td>
               <td id="activity-date-${activity.date}">${activity.date}</td>
@@ -312,15 +313,15 @@
               
               `;
 
-                    table.appendChild(row);
+              table.appendChild(row);
 
-                  }
-                });
-              })
+            }
+          });
+        })
     }
-    document.getElementById("myInput1").style.display= 'block';
-    document.getElementById("myInput2").style.display= 'none';
-    function change(page, tag){
+    document.getElementById("myInput1").style.display = 'block';
+    document.getElementById("myInput2").style.display = 'none';
+    function change(page, tag) {
       var i = 1;
       var el;
       while (el = document.getElementById(tag + i)) {
@@ -333,7 +334,7 @@
     }
     function search1() {
       // 声明变量
-      var input, filter, table, tr, td1,i;
+      var input, filter, table, tr, td1, i;
       input = document.getElementById("myInput1");
       filter = input.value.toUpperCase();
       table = document.getElementById("activity-table");
@@ -355,7 +356,7 @@
     }
     function search2() {
       // 声明变量
-      var input, filter, table, tr, td1,i;
+      var input, filter, table, tr, td1, i;
       input = document.getElementById("myInput2");
       filter = input.value.toUpperCase();
       table = document.getElementById("activity-table");
