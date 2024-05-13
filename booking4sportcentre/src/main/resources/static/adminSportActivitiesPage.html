@@ -50,8 +50,6 @@
                       <li><a id="a9" href="adminCouponPage.html">manage coupon</a> </li>
                   </ul>
               </li>
-                    <!-- <li id="a8"><a href="adminUserPage.html"><span class="glyphicon glyphicon-user"></span> User</a></li> -->
-<!--                    <li id="ab"><a href="adminSettingsPage.html"><span class="glyphicon glyphicon-cog"></span> System settings</a></li>-->
                 </ul>
             </div>
 
@@ -87,7 +85,6 @@
                     </tr>
                   </thead>
                   <tbody>
-                     <!-- 表格数据体 -->
                    
                       <tbody id="userDataBody"></tbody>
                   </tbody>
@@ -121,13 +118,14 @@
                         <label for="editName">Name:</label>
                         
                         <select class="form-control" id="editName" required>
-                            <option value="Football">Football</option>
-                            <option value="Basketball">Basketball</option>
-                            <option value="Tennis">Tennis</option>
-                            <option value="Archery">Archery</option>
-                            <option value="Billiard">Billiard</option>
-                            <option value="Shuttlecock">Shuttlecock</option>
-                            <option value="Workout">Workout</option>
+                            <option value="football">football</option>
+                            <option value="basketball">basketball</option>
+                            <option value="tennis">tennis</option>
+                            <option value="archery">archery</option>
+                            <option value="billiard">billiard</option>
+                            <option value="shuttlecock">shuttlecock</option>
+                            <option value="workout">workout</option>
+                            <option value="pingpong">pingpong</option>
                         </select>
                     </div>
                     <div class="form-group">
@@ -140,15 +138,11 @@
                     </div>
                     <div class="form-group">
                         <label for="editCoach">Coach:</label>
-                        <input type="text" class="form-control" id="editCoach"  required>
+                        <input type="text" class="form-control" id="editCoach" placeholder="Please input coach name"  required>
                     </div>
                     <div class="form-group">
                         <label for="editStadium">Stadium:</label>
-                        <select class="form-control" id="editStadium">
-                            <option value="stadium1">Stadium 1</option>
-                            <option value="stadium2">Stadium 2</option>
-                            <option value="stadium3">Stadium 3</option>
-                        </select>
+                        <input type="text" class="form-control" id="editStadium" placeholder="Please input stadium name"  required>
                     </div>
                  
                     <div class="form-group">
@@ -181,13 +175,14 @@
                     <div class="form-group">
                         <label for="name">Name:</label>
                         <select class="form-control" id="name" required>
-                            <option value="Football">Football</option>
-                            <option value="Basketball">Basketball</option>
-                            <option value="Tennis">Tennis</option>
-                            <option value="Archery">Archery</option>
-                            <option value="Billiard">Billiard</option>
-                            <option value="Shuttlecock">Shuttlecock</option>
-                            <option value="Workout">Workout</option>
+                            <option value="football">football</option>
+                            <option value="basketball">basketball</option>
+                            <option value="tennis">tennis</option>
+                            <option value="archery">archery</option>
+                            <option value="billiard">billiard</option>
+                            <option value="shuttlecock">shuttlecock</option>
+                            <option value="workout">workout</option>
+                            <option value="pingpong">pingpong</option>
                         </select>
                     </div>
                     <div class="form-group">
@@ -204,12 +199,7 @@
                     </div>
                     <div class="form-group">
                         <label for="stadium">Stadium:</label>
-                        <select class="form-control" id="stadium" required>
-
-                            <option value="stadium1">Stadium 1</option>
-                            <option value="stadium2">Stadium 2</option>
-                            <option value="stadium3">Stadium 3</option>
-                        </select>
+                        <input type="text" class="form-control" id="stadium" placeholder="Please input stadium name" required>
                     </div>
                   
                     <div class="form-group">
@@ -242,6 +232,7 @@ document.getElementById('a1').addEventListener('click', function() {
                 submenu.style.display = 'none';
             }
         });
+
   
 //获取体育活动数据
 $(document).ready(function() {
