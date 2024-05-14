@@ -1,13 +1,14 @@
 package com.group6.booking4sportcentre;
 
 import com.group6.booking4sportcentre.controller.BookingController;
-import com.group6.booking4sportcentre.mapper.WalletInfoMapper;
+import com.group6.booking4sportcentre.mapper.UserInfoMapper;
 import com.group6.booking4sportcentre.model.BookingInfo;
 import com.group6.booking4sportcentre.model.BookingStatus;
-import com.group6.booking4sportcentre.model.WalletInfo;
+import com.group6.booking4sportcentre.model.UserInfo;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.ResponseEntity;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -25,11 +26,8 @@ public class BookingControllerTest {
 
     @Autowired
     private BookingController bookingController;
-
     @Autowired
-    private WalletInfoMapper walletInfoMapper;
-
-
+    private UserInfoMapper userInfoMapper;
     // Test the getBookings method
     @Test
     public void testGetBookings() {
@@ -108,41 +106,57 @@ public class BookingControllerTest {
         assertNotNull(bookingList);
     }
 
-   @Test
+    @Test
     public void testConfirmBooking() {
-    // Create a new WalletInfo
-    WalletInfo walletInfo = new WalletInfo();
-    walletInfo.setBalance(1000.0);
-    // Save the WalletInfo
-    walletInfoMapper.createWalletInfo(walletInfo);
+        // Create a new UserInfo
+        UserInfo userInfo = new UserInfo();
+        System.out.println(userInfo.getId());
 
-    // Create a new booking
-    BookingInfo newBooking = new BookingInfo();
-    newBooking.setUserName("belle");
-    newBooking.setDate(LocalDate.now());
-    newBooking.setStartTime(LocalTime.of(9, 0));
-    newBooking.setEndTime(LocalTime.of(10, 0));
-    newBooking.setVenue("Basketball Court");
-    newBooking.setStatus(BookingStatus.PENDING);
-    newBooking.setActName("Basketball");
-    newBooking.setPrice(200.0);
-    // Set the WalletInfo
-    newBooking.setWalletInfo(walletInfo);
-
-    Long id = bookingController.createBooking(newBooking);
-    bookingController.updateWalletInfoId(id, Long.valueOf(walletInfo.getUserId()));
+        userInfo.setUsername("belle");
+        userInfo.setBalance(2000.0);
+        userInfo.setAddress("123 Main St");
+        userInfo.setDob(LocalDate.of(2000, 1, 1));
+        userInfo.setEmail("daw@qw/com");
+        userInfo.setFirstName("Belle");
+        userInfo.setLastName("Daw");
+        userInfo.setGender(1);
+        userInfo.setPhoneNum("123456");
 
 
-       // Get the initial wallet balance
-    double initialBalance = walletInfoMapper.getWalletBalance(newBooking.getWalletInfo().getUserId());
+        userInfoMapper.insert(userInfo);
+        System.out.println(userInfo.getId());
 
-    // Confirm the booking
-    bookingController.confirmBooking(id);
 
-    // Get the final wallet balance
-    double finalBalance = walletInfoMapper.getWalletBalance(newBooking.getWalletInfo().getUserId());
+        // Create a new booking
+        BookingInfo newBooking = new BookingInfo();
+        newBooking.setUserName("belle");
+        newBooking.setDate(LocalDate.now());
+        newBooking.setStartTime(LocalTime.of(9, 0));
+        newBooking.setEndTime(LocalTime.of(10, 0));
+        newBooking.setVenue("Basketball Court");
+        newBooking.setStatus(BookingStatus.PENDING);
+        newBooking.setActName("Basketball");
+        newBooking.setPrice(200.0);
+        newBooking.setUserId(userInfo.getId());
 
-    // Assert that the wallet balance has been reduced by the booking price
-    assertEquals(initialBalance - newBooking.getPrice(), finalBalance, 0.01);
-}
+        Long id = bookingController.createBooking(newBooking);
+        assertNotNull(id);
+
+        // Get the initial wallet balance
+        double initialBalance = userInfoMapper.getBalance(userInfo.getId());
+        assertEquals(2000.0, initialBalance, 0.01);
+
+
+        // Confirm the booking
+        ResponseEntity<String> response = bookingController.confirmBooking(id);
+        System.out.println("Confirm Booking Response: " + response.getBody());
+        assertEquals("Booking confirmed successfully", response.getBody());
+
+        // Get the final wallet balance
+        double finalBalance = userInfoMapper.getBalance(userInfo.getId());
+
+        // Assert that the wallet balance has been reduced by the booking price
+        assertEquals(initialBalance - newBooking.getPrice(), finalBalance, 0.01);
+    }
+
 }

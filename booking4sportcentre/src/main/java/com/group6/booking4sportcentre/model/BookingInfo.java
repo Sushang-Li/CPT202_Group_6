@@ -27,6 +27,7 @@ public class BookingInfo {
     @Column(name = "user_name")
     private String userName;
 
+    @Column(name = "user_id")
     //新增： 用户的ID
     private Integer userId;
 
@@ -50,6 +51,7 @@ public class BookingInfo {
         return "BookingInfo{" +
                 "id=" + id +
                 ", userName='" + userName + '\'' +
+                ", userId='" + userId + "'"+
                 ", date=" + date +
                 ", startTime=" + startTime +
                 ", endTime=" + endTime +
@@ -60,7 +62,5 @@ public class BookingInfo {
                 '}';
     }
 
-    @ManyToOne
-    @JoinColumn(name = "wallet_info_id")
-    private WalletInfo walletInfo;
+
 }

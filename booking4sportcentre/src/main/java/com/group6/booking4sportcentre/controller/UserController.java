@@ -1,9 +1,7 @@
 package com.group6.booking4sportcentre.controller;
 
 import com.group6.booking4sportcentre.mapper.UserInfoMapper;
-import com.group6.booking4sportcentre.mapper.WalletInfoMapper;
 import com.group6.booking4sportcentre.model.UserInfo;
-import com.group6.booking4sportcentre.model.WalletInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,8 +17,6 @@ public class UserController {
 
     @Autowired
     private UserInfoMapper userInfoMapper;
-    @Autowired
-    private WalletInfoMapper walletInfoMapper;
 
     @PostMapping("/register")
     public String register(@RequestParam("stuId") Integer stuId,
@@ -44,15 +40,9 @@ public class UserController {
         userInfo.setPhoneNum(phoneNum);
         userInfo.setAddress(address);
         userInfo.setGender(gender);
+        userInfo.setBalance(2000.0); // 初始化余额
 
         userInfoMapper.insert(userInfo); // 使用MyBatis Plus的insert方法
-
-        // 创建钱包
-        WalletInfo walletInfo = new WalletInfo();
-        walletInfo.setUserId(Math.toIntExact(Long.valueOf(userInfo.getId())));
-        walletInfo.setUserId(userInfo.getId());
-        walletInfo.setBalance(2000.0);
-        walletInfoMapper.createWalletInfo(walletInfo);
 
         redirectAttributes.addFlashAttribute("message", "注册成功！");
         return "redirect:/userLogin.html"; // 假设有一个登陆页面
