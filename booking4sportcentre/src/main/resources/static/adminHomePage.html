@@ -32,8 +32,8 @@
                 <li id="aa" ><a class="active" href="adminHomePage.html"><span class="glyphicon glyphicon-home"></span> Home</a></li>
 
                 <li id="a1">
-                    <a id="a2" href="#mangage"><span class="glyphicon glyphicon-edit"></span> manage <span class="glyphicon glyphicon-chevron-right"></span></a>
-                    <ul>
+                    <a id="a2" href="#mangage"><span class="glyphicon glyphicon-edit"></span> manage <span class="glyphicon glyphicon-chevron-right" id="chevron"></span></a>
+                    <ul style="display: none;">
                         <li><a id="a3" href="adminSportActivitiesPage.html">manage sport activities</a></li>
                         <li><a id="a4" href="adminStadiumsPage.html">manage stadiums</a></li>
                         <li><a id="a5" href="adminCoachesPage.html">manage coaches</a></li>
@@ -138,17 +138,8 @@
 </script>
 
 <script>
-    // JavaScript代码
-    document.getElementById('a1').addEventListener('click', function() {
-        var submenu = this.querySelector('ul');
-        if (submenu.style.display === 'none') {
-            submenu.style.display = 'block';
-        } else {
-            submenu.style.display = 'none';
-        }
-    });
-
 </script>
 </body>
 <script type="text/javascript" src="logout.js"></script>
+<script type="text/javascript" src="animation.js"></script>
 </html>
