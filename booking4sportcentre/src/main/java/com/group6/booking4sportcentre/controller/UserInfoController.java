@@ -1,15 +1,10 @@
 package com.group6.booking4sportcentre.controller;
 
-import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import com.group6.booking4sportcentre.mapper.UserInfoMapper;
 import com.group6.booking4sportcentre.model.UserInfo;
-
-import java.time.LocalDate;
-import java.util.List;
 
 
 @RestController
@@ -20,7 +15,7 @@ public class UserInfoController {
     private UserInfoMapper userInfoMapper;
 
     //用户更新自己的数据,接收前端传过来的用户id以及更改后的数据，把这次更新传递到数据库
-    @PostMapping("/user/updateInfo")
+    @PostMapping("/api/user/updateInfo")
     public void updateInfo(@RequestParam int userId, @RequestParam String username, @RequestParam String password,
                            @RequestParam String phoneNumber, @RequestParam String signature) {
 
@@ -38,7 +33,7 @@ public class UserInfoController {
 
     //读取id=1的用户信息
     //https://localhost:8080/user/information?id=1
-    @GetMapping("/user/information")
+    @GetMapping("/api/user/information")
     public UserInfo getUserInfo(@RequestParam(value = "id", required = false) int id) {
         UserInfo userInfo = (UserInfo) userInfoMapper.selectById(id);
         return userInfo;

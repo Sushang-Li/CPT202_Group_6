@@ -40,8 +40,8 @@
                     <li id="aa" ><a  href="adminHomePage.html"><span class="glyphicon glyphicon-home"></span> Home</a></li>
                    
                     <li id="a1">
-                      <a id="a2" class="active" href="#mangage"><span class="glyphicon glyphicon-edit"></span> manage <span class="glyphicon glyphicon-chevron-right"></span></a>
-                      <ul>
+                        <a id="a2" class="active" href="#mangage"><span class="glyphicon glyphicon-edit"></span> manage <span class="glyphicon glyphicon-chevron-down" id="chevron"></span></a>
+                        <ul style="display: block;">
                       <li><a id="a3" class="active" href="adminSportActivitiesPage.html">manage sport activities</a></li>
                       <li><a id="a4" href="adminStadiumsPage.html">manage stadiums</a></li>
                       <li><a id="a5" href="adminCoachesPage.html">manage coaches</a></li>
@@ -50,8 +50,6 @@
                       <li><a id="a9" href="adminCouponPage.html">manage coupon</a> </li>
                   </ul>
               </li>
-                    <!-- <li id="a8"><a href="adminUserPage.html"><span class="glyphicon glyphicon-user"></span> User</a></li> -->
-<!--                    <li id="ab"><a href="adminSettingsPage.html"><span class="glyphicon glyphicon-cog"></span> System settings</a></li>-->
                 </ul>
             </div>
 
@@ -87,7 +85,6 @@
                     </tr>
                   </thead>
                   <tbody>
-                     <!-- 表格数据体 -->
                    
                       <tbody id="userDataBody"></tbody>
                   </tbody>
@@ -121,13 +118,14 @@
                         <label for="editName">Name:</label>
                         
                         <select class="form-control" id="editName" required>
-                            <option value="Football">Football</option>
-                            <option value="Basketball">Basketball</option>
-                            <option value="Tennis">Tennis</option>
-                            <option value="Archery">Archery</option>
-                            <option value="Billiard">Billiard</option>
-                            <option value="Shuttlecock">Shuttlecock</option>
-                            <option value="Workout">Workout</option>
+                            <option value="football">football</option>
+                            <option value="basketball">basketball</option>
+                            <option value="tennis">tennis</option>
+                            <option value="archery">archery</option>
+                            <option value="billiard">billiard</option>
+                            <option value="shuttlecock">shuttlecock</option>
+                            <option value="workout">workout</option>
+                            <option value="pingpong">pingpong</option>
                         </select>
                     </div>
                     <div class="form-group">
@@ -140,15 +138,11 @@
                     </div>
                     <div class="form-group">
                         <label for="editCoach">Coach:</label>
-                        <input type="text" class="form-control" id="editCoach"  required>
+                        <input type="text" class="form-control" id="editCoach" placeholder="Please input coach name"  required>
                     </div>
                     <div class="form-group">
                         <label for="editStadium">Stadium:</label>
-                        <select class="form-control" id="editStadium">
-                            <option value="stadium1">Stadium 1</option>
-                            <option value="stadium2">Stadium 2</option>
-                            <option value="stadium3">Stadium 3</option>
-                        </select>
+                        <input type="text" class="form-control" id="editStadium" placeholder="Please input stadium name"  required>
                     </div>
                  
                     <div class="form-group">
@@ -181,13 +175,14 @@
                     <div class="form-group">
                         <label for="name">Name:</label>
                         <select class="form-control" id="name" required>
-                            <option value="Football">Football</option>
-                            <option value="Basketball">Basketball</option>
-                            <option value="Tennis">Tennis</option>
-                            <option value="Archery">Archery</option>
-                            <option value="Billiard">Billiard</option>
-                            <option value="Shuttlecock">Shuttlecock</option>
-                            <option value="Workout">Workout</option>
+                            <option value="football">football</option>
+                            <option value="basketball">basketball</option>
+                            <option value="tennis">tennis</option>
+                            <option value="archery">archery</option>
+                            <option value="billiard">billiard</option>
+                            <option value="shuttlecock">shuttlecock</option>
+                            <option value="workout">workout</option>
+                            <option value="pingpong">pingpong</option>
                         </select>
                     </div>
                     <div class="form-group">
@@ -204,12 +199,7 @@
                     </div>
                     <div class="form-group">
                         <label for="stadium">Stadium:</label>
-                        <select class="form-control" id="stadium" required>
-
-                            <option value="stadium1">Stadium 1</option>
-                            <option value="stadium2">Stadium 2</option>
-                            <option value="stadium3">Stadium 3</option>
-                        </select>
+                        <input type="text" class="form-control" id="stadium" placeholder="Please input stadium name" required>
                     </div>
                   
                     <div class="form-group">
@@ -233,21 +223,11 @@
 
 
 <script>
-    /* 侧边栏点击 */
-document.getElementById('a1').addEventListener('click', function() {
-            var submenu = this.querySelector('ul');
-            if (submenu.style.display === 'none') {
-                submenu.style.display = 'block';
-            } else {
-                submenu.style.display = 'none';
-            }
-        });
-  
 //获取体育活动数据
 $(document).ready(function() {
     $('.table').DataTable({
         "ajax": {
-            "url": "http://localhost:8080/api/sportActivity",
+            "url": "api/sportActivity",
             "dataSrc": ""
         },
         "columns": [
@@ -279,7 +259,7 @@ $(document).ready(function() {
 // 填充edit表单
 function populateEditForm(id) {
     // 将数据填入编辑表单中的各个字段
-    axios.get(`http://localhost:8080/api/sportActivity/getActivity/${id}`)
+    axios.get(`api/sportActivity/getActivity/${id}`)
 
 
         .then((response) => {
@@ -314,7 +294,7 @@ function saveChanges() {
         ticketNumber: document.getElementById('editTicketNumber').value
     };
 
-    axios.put(`http://localhost:8080/api/sportActivity/${updatedActivity.id}`, updatedActivity)
+    axios.put(`api/sportActivity/${updatedActivity.id}`, updatedActivity)
         .then(response => {
             console.log('Activity updated successfully:', response.data);
             alert('Edit successfully.');
@@ -337,7 +317,7 @@ function confirmDelete(activityId) {
 
         // 删除体育活动
         function deleteSportActivity(activityId) {
-            axios.delete(`http://localhost:8080/api/sportActivity/delete/${activityId}`)
+            axios.delete(`api/sportActivity/delete/${activityId}`)
                 .then(response => {
                     alert(response.data); // 显示删除成功信息
                     location.reload(); // 根据需求刷新页面或重新加载数据
@@ -372,7 +352,7 @@ function openAddModal() {
                 ticketNumber: ticketNumber
             };
 
-            axios.post('http://localhost:8080/api/sportActivity/add', newActivity)
+            axios.post('api/sportActivity/add', newActivity)
                 .then(response => {
                     alert('Sport activity added successfully.');
                     location.reload(); // 根据需求刷新页面或重新加载数据
@@ -387,5 +367,6 @@ function openAddModal() {
 
 
 </body>
-<script type="text/javascript" src="logout.js"></script>
+<script type="text/javascript" src="logout.js.js"></script>
+<script type="text/javascript" src="animation.js"></script>
 </html>
