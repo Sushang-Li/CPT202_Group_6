@@ -257,7 +257,7 @@
 
         // Function to fetch wallet balance
         function fetchWalletBalance() {
-            fetch(`/api/wallet/${userId}`, {// Endpoint to fetch wallet balance
+            fetch(`/api/wallet/balance/${userId}`, {// Endpoint to fetch wallet balance
                 cache: 'no-cache'
             })
                 .then(response => {

@@ -2,16 +2,16 @@ package com.group6.booking4sportcentre.controller;
 
 import com.group6.booking4sportcentre.mapper.BookingInfoMapper;
 import com.group6.booking4sportcentre.mapper.SportActivityMapper;
-import com.group6.booking4sportcentre.mapper.WalletInfoMapper;
+import com.group6.booking4sportcentre.mapper.UserInfoMapper;
 import com.group6.booking4sportcentre.model.BookingInfo;
 import com.group6.booking4sportcentre.model.BookingStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Map;
 
 /**
  * @author Fuyu.Xing
@@ -25,7 +25,7 @@ public class BookingController {
     private BookingInfoMapper bookingInfoMapper;
 
     @Autowired
-    private WalletInfoMapper walletInfoMapper;
+    private UserInfoMapper userInfoMapper;
 
     //一些新增的部分，主要是预定的添加和活动票数的减少
     @Autowired
@@ -121,9 +121,6 @@ public class BookingController {
         if (id == null || booking == null) {
             return 0;
         }
-        if (booking.getWalletInfo() != null) {
-            bookingInfoMapper.updateWalletInfoId(booking.getId(), Long.valueOf(booking.getWalletInfo().getUserId()));
-        }
         return bookingInfoMapper.updateBooking(id, booking);
     }
 
@@ -142,22 +139,57 @@ public class BookingController {
         return bookingInfoMapper.getBookingByDate(localDate);
     }
 
+    @Transactional
     @PostMapping("/confirm")
-    public void confirmBooking(@RequestParam Long bookingInfoId) {
-        Map<String, Object> bookingInfo = bookingInfoMapper.getBookingCostAndWalletInfoIdById(bookingInfoId);
-        Double bookingCost = (Double) bookingInfo.get("price");
-        Long userId = (Long) bookingInfo.get("user_id");
-        Double currentBalance = walletInfoMapper.getWalletBalance(Math.toIntExact(userId));
-        Double newBalance = currentBalance - bookingCost;
-        walletInfoMapper.updateWalletBalance(Math.toIntExact(userId), newBalance);
+
+    public ResponseEntity<String> confirmBooking(@RequestParam Long bookingInfoId) {
+        try {
+            System.out.println("Booking ID: " + bookingInfoId);
+            BookingInfo bookingInfo = bookingInfoMapper.getBookingById(bookingInfoId);
+            System.out.println("Booking info: " + bookingInfo);
+            if (bookingInfo == null) {
+                return ResponseEntity.badRequest().body("Booking not found");
+            }
+            double bookingCost = bookingInfo.getPrice();
+            Integer userId = bookingInfo.getUserId();
+            System.out.println("User ID: " + userId);
+            if (userId == null) {
+                return ResponseEntity.badRequest().body("User ID is null");
+            }
+
+            //
+            double currentBalance = userInfoMapper.getBalance(userId);
+            System.out.println("Current balance: " + currentBalance);
+
+            if (currentBalance < bookingCost) {
+                return ResponseEntity.badRequest().body("Insufficient balance");
+            }
+
+            Double newBalance = currentBalance - bookingCost;
+            System.out.println("Current balance: " + currentBalance);
+            System.out.println("Booking cost: " + bookingCost);
+            System.out.println("New balance: " + newBalance);
+            userInfoMapper.updateBalance(userId, newBalance);
+
+            double updatedBalance = userInfoMapper.getBalance(userId);
+            System.out.println("Updated balance: " + updatedBalance);
+            if (!newBalance.equals(updatedBalance)) {
+                return ResponseEntity.badRequest().body("Failed to update balance");
+            }
+
+            bookingInfo.setStatus(BookingStatus.CONFIRMED);
+            bookingInfoMapper.updateById(bookingInfo);
+
+            return ResponseEntity.ok("Booking confirmed successfully");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.badRequest().body("Error confirming booking");
+        }
     }
 
-    @PostMapping("/updateWalletInfoId")
-    public void updateWalletInfoId(@RequestParam Long bookingInfoId, @RequestParam Long walletInfoId) {
-        bookingInfoMapper.updateWalletInfoId(bookingInfoId, walletInfoId);
-    }
 
-//    Admin查看所有预定信息
+
+    //    Admin查看所有预定信息
     @GetMapping("/admin_get_BookingInfo")
     public List<BookingInfo> getBookingsForAdmin() {
         return bookingInfoMapper.getAllBookings();

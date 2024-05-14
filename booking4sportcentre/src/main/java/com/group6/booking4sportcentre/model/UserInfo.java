@@ -47,6 +47,9 @@ public class UserInfo {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate reDate;
 
+    @Column(name="balance", nullable = false)
+    private double balance;
+
     public Integer getId() {
         return id;
     }

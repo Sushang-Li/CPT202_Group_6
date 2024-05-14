@@ -1,7 +1,6 @@
 package com.group6.booking4sportcentre.controller;
 
 import com.group6.booking4sportcentre.mapper.AdminInfoMapper;
-import com.group6.booking4sportcentre.mapper.WalletInfoMapper;
 import com.group6.booking4sportcentre.model.AdminInfo;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,8 +18,6 @@ import java.util.List;
 public class AdminLoginController {
     @Autowired
     private AdminInfoMapper adminInfoMapper;
-    @Autowired
-    private WalletInfoMapper walletInfoMapper;
 
     //    管理员登录：数据库中已存有管理员信息，通过用户名和密码进行登录验证
 //    Administrator login: The database has stored the administrator information,
