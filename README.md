@@ -16,7 +16,7 @@ This project was meticulously designed, developed, implemented, and tested by ou
 * Our project class diagram:
 ![Class_Diagram.png](image%2FClass_Diagram.png)
 * Our project ERD:
-![ERD.png](image%2FERD.png)
+![ERD.png](image%2Fsport_centre.png)
 
 
 ## Technologies Used
