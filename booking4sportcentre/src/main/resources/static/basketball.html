@@ -103,14 +103,23 @@
     }
 
     //disagree property will not pay or add
+    var x=document.getElementsByName("pay");
+    var x2=document.getElementsByName("add_cart");
+    //disagree property will not pay or add
     function disable() {
-      document.getElementById("pay").disabled = true
-      document.getElementById("add_cart").disabled = true
+
+      for(var i=0; i < x.length; i++){
+        document.getElementsByName('pay')[i].disabled = true
+        document.getElementsByName('add_cart')[i].disabled = true}
+
     }
     //agree property can pay and add
     function enable() {
-      document.getElementById("pay").disabled = false
-      document.getElementById("add_cart").disabled = false
+
+      for(var i=0; i < x.length; i++) {
+        document.getElementsByName('pay')[i].disabled = false
+        document.getElementsByName('add_cart')[i].disabled = false
+      }
     }
     //复制自主页
     var urlParams = new URLSearchParams(window.location.search);
@@ -310,10 +319,10 @@
               <td id="activity-price-${activity.price}">${activity.price}</td>
               <td id="activity-number-${activity.ticketNumber}">${activity.ticketNumber}</td>
               <td id="activity-pay-${activity.id}">
-              <input type = 'button' disabled="true" id = 'pay' onclick="payForActivity(${JSON.stringify(activity).replace(/"/g, "&quot;")})" value =  'Pay'>
+              <input type = 'button' disabled="true" name = 'pay' onclick="payForActivity(${JSON.stringify(activity).replace(/"/g, "&quot;")})" value =  'Pay'>
               </td>
               <td id="activity-add-${activity.id}">
-              <input type="button" disabled="true" id = 'add_cart' onclick="addToCart(${JSON.stringify(activity).replace(/"/g, "&quot;")})" value = 'Add to Cart'>
+              <input type="button" disabled="true" name = 'add_cart' onclick="addToCart(${JSON.stringify(activity).replace(/"/g, "&quot;")})" value = 'Add to Cart'>
               </td>
               
               `;
