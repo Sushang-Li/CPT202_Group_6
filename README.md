@@ -1,5 +1,5 @@
 # CPT202 Group 6
-XJTLU Year 3 Software Engineering Group Project CPT202 Project.
+2023/2024 XJTLU Year 3 Software Engineering Group Project CPT202 Project.
 
 # Group Members:
 * Ge Jinai
@@ -18,6 +18,39 @@ This project was meticulously designed, developed, implemented, and tested by ou
 * Our project ERD:
 ![ERD.png](image%2Fsport_centre.png)
 
+## Project Structure
+```
+booking4sportcentre
+├── src
+│   ├── main
+│   │   ├── java
+│   │   │   └── com
+│   │   │       └── group6
+│   │   │           └── booking4sportcentre
+│   │   │               ├── controller
+│   │   │               ├── mapper
+│   │   │               └── model
+│   │   ├── resources
+│   │       ├── static
+│   │       │   ├── bootstrap
+│   │       │   │   ├── css
+│   │       │   │   ├── fonts
+│   │       │   │   └── js
+│   │       │   ├── bootstrap-3.4.1
+│   │       │   │   ├── css
+│   │       │   │   ├── fonts
+│   │       │   │   └── js
+│   │       │   ├── css
+│   │       │   └── images
+│   │       └── templates
+│   └── test
+│       └── java
+│           └── com
+│               └── group6
+│                   └── booking4sportcentre
+
+```
+
 
 ## Technologies Used
 
@@ -34,6 +67,13 @@ We followed a structured development process, including:
 3. **Implementation**: Building the actual components of the system as per design.
 4. **Testing**: Rigorously testing the system to ensure reliability and performance.
 5. **Deployment**: Deploying the system for actual use.
+
+## How to Run
+1. Clone the repository
+2. Open the project in an IDE
+3. Run the project
+4. Access the website on http://localhost:8080/index.html
+5. Enjoy
 
 ## Contributors
 
