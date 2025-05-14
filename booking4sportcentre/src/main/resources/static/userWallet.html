@@ -92,16 +92,17 @@
 
 <div class="wallet-content">
   <h2>My Wallet</h2>
-  <p id="wallet-balance" >Balance: loading</p>
+  <p id="wallet-balance">Balance: loading</p>
   <table>
-
     <tbody>
-
     <!-- More transaction rows here -->
     </tbody>
   </table>
-  <a href="#" id="recharge-btn" class="button">Recharge ¥100</a>
-
+  <div style="margin-bottom: 15px;">
+    <input type="number" id="recharge-amount" placeholder="Enter recharge amount" min="0" step="0.01"
+           style="width: 100%; padding: 8px; margin-bottom: 10px; border: 1px solid #ddd; border-radius: 4px; box-sizing: border-box;">
+  </div>
+  <a href="#" id="recharge-btn" class="button">Recharge</a>
 </div>
 
 <a href="userCoupons.html" id="coupon" style="display: block; text-align: center; margin-top: 20px;">My Coupons</a>
@@ -126,45 +127,48 @@
   var userLink = document.getElementById('booking-nav');
   userLink.href = "userBooking.html?id=" + userId;
 
-
   var userLink = document.getElementById('coupon');
   userLink.href = "userCoupons.html?id=" + userId;
 
-
-
-
   // 页面加载完成后执行函数
   window.onload =
-    // 发送HTTP GET请求到后端接口获取钱包信息
-    function fetchWalletBalance() {
-      fetch(`/api/wallet/balance/${userId}`, {
-        method: 'GET',
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json'
-        },
-        credentials: 'same-origin'
-      })
-              .then(response => {
-                if (!response.ok) {
-                  throw new Error('Failed to fetch wallet balance');
-                }
-                return response.json();
-              })
-              .then(data => {
-                console.log(data);  // Ensure you can see the wallet balance
-                // Update wallet balance display on the page
-                document.getElementById('wallet-balance').textContent = 'Balance: ¥' + data;
-              })
-              .catch(error => {
-                console.error('Error fetching wallet balance:', error);
-                alert('Please charge before payment.');
-              });
-
-
-    };
-    document.getElementById('recharge-btn').addEventListener('click', function(event) {
+          // 发送HTTP GET请求到后端接口获取钱包信息
+          function fetchWalletBalance() {
+            fetch(`/api/wallet/balance/${userId}`, {
+              method: 'GET',
+              headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+              },
+              credentials: 'same-origin'
+            })
+                    .then(response => {
+                      if (!response.ok) {
+                        throw new Error('Failed to fetch wallet balance');
+                      }
+                      return response.json();
+                    })
+                    .then(data => {
+                      console.log(data);  // Ensure you can see the wallet balance
+                      // Update wallet balance display on the page
+                      document.getElementById('wallet-balance').textContent = 'Balance: ¥' + data;
+                    })
+                    .catch(error => {
+                      console.error('Error fetching wallet balance:', error);
+                      alert('Please charge before payment.');
+                    });
+          };
+  document.getElementById('recharge-btn').addEventListener('click', function(event) {
     event.preventDefault(); // 阻止默认行为，即阻止链接跳转
+
+    // 获取用户输入的充值金额
+    const amount = parseFloat(document.getElementById('recharge-amount').value);
+
+    // 验证输入
+    if (!amount || amount <= 0) {
+      alert('Please enter a valid amount greater than 0');
+      return;
+    }
 
     // 发送Ajax请求
     fetch('/api/wallet/recharge', {
@@ -172,20 +176,28 @@
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({ userId: userId }) // 将用户ID作为请求体发送到后端
+      body: JSON.stringify({
+        userId: userId,
+        amount: amount
+      })
     })
             .then(response => response.json())
             .then(data => {
-
-                console.log(data)
-              console.log('Recharge successful!')
+              if (data.message === "Recharge successful") {
+                alert('Recharge successful! New balance: ¥' + data.newBalance);
+                // 更新显示的余额
+                document.getElementById('wallet-balance').textContent = 'Balance: ¥' + data.newBalance;
+                // 清空输入框
+                document.getElementById('recharge-amount').value = '';
+              } else {
+                alert('Recharge failed: ' + data.message);
+              }
             })
             .catch(error => {
               console.error('Error:', error);
-              console.log('Failed to recharge wallet')
+              alert('Failed to recharge wallet');
             });
   });
-
 </script>
 </body>
 <script type="text/javascript" src="logout.js"></script>
