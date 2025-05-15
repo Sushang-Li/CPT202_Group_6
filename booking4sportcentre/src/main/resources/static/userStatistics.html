@@ -7,9 +7,9 @@
   <link rel="stylesheet" href="css/mainStyle.css">
   <link rel="stylesheet" href="css/userStatistics.css">
   <link href="https://fonts.googlefonts.cn/css?family=Roboto:400,500,700,900" rel="stylesheet">
-  <title>Welcome</title>
-
-
+  <title>My Statistics</title>
+  <!-- 引入Chart.js库用于数据可视化 -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
 <body>
@@ -19,35 +19,93 @@
   <nav>
     <div class="nav-container">
       <div class="logo">
-        <a href="userHomepage.html" id="logo-nav">:D</a>
+        <a href=" " id="logo-nav">:D</a >
       </div>
       <div class="homepage">
-        <a href="userHomepage.html" id="homepage-nav">HOMEPAGE</a>
+        <a href="userHomepage.html" id="homepage-nav">HOMEPAGE</a >
       </div>
       <div class="information">
-        <a href="userInformation.html" id="information-nav">INFORMATION</a>
+        <a href="userInformation.html" id="information-nav">INFORMATION</a >
       </div>
       <div class="wallet">
-        <a href="userWallet.html" id="wallet-nav">WALLET</a>
+        <a href="userWallet.html" id="wallet-nav">WALLET</a >
       </div>
       <div class="booking">
-        <a href="userBooking.html" id="booking-nav">BOOKING</a>
+        <a href="userBooking.html" id="booking-nav">BOOKING</a >
       </div>
       <div class="statistics">
-        <a href="userStatistics.html" id="statistics-nav">STATISTICS</a>
+        <a href="userStatistics.html" id="statistics-nav">STATISTICS</a >
       </div>
     </div>
   </nav>
-  <div class="temp">
-    <p>Our sports center has not opened yet, so there is no user statistics for the time being :D</p>
+
+  <div class="statistics-container">
+    <h1>My Activity Statistics</h1>
+
+    <!-- 统计数字卡片 -->
+    <div class="stats-summary">
+      <div class="stat-card total-bookings">
+        <h3>Total Bookings</h3>
+        <p id="total-bookings">0</p >
+      </div>
+      <div class="stat-card confirmed-bookings">
+        <h3>Confirmed</h3>
+        <p id="confirmed-bookings">0</p >
+      </div>
+      <div class="stat-card pending-bookings">
+        <h3>Pending</h3>
+        <p id="pending-bookings">0</p >
+      </div>
+      <div class="stat-card total-spent">
+        <h3>Total Spent</h3>
+        <p id="total-spent">¥0</p >
+      </div>
+    </div>
+
+    <div class="charts-container">
+      <!-- 左侧: 活动类型分布图 -->
+      <div class="chart-box">
+        <h2>Activity Distribution</h2>
+        <canvas id="activities-chart"></canvas>
+      </div>
+      
+      <!-- 右侧: 月度消费趋势图 -->
+      <div class="chart-box">
+        <h2>Monthly Spending</h2>
+        <canvas id="spending-chart"></canvas>
+      </div>
+    </div>
+
+    <!-- 最近预订记录 -->
+    <div class="recent-bookings">
+      <h2>Recent Bookings</h2>
+      <div class="booking-list-container">
+        <table id="booking-table">
+          <thead>
+            <tr>
+              <th>Activity</th>
+              <th>Date</th>
+              <th>Time</th>
+              <th>Venue</th>
+              <th>Status</th>
+              <th>Price</th>
+            </tr>
+          </thead>
+          <tbody id="booking-list">
+            <!-- 这里将由JavaScript动态填充 -->
+          </tbody>
+        </table>
+      </div>
+    </div>
   </div>
 
   <script>
-    //复制自主页
+    // 获取用户ID
     var urlParams = new URLSearchParams(window.location.search);
     var userId = urlParams.get('id');
-    console.log(userId);
+    console.log("User ID:", userId);
 
+    // 设置页面链接的用户ID
     var userLink = document.getElementById('logo-nav');
     userLink.href = "userHomepage.html?id=" + userId;
 
@@ -65,6 +123,190 @@
 
     var userLink = document.getElementById('statistics-nav');
     userLink.href = "userStatistics.html?id=" + userId;
+
+    // 获取用户的所有预订信息
+    fetch('http://localhost:8080/api/bookings/getAllBookings')
+      .then(response => response.json())
+      .then(data => {
+        // 筛选出当前用户的预订
+        const userBookings = data.filter(booking => booking.userId == userId);
+        
+        if (userBookings.length === 0) {
+          document.querySelector('.statistics-container').innerHTML = `
+            <div class="no-data">
+              <h2>No booking data yet</h2>
+              <p>Start booking activities to see your statistics!</p >
+              <a href="booking.html?id=${userId}" class="btn">Book Now</a >
+            </div>
+          `;
+          return;
+        }
+        
+        // 更新统计数字
+        updateStatistics(userBookings);
+        
+        // 生成图表
+        createActivityChart(userBookings);
+        createSpendingChart(userBookings);
+        
+        // 显示最近的预订
+        displayRecentBookings(userBookings);
+      })
+      .catch(error => {
+        console.error('Error fetching bookings:', error);
+        document.querySelector('.statistics-container').innerHTML = `
+          <div class="error-message">
+            <h2>Could not load your statistics</h2>
+            <p>Please try again later or contact support if the problem persists.</p >
+          </div>
+        `;
+      });
+
+    // 更新统计数字
+    function updateStatistics(bookings) {
+      document.getElementById('total-bookings').textContent = bookings.length;
+      
+      const confirmedBookings = bookings.filter(booking => booking.status === 'CONFIRMED');
+      document.getElementById('confirmed-bookings').textContent = confirmedBookings.length;
+      
+      const pendingBookings = bookings.filter(booking => booking.status === 'PENDING');
+      document.getElementById('pending-bookings').textContent = pendingBookings.length;
+      
+      const totalSpent = confirmedBookings.reduce((sum, booking) => sum + booking.price, 0);
+      document.getElementById('total-spent').textContent = '¥' + totalSpent.toFixed(2);
+    }
+
+    // 创建活动分布图表
+    function createActivityChart(bookings) {
+      // 统计各类活动数量
+      const activityCounts = {};
+      bookings.forEach(booking => {
+        const actName = booking.actName || 'Other';
+        activityCounts[actName] = (activityCounts[actName] || 0) + 1;
+      });
+      
+      const ctx = document.getElementById('activities-chart').getContext('2d');
+      new Chart(ctx, {
+        type: 'pie',
+        data: {
+          labels: Object.keys(activityCounts),
+          datasets: [{
+            data: Object.values(activityCounts),
+            backgroundColor: [
+              '#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0', 
+              '#9966FF', '#FF9F40', '#7CFC00', '#87CEFA'
+            ]
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              position: 'right'
+            }
+          }
+        }
+      });
+    }
+
+    // 创建月度消费趋势图
+    function createSpendingChart(bookings) {
+      // 按月份分组并计算消费
+      const monthlySpending = {};
+      const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+      
+      bookings.forEach(booking => {
+        if (booking.status !== 'CONFIRMED') return;
+        
+        const date = new Date(booking.date);
+        const month = date.getMonth();
+        const monthName = months[month];
+        
+        monthlySpending[monthName] = (monthlySpending[monthName] || 0) + booking.price;
+      });
+      
+      // 确保所有月份都有数据点
+      const labels = [];
+      const values = [];
+      
+      // 获取当前月份和之前的6个月
+      const currentDate = new Date();
+      const currentMonth = currentDate.getMonth();
+      
+      for (let i = 6; i >= 0; i--) {
+        const monthIndex = (currentMonth - i + 12) % 12;
+        const monthName = months[monthIndex];
+        labels.push(monthName);
+        values.push(monthlySpending[monthName] || 0);
+      }
+      
+      const ctx = document.getElementById('spending-chart').getContext('2d');
+      new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: labels,
+          datasets: [{
+            label: 'Monthly Spending (¥)',
+            data: values,
+            borderColor: '#4BC0C0',
+            backgroundColor: 'rgba(75, 192, 192, 0.2)',
+            tension: 0.1,
+            fill: true
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          scales: {
+            y: {
+              beginAtZero: true,
+              ticks: {
+                callback: function(value) {
+                  return '¥' + value;
+                }
+              }
+            }
+          }
+        }
+      });
+    }
+
+    // 显示最近的预订
+    function displayRecentBookings(bookings) {
+      // 按日期排序，最近的在前面
+      const sortedBookings = [...bookings].sort((a, b) => {
+        return new Date(b.date) - new Date(a.date);
+      });
+      
+      // 只显示最近的5个预订
+      const recentBookings = sortedBookings.slice(0, 5);
+      const bookingList = document.getElementById('booking-list');
+      
+      recentBookings.forEach(booking => {
+        const row = document.createElement('tr');
+        
+        // 根据状态设置行的类
+        if (booking.status === 'CONFIRMED') {
+          row.classList.add('confirmed');
+        } else if (booking.status === 'PENDING') {
+          row.classList.add('pending');
+        } else {
+          row.classList.add('cancelled');
+        }
+        
+        row.innerHTML = `
+          <td>${booking.actName || '-'}</td>
+          <td>${booking.date}</td>
+          <td>${booking.startTime} - ${booking.endTime}</td>
+          <td>${booking.venue}</td>
+          <td>${booking.status}</td>
+          <td>¥${booking.price.toFixed(2)}</td>
+        `;
+        
+        bookingList.appendChild(row);
+      });
+    }
   </script>
 
 </body>
