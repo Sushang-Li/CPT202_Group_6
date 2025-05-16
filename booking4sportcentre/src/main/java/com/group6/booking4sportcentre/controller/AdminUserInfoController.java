@@ -19,10 +19,28 @@ public class AdminUserInfoController {
     private UserInfoMapper userInfoMapper;
 
     //View all user registration information
+    //@GetMapping("/api/UserInfo")
+    //@Transactional
+    //public List<UserInfo> findAll() {
+    //return userInfoMapper.findAll();
+    //}
+
+    // 分页查询用户信息（替换原来的 findAll()）
     @GetMapping("/api/UserInfo")
     @Transactional
-    public List<UserInfo> findAll() {
-        return userInfoMapper.findAll();
+    public Message getUserInfoByPage(
+            @RequestParam(defaultValue = "1") int pageNum,
+            @RequestParam(defaultValue = "10") int pageSize) {
+
+        int offset = (pageNum - 1) * pageSize;
+        List<UserInfo> users = userInfoMapper.findByPage(offset, pageSize);
+        int total = userInfoMapper.selectTotalCount();
+
+        Message mes = new Message();
+        mes.message = "查询成功";
+        mes.objects = users;
+        mes.total = total; // 确保 Message 类有 total 字段
+        return mes;
     }
 
     //View user registration by id
@@ -64,6 +82,7 @@ public class AdminUserInfoController {
     }
 
 
+
     //Delete user registration information
     @Transactional
     @DeleteMapping("/api/deleteUser")
@@ -82,5 +101,7 @@ public class AdminUserInfoController {
             mes.objects = userInfoMapper.findAll();
             return mes;
         }
+
+
     }
 }

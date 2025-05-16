@@ -8,4 +8,7 @@ public class Message {
     public String message;
     //Message content
     public List<UserInfo> objects = new ArrayList<UserInfo>();
+
+
+    public int total; // 新增总记录数字段
 }
