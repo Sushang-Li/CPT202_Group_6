@@ -15,9 +15,11 @@ import java.util.Map;
 // Mapper for manipulating the booking_info database
 @Mapper
 public interface BookingInfoMapper extends BaseMapper<BookingInfo> {
-    //添加使用mybatisPlus
-    //
+    @Select("SELECT * FROM booking_info WHERE user_id = #{userId} AND status = #{status} LIMIT #{limit} OFFSET #{offset}")
+    List<BookingInfo> getBookingsByPage(@Param("userId") Integer userId, @Param("offset") int offset, @Param("limit") int limit,@Param("status") String status);
 
+    @Select("SELECT COUNT(*) FROM booking_info WHERE user_id = #{userId} AND status = #{status}")
+    int countTotalBookings(@Param("userId") Integer userId,@Param("status") String status);
     //下面的内容都是邢富玉之前写的，暂时未更改
     // Get all bookings
     @Select("SELECT * FROM booking_info")
