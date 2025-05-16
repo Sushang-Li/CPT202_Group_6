@@ -80,52 +80,23 @@ public class UserInfoController {
 
 
     @PostMapping("/api/wallet/recharge")
-    public ResponseEntity<?> rechargeWallet(@RequestBody Map<String, Object> payload) {
+    public ResponseEntity<?> rechargeWallet(@RequestBody Map<String, Integer> payload) {
+        int userId = payload.get("userId");
+        final double RECHARGE_AMOUNT = 100.0; // Fixed recharge amount
+
         try {
-            int userId;
-            double rechargeAmount;
-
-            // handle userId
-            Object userIdObj = payload.get("userId");
-            if (userIdObj instanceof Integer) {
-                userId = (Integer) userIdObj;
-            } else if (userIdObj instanceof String) {
-                userId = Integer.parseInt((String) userIdObj);
-            } else {
-                return ResponseEntity.badRequest().body("Invalid userId format");
-            }
-
-            // handle amount
-            Object amountObj = payload.get("amount");
-            if (amountObj instanceof Double) {
-                rechargeAmount = (Double) amountObj;
-            } else if (amountObj instanceof Integer) {
-                rechargeAmount = ((Integer) amountObj).doubleValue();
-            } else if (amountObj instanceof String) {
-                rechargeAmount = Double.parseDouble((String) amountObj);
-            } else {
-                return ResponseEntity.badRequest().body("Invalid amount format");
-            }
-
-            // verify balance
-            if (rechargeAmount <= 0) {
-                return ResponseEntity.badRequest().body("Recharge amount must be greater than 0");
-            }
-
-            // update balance
+            // Fetch current balance, update it, and save the new balance
             double currentBalance = userInfoMapper.getBalance(userId);
-            double newBalance = currentBalance + rechargeAmount;
+            double newBalance = currentBalance + RECHARGE_AMOUNT;
             userInfoMapper.updateBalance(userId, newBalance);
 
             Map<String, Object> response = new HashMap<>();
             response.put("message", "Recharge successful");
             response.put("newBalance", newBalance);
             return ResponseEntity.ok(response);
-        } catch (NumberFormatException e) {
-            return ResponseEntity.badRequest().body("Invalid number format");
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to recharge wallet");
         }
     }
-
+    
 }

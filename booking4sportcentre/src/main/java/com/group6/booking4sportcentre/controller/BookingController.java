@@ -11,9 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * @author Fuyu.Xing
@@ -72,24 +70,7 @@ public class BookingController {
         bookingInfoMapper.updateById(bookingInfo);
 
     }
-    @GetMapping("/page")
-    public ResponseEntity<Map<String, Object>> getBookingsByPage(
-            @RequestParam(value = "page", defaultValue = "1") int page,
-            @RequestParam(value = "size", defaultValue = "10") int size,
-            @RequestParam(value = "userId") Integer userId,
-            @RequestParam(value = "status", required = false) String status){
 
-        int offset = (page - 1) * size;
-        List<BookingInfo> bookings = bookingInfoMapper.getBookingsByPage(userId, offset, size,status);
-        int total = bookingInfoMapper.countTotalBookings(userId,status);
-        int totalPages = (int) Math.ceil((double) total / size);
-
-        Map<String, Object> response = new HashMap<>();
-        response.put("data", bookings);
-        response.put("total", total);
-        response.put("totalPages", totalPages);
-        return ResponseEntity.ok(response);
-    }
     //更新多个订单，用于处理payall的情况
     @PostMapping("/processArray")
     public ResponseEntity<String> processArray(@RequestBody List<Long> myArray) {
