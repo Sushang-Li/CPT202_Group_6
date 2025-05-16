@@ -13,181 +13,278 @@
 </head>
 
 <body>
-    <div id="overlay"></div>
-    <div class="d-flex" id="wrapper">
-        <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
-            <a class="navbar-brand" href="#"></a>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <!--menu 按钮-->
-                <button class="btn btn-primary btn-position menu-toggle" id="menu-toggle">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                        stroke="currentColor" class="w-6 h-6">
-                        <path stroke-linecap="round" stroke-linejoin="round"
-                            d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
-                    </svg>
-                </button>
+<div id="overlay"></div>
+<div class="d-flex" id="wrapper">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+        <a class="navbar-brand" href="#"></a>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <!--menu 按钮-->
+            <button class="btn btn-primary btn-position menu-toggle" id="menu-toggle">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                     stroke="currentColor" class="w-6 h-6">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                          d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+                </svg>
+            </button>
 
-                <!-- navigation items -->
-            </div>
-            <a class="nav-link float-right" href="userHomepage.html" id="homepage-nav">Homepage</a>
-            <a class="nav-link float-right" href="userInformation.html" id="information-nav">Information</a>
-            <a class="nav-link float-right" href="userWallet.html" id="wallet-nav">Wallet</a>
-            <a class="nav-link float-right" href="userBooking.html" id="booking-nav">Booking</a>
-            <div class="logout">
-                <a href="#" id="logout-nav">LOGOUT</a>
+            <!-- navigation items -->
+        </div>
+        <a class="nav-link float-right" href="userHomepage.html" id="homepage-nav">Homepage</a>
+        <a class="nav-link float-right" href="userInformation.html" id="information-nav">Information</a>
+        <a class="nav-link float-right" href="userWallet.html" id="wallet-nav">Wallet</a>
+        <a class="nav-link float-right" href="userBooking.html" id="booking-nav">Booking</a>
+        <div class="logout">
+            <a href="#" id="logout-nav">LOGOUT</a>
 
-            </div>
-
-            <a class="nav-link float-right" href="userLogin.html" id="temp6">Sign In</a>
-        </nav>
-
-
-        <!-- Sidebar侧边栏 -->
-        <div class="bg-light border-right" id="sidebar-wrapper">
-            <div class="sidebar-heading">
-                <!--关闭button-->
-                <button class="btn btn-position" id="sidebar-close">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                        stroke="currentColor" class="w-6 h-6">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
-                    </svg>
-                </button>
-            </div>
-            <div class="list-group list-group-flush">
-                <a href="userHomepage.html" class="list-group-item list-group-item-action bg-light"
-                    id="homepage-nav2">HOMEPAGE</a>
-                <a href="userInformation.html" class="list-group-item list-group-item-action bg-light"
-                    id="information-nav2">INFORMATION</a>
-                <a href="userWallet.html" class="list-group-item list-group-item-action bg-light"
-                    id="wallet-nav2">WALLET</a>
-                <a href="userBooking.html" class="list-group-item list-group-item-action bg-light"
-                    id="booking-nav2">BOOKING</a>
-                <a href="userStatistics.html" class="list-group-item list-group-item-action bg-light"
-                    id="statistics-nav2">STATISTICS</a>
-            </div>
         </div>
 
+        <a class="nav-link float-right" href="userLogin.html" id="temp6">Sign In</a>
+    </nav>
 
-        <div id="page-content-wrapper">
-            <!--页面内容-->
 
-
-            <!-- 顶部按钮 -->
-            <button onclick="showAll()">All</button>
-            <button onclick="showConfirmed()">Confirmed</button>
-            <button onclick="showUnpaid()">Unpaid</button>
-            <button onclick="PayAllSelectedByBalance()">PayAllByBalance</button>
-            <!-- <button onclick="PayAllByCoupon()">PayAllByCoupon</button> -->
-            <button onclick="selectAll()">selectAll</button>
-            <button onclick="cancelAll()">cancelAll</button>
-
-            <!-- 这里是存放表单的位置 -->
-            <table id="booking-table">
-                <tr>
-                    <th>BookingID</th>
-                    <th>Name</th>
-                    <th>Date</th>
-                    <th>StartTime</th>
-                    <th>EndTime</th>
-                    <th>Stadium</th>
-                    <th>Price</th>
-                    <th>Status</th>
-                    <th>operation1</th>
-                    <th>operation2</th>
-                    <th>operation3</th>
-                    <th>selected</th>
-                </tr>
-            </table>
-
+    <!-- Sidebar侧边栏 -->
+    <div class="bg-light border-right" id="sidebar-wrapper">
+        <div class="sidebar-heading">
+            <!--关闭button-->
+            <button class="btn btn-position" id="sidebar-close">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                     stroke="currentColor" class="w-6 h-6">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+                </svg>
+            </button>
+        </div>
+        <div class="list-group list-group-flush">
+            <a href="userHomepage.html" class="list-group-item list-group-item-action bg-light"
+               id="homepage-nav2">HOMEPAGE</a>
+            <a href="userInformation.html" class="list-group-item list-group-item-action bg-light"
+               id="information-nav2">INFORMATION</a>
+            <a href="userWallet.html" class="list-group-item list-group-item-action bg-light"
+               id="wallet-nav2">WALLET</a>
+            <a href="userBooking.html" class="list-group-item list-group-item-action bg-light"
+               id="booking-nav2">BOOKING</a>
+            <a href="userStatistics.html" class="list-group-item list-group-item-action bg-light"
+               id="statistics-nav2">STATISTICS</a>
         </div>
     </div>
-    <!-- /#page-content-wrapper -->
 
-    <!-- /#wrapper -->
 
-    <!--js-->
+    <div id="page-content-wrapper">
+        <!--页面内容-->
 
-    <script>
-        //复制自主页
-        var urlParams = new URLSearchParams(window.location.search);
-        var userId = urlParams.get('id');
-        console.log(userId);
 
-        // var userLink = document.getElementById('logo-nav');
-        // userLink.href = "userHomepage.html?id=" + userId;
+        <!-- 顶部按钮 -->
+        <button onclick="showAll()">All</button>
+        <button onclick="showConfirmed()">Confirmed</button>
+        <button onclick="showUnpaid()">Unpaid</button>
+        <button onclick="PayAllSelectedByBalance()">PayAllByBalance</button>
+        <!-- <button onclick="PayAllByCoupon()">PayAllByCoupon</button> -->
+        <button onclick="selectAll()">selectAll</button>
+        <button onclick="cancelAll()">cancelAll</button>
 
-        var userLink = document.getElementById('homepage-nav');
-        userLink.href = "userHomepage.html?id=" + userId;
+        <!-- 这里是存放表单的位置 -->
+        <table id="booking-table">
+            <tr>
+                <th>BookingID</th>
+                <th>Name</th>
+                <th>Date</th>
+                <th>StartTime</th>
+                <th>EndTime</th>
+                <th>Stadium</th>
+                <th>Price</th>
+                <th>Status</th>
+                <th>operation1</th>
+                <th>operation2</th>
+                <th>operation3</th>
+                <th>selected</th>
+            </tr>
+        </table>
+        <div class="pagination-controls">
+            <button id="prev-page">Last Page</button>
+            <span id="current-page">1</span>/<span id="total-pages">1</span>
+            <button id="next-page">Next Page</button>
+            <select id="page-size">
+                <option value="10" selected>10 entries/page</option>
+            </select>
+        </div>
+    </div>
+</div>
 
-        var userLink = document.getElementById('information-nav');
-        userLink.href = "userInformation.html?id=" + userId;
 
-        var userLink = document.getElementById('wallet-nav');
-        userLink.href = "userWallet.html?id=" + userId;
+<style>
+    .pagination-controls {
+        margin: 5px 0;
+        display: flex;
+        align-items: center;
+        gap: 0px;
+    }
 
-        var userLink = document.getElementById('booking-nav');
-        userLink.href = "userBooking.html?id=" + userId;
+    .pagination-controls button {
+        padding: 6px 12px;
+        border: 1px solid #ddd;
+        background: #f8f9fa;
+        cursor: pointer;
+    }
 
-        // var userLink = document.getElementById('statistics-nav');
-        // userLink.href = "userStatistics.html?id=" + userId;
+    .pagination-controls button:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+    }
 
-        var userLink = document.getElementById('homepage-nav2');
-        userLink.href = "userHomepage.html?id=" + userId;
+    #page-size {
+        padding: 5px;
+        margin-left: 15px;
+    }
+</style>
+<!-- /#page-content-wrapper -->
 
-        var userLink = document.getElementById('information-nav2');
-        userLink.href = "userInformation.html?id=" + userId;
+<!-- /#wrapper -->
 
-        var userLink = document.getElementById('wallet-nav2');
-        userLink.href = "userWallet.html?id=" + userId;
+<!--js-->
 
-        var userLink = document.getElementById('booking-nav2');
-        userLink.href = "userBooking.html?id=" + userId;
+<script>
 
-        var userLink = document.getElementById('statistics-nav2');
-        userLink.href = "userStatistics.html?id=" + userId;
+    //复制自主页
+    var urlParams = new URLSearchParams(window.location.search);
+    var userId = urlParams.get('id');
+    console.log(userId);
 
-        //暂存了返回的booking的数据,这里只是初始化
-        var allBookings;
+    // var userLink = document.getElementById('logo-nav');
+    // userLink.href = "userHomepage.html?id=" + userId;
 
-    </script>
-    <script>
-        $("#menu-toggle, #sidebar-close").click(function (e) {
-            e.preventDefault();//阻止默认点击行为
-            $("#wrapper").toggleClass("toggled");//控制侧边栏的显示与隐藏
-            $("#sidebar-wrapper .list-group-item").toggleClass("hidden");//控制侧边栏的显示与隐藏
-            $("#menu-toggle").toggleClass("hidden");//控制菜单按钮的显示与隐藏
+    var userLink = document.getElementById('homepage-nav');
+    userLink.href = "userHomepage.html?id=" + userId;
 
-            if ($("#wrapper").hasClass("toggled")) {
-                $("#overlay").show();
-            } else {
-                $("#overlay").hide();
+    var userLink = document.getElementById('information-nav');
+    userLink.href = "userInformation.html?id=" + userId;
+
+    var userLink = document.getElementById('wallet-nav');
+    userLink.href = "userWallet.html?id=" + userId;
+
+    var userLink = document.getElementById('booking-nav');
+    userLink.href = "userBooking.html?id=" + userId;
+
+    // var userLink = document.getElementById('statistics-nav');
+    // userLink.href = "userStatistics.html?id=" + userId;
+
+    var userLink = document.getElementById('homepage-nav2');
+    userLink.href = "userHomepage.html?id=" + userId;
+
+    var userLink = document.getElementById('information-nav2');
+    userLink.href = "userInformation.html?id=" + userId;
+
+    var userLink = document.getElementById('wallet-nav2');
+    userLink.href = "userWallet.html?id=" + userId;
+
+    var userLink = document.getElementById('booking-nav2');
+    userLink.href = "userBooking.html?id=" + userId;
+
+    var userLink = document.getElementById('statistics-nav2');
+    userLink.href = "userStatistics.html?id=" + userId;
+
+    //暂存了返回的booking的数据,这里只是初始化
+    var allBookings;
+
+</script>
+<script>
+    let pagination = {
+        currentPage: 1,
+        pageSize: 10,
+        totalPages: 1,
+        currentFilter: 'all' // all/confirmed/unpaid
+    };
+    const params = new URLSearchParams({
+        page: pagination.currentPage,
+        size: pagination.pageSize,
+        userId: userId,
+        status: pagination.currentFilter.toUpperCase()
+    });
+    // 初始化分页
+    document.addEventListener('DOMContentLoaded', () => {
+        bindPaginationEvents();
+        loadPageData();
+    });
+
+    // 绑定分页事件
+    function bindPaginationEvents() {
+        document.getElementById('prev-page').addEventListener('click', () => {
+            if (pagination.currentPage > 1) {
+                pagination.currentPage--;
+                loadPageData();
             }
         });
-        // 自动调用后端的接口返回所有的booking数据
-        window.onload = function () {
-            fetch('/api/bookings/getAllBookings', {
-                method: 'GET'
-            })
-                .then((response) => response.json())
-                .then((data) => {
 
-                    console.log(data);
-                    allBookings = data;
-                    var table = document.getElementById('booking-table');
-                    data.forEach(booking => {
-                        //检查id，为当前用户id，才会显示出来
-                        //我在这里找了一个小时的bug，发现是参数传递的问题
-                        // console.log(booking.userId);
-                        // console.log(userId);
-                        // console.log(booking.userId === userId);
-                        // console.log(booking.userId == userId);
-                        if (booking.userId == userId) {
-                            var row = document.createElement("tr");
+        document.getElementById('next-page').addEventListener('click', () => {
+            if (pagination.currentPage < pagination.totalPages) {
+                pagination.currentPage++;
+                loadPageData();
+            }
+        });
 
-                            if (booking.status == "CONFIRMED") {
+        document.getElementById('page-size').addEventListener('change', (e) => {
+            pagination.pageSize = parseInt(e.target.value);
+            pagination.currentPage = 1;
+            loadPageData();
+        });
+    }
 
 
-                                row.innerHTML = `
+
+    // 更新分页UI
+    function updatePaginationUI() {
+        document.getElementById('current-page').textContent = pagination.currentPage;
+        document.getElementById('total-pages').textContent = pagination.totalPages;
+        document.getElementById('prev-page').disabled = pagination.currentPage === 1;
+        document.getElementById('next-page').disabled = pagination.currentPage === pagination.totalPages;
+    }
+    $("#menu-toggle, #sidebar-close").click(function (e) {
+        e.preventDefault();//阻止默认点击行为
+        $("#wrapper").toggleClass("toggled");//控制侧边栏的显示与隐藏
+        $("#sidebar-wrapper .list-group-item").toggleClass("hidden");//控制侧边栏的显示与隐藏
+        $("#menu-toggle").toggleClass("hidden");//控制菜单按钮的显示与隐藏
+
+        if ($("#wrapper").hasClass("toggled")) {
+            $("#overlay").show();
+        } else {
+            $("#overlay").hide();
+        }
+    });
+    async function loadPageData() {
+        try {
+            const statusMap = {
+                all: 'ALL',
+                confirmed: 'CONFIRMED',
+                unpaid: 'PENDING'
+            };
+            const statusParam = statusMap[pagination.currentFilter] || '';
+            const params = new URLSearchParams({
+                page: pagination.currentPage,
+                size: pagination.pageSize,
+                userId: userId,
+                status: statusParam
+            });
+
+            const response = await fetch(`/api/bookings/page?${params}`);
+            const result = await response.json();
+
+            // 清空表格（保留表头）
+            const table = document.getElementById('booking-table');
+            while(table.rows.length > 1) table.deleteRow(1);
+
+            // 渲染数据
+            result.data.forEach(booking => {
+                //检查id，为当前用户id，才会显示出来
+                //我在这里找了一个小时的bug，发现是参数传递的问题
+                // console.log(booking.userId);
+                // console.log(userId);
+                // console.log(booking.userId === userId);
+                // console.log(booking.userId == userId);
+                if (booking.userId == userId) {
+                    var row = document.createElement("tr");
+                    if (booking.status == 'ALL') {
+                        if (booking.status == "CONFIRMED") {
+
+
+                            row.innerHTML = `
               <td id="booking-id-${booking.id}">${booking.id}</td>
               <td id="booking-name-${booking.actName}">${booking.actName}</td>
               <td id="booking-date-${booking.date}">${booking.date}</td>
@@ -210,13 +307,13 @@
               <td><input type="checkbox" class="orderCheckbox" value="0"></td>
               `;
 
-                                table.appendChild(row);
+                            table.appendChild(row);
 
-                            }
+                        }
 
-                            if (booking.status == "PENDING") {
+                        if (booking.status == "PENDING") {
 
-                                row.innerHTML = `
+                            row.innerHTML = `
               <td id="booking-id-${booking.id}">${booking.id}</td>
               <td id="booking-name-${booking.actName}">${booking.actName}</td>
               <td id="booking-date-${booking.date}">${booking.date}</td>
@@ -239,53 +336,10 @@
               <td><input type="checkbox" class="orderCheckbox" value="0"></td>
               `;
 
-                                table.appendChild(row);
-
-                            }
-
-
-
-
+                            table.appendChild(row);
 
                         }
-                    });
-                })
-        }
-
-
-        //三个按钮对应的方法
-        //数据全部来源于data，我需要把data暂存起来
-        function showAll() {
-            console.log("All");
-            //首先要清空当前的表格，然后更新筛选后的表格，以实现刷新的效果
-            var table1 = document.getElementById('booking-table');
-            table1.innerHTML = `<tr>
-                    <th>BookingID</th>
-                    <th>Name</th>
-                    <th>Date</th>
-                    <th>StartTime</th>
-                    <th>EndTime</th>
-                    <th>Stadium</th>
-                    <th>Price</th>
-                    <th>Status</th>
-                    <th>operation1</th>
-                    <th>operation2</th>
-                    <th>operation3</th>
-                    <th>selected</th>
-                </tr>`;
-            //清空完毕
-
-            //遍历之前暂存了所有booking的数组，找到符合条件的booking
-            allBookings.forEach(booking => {
-                //检查id，为当前用户id，才会显示出来
-                //我在这里找了一个小时的bug，发现是参数传递的问题
-                // console.log(booking.userId);
-                // console.log(userId);
-                // console.log(booking.userId === userId);
-                // console.log(booking.userId == userId);
-                if (booking.userId == userId) {
-                    var row = document.createElement("tr");
-                    console.log(booking.status == "CONFIRMED");
+                    }
                     if (booking.status == "CONFIRMED") {
 
 
@@ -312,10 +366,10 @@
               <td><input type="checkbox" class="orderCheckbox" value="0"></td>
               `;
 
-                        table1.appendChild(row);
+                        table.appendChild(row);
 
                     }
-                    console.log(booking.status == "PENDING");
+
                     if (booking.status == "PENDING") {
 
                         row.innerHTML = `
@@ -341,7 +395,7 @@
               <td><input type="checkbox" class="orderCheckbox" value="0"></td>
               `;
 
-                        table1.appendChild(row);
+                        table.appendChild(row);
 
                     }
 
@@ -351,324 +405,241 @@
 
                 }
             });
+
+
+            // 更新分页
+            pagination.totalPages = result.totalPages;
+            updatePaginationUI();
+
+        } catch (error) {
+            console.error('加载失败:', error);
         }
+    }
 
-        function showConfirmed() {
-            console.log("C");
-            //首先要清空当前的表格，然后更新筛选后的表格，以实现刷新的效果
-            var table2 = document.getElementById('booking-table');
-            table2.innerHTML = `<tr>
-                    <th>BookingID</th>
-                    <th>Name</th>
-                    <th>Date</th>
-                    <th>StartTime</th>
-                    <th>EndTime</th>
-                    <th>Stadium</th>
-                    <th>Price</th>
-                    <th>Status</th>
-                    <th>operation1</th>
-                    <th>operation2</th>
-                    <th>operation3</th>
-                    <th>selected</th>
-                </tr>`;
-            //清空完毕
+    // 自动调用后端的接口返回所有的booking数据
+    window.onload = function () {
+        bindPaginationEvents();
+        loadPageData();
 
-            //遍历之前暂存了所有booking的数组，找到符合条件的booking
-            allBookings.forEach(booking => {
-                //检查id，为当前用户id，才会显示出来
-                //我在这里找了一个小时的bug，发现是参数传递的问题
-                // console.log(booking.userId);
-                // console.log(userId);
-                // console.log(booking.userId === userId);
-                // console.log(booking.userId == userId);
-                console.log(booking.status == "CONFIRMED");
-                if (booking.status == "CONFIRMED") {
-                    if (booking.userId == userId) {
-                        var row = document.createElement("tr");
-                        row.innerHTML = `
-              <td id="booking-id-${booking.id}">${booking.id}</td>
-              <td id="booking-name-${booking.actName}">${booking.actName}</td>
-              <td id="booking-date-${booking.date}">${booking.date}</td>
-              <td id="booking-startTime-${booking.startTime}">${booking.startTime}</td>
-              <td id="booking-endTime-${booking.endTime}">${booking.endTime}</td>
-              <td id="booking-stadium-${booking.venue}">${booking.venue}</td>
-              <td id="booking-price-${booking.price}">${booking.price}</td>
-              <td id="booking-status-${booking.status}">${booking.status}</td>
+    }
 
-              
-              <td id="booking-pay-balance-${booking.id}">
-              <input type = 'button' disabled="disabled" "" id = 'pay-by-balance' onclick = "PayByBalance(${userId}, ${booking.price}, ${booking.id})" value =  'PayByBalance'>
-              </td>
-              <td id="booking-pay-coupon-${booking.id}">
-              <input type="button" disabled="disabled" id = 'pay-by-coupon' onclick = "PayByCoupon()" value = 'PayByCoupon'>
-              </td>
-              <td id="booking-cancel-${booking.id}">
-              <input type="button" id = 'cancel' onclick = "CancelBooking(${booking.id}, '${booking.date}', '${booking.startTime}', '${booking.endTime}', '${booking.venue}', '${booking.actName}')" value = 'Cancel'>
-              </td>
 
-              <td><input type="checkbox" class="orderCheckbox" value="0"></td>
-              `;
+    //三个按钮对应的方法
+    //数据全部来源于data，我需要把data暂存起来
+    function showAll() {
+        pagination.currentFilter = 'all';
+        pagination.currentPage = 1; // 重置到第一页
+        loadPageData();
+    }
 
-                        table2.appendChild(row);
-                    }
-                }
-            });
-        }
+    function showConfirmed() {
+        pagination.currentFilter = 'confirmed';
+        pagination.currentPage = 1;
+        loadPageData();
+    }
 
-        var table3;
+    var table3;
 
-        function showUnpaid() {
-            console.log("U");
-            //首先要清空当前的表格，然后更新筛选后的表格，以实现刷新的效果
-            var table3 = document.getElementById('booking-table');
-            table3.innerHTML = `<tr>
-                    <th>BookingID</th>
-                    <th>Name</th>
-                    <th>Date</th>
-                    <th>StartTime</th>
-                    <th>EndTime</th>
-                    <th>Stadium</th>
-                    <th>Price</th>
-                    <th>Status</th>
-                    <th>operation1</th>
-                    <th>operation2</th>
-                    <th>operation3</th>
-                    <th>selected</th>
-                </tr>`;
-            //清空完毕
-
-            //遍历之前暂存了所有booking的数组，找到符合条件的booking
-            allBookings.forEach(booking => {
-                //检查id，为当前用户id，才会显示出来
-                //我在这里找了一个小时的bug，发现是参数传递的问题
-                // console.log(booking.userId);
-                // console.log(userId);
-                // console.log(booking.userId === userId);
-                // console.log(booking.userId == userId);
-                if (booking.status == "PENDING") {
-                    if (booking.userId == userId) {
-                        var row = document.createElement("tr");
-                        row.innerHTML = `
-              <td id="booking-id-${booking.id}">${booking.id}</td>
-              <td id="booking-name-${booking.actName}">${booking.actName}</td>
-              <td id="booking-date-${booking.date}">${booking.date}</td>
-              <td id="booking-startTime-${booking.startTime}">${booking.startTime}</td>
-              <td id="booking-endTime-${booking.endTime}">${booking.endTime}</td>
-              <td id="booking-stadium-${booking.venue}">${booking.venue}</td>
-              <td id="booking-price-${booking.price}">${booking.price}</td>
-              <td id="booking-status-${booking.status}">${booking.status}</td>
-
-              
-              <td id="booking-pay-balance-${booking.id}">
-              <input type = 'button' id = 'pay-by-balance' onclick = "PayByBalance(${userId}, ${booking.price}, ${booking.id})" value =  'PayByBalance'>
-              </td>
-              <td id="booking-pay-coupon-${booking.id}">
-              <input type="button" id = 'pay-by-coupon' onclick = "PayByCoupon()" value = 'PayByCoupon'>
-              </td>
-              <td id="booking-cancel-${booking.id}">
-              <input type="button" id = 'cancel' onclick = "CancelBooking(${booking.id}, '${booking.date}', '${booking.startTime}', '${booking.endTime}', '${booking.venue}', '${booking.actName}')" value = 'Cancel'>
-              </td>
-
-              <td><input type="checkbox" class="orderCheckbox" value="0"></td>
-              `;
-
-                        table3.appendChild(row);
-                    }
-                }
-            });
-        }
+    function showUnpaid() {
+        pagination.currentFilter = 'unpaid';
+        pagination.currentPage = 1;
+        loadPageData();
+    }
 
 
 
-        function PayByBalance(userId, bookingCost, bookingId) {
-            console.log("1");
-            if (confirm("确定吗")) {
-                //先判断钱够不够，调用belle的接口
-                fetch(`/api/wallet/pay?userId=${encodeURIComponent(userId)}&bookingCost=${encodeURIComponent(bookingCost)}`, {
-                    method: "POST"
-                })
-                    .then((response) => {
-                        if (response.status == 200) {
-                            console.log("减钱成功");
-                            //如果钱成功减去了，就把booking的状态由pending更新为confirmed
-                            fetch("/api/bookings/updateOneBooking/" + bookingId, {
-                                method: "GET"
+    function PayByBalance(userId, bookingCost, bookingId) {
+        console.log("1");
+        if (confirm("确定吗")) {
+            //先判断钱够不够，调用belle的接口
+            fetch(`/api/wallet/pay?userId=${encodeURIComponent(userId)}&bookingCost=${encodeURIComponent(bookingCost)}`, {
+                method: "POST"
+            })
+                .then((response) => {
+                    if (response.status == 200) {
+                        console.log("减钱成功");
+                        //如果钱成功减去了，就把booking的状态由pending更新为confirmed
+                        fetch("/api/bookings/updateOneBooking/" + bookingId, {
+                            method: "GET"
+                        })
+                            .then((response) => {
+                                if (response.status == 200) {
+                                    console.log("更新成功");
+                                }
                             })
-                                .then((response) => {
-                                    if (response.status == 200) {
-                                        console.log("更新成功");
-                                    }
-                                })
-                        }
-                    })
-            }
-
-        }
-
-        function PayByCoupon() {
-            console.log("2");
-
-        }
-
-        function CancelBooking(bookingid, bookingdate, bookingstartTime, bookingendTime, bookingvenue, bookingactName) {
-            console.log("3");
-            //去查相应的activity还剩多少票
-
-            if (confirm("确定要进行操作吗？")) {
-                // 用户点击了确定按钮
-                //删除订单
-                fetch('/api/bookings/deleteOneBooking/' + bookingid, {
-                    method: "GET"
-                })
-                    .then((response) => {
-                        if (response.status === 200) {
-                            console.log("删除成功");
-                        }
-                    })
-
-                //活动票数加1
-                fetch('/api/sportActivity/updateOneActivity?actName=' + bookingactName + '&date=' + bookingdate + '&startTime=' + bookingstartTime + '&endTime=' + bookingendTime + '&stadium=' + bookingvenue, {
-                    method: "GET"
-                })
-                    .then((response) => {
-                        console.log(response.json);
-                    })
-            } else {
-                // 用户点击了取消按钮
-            }
-
-        }
-
-        function PayAllSelectedByBalance() {
-            console.log("4");
-            // 创建一个空的列表来存储BookingID和Price
-            var bookingData = [];
-
-            var table = document.getElementById("booking-table")
-            console.log(table);
-
-            var bookingIdList = [];
-            var totalPrice = 0;
-
-            // 遍历表格的每一行
-            for (var i = 1, row; row = table.rows[i]; i++) {
-                // 遍历当前行的每个单元格
-                for (var j = 0, cell; cell = row.cells[j]; j++) {
-                    // 获取单元格的内容
-                    //只要id 和 price
-                    var cellContent = cell.innerHTML;
-                    if (j == 0 || j == 6) {
-                        if (j == 0)
-                            bookingIdList.push(parseInt(cellContent));
-                        if (j == 6)
-                            totalPrice += parseFloat(cellContent);
                     }
-
-                }
-            }
-
-            console.log(bookingIdList);
-            console.log(totalPrice);
-
-
-            //向后端发送请求
-            if (confirm("你确定支付吗，一共是" + totalPrice + "CNY")) {
-
-                //先判断钱够不够，调用belle的接口
-                fetch(`/api/wallet/pay?userId=${encodeURIComponent(userId)}&bookingCost=${encodeURIComponent(totalPrice)}`, {
-                    method: "POST"
                 })
-                    .then((response) => {
-                        if (response.status == 200) {
-                            console.log("减钱成功");
-                            //如果钱成功减去了，就把booking的状态由pending更新为confirmed
+        }
+        if (response.ok) {
+            loadPageData(); // 支付成功后刷新当前页数据
+        }
+    }
 
-                            fetch('/api/bookings/processArray', {
-                                method: 'POST',
-                                headers: {
-                                    'Content-Type': 'application/json'
-                                },
-                                body: JSON.stringify(bookingIdList)
-                            })
-                                .then(response => {
-                                    if (response.ok) {
-                                        return response.text();
-                                    }
-                                    throw new Error('Network response was not ok.');
-                                })
-                                .then(data => {
-                                    console.log(data); // 输出后端处理结果
-                                })
-                                .catch(error => {
-                                    console.error('There was a problem with your fetch operation:', error);
-                                });
+    function PayByCoupon() {
+        console.log("2");
 
-                        }
-                    })
+    }
 
+    function CancelBooking(bookingid, bookingdate, bookingstartTime, bookingendTime, bookingvenue, bookingactName) {
+        console.log("3");
+        //去查相应的activity还剩多少票
+
+        if (confirm("确定要进行操作吗？")) {
+            // 用户点击了确定按钮
+            //删除订单
+            fetch('/api/bookings/deleteOneBooking/' + bookingid, {
+                method: "GET"
+            })
+                .then((response) => {
+                    if (response.status === 200) {
+                        console.log("删除成功");
+                    }
+                })
+
+            //活动票数加1
+            fetch('/api/sportActivity/updateOneActivity?actName=' + bookingactName + '&date=' + bookingdate + '&startTime=' + bookingstartTime + '&endTime=' + bookingendTime + '&stadium=' + bookingvenue, {
+                method: "GET"
+            })
+                .then((response) => {
+                    console.log(response.json);
+                })
+        } else {
+            // 用户点击了取消按钮
+        }
+
+    }
+
+    function PayAllSelectedByBalance() {
+        console.log("4");
+        // 创建一个空的列表来存储BookingID和Price
+        var bookingData = [];
+
+        var table = document.getElementById("booking-table")
+        console.log(table);
+
+        var bookingIdList = [];
+        var totalPrice = 0;
+
+        // 遍历表格的每一行
+        for (var i = 1, row; row = table.rows[i]; i++) {
+            // 遍历当前行的每个单元格
+            for (var j = 0, cell; cell = row.cells[j]; j++) {
+                // 获取单元格的内容
+                //只要id 和 price
+                var cellContent = cell.innerHTML;
+                if (j == 0 || j == 6) {
+                    if (j == 0)
+                        bookingIdList.push(parseInt(cellContent));
+                    if (j == 6)
+                        totalPrice += parseFloat(cellContent);
+                }
 
             }
+        }
 
+        console.log(bookingIdList);
+        console.log(totalPrice);
+
+
+        //向后端发送请求
+        if (confirm("你确定支付吗，一共是" + totalPrice + "CNY")) {
+
+            //先判断钱够不够，调用belle的接口
+            fetch(`/api/wallet/pay?userId=${encodeURIComponent(userId)}&bookingCost=${encodeURIComponent(totalPrice)}`, {
+                method: "POST"
+            })
+                .then((response) => {
+                    loadPageData();
+                    if (response.status == 200) {
+                        console.log("减钱成功");
+                        //如果钱成功减去了，就把booking的状态由pending更新为confirmed
+
+                        fetch('/api/bookings/processArray', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify(bookingIdList)
+                        })
+                            .then(response => {
+                                if (response.ok) {
+                                    return response.text();
+                                }
+                                throw new Error('Network response was not ok.');
+                            })
+                            .then(data => {
+                                console.log(data); // 输出后端处理结果
+                            })
+                            .catch(error => {
+                                console.error('There was a problem with your fetch operation:', error);
+                            });
+
+                    }
+                })
 
 
         }
 
-        function PayAllByCoupon() {
-            console.log("5");
-        }
 
 
-        function selectAll() {
-            var orderCheckboxes = document.querySelectorAll('.orderCheckbox');
-            orderCheckboxes.forEach(checkbox => {
-                checkbox.checked = true;
-            });
-        }
+    }
 
-        function cancelAll() {
-            var orderCheckboxes = document.querySelectorAll('.orderCheckbox');
-            orderCheckboxes.forEach(checkbox => {
-                checkbox.checked = false;
-            });
-        }
+    function PayAllByCoupon() {
+        console.log("5");
+    }
 
 
-
-
-
-
-        /*upcoming all unpaid*/
-        $(document).ready(function () {
-            //当选项卡被点击时
-            $('.nav-link').click(function () {
-                //移除所有选项卡的active类
-                $('.nav-link').removeClass('active');
-                //给当前选项卡添加active类
-                $(this).addClass('active');
-                //获取当前选项卡的id
-                var tabId = $(this).attr('id');
-                //移除所有选项卡内容的active类
-                $('.tab').removeClass('active');
-                //给当前选项卡内容添加active类
-                $('#' + tabId).addClass('active');
-            });
-        })
-
-        $(document).ready(function () {
-            // Handle the tab click event
-            $('.nav-link').click(function () {
-                // Get the id of the clicked tab
-                var tabId = $(this).attr('id').replace('-tab', '');
-                // Hide all tables
-                $('.tab').hide();
-                // Show the corresponding table
-                $('#' + tabId).show();
-            });
+    function selectAll() {
+        var orderCheckboxes = document.querySelectorAll('.orderCheckbox');
+        orderCheckboxes.forEach(checkbox => {
+            checkbox.checked = true;
         });
+    }
+
+    function cancelAll() {
+        var orderCheckboxes = document.querySelectorAll('.orderCheckbox');
+        orderCheckboxes.forEach(checkbox => {
+            checkbox.checked = false;
+        });
+    }
 
 
 
-    </script>
+
+
+
+    /*upcoming all unpaid*/
+    $(document).ready(function () {
+        //当选项卡被点击时
+        $('.nav-link').click(function () {
+            //移除所有选项卡的active类
+            $('.nav-link').removeClass('active');
+            //给当前选项卡添加active类
+            $(this).addClass('active');
+            //获取当前选项卡的id
+            var tabId = $(this).attr('id');
+            //移除所有选项卡内容的active类
+            $('.tab').removeClass('active');
+            //给当前选项卡内容添加active类
+            $('#' + tabId).addClass('active');
+        });
+    })
+
+    $(document).ready(function () {
+        // Handle the tab click event
+        $('.nav-link').click(function () {
+            // Get the id of the clicked tab
+            var tabId = $(this).attr('id').replace('-tab', '');
+            // Hide all tables
+            $('.tab').hide();
+            // Show the corresponding table
+            $('#' + tabId).show();
+        });
+    });
+
+
+
+</script>
 
 
 </body>
