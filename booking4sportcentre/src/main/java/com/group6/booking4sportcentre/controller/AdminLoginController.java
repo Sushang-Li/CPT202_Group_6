@@ -3,6 +3,7 @@ package com.group6.booking4sportcentre.controller;
 import com.group6.booking4sportcentre.mapper.AdminInfoMapper;
 import com.group6.booking4sportcentre.model.AdminInfo;
 import jakarta.servlet.http.HttpSession;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,9 +16,10 @@ import java.util.List;
  * @create 2024-04-19 19:25
  */
 @Controller
+@RequiredArgsConstructor
 public class AdminLoginController {
-    @Autowired
-    private AdminInfoMapper adminInfoMapper;
+
+    private final AdminInfoMapper adminInfoMapper;
 
     //    管理员登录：数据库中已存有管理员信息，通过用户名和密码进行登录验证
 //    Administrator login: The database has stored the administrator information,
